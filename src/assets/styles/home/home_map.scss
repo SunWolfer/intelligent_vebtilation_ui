@@ -1,0 +1,203 @@
+
+.three_label {
+  position: absolute;
+  display: grid;
+  grid-template-columns: vh(50) vh(153);
+  grid-template-rows: vh(50) vh(45);
+  grid-template-areas:
+			'header content'
+			'footer content';
+  justify-items: center;
+  left: vh(77);
+  top: vh(-50);
+}
+@mixin threeLabelHeader {
+  grid-area: header;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.three_label_header {
+  @include threeLabelHeader;
+  box-shadow: 0 0 vh(10) vh(5) #009fde inset;
+}
+.three_label_header_warn{
+  @include threeLabelHeader;
+  box-shadow: 0 0 vh(10) vh(5) rgba(255, 0, 0, 1) inset;
+}
+@mixin IWave {
+  content: '';
+  position: absolute;
+  left: -50%;
+  width: vh(50);
+  height: vh(50);
+  border-radius: 50%;
+  transform: translateY(50%) translateX(-50%) rotateX(50deg);
+  opacity: 0;
+}
+@mixin threeLabelFooter{
+  position: relative;
+  grid-area: footer;
+  width: 1px;
+  height: 100%;
+
+  animation: toHeight 4s infinite forwards;
+  &:after {
+    @include IWave;
+    animation: wave 4s infinite;
+  }
+  &:before {
+    @include IWave;
+    animation: wave 4s infinite 0.5s;
+  }
+}
+.three_label_footer {
+  @include threeLabelFooter;
+  background: #00ffff;
+  &:after{
+    background: rgba(53, 180, 254, 0.6);
+    border: 1px solid #00ffff;
+  }
+  &:before{
+    background: rgba(53, 180, 254, 0.6);
+    border: 1px solid #00ffff;
+  }
+}
+.three_label_footer_warn{
+  @include threeLabelFooter;
+  background: rgba(255, 0, 26, 1);
+  &:after{
+    background: rgba(255, 0, 26, 0.6);
+    border: 1px solid rgba(255, 0, 26, 1);
+  }
+  &:before{
+    background: rgba(255, 0, 26, 0.6);
+    border: 1px solid rgba(255, 0, 26, 1);
+  }
+}
+@keyframes toHeight {
+  0% {
+    height: 0;
+  }
+  25% {
+    height: vh(50);
+  }
+}
+@keyframes wave {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(50%) translateX(-50%) rotateX(50deg) scale(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(50%) translateX(-50%) rotateX(50deg) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@mixin contentBG {
+  position: absolute;
+  left: 0;
+  content: '';
+  width: 100%;
+  height: vh(9);
+}
+
+@mixin threeLabelContent {
+  width: 100%;
+  grid-area: content;
+  padding-top: vh(5);
+  .three_label_content_bg {
+    position: relative;
+    width: max-content;
+    height: max-content;
+    max-width: vw(197);
+    min-height: vh(40);
+    padding: vh(8) vw(5);
+    .three_label_content_bg_text {
+      font-size: vh(14);
+      font-family:
+        Adobe Heiti Std,
+        serif;
+      font-weight: normal;
+      color: #ffffff;
+      line-height: vh(30);
+    }
+
+    &:before {
+      @include contentBG;
+      top: 0;
+      background-size: 100% 100%;
+    }
+    &:after {
+      @include contentBG;
+      bottom: 0;
+    }
+  }
+}
+.three_label_content {
+  @include threeLabelContent;
+  .three_label_content_bg{
+    .three_label_content_bg_text{
+      background: linear-gradient(
+          90deg,
+          rgba(72, 86, 131, 0.36),
+          rgba(9, 21, 126, 0.46),
+          rgba(67, 83, 123, 0.55)
+      );
+    }
+    &:before{
+      background-image: url('@/assets/images/home/home_map/icon_top.svg');
+    }
+    &:after {
+      background-image: url('@/assets/images/home/home_map/icon_bottom.svg');
+    }
+  }
+}
+.three_label_content_warn{
+  @include threeLabelContent;
+  .three_label_content_bg{
+    .three_label_content_bg_text{
+      display: grid;
+      grid-template-columns: vh(30) auto;
+      justify-items: center;
+      align-items: center;
+      background: linear-gradient(
+          90deg,
+          rgba(247, 0, 0, 0.36),
+          rgba(247, 0, 0, 0.46),
+          rgba(247, 0, 0, 0.55)
+      );
+      span{
+        padding-right: vw(10);
+      }
+    }
+    &:before{
+      background-image: url('@/assets/images/home/home_map/icon_top_warn.svg');
+    }
+    &:after {
+      background-image: url('@/assets/images/home/home_map/icon_bottom_warn.svg');
+    }
+  }
+}
+.three_label_content_warn_svg{
+
+  width: vh(24);
+  height: vh(23);
+}
+@mixin homeMap {
+  width: vh(50);
+  height: vh(50);
+  background-size: 100% 100%;
+}
+@for $i from 1 through 7 {
+  .home_map_#{$i} {
+    @include homeMap;
+    background-image: url('@/assets/images/home/home_map/type#{$i}.png');
+  }
+}

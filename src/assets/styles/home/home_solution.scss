@@ -1,0 +1,42 @@
+.home_title_solution{
+  width: vw(299);
+  height: vh(186);
+  display: grid;
+  background-image: url("@/assets/images/home/home_solution/solution_title_bg.png");
+  grid-template-columns: vw(170);
+  grid-template-rows: repeat(3,vh(40));
+  place-content: space-evenly;
+}
+
+.home_title_solution_btn {
+  text-align: center;
+  width: vw(170);
+  height: vh(40);
+  background-image: url("@/assets/images/home/home_menu_btn.png");
+  background-size: 100% 100%;
+  cursor: pointer;
+  font-size: vh(20);
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+  color: #FFFFFF;
+  line-height: vh(22);
+  display: grid;
+  grid-template-columns: vw(22) auto vw(20);
+  grid-template-rows: vh(22);
+  place-content: space-evenly;
+}
+.home_so_icon {
+  width: vw(22);
+  height: vh(22);
+  background-size: 100% 100%;
+}
+.home_so_icon_1 {
+  background-image: url("@/assets/images/home/home_solution/icon1.png");
+}
+.home_so_icon_2{
+  background-image: url("@/assets/images/home/home_solution/icon2.png");
+}
+.home_so_icon_3{
+  background-image: url("@/assets/images/home/home_solution/icon3.png");
+}
+

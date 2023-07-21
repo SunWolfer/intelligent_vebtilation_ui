@@ -1,0 +1,406 @@
+//右侧信息
+.home_right_message{
+  position: absolute;
+  width: vw(450);
+  height: max-content;
+  background: rgba(95, 104, 149, 0.28);
+  border-radius: 10px;
+  top: vh(40);
+  right: vw(40);
+  padding: vh(15) 0 vh(15) vw(23);
+}
+.home_right_message_title{
+  position: relative;
+  font-size: vh(20);
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+  color: #FFFFFF;
+  line-height: vh(20);
+  &:after{
+    position: absolute;
+    left: 0;
+    top: vh(8);
+    content: '';
+    width: vw(396);
+    height: vh(30);
+    background-image: url("@/assets/images/home/home_right/mes_line.svg");
+    background-size: 100% 100%;
+  }
+}
+.home_right_message_body1{
+  display: grid;
+  grid-template-columns: vw(108) vw(260);
+  grid-template-rows: vh(163);
+  justify-items: center;
+  align-items: center;
+  padding-left: vw(30);
+}
+.home_right_message_body1_left{
+  width: vh(108);
+  height: vh(108);
+  background: url("@/assets/images/home/home_right/mes_airBlower.gif");
+  background-size: 100% 100%;
+}
+.home_right_message_body1_right{
+  width: vw(274);
+  height: vh(136);
+  background-image: url("@/assets/images/home/home_right/mes_decoration1.png");
+  background-size: 100% 100%;
+  transform: translateX(vh(-8));
+  display: grid;
+  align-content: center;
+  padding-left: vw(53);
+  .home_right_message_body1_right_body{
+    height: vh(113);
+    width: 100%;
+    display: grid;
+    grid-template-rows: repeat(3,vh(33));
+    grid-template-columns: auto;
+    grid-row-gap: vh(7);
+    align-content: center;
+  }
+}
+
+@mixin rightText{
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+  font-size: vh(14);
+}
+
+.home_right_normal_text {
+  @include rightText;
+  color: #FFFFFF;
+}
+.home_right_blue_text{
+  @include rightText;
+  font-size: vh(18);
+  color: rgba(0, 255, 255, 1);
+}
+.home_right_green_text{
+  @include rightText;
+  color: rgba(0, 255, 0, 1);
+}
+.home_right_yellow_text{
+  @include rightText;
+  color: rgba(252, 255, 0, 1);
+}
+//区域风量
+.home_right_message_body2{
+  display: grid;
+  grid-template-columns: vw(365);
+  grid-template-rows: repeat(auto-fill,vh(30));
+  justify-items: center;
+  grid-row-gap: vh(20);
+  overflow-y: auto;
+  align-content: center;
+  padding: vh(23) 0 vh(23) vw(30);
+}
+.home_right_message_body2_bg{
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: vw(48) auto max-content;
+  grid-template-rows: vh(30) 1px;
+  align-items: center;
+  z-index: 0;
+  grid-template-areas:
+  "one two three"
+  "four four four"
+;
+}
+.home_body2_text_bg{
+  grid-area: four;
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: radial-gradient(circle, #ffffff, rgba(255,255,255,0) 60%);
+  &:before{
+    position: absolute;
+    content: '';
+    bottom: vh(-5);
+    left: vw(-10);
+    width: vw(357);
+    height: vh(30);
+    background: #223b64;
+    border: 1px solid #113c7f;
+    z-index: -1;
+    transform: rotateX(45deg) skew(-15deg,0deg);
+  }
+}
+//序号
+.home_body2_index {
+  @include rightText;
+  color: #FFFFFF;
+  width: vh(32);
+  height: vh(32);
+  background-image: url("@/assets/images/home/home_right/mes_ser_num.png");
+  background-size: 100% 100%;
+  text-align: center;
+  transform: translateY(vh(-4));
+
+}
+//文字
+.home_body2_text{
+  position: relative;
+  @include rightText;
+  color: #FFFFFF;
+}
+//按钮
+.home_body2_button{
+  @include rightText;
+  font-size: vh(12);
+  color: #FFFFFF;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  background-image: url("@/assets/images/home/home_right/mes_button.png");
+  background-size: 100% 100%;
+  padding: 0 vw(5);
+}
+//预警总览
+.home_right_message_body3{
+  display: grid;
+  grid-template-columns: vw(118) vh(138) vw(118);
+  grid-template-rows: vh(110) vh(100);
+  justify-items: start;
+  align-items: center;
+  grid-template-areas:
+  "topLeft center topRight"
+  "bottomLeft center bottomRight";
+}
+.home_body3_top_left{
+  grid-area: topLeft;
+  padding-left: vw(5);
+}
+.home_body3_top_right{
+  grid-area: topRight;
+  justify-self: end;
+}
+.home_body3_bottom_left{
+  grid-area: bottomLeft;
+  padding-left: vw(5);
+}
+.home_body3_bottom_right{
+  grid-area: bottomRight;
+  justify-self: end;
+}
+.home_body3_center{
+  grid-area:center;
+  width: vh(137);
+  height: vh(137);
+  background-image: url("@/assets/images/home/home_right/mes_warn.gif");
+  background-size: 100% 100%;
+}
+.home_body3_warn_right{
+  display: grid;
+  justify-items: end;
+}
+.home_body3_warn_left{
+  display: grid;
+  justify-items: start;
+}
+.home_body3_warn_text{
+  font-size: vh(22);
+  font-family: YouSheBiaoTiHei-2, serif;
+  font-weight: 400;
+  font-style: italic;
+  color: #DD0303;
+  line-height: vh(24);
+}
+
+//预警列表
+.home_right_message_body4{
+  width: vw(412);
+  height: max-content;
+  :deep(.el-carousel){
+    .el-carousel__container{
+      height: vh(240);
+      max-height: vh(240);
+      .el-carousel__arrow--left{
+        width: vh(46);
+        height: vh(67);
+        background-image: url("@/assets/images/home/home_right/warn_list_btn_left.png");
+        left: 0;
+        background-color: rgba(0,0,0,0);
+      }
+      .el-carousel__arrow--right{
+        width: vh(46);
+        height: vh(67);
+        background-image: url("@/assets/images/home/home_right/warn_list_btn_right.png");
+        right: 0;
+        background-color: rgba(0,0,0,0);
+      }
+    }
+  }
+}
+.home_body4_item{
+  display: grid;
+  grid-template-rows: vh(62);
+  grid-row-gap: vh(16);
+}
+.home_body4_item_body{
+  display: grid;
+  grid-template-columns: vw(130) vw(120) auto;
+  grid-template-rows: vh(18) vh(18) vh(25) vh(1);
+
+  grid-column-gap: vw(10);
+  grid-template-areas:
+  "A B ."
+  "A C D"
+  "E . F"
+  "G G G";
+}
+.home_body4_item_body_A{
+  grid-area: A;
+  width: vh(107);
+  height: vh(30);
+  background-image: url("@/assets/images/home/home_right/warn_list_label.png");
+  background-size: 100% 100%;
+  font-size: vh(15);
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+  color: #FFFFFF;
+  line-height: vh(30);
+  text-align: center;
+  justify-self: center;
+}
+@mixin itemText{
+  font-size: vh(16);
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+  line-height: vh(22);
+}
+.home_body4_item_body_B{
+  grid-area: B;
+  @include itemText;
+  color: #FF0000;
+}
+.home_body4_item_body_C{
+  grid-area: C;
+  @include itemText;
+  font-size: vh(14);
+  color: #FFFFFF;
+}
+.home_body4_item_body_D{
+  grid-area: D;
+  @include itemText;
+  font-size: vh(14);
+  color: #FFFFFF;
+}
+.home_body4_item_body_E{
+  grid-area: E;
+  font-size: vh(10);
+  font-family: YouSheBiaoTiHei-2, serif;
+  font-weight: 400;
+  color: #FFFFFF;
+  justify-self: center;
+  align-self: start;
+}
+.home_body4_item_body_F{
+  grid-area: F;
+  font-size: vh(13);
+  font-family: Microsoft YaHei, serif;
+  font-weight: 400;
+  color: #4BC8FC;
+  line-height: vh(21);
+  justify-self: center;
+  cursor: pointer;
+  align-self: end;
+}
+.home_body4_item_body_G{
+  grid-area: G;
+  width: 100%;
+  height: vh(1);
+  position: relative;
+  background: radial-gradient(circle, #ffffff, rgba(255,255,255,0) 60%);
+  &:before{
+    position: absolute;
+    content: '';
+    top: vh(-40);
+    left: vw(20);
+    width: vw(360);
+    height: vh(40);
+    background: #223b64;
+    border: 1px solid #113c7f;
+    z-index: -1;
+    transform: perspective(vw(30)) rotateX(10deg);
+  }
+}
+
+//预警图标
+.warn_icon {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+.warn_icon_text{
+  position: absolute;
+  top: vh(96);
+  left: vw(409);
+  width: vh(208);
+  height: vh(246);
+  background-image: url("@/assets/images/home/home_right/warnIconText.png");
+  background-size: 100% 100%;
+  display: grid;
+  align-items: end;
+  justify-items: center;
+  span{
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    font-size: vh(18);
+    font-family: SimHei, serif;
+    font-weight: 400;
+    color: #F7453A;
+    line-height: vh(70);
+    pointer-events: auto;
+  }
+}
+@mixin warnIcon{
+  position: absolute;
+  width: vh(326);
+  height: vh(203);
+  background-image: url("@/assets/images/home/home_right/warnIcon.png");
+  background-size: 100% 100%;
+  z-index: 999;
+  animation: concealWarnIcon 2s infinite;
+}
+.warn_icon_top_left{
+  @include warnIcon;
+  top: 0;
+  left: 0;
+}
+.warn_icon_top_right{
+  @include warnIcon;
+  transform: rotateY(180deg);
+  top: 0;
+  right: 0;
+}
+.warn_icon_bottom_left{
+  @include warnIcon;
+  transform: rotateX(180deg);
+  bottom: 0;
+  left: 0;
+}
+.warn_icon_bottom_right{
+  @include warnIcon;
+  transform: rotateY(180deg) rotateX(180deg);
+  bottom: 0;
+  right: 0;
+}
+
+@keyframes concealWarnIcon {
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}

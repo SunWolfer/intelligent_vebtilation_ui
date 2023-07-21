@@ -1,0 +1,169 @@
+//系统顶部栏
+.sys_top{
+  width: 100%;
+  height: vh(91);
+  display: grid;
+  grid-template-columns: vw(1008) auto vw(1008);
+  grid-template-rows: vh(45) vh(46);
+}
+//顶部装饰线1
+@mixin sysDecorateLine{
+  padding-top: vh(15);
+  .d_line{
+    height: vh(5.8);
+    -webkit-background-size: 200% 100%;
+    -webkit-mask-image: url('@/assets/images/layout/top_pencil.png');
+    -webkit-mask-size: 100% 100%;
+  }
+}
+.sys_top_line1{
+  @include sysDecorateLine;
+  .d_line{
+    background-image: linear-gradient(
+        to right,
+        rgba(83, 135, 176, 0.4),
+        rgba(83, 135, 176, 0.8),
+        rgba(194, 255, 255, 0.77)
+    );
+    animation: stream 3s linear infinite;
+  }
+
+}
+.sys_top_line2{
+  @include sysDecorateLine;
+  .d_line{
+    background-image: linear-gradient(
+        to left,
+        rgba(83, 135, 176, 0.4),
+        rgba(83, 135, 176, 0.8),
+        rgba(194, 255, 255, 0.77)
+    );
+    animation: streamLeft 3s linear infinite;
+  }
+
+}
+//左侧导航栏
+.sys_top_left_navigate{
+  display: grid;
+  grid-template-columns: vw(170) repeat(4, vw(210));
+  grid-template-rows: vh(46);
+  justify-content: start;
+  align-items: center;
+}
+//右侧导航栏
+.sys_top_right_navigate{
+  display: grid;
+  grid-template-columns: repeat(4,vw(210)) auto;
+  grid-template-rows: auto;
+}
+//首页图标
+.navigate_home{
+  width: vh(60);
+  height: vh(60);
+  background-image: url("@/assets/images/layout/home.png");
+  background-size: 100% 100%;
+  float: right;
+  margin-right: vw(20);
+}
+
+//导航栏标签背景
+@mixin navigateBG{
+  width: vh(169);
+  height: vh(36);
+  text-align: center;
+  font-size: vh(18);
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+  line-height: vh(36);
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+//左侧导航栏标签默认背景
+@mixin navigateLeftDefault{
+  background-image: url("@/assets/images/layout/layout_left_default.png");
+  color: #4BC8FC;
+  &:hover{
+    @include navigateLeftActive;
+  }
+}
+//左侧导航栏标签选中背景
+@mixin navigateLeftActive{
+  background-image: url("@/assets/images/layout/layout_left_active.png");
+  color: #FFFF00;
+}
+
+.navigate_left_bg{
+  @include navigateBG;
+  @include navigateLeftDefault;
+}
+.navigate_left_bg_active{
+  @include navigateBG;
+  @include navigateLeftActive;
+}
+
+//有侧导航栏标签默认背景
+@mixin navigateRightDefault{
+  background-image: url("@/assets/images/layout/layout_right_default.png");
+  color: #4BC8FC;
+  &:hover{
+    @include navigateRightActive;
+  }
+}
+//有侧导航栏标签选中背景
+@mixin navigateRightActive{
+  background-image: url("@/assets/images/layout/layout_right_active.png");
+  color: #FFFF00;
+}
+.navigate_right_bg{
+  @include navigateBG;
+  @include navigateRightDefault;
+}
+.navigate_right_bg_active{
+  @include navigateBG;
+  @include navigateRightActive;
+}
+
+
+//  系统标题
+@mixin sysTitle{
+  font-size: vh(47);
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+  line-height: vh(46);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.sys_title {
+  position: relative;
+  text-align: center;
+  span{
+    background: linear-gradient(180deg, #FFFFFF 70%, #00FFFF 100%);
+    @include sysTitle;
+  }
+  &::before {
+    content: attr(content);
+    position: absolute;
+    inset: 0;
+    transform: rotatex(180deg);
+    transform-origin: 50% 100%;
+    background: linear-gradient(0deg, rgba(255,255,255,0.4) 10%, rgba(0,0,0,0) 70% , rgba(0,0,0,0));
+    @include sysTitle;
+  }
+}
+//直线移动
+@keyframes stream {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+@keyframes streamLeft {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 300% 0;
+  }
+}

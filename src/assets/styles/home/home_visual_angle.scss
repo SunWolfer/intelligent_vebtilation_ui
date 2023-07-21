@@ -1,0 +1,166 @@
+.home_visual_bg {
+	width: vw(299);
+	height: vh(146);
+	background-image: url('@/assets/images/home/home_visual_angle/home_visual_bg.png');
+	display: grid;
+	grid-template-rows: repeat(2, vh(40));
+	place-content: space-evenly;
+}
+.home_visual_btn {
+	width: vw(170);
+	height: vh(40);
+	background-image: url('@/assets/images/home/home_menu_btn.png');
+	background-size: 100% 100%;
+	cursor: pointer;
+	font-size: vh(18);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	line-height: vh(22);
+	color: #ffffff;
+	justify-self: center;
+	display: grid;
+	grid-template-columns: vw(22) auto vw(20);
+	grid-template-rows: vh(22);
+	place-content: space-evenly;
+}
+@mixin homeVisualIcon {
+	width: vw(22);
+	height: vh(22);
+	background-size: 100% 100%;
+}
+.home_visual_icon_1 {
+	@include homeVisualIcon;
+	background-image: url('@/assets/images/home/home_visual_angle/icon1.png');
+}
+.home_visual_icon_2 {
+	@include homeVisualIcon;
+	background-image: url('@/assets/images/home/home_visual_angle/icon2.png');
+}
+
+//风路分支图
+.other_wind_path {
+	position: fixed;
+	top: vh(118);
+	left: vw(38);
+	width: vw(522);
+	height: vh(952);
+	padding: 0 vw(22) 0 vw(32);
+	background-color: rgba(12, 41, 70, 0.85);
+	display: grid;
+	grid-template-rows: vh(45) auto;
+}
+.other_title {
+	font-size: vh(20);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	line-height: vh(33);
+	padding-left: vw(13);
+	&:after {
+		position: absolute;
+		left: vw(40);
+		top: vh(25);
+		content: '';
+		width: calc(100% - #{vw(45+30)});
+		height: vh(12);
+		background-image: url('@/assets/images/home/home_right/mes_line.svg');
+		background-size: 100% 100%;
+	}
+}
+.other_wind_path_body {
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	display: grid;
+	grid-template-rows: repeat(auto-fill, vh(203));
+}
+.other_wind_path_body_item {
+	width: 100%;
+	height: 100%;
+	padding: vh(5) vw(11) vh(17) vw(10);
+	background-image: url('@/assets/images/home/home_visual_angle/home_visual_item.png');
+	background-size: 100% 100%;
+	display: grid;
+	grid-template-rows: vh(33) vh(16) vh(52) vh(16) vh(55);
+	place-content: space-between center;
+}
+.other_wind_path_body_item_1 {
+	font-size: vh(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	line-height: vh(22);
+	text-align: center;
+}
+.other_wind_path_body_item_2 {
+	justify-self: center;
+	width: vw(396);
+	height: vh(16);
+	background: linear-gradient(90deg, #031650, #2795f3, #041650);
+	font-size: vh(12);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	text-align: center;
+	line-height: vh(16);
+}
+.other_wind_path_body_item_3 {
+	width: vw(396);
+	height: vh(52);
+}
+.other_wind_path_body_item_4 {
+	width: vw(396);
+	height: vh(55);
+	display: grid;
+	grid-template-columns: repeat(8, vh(35));
+	grid-template-rows: vh(35) vh(10);
+	place-content: center space-between;
+  grid-auto-flow: column;
+}
+@mixin itemIcon {
+	width: vh(35);
+	height: vh(35);
+	background-size: 100% 100%;
+	line-height: vh(35);
+	text-align: center;
+	font-size: vh(13);
+	font-family: YouSheBiaoTiHei-2, serif;
+	font-weight: 400;
+	color: #ffffff;
+}
+.other_item_4_icon_1 {
+	@include itemIcon;
+	background-image: url('@/assets/images/home/home_visual_angle/item_1.png');
+}
+.other_item_4_icon_2{
+  @include itemIcon;
+  background-image: url('@/assets/images/home/home_visual_angle/item_2.png');
+}
+.other_item_4_text{
+  font-size: vh(12);
+  font-family: SimSun, serif;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: vh(20);
+}
+//通风网络图
+.other_wind_net {
+	position: fixed;
+	top: vh(118);
+	right: vw(38);
+	width: vw(931);
+	height: vh(952);
+	background: rgba(12, 41, 70, 0.85);
+	border-radius: 10px;
+	padding: 0 vw(30) 0 vw(44);
+	display: grid;
+	grid-template-rows: vh(45) auto;
+}

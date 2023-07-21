@@ -1,0 +1,31 @@
+@import 'utils', 'mixin';
+
+
+.border-box-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+//水平居中
+.f-center {
+  display: flex;
+  justify-content: center;
+}
+//水平垂直居中
+.c-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+//垂直居中，水平居左
+.v-center {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+//垂直居中
+.p-center {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,219 @@
+@import 'variables.module', 'mixin';
+
+@mixin colorBtn($color) {
+	background: $color;
+
+	&:hover {
+		color: $color;
+
+		&:before,
+		&:after {
+			background: $color;
+		}
+	}
+}
+
+.blue-btn {
+	@include colorBtn($blue);
+}
+
+.red-btn {
+	@include colorBtn($red);
+}
+
+.pink-btn {
+	@include colorBtn($pink);
+}
+
+.green-btn {
+	@include colorBtn($green);
+}
+
+.tiffany-btn {
+	@include colorBtn($tiffany);
+}
+
+.yellow-btn {
+	@include colorBtn($yellow);
+}
+
+.pan-btn {
+	font-size: 14px;
+	color: #fff;
+	padding: 14px 36px;
+	border-radius: 8px;
+	border: none;
+	outline: none;
+	transition: 600ms ease all;
+	position: relative;
+	display: inline-block;
+
+	&:hover {
+		background: #fff;
+
+		&:before,
+		&:after {
+			width: 100%;
+			transition: 600ms ease all;
+		}
+	}
+
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 2px;
+		width: 0;
+		transition: 400ms ease all;
+	}
+
+	&::after {
+		right: inherit;
+		top: inherit;
+		left: 0;
+		bottom: 0;
+	}
+}
+
+.custom-button {
+	display: inline-block;
+	line-height: 1;
+	white-space: nowrap;
+	cursor: pointer;
+	background: #fff;
+	color: #fff;
+	-webkit-appearance: none;
+	text-align: center;
+	box-sizing: border-box;
+	outline: 0;
+	margin: 0;
+	padding: 10px 15px;
+	font-size: 14px;
+	border-radius: 4px;
+}
+
+@mixin myBtnSty(
+	$backgroundColor,
+	$borderColor,
+	$boxShadow,
+	$color,
+	$hoverBackgroundColor,
+	$hoverBorder,
+	$hoverBoxShadow,
+	$hoverColor
+) {
+	//width: vw(102);
+	height: vh(40);
+	font-size: vh(18);
+	background: $backgroundColor;
+	border: 1px solid $borderColor;
+	box-shadow: 0 0 vh(15) 0 $boxShadow inset;
+	color: $color;
+	&:focus,
+	&:hover {
+		background: $hoverBackgroundColor;
+		border: 1px solid $hoverBorder;
+		box-shadow: 0 0 5px 0 $hoverBoxShadow inset;
+		color: $hoverColor;
+	}
+}
+
+//一般按钮
+.ordinary-btn.el-button,
+.ordinary-btn.el-button.is-disabled {
+	@include myBtnSty(#36e5ff, #00ffff, #36e5ff, #000000, #36e5ff, #0a80bd, #0a80bd, #0a2364);
+}
+
+//重置、取消按钮
+.reset-btn.el-button,
+.reset-btn.el-button.is-disabled {
+	@include myBtnSty(
+		rgba(9, 131, 170, 0),
+		#00ffff,
+		rgba(0, 146, 255, 0.8),
+		rgba(144, 198, 224, 1),
+		rgba(9, 131, 170, 0),
+		#00ffff,
+		rgba(0, 146, 255, 0.8),
+		rgba(144, 198, 224, 1)
+	);
+}
+
+//浅蓝按钮
+.light-blue-btn.el-button,
+.light-blue-btn.el-button.is-disabled {
+	@include myBtnSty(
+		rgba(0, 138, 255, 0.6),
+		rgba(0, 0, 0, 0.44),
+		#00ffff,
+		#ffffff,
+		rgba(0, 138, 255, 0.6),
+		rgba(0, 0, 0, 0.44),
+		#00ffff,
+		#ffffff
+	);
+}
+
+//新增按钮2
+.add-btn.el-button,
+.add-btn.el-button.is-disabled {
+	@include myBtnSty(
+		rgba(11, 23, 87, 0.57),
+		#0659ba,
+		#0371ff,
+		#ffffff,
+		rgba(11, 23, 87, 0.57),
+		#0659ba,
+		#0371ff,
+		rgba(0, 217, 251, 1)
+	);
+}
+
+//删除按钮
+.delete-btn.el-button,
+.delete-btn.el-button.is-disabled {
+	@include myBtnSty(
+		rgba(177, 0, 0, 0.6),
+		rgba(160, 32, 50, 0.44),
+		#ff0000,
+		#ffffff,
+		rgba(177, 0, 0, 0.6),
+		rgba(160, 32, 50, 0.44),
+		#ff0000,
+		#ffffff
+	);
+}
+
+//导出按钮
+.derive-btn.el-button,
+.derive-btn.el-button.is-disabled {
+	@include myBtnSty(
+		rgba(0, 188, 0, 1),
+		rgba(1, 220, 0, 0.44),
+		rgba(0, 255, 0, 1),
+		#000000,
+		rgba(0, 188, 0, 1),
+		rgba(1, 220, 0, 0.44),
+		rgba(0, 255, 0, 1),
+		#000000
+	);
+}
+
+.close-btn.el-button {
+	@include myBtnSty(
+		rgba(255, 0, 0, 0),
+		#e60012,
+		rgba(255, 0, 0, 0.8),
+		#ffffff,
+		rgba(255, 0, 0, 0),
+		#e60012,
+		rgba(255, 0, 0, 0.8),
+		#ffffff
+	);
+}
+
+.el-button.is-disabled {
+	opacity: 0.5;
+}

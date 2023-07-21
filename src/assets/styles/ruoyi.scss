@@ -1,0 +1,437 @@
+@import 'utils';
+
+/**
+ * 通用css样式布局处理
+ * Copyright (c) 2019 ruoyi
+ */
+
+/** 基础通用 **/
+.pt5 {
+	padding-top: 5px;
+}
+
+.pr5 {
+	padding-right: 5px;
+}
+
+.pb5 {
+	padding-bottom: 5px;
+}
+.pl5 {
+	padding-left: 5px;
+}
+.p3 {
+	padding: vh(3);
+}
+.p5 {
+	padding: vh(5);
+}
+.p10 {
+	padding: vh(10);
+}
+.mt5 {
+	margin-top: 5px;
+}
+
+.mr5 {
+	margin-right: 5px;
+}
+
+.mb5 {
+	margin-bottom: 5px;
+}
+
+.mb8 {
+	margin-bottom: 8px;
+}
+
+.ml5 {
+	margin-left: 5px;
+}
+
+.mt10 {
+	margin-top: 10px;
+}
+
+.mr10 {
+	margin-right: 10px;
+}
+
+.mb10 {
+	margin-bottom: 10px;
+}
+
+.ml10 {
+	margin-left: 10px;
+}
+
+.mt20 {
+	margin-top: 20px;
+}
+
+.mr20 {
+	margin-right: 20px;
+}
+
+.mb20 {
+	margin-bottom: 20px;
+}
+
+.ml20 {
+	margin-left: 20px;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: inherit;
+	font-weight: 500;
+	line-height: 1.1;
+	color: inherit;
+}
+
+/* text color */
+.text-green {
+	color: #00ff00;
+}
+
+.text-primary {
+	color: inherit;
+}
+
+.text-success {
+	color: #1c84c6;
+}
+
+.text-info {
+	color: #00ffff;
+}
+
+.text-warning {
+	color: #f8ac59;
+}
+
+.text-danger {
+	color: #ff0000;
+}
+
+.text-muted {
+	color: #888888;
+}
+.text-yellow {
+	color: #ffff00;
+}
+
+.text-orange {
+	color: #ff9b00;
+}
+.text-red {
+	color: #ff0000;
+}
+.text-blue {
+	color: #00ffff;
+}
+.text-deep-blue {
+	color: #0b7af3;
+}
+.text-purple {
+	color: #a41eea;
+}
+
+/* image */
+.img-circle {
+	border-radius: 50%;
+}
+
+.img-lg {
+	width: 120px;
+	height: 120px;
+}
+
+.avatar-upload-preview {
+	position: absolute;
+	top: 50%;
+	transform: translate(50%, -50%);
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	box-shadow: 0 0 4px #ccc;
+	overflow: hidden;
+}
+
+/* 拖拽列样式 */
+.sortable-ghost {
+	opacity: 0.8;
+	color: #fff !important;
+	background: #42b983 !important;
+}
+
+//公共表页面样式
+.public-form-box {
+	position: absolute;
+	width: 100%;
+	height: vh(78);
+	padding: 0 vw(26);
+
+	.public-form-box-content {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		align-items: center;
+		padding-left: vw(24);
+	}
+}
+
+.public-btn-box {
+	position: absolute;
+	width: 100%;
+	height: vh(32);
+	padding: 0 vw(26);
+	top: vh(88);
+}
+
+.public-no-area-box {
+	position: absolute;
+	width: 100%;
+	height: vh(780);
+	padding: 0 vw(26);
+	top: vh(88);
+	overflow-y: auto;
+}
+
+.public-area-box {
+	position: absolute;
+	width: 100%;
+	height: vh(730);
+	padding: 0 vw(26);
+	top: vh(132);
+	overflow-y: auto;
+}
+
+.more-option {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.more-option-left {
+	position: absolute;
+	left: 0;
+	width: 0;
+	height: 100%;
+	border-left: vw(6) solid #36e5ff;
+	border-top: vh(10) solid transparent;
+	border-bottom: vh(10) solid transparent;
+}
+
+.more-option-body {
+	position: relative;
+
+	width: 100%;
+	height: 100%;
+	padding: vh(10) vw(20);
+}
+
+.more-option-right {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 0;
+	height: 100%;
+	border-right: vw(6) solid #36e5ff;
+	border-top: vh(10) solid transparent;
+	border-bottom: vh(10) solid transparent;
+}
+
+.public-tree-form-box {
+	position: absolute;
+	width: vw(1523);
+	height: vh(78);
+	right: vw(25);
+
+	.public-tree-form-box-content {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		align-items: center;
+		padding-left: vw(24);
+
+		:deep(.el-form) {
+		}
+	}
+}
+
+.public-tree-btn-box {
+	position: absolute;
+	width: vw(1523);
+	height: vw(32);
+	right: vw(25);
+	top: vh(90);
+}
+
+.public-tree-area-box {
+	position: absolute;
+	width: vw(1525);
+	height: vh(730);
+	left: vw(372);
+	top: vh(132);
+	overflow-y: auto;
+}
+
+.public-tree-no-area-box {
+	position: absolute;
+	width: vw(1525);
+	height: vh(780);
+	left: vw(372);
+	top: vh(90);
+	overflow-y: auto;
+}
+
+.fullDom {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+//宽度一半
+.w-halfDom {
+	position: relative;
+	width: 50%;
+	height: 100%;
+	display: inline-block;
+}
+//高度一半
+.h-halfDom {
+	position: relative;
+	width: 100%;
+	height: 50%;
+	display: inline-block;
+}
+//宽度高度一半
+.w-h-halfDom {
+	position: relative;
+	width: 50%;
+	height: 50%;
+	display: inline-block;
+}
+.overText {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+}
+
+.gradient-text {
+	color: transparent;
+	background: -webkit-linear-gradient(30deg, #32c5ff 25%, #b620e0 50%, #f7b500 75%, #20e050 100%);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-size: auto;
+}
+
+@mixin gradualText {
+	font-family: Microsoft YaHei, serif;
+
+	font-size: vh(24);
+	font-weight: 600;
+	color: #00ffff;
+	line-height: vh(36);
+
+	background: linear-gradient(92deg, #01aaff 30%, #00eaff 50%, #01aaff 70%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+
+	-webkit-background-size: 200% 100%;
+	-webkit-animation: masked-animation 4s infinite linear;
+}
+
+//渐变字
+.gradual-text {
+	display: inline-block;
+	.gradient-text-label {
+		@include gradualText;
+	}
+	.gradient-text-line {
+		width: 100%;
+		height: 2px;
+		background-image: linear-gradient(to right, #0072ff, rgba(62, 214, 255, 1));
+		animation: beFlexLine 4s infinite linear;
+	}
+}
+@keyframes masked-animation {
+	0% {
+		background-position: 0 0;
+	}
+	to {
+		background-position: -200% 0;
+	}
+}
+@keyframes beFlexLine {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 100%;
+	}
+}
+
+//四角边框
+.four-corner-border {
+	border-image-source: radial-gradient(60% 85%, transparent 0px, transparent 100%, cyan 100%);
+	border-image-slice: 1;
+	border-width: 1px;
+	border-style: solid;
+}
+//自定义折线图边框
+.four-corner-line-border {
+	background-image: url('@/assets/images/gasDisaster/line-title.png');
+	background-size: 100% 100%;
+	min-width: vw(125);
+	height: vh(64);
+	background-color: rgba(12, 117, 250, 1);
+	padding: vh(8) vw(10);
+	.four-corner-line-border-text {
+		width: 100%;
+		text-align: center;
+		font-size: vh(12);
+		font-family: Adobe Heiti Std;
+		font-weight: normal;
+		color: #ffffff;
+	}
+}
+//自定义3D柱图边框
+.customize3DBarBorder {
+	background-image: url('@/assets/images/gasDisaster/line-title.png');
+	background-size: 100% 100%;
+	width: vw(125);
+	height: vh(100);
+	background-color: rgba(12, 117, 250, 1);
+	padding: vh(10) vw(10);
+	.customize3DBarBorderText {
+		width: 100%;
+		text-align: left;
+		font-size: vh(12);
+		font-family: Adobe Heiti Std;
+		font-weight: normal;
+		color: #ffffff;
+	}
+}
+//允许滚动条
+.overflowY {
+	overflow-y: auto;
+}
+
+.leader-line {
+	z-index: 99;
+}

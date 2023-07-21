@@ -1,0 +1,47 @@
+.home_title_reverse_wind{
+  width: vw(299);
+  height: vh(186);
+  display: grid;
+  background-image: url("@/assets/images/home/home_reverse_wind/revese_bg.png");
+  grid-template-rows: repeat(2,vh(40));
+  place-content: space-evenly;
+  place-items: center center;
+}
+
+.home_reverse_wind_title {
+  font-size: vh(26);
+  font-family: YouSheBiaoTiHei-2, serif;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: vh(45);
+
+  background: linear-gradient(0deg, #4691F7 0%, #2BC9EA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.home_reverse_wind_btn {
+  width: vw(170);
+  height: vh(40);
+  background-image: url("@/assets/images/home/home_menu_btn.png");
+  background-size: 100% 100%;
+  cursor: pointer;
+  font-size: vh(20);
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+  color: #FFFFFF;
+  text-align: center;
+  display: grid;
+  grid-template-columns: vw(71) auto;
+  align-items: center;
+
+  span {
+    justify-self: start;
+  }
+}
+.home_reverse_wind_btn_icon {
+  width: vw(22);
+  height: vh(22);
+  background-image: url("@/assets/images/home/home_reverse_wind/btn_icon.png");
+  background-size: 100% 100%;
+  justify-self: center;
+}
