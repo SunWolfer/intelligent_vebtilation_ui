@@ -1,0 +1,70 @@
+//漫游样式
+.equipment_msg {
+	position: absolute;
+	display: grid;
+	grid-template-columns: vw(112) vw(373);
+	grid-template-rows: vh(227) vh(36) vh(37);
+	grid-column-gap: vw(10);
+	top: vh(-150);
+	left: vw(191);
+}
+.equipment_msg_top {
+	width: vw(373);
+	height: vh(227);
+	background-image: url('@/assets/images/home/home_equipment/t_roam_bg.png');
+	background-size: 100% 100%;
+	display: grid;
+	padding: vh(20) vw(28) vh(40) vw(75);
+	grid-column-start: 1;
+	grid-column-end: 3;
+	justify-self: end;
+	grid-template-rows: vh(28) vh(60) vh(60);
+	align-content: space-between;
+}
+.equipment_msg_center {
+	width: vw(112);
+	height: vh(36);
+	background: #00ffff;
+	grid-column-start: 1;
+	grid-column-end: 3;
+}
+.equipment_msg_footer {
+	position: relative;
+	justify-self: center;
+	width: 1px;
+	height: 100%;
+	background: #4190f1;
+	border: 1px solid #4190f1;
+	box-shadow: 0 3px 7px 0 #000000;
+	&:after {
+		position: absolute;
+		content: '';
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: #052b9d;
+		bottom: -5px;
+		left: -5px;
+	}
+}
+
+.equipment_msg_top_item_1 {
+	width: 100%;
+	height: vh(28);
+	background: #267cef;
+	border: 1px solid #67adfb;
+	font-size: vh(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	line-height: vh(28);
+	text-align: center;
+}
+.equipment_msg_top_item_2 {
+	display: grid;
+}
+.equipment_msg_top_item_3 {
+	display: grid;
+}

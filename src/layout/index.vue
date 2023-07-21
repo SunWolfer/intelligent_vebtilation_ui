@@ -1,11 +1,12 @@
 <template>
 	<div class="app-wrapper forbiddenText app-home">
 		<!--系统顶部栏-->
-		<sidebar />
+		<sidebar v-show="!roam" />
 		<!--    右上角登录人员信息-->
 		<navbar />
 		<!--  面包屑  -->
 		<breadcrumb class="breadcrumb-container" v-show="!showBreadcrumb" />
+
 		<!--内容-->
 		<div class="sys-content">
 			<app-main />
@@ -17,6 +18,7 @@
 	import Sidebar from './components/Sidebar/index.vue'
 	import { AppMain, Navbar } from './components'
 	import useSettingsStore from '@/store/modules/settings'
+	import useHomeMenu from '@/hooks/useHomeMenu'
 
 	const settingsStore = useSettingsStore()
 
@@ -31,6 +33,7 @@
 			settingsStore.updateNavigate(false)
 		},
 	)
+	const { roam } = useHomeMenu()
 </script>
 
 <style lang="scss" scoped>

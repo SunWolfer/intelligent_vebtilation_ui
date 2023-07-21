@@ -6,10 +6,12 @@ const useHome = defineStore('home', {
 		showMenus: [],
 		// 	菜单点击位置
 		clickMenuDom: null,
-	// 	v-show控制首页除3D,预警提示外显示内容
-		dislodgeDom: true,
-	// 	v-show控制预警提示
-		showWarn: true
+		//	漫游
+		roam: false,
+		//	避灾路线
+		avoidDisaster: false,
+		//	灾害模拟
+		disaster: false,
 	}),
 	actions: {
 		updateShowMenus(views) {
@@ -18,12 +20,18 @@ const useHome = defineStore('home', {
 		updateClickMenuDom(view) {
 			this.clickMenuDom = view
 		},
-		updateDislodgeDom(view){
-			this.dislodgeDom = view
+		//漫游
+		updateRoam(data) {
+			this.roam = data
 		},
-		updateShowWarn(view) {
-			this.showWarn = view
-		}
+		//避灾
+		updateAvoidDisaster(data) {
+			this.avoidDisaster = data
+		},
+		//灾害模拟
+		updateDisaster(data) {
+			this.disaster = data
+		},
 	},
 })
 

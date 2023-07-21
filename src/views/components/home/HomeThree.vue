@@ -1,6 +1,72 @@
 <script setup>
 	import useThree from '@/hooks/useThree'
 	import useEquipmentData from '@/hooks/useEquipmentData'
+	import NormalMsg from '@/views/components/equiptmentMsg/NormalMsg'
+	import DoorMsg from '@/views/components/equiptmentMsg/DoorMsg.vue'
+	import useHomeMenu from '@/hooks/useHomeMenu'
+	import WindowMsg from '@/views/components/equiptmentMsg/WindowMsg.vue'
+	import DuoshenMsg from '@/views/components/equiptmentMsg/DuoshenMsg.vue'
+	import FullSectionMsg from '@/views/components/equiptmentMsg/FullSectionMsg.vue'
+	import MainFanMsg from '@/views/components/equiptmentMsg/MainFanMsg.vue'
+	import LocalFanMsg from '@/views/components/equiptmentMsg/LocalFanMsg.vue'
+	import WindSpeedMsg from '@/views/components/equiptmentMsg/WindSpeedMsg.vue'
+
+	const tabs = reactive([
+		{
+			name: '默认显示',
+			domName: markRaw(DoorMsg),
+		},
+		{
+			name: '风门漫游',
+			domName: markRaw(DoorMsg),
+		},
+		{
+			name: '风窗漫游',
+			domName: markRaw(WindowMsg),
+		},
+		{
+			name: '风速传感器漫游',
+			domName: markRaw(WindSpeedMsg),
+		},
+		{
+			name: '多参传感器漫游',
+			domName: markRaw(DuoshenMsg),
+		},
+		{
+			name: '全断面断风漫游',
+			domName: markRaw(FullSectionMsg),
+		},
+		{
+			name: '主扇漫游',
+			domName: markRaw(MainFanMsg),
+		},
+		{
+			name: '局扇漫游',
+			domName: markRaw(LocalFanMsg),
+		},
+	])
+	const { roam } = useHomeMenu()
+	const chooseTab = (type) => {
+		if (!roam.value) {
+			return tabs[0].domName
+		}
+		switch (type) {
+			case '1':
+				return tabs[1].domName
+			case '2':
+				return tabs[2].domName
+			case '3':
+				return tabs[3].domName
+			case '4':
+				return tabs[4].domName
+			case '5':
+				return tabs[5].domName
+			case '6':
+				return tabs[6].domName
+			case '7':
+				return tabs[7].domName
+		}
+	}
 
 	const { showTypeList } = useEquipmentData()
 
@@ -19,7 +85,7 @@
 	)
 
 	const {
-    homeModelVisible,
+		homeModelVisible,
 		otherThreeMod,
 		cameraPosition,
 		controlsOptions,
@@ -32,14 +98,14 @@
 		createdLabelList,
 		operateModel,
 	} = useThree()
-  // 绘制风流
-  const redrawingWind = (direction) => {
-    homeModelVisible.value?.addWind(direction)
-  }
+	// 绘制风流
+	const redrawingWind = (direction) => {
+		homeModelVisible.value?.addWind(direction)
+	}
 
 	defineExpose({
 		operateModel,
-    redrawingWind
+		redrawingWind,
 	})
 </script>
 
@@ -61,31 +127,12 @@
 			@ready-camera="readyCamera"
 		>
 			<template #label v-if="isReady">
-				<div v-for="i in showTypeList" :key="i.id" :id="i.id" class="three_label">
-					<div :class="i.warnType !== '0' ? 'three_label_header_warn' : 'three_label_header'">
-						<div :class="'home_map_' + i.type"></div>
-					</div>
-					<div :class="i.warnType !== '0' ? 'three_label_content_warn' : 'three_label_content'">
-						<div class="three_label_content_bg">
-							<div class="three_label_content_bg_text">
-								<template v-if="i.warnType !== '0'">
-									<svg-icon
-										icon-class="warn"
-										color="#ffffff"
-										class-name="three_label_content_warn_svg"
-									/><span>{{ i.warnMes }}</span>
-								</template>
-								<template v-else>{{ i.name }}</template>
-							</div>
-						</div>
-					</div>
-					<div :class="i.warnType !== '0' ? 'three_label_footer_warn' : 'three_label_footer'"></div>
-				</div>
+				<template v-for="i in showTypeList" :key="i.id">
+					<component :is="chooseTab(i.type)" :data="i" :id="i.id" />
+				</template>
 			</template>
 		</model-generation>
 	</div>
 </template>
 
-<style scoped lang="scss">
-	@import '@/assets/styles/home/home_map';
-</style>
+<style scoped lang="scss"></style>

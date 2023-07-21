@@ -168,8 +168,8 @@
 				operateModel: null as null | OperateModel,
 				defaultAnimateList: [] as any[],
 				transformControl: null as null | TransformControls,
-        windObject: null as null | Object3D,
-        windMeshList: [] as any[],
+				windObject: null as null | Object3D,
+				windMeshList: [] as any[],
 			}
 			// 确保这些对象不被转为 vue reactive 对象，避免 three 渲染出错
 			Object.assign(this, result)
@@ -700,7 +700,7 @@
 					y: lookAt.y,
 					z: lookAt.z,
 					duration: time,
-					ease: 'circ.inOut',
+					ease: 'circ.out',
 				})
 			},
 			// 	加载其他模型

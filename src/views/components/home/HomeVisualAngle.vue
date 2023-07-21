@@ -2,13 +2,15 @@
 	import { homeSolution } from '@/api/request/home/homeSolution'
 	import { homeVisualAngle } from '@/api/request/home/homeVisualAngle'
 	import WindFloorPlanMap from '@/views/components/home/WindFloorPlanMap.vue'
+	import useHomeMenu from '@/hooks/useHomeMenu'
 
 	const { domStyle } = homeSolution()
 	const { checkedWindPath, checkedVenNetwork } = homeVisualAngle()
+	const { dislodgeDomStyle } = useHomeMenu()
 </script>
 
 <template>
-	<div class="home_visual_bg home_menu_item_bg" :style="domStyle">
+	<div class="home_visual_bg home_menu_item_bg" :style="{ ...domStyle, ...dislodgeDomStyle }">
 		<div class="home_visual_btn">
 			<div class="home_visual_icon_1"></div>
 			<span>风路分支图</span>

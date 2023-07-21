@@ -7,8 +7,9 @@
 	place-content: space-evenly;
 }
 .home_visual_btn {
-	width: vw(170);
+	width: max-content;
 	height: vh(40);
+	padding: 0 vw(13) 0 vw(15);
 	background-image: url('@/assets/images/home/home_menu_btn.png');
 	background-size: 100% 100%;
 	cursor: pointer;
@@ -23,6 +24,7 @@
 	display: grid;
 	grid-template-columns: vw(22) auto vw(20);
 	grid-template-rows: vh(22);
+	grid-column-gap: vw(9);
 	place-content: space-evenly;
 }
 @mixin homeVisualIcon {
@@ -123,7 +125,7 @@
 	grid-template-columns: repeat(8, vh(35));
 	grid-template-rows: vh(35) vh(10);
 	place-content: center space-between;
-  grid-auto-flow: column;
+	grid-auto-flow: column;
 }
 @mixin itemIcon {
 	width: vh(35);
@@ -140,16 +142,16 @@
 	@include itemIcon;
 	background-image: url('@/assets/images/home/home_visual_angle/item_1.png');
 }
-.other_item_4_icon_2{
-  @include itemIcon;
-  background-image: url('@/assets/images/home/home_visual_angle/item_2.png');
+.other_item_4_icon_2 {
+	@include itemIcon;
+	background-image: url('@/assets/images/home/home_visual_angle/item_2.png');
 }
-.other_item_4_text{
-  font-size: vh(12);
-  font-family: SimSun, serif;
-  font-weight: 400;
-  color: #FFFFFF;
-  line-height: vh(20);
+.other_item_4_text {
+	font-size: vh(12);
+	font-family: SimSun, serif;
+	font-weight: 400;
+	color: #ffffff;
+	line-height: vh(20);
 }
 //通风网络图
 .other_wind_net {

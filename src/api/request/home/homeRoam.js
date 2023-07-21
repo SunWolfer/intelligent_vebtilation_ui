@@ -2,7 +2,7 @@ import useEquipmentData from '@/hooks/useEquipmentData'
 import { MenuTypes } from '@/api/request/home/menuType'
 import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
 import useHomeMenu from '@/hooks/useHomeMenu'
-import {homeMenu} from "@/api/request/home/homeMenu";
+import { homeMenu } from '@/api/request/home/homeMenu'
 
 export const homeRoam = (emits) => {
 	const { clickEvent } = useHomeMenu()
@@ -65,10 +65,12 @@ export const homeRoam = (emits) => {
 			startFun()
 		}, 5000)
 	}
+
+	const { roam } = useHomeMenu()
 	// 清除定时
 	const cleanInterval = () => {
 		clearInterval(roamInterval.value)
-		dislodgeDom.value = true
+		roam.value = false
 	}
 
 	const chooseBtn = ref(0)
@@ -81,12 +83,10 @@ export const homeRoam = (emits) => {
 		chooseBtn.value = val
 	}
 
-	const {dislodgeDom} = useHomeMenu()
-
 	watch(
 		() => chooseBtn.value,
 		(value) => {
-			dislodgeDom.value = false
+			roam.value = true
 			switch (value) {
 				case 0:
 					cleanInterval()

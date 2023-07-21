@@ -1,7 +1,7 @@
 <script setup>
 	import { homeRightMess } from '@/api/request/home/homeRightMess'
 	import useEquipmentData from '@/hooks/useEquipmentData'
-  import useHomeMenu from "@/hooks/useHomeMenu";
+	import useHomeMenu from '@/hooks/useHomeMenu'
 
 	const emits = defineEmits(['moveCamera'])
 	const {
@@ -22,7 +22,7 @@
 		const position = toPosition?.(item)
 		emits('moveCamera', position, item.point)
 	}
-  const {dislodgeDomStyle,warnStyle} = useHomeMenu()
+	const { dislodgeDomStyle, warnStyle } = useHomeMenu()
 </script>
 
 <template>
@@ -120,8 +120,9 @@
 		<div class="warn_icon_top_right"></div>
 		<div class="warn_icon_bottom_left"></div>
 		<div class="warn_icon_bottom_right"></div>
-		<div class="warn_icon_text">
-			<span @click="closeWarnIcon">关闭预警提示</span>
+		<div class="warn_icon_dom">
+			<div class="warn_icon_bg"></div>
+			<div class="warn_icon_text" @click="closeWarnIcon">关闭预警提示</div>
 		</div>
 	</div>
 </template>

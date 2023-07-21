@@ -1,75 +1,81 @@
-.home_title_roam{
-  width: vw(359);
-  height: vh(186);
-  display: grid;
-  background-image: url("@/assets/images/home/home_roam/roam_little_bg.png");
-  padding: vh(29) 0 0 vw(20);
-  grid-template-rows: vh(33) repeat(2,vh(26));
-  grid-row-gap: vh(21);
+.home_title_roam {
+	width: vw(359);
+	height: vh(186);
+	display: grid;
+	background-image: url('@/assets/images/home/home_roam/roam_little_bg.png');
+	padding: vh(29) 0 0 0;
+	grid-template-rows: vh(33) repeat(2, vh(26));
+	grid-row-gap: vh(21);
 }
 
-@mixin homeRoamText{
-  font-size: vh(16);
-  font-family: Adobe Heiti Std, serif;
-  font-weight: normal;
-  color: #FFFFFF;
-  line-height: vh(33);
+@mixin homeRoamText {
+	font-size: vh(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	line-height: vh(33);
+	padding-left: vw(20);
 }
 .home_roam_title {
-  @include homeRoamText;
-  background-color: rgba(38, 123, 239, 0.25);
-  display: grid;
-  grid-template-columns: auto vw(185);
-  .home_roam_title_1{
-    justify-self: start;
-  }
-  .home_roam_title_2{
-    justify-self: center;
-  }
+	@include homeRoamText;
+	background-color: rgba(38, 123, 239, 0.25);
+	display: grid;
+	grid-template-columns: auto vw(185);
+	.home_roam_title_1 {
+		justify-self: start;
+	}
+	.home_roam_title_2 {
+		justify-self: center;
+	}
 }
 
-@mixin menuActive{
-  color: #FFFF00;
-  text-shadow: 0 0 vw(10) #ff9b00,0 0 vw(10) #ff9b00,0 0 vw(15) #ff9b00;
+@mixin menuActive {
+	color: #ffff00;
+	text-shadow:
+		0 0 vw(10) #ff9b00,
+		0 0 vw(10) #ff9b00,
+		0 0 vw(15) #ff9b00;
 }
 
-.home_roam_body{
-  @include homeRoamText;
-  line-height: vh(26);
-  display: grid;
-  grid-template-columns: auto vw(77) vw(77);
-  grid-column-gap: vw(10);
-  padding-right: vw(20);
-  .home_roam_body_1{
-    justify-self: start;
-  }
-  .home_roam_body_2{
-    font-size: vh(14);
-    text-align: center;
-    width: vw(77);
-    height: vh(26);
-    justify-self: center;
-    background-image: url("@/assets/images/home/home_menu_btn.png");
-    background-size: 100% 100%;
-    cursor: pointer;
-    &:hover{
-      @include menuActive;
-    }
-  }
+.home_roam_body {
+	@include homeRoamText;
+	line-height: vh(26);
+	display: grid;
+	grid-template-columns: minmax(vh(128), vw(160)) vw(77) vw(77);
+	place-content: space-between;
+	padding-right: vw(10);
+	.home_roam_body_1 {
+		justify-self: start;
+	}
+	.home_roam_body_2 {
+		font-size: vh(14);
+		text-align: center;
+		width: vw(77);
+		height: vh(26);
+		justify-self: center;
+		background-image: url('@/assets/images/home/home_menu_btn.png');
+		background-size: 100% 100%;
+		cursor: pointer;
+		&:hover {
+			@include menuActive;
+		}
+	}
 }
 
-.home_roam_text_active{
-  @include menuActive;
+.home_roam_text_active {
+	@include menuActive;
 }
 
 //巡检背景
-.drive_bg{
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 998;
-  width: 100%;
-  height: 100%;
-  background-image: url("@/assets/images/home/home_roam/drive_bg.png");
-  background-size: 100% 100%;
+.drive_bg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 998;
+	width: 100%;
+	height: 100%;
+	background-image: url('@/assets/images/home/home_roam/drive_bg.png');
+	background-size: 100% 100%;
 }
