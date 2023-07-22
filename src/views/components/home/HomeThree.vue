@@ -10,7 +10,7 @@
 	import MainFanMsg from '@/views/components/equiptmentMsg/MainFanMsg.vue'
 	import LocalFanMsg from '@/views/components/equiptmentMsg/LocalFanMsg.vue'
 	import WindSpeedMsg from '@/views/components/equiptmentMsg/WindSpeedMsg.vue'
-	import { ClickEventTypes } from '@/api/request/home/menuType'
+	import { ClickEventTypes, DisasterTypes } from '@/api/request/home/menuType'
 
 	const tabs = reactive([
 		{
@@ -106,30 +106,73 @@
 		homeModelVisible.value?.addWind(direction)
 	}
 
+	// 显示灾变地点及人员
+	const isShowDisaster = ref(false)
+	// 灾变层人员显示列表
+	const disasterPeopleList = ref([])
+	// 灾变层灾变地点显示列表
+	const disasterWarnList = ref([])
 	// 点击类型
 	const clickType = ref(ClickEventTypes.NORMAL)
-
+	// 根据点击类型返回灾变地点样式
+	const disasterClass = (type) => {
+		switch (type) {
+			case DisasterTypes.ONE:
+				return 'disaster_warn_body'
+			case DisasterTypes.TWO:
+				return 'disaster_warn_body'
+			case DisasterTypes.THREE:
+				return 'disaster_warn_body'
+			case DisasterTypes.FOUR:
+				return 'disaster_warn_body'
+			default:
+				return ''
+		}
+	}
 	watch(
 		() => intersectedPosition.value,
 		(val) => {
 			// 点击类型为灾变地点
 			if (clickType.value === ClickEventTypes.DISASTER) {
-				operateModel.value.myDisPreRoute.createdDisaster(val, 960, 960)
+				disasterWarnList.value = []
+				disasterWarnList.value.push({
+					id: Math.random(),
+					point: val,
+					type: clickType.value,
+				})
+				refreshDisaster(() => {
+					operateModel.value.myDisPreRoute.createdDisaster(disasterWarnList.value)
+				})
 			}
 			// 点击类型为人员位置
 			if (clickType.value === ClickEventTypes.PERSONNEL) {
-				operateModel.value.myDisPreRoute.createdMark(val, 860, 1300)
+				disasterPeopleList.value = []
+				disasterPeopleList.value.push({
+					id: Math.random(),
+					point: val,
+				})
+				refreshDisaster(() => {
+					operateModel.value.myDisPreRoute.createdMark(disasterPeopleList.value)
+				})
 			}
 		},
 	)
+	// 刷新灾变层
+	const refreshDisaster = (nextFun) => {
+		isShowDisaster.value = false
+		nextTick(() => {
+			isShowDisaster.value = true
+			nextTick(() => {
+				nextFun?.()
+			})
+		})
+	}
 	// 改变点击类型
 	const changeClickType = (type) => {
 		clickType.value = type
 	}
 	// 改变灾变类型
-	const changeDisasterType = (type) => {
-		operateModel.value.myDisPreRoute.changeDisasterType(type)
-	}
+	const changeDisasterType = (type) => {}
 
 	defineExpose({
 		operateModel,
@@ -166,6 +209,12 @@
 					<component :is="chooseTab(i.type)" :data="i" />
 				</div>
 			</template>
+			<template #warn v-if="isShowDisaster">
+				<div v-for="i in disasterPeopleList" :key="i.id" :id="i.id" class="disaster_start"></div>
+				<div v-for="i in disasterWarnList" :key="i.id" :id="i.id" class="disaster_warn">
+					<div :class="disasterClass(i.type)"></div>
+				</div>
+			</template>
 		</model-generation>
 	</div>
 </template>
@@ -180,5 +229,26 @@
 		position: absolute;
 		top: vh(-150);
 		left: vw(191);
+	}
+	.disaster_start {
+		position: absolute;
+		width: vh(43);
+		height: vh(65);
+		top: vh(-32.5);
+		background-image: url('@/assets/images/home/home_dis_pre_route/start_mark.png');
+		background-size: 100% 100%;
+	}
+	.disaster_warn {
+		position: absolute;
+		width: vh(40);
+		height: vh(40);
+		top: vh(-20);
+	}
+	.disaster_warn_body {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background-image: url('@/assets/images/home/home_dis_pre_route/fire.gif');
+		background-size: 100% 100%;
 	}
 </style>

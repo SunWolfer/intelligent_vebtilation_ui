@@ -782,6 +782,7 @@
 		></canvas>
 		<slot name="label"></slot>
 		<slot name="edit"></slot>
+		<slot name="warn"></slot>
 	</div>
 </template>
 <style>

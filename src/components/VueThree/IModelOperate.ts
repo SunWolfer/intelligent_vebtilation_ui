@@ -51,6 +51,8 @@ export class OperateModel {
 	// 文字类
 	myWindText: IWindText
 	editId: number | undefined
+	// label标签
+	slotLabelList: CSS2DObject[]
 	constructor(
 		object: Object3D,
 		wrapper: Object3D,
@@ -69,6 +71,8 @@ export class OperateModel {
 		this.scene = scene
 
 		this.ballMeshList = []
+		// label标签
+		this.slotLabelList = []
 		// 初始化自定义动画
 		this.customizeAnimateList = []
 		// 初始化火焰
@@ -81,35 +85,19 @@ export class OperateModel {
 	}
 	// 	模型添加/更新标签
 	addLabelList(labelList: LabelAttribute[], IObj: Object3D) {
-		let removeList: any[] = []
-		for (let i = 0; i < IObj.children.length; i++) {
-			const child: any = IObj.children[i]
-			if (child.isCSS2DObject) {
-				removeList.push(child)
-			}
-		}
-		IObj.remove(...removeList)
+		IObj.remove(...this.slotLabelList)
+		this.slotLabelList = []
 
-		for (let i = 0; i < labelList.length; i++) {
-			let obj = labelList[i]
-			let dom: HTMLElement | null = document.getElementById(obj.id)
-
-			if (!dom) return
-			const Css2Dom = new CSS2DObject(dom)
-			const { x, y, z } = obj.point
-			Css2Dom.position.set(x, y, z)
-			IObj?.add(Css2Dom)
-		}
-	}
-	// 	主体模型添加/更新标签
-	addObjectLabels(labelList: LabelAttribute[]) {
-		this.addLabelList(labelList, this.object)
+		let Css2DomList = useEditModel().addCss2DomList(labelList)
+		if (!Css2DomList?.length) return
+		this.slotLabelList.push(...Css2DomList)
+		IObj.add(...Css2DomList)
 	}
 	// 	总模型添加/更新标签
 	addWrapperLabels(labelList: LabelAttribute[]) {
 		this.addLabelList(labelList, this.wrapper)
 	}
-	// 清空标签
+	// 清空所有标签
 	cleanWrapperLabels() {
 		let removeList: any[] = []
 		for (let i = 0; i < this.wrapper.children.length; i++) {

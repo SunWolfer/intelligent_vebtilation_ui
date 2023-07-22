@@ -13,12 +13,11 @@ import {
 	TextureLoader,
 } from 'three'
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
 import { TubeGeometry } from 'three/src/geometries/TubeGeometry'
 import { Texture } from 'three/src/textures/Texture'
 import useEditModel, { IMoveTexture } from '../hooks/useEditModel'
-import ___image_disaster_fire_gif from '../image/disaster/fire.gif'
 import __assets_images_three_line_jpg from '../image/line.jpg'
-import ___image_start_mark_png from '../image/start_mark.png'
 
 interface disasterTexture {
 	type: DisasterTypes
@@ -43,19 +42,10 @@ export class DisasterPreventionRoute {
 	// 流动线纹理
 	lineTexture: Texture
 	// 起点标识
-	startMark: Sprite[]
-	// 起点标识纹理
-	markTexture: Texture
-	// 灾变类型纹理列表
-	disasterTextureList: disasterTexture[]
-	// 灾变类型
-	disasterType: DisasterTypes
+	startMark: CSS2DObject[]
 	// 灾变模型列表
-	disasterMeshList: Sprite[]
+	disasterMeshList: CSS2DObject[]
 	constructor(zoneObj: Object3D) {
-		// 灾变类型纹理列表
-		this.disasterTextureList = []
-		this.disasterType = DisasterTypes.ONE
 		this.extraObject = new Object3D()
 		this.wrapper = zoneObj
 		// 重置移动动画
@@ -70,34 +60,10 @@ export class DisasterPreventionRoute {
 		this.disasterMeshList = []
 		// 流动线纹理
 		this.lineTexture = loadLineTexture(__assets_images_three_line_jpg)
-		// 起点标识纹理
-		this.markTexture = loadLineTexture(___image_start_mark_png)
 		this.clock = new Clock()
 		this.wrapper.add(this.extraObject)
 		this.loadRunMesh()
-		this.loadDisasterTexture()
 		this.renderRoute()
-	}
-	// 初始化灾变类型纹理
-	loadDisasterTexture() {
-		this.disasterTextureList = [
-			{
-				type: DisasterTypes.ONE,
-				texture: loadLineTexture(___image_disaster_fire_gif),
-			},
-			{
-				type: DisasterTypes.TWO,
-				texture: loadLineTexture(___image_disaster_fire_gif),
-			},
-			{
-				type: DisasterTypes.THREE,
-				texture: loadLineTexture(___image_disaster_fire_gif),
-			},
-			{
-				type: DisasterTypes.FOUR,
-				texture: loadLineTexture(___image_disaster_fire_gif),
-			},
-		]
 	}
 	// 加载跑动模型
 	loadRunMesh() {
@@ -120,48 +86,22 @@ export class DisasterPreventionRoute {
 		})
 	}
 	// 创建起点标识
-	createdMark(position: ICoordinates, xSize = 1, ySize = 1) {
+	createdMark(labelList: LabelAttribute[]) {
 		this.extraObject.remove(...this.startMark)
 		this.startMark = []
-		let texture = this.markTexture.clone()
-
-		const sprite = this.createdSprite(position, xSize, ySize, texture)
-
-		this.extraObject.add(sprite)
-		this.startMark.push(sprite)
+		let Css2DomList = useEditModel().addCss2DomList(labelList)
+		if (!Css2DomList?.length) return
+		this.extraObject.add(...Css2DomList)
+		this.startMark.push(...Css2DomList)
 	}
 	// 创建灾变起点
-	createdDisaster(position: ICoordinates, xSize = 1, ySize = 1) {
+	createdDisaster(labelList: LabelAttribute[]) {
 		this.extraObject.remove(...this.disasterMeshList)
 		this.disasterMeshList = []
-		let texture = this.disasterTextureList
-			.find((i) => {
-				return i.type === this.disasterType
-			})
-			?.texture.clone()
-		const sprite = this.createdSprite(position, xSize, ySize, texture!)
-		this.extraObject.add(sprite)
-		this.disasterMeshList.push(sprite)
-	}
-	// 改变灾变类型
-	changeDisasterType(type: DisasterTypes) {
-		this.disasterType = type
-		if (this.disasterMeshList.length > 0) {
-			let sprite = this.disasterMeshList[0]
-			let position = sprite.position.clone()
-			let scale = sprite.scale.clone()
-			this.createdDisaster(position, scale.x, scale.y)
-		}
-	}
-	// 创建精灵模型
-	createdSprite(position: ICoordinates, xSize = 1, ySize = 1, texture: Texture) {
-		const material = new SpriteMaterial({ map: texture })
-
-		const sprite = new Sprite(material)
-		sprite.center.set(0.5, 0)
-		sprite.scale.set(xSize, ySize, 1)
-		sprite.position.set(position.x, position.y, position.z)
-		return sprite
+		let Css2DomList = useEditModel().addCss2DomList(labelList)
+		if (!Css2DomList?.length) return
+		this.extraObject.add(...Css2DomList)
+		this.disasterMeshList.push(...Css2DomList)
 	}
 	// 创建避灾路线跑动路线
 	initRoute(pointObj: DisPreRoute) {

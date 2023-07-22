@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { CatmullRomCurve3, Euler, Matrix4, Object3D, Quaternion, Vector3 } from 'three'
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
 import * as XLSX from 'xlsx'
 
 export interface IMoveTexture {
@@ -191,11 +192,29 @@ const useEditModel = () => {
 		})
 		return models
 	}
+
+	// 添加Css2Dom
+	function addCss2DomList(labelList: LabelAttribute[]) {
+		let Css2DomList = []
+		for (let i = 0; i < labelList.length; i++) {
+			let obj = labelList[i]
+			let dom: HTMLElement | null = document.getElementById(obj.id)
+
+			if (!dom) return
+			const Css2Dom = new CSS2DObject(dom)
+			const { x, y, z } = obj.point
+			Css2Dom.position.set(x, y, z)
+			Css2DomList.push(Css2Dom)
+		}
+		return Css2DomList
+	}
+
 	return {
 		customAnimation,
 		texturesUpdate,
 		createMotionTrack,
 		loadModel,
+		addCss2DomList,
 	}
 }
 
