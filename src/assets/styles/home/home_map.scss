@@ -1,5 +1,5 @@
 .three_label {
-	position: absolute;
+	//position: absolute;
 	display: grid;
 	grid-template-columns: vh(50) vh(153);
 	grid-template-rows: vh(50) vh(45);
@@ -7,8 +7,8 @@
 		'header content'
 		'footer content';
 	justify-items: center;
-	left: vh(77);
-	top: vh(-50);
+	//left: vh(77);
+	//top: vh(-50);
 }
 @mixin threeLabelHeader {
 	grid-area: header;

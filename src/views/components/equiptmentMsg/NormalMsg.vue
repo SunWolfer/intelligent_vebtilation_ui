@@ -12,7 +12,7 @@
 </script>
 
 <template>
-	<div class="three_label" :id="id">
+	<div class="three_label">
 		<div :class="data.warnType !== '0' ? 'three_label_header_warn' : 'three_label_header'">
 			<div :class="'home_map_' + data.type"></div>
 		</div>

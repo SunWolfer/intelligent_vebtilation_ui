@@ -1,0 +1,140 @@
+.home_title_route {
+	width: vw(430);
+	height: vh(239);
+	padding: vh(25) 0 vh(17) vw(23);
+	display: grid;
+	background-image: url('@/assets/images/home/home_dis_pre_route/routeBg.png');
+	grid-template-columns: 1fr 1fr;
+	align-content: center;
+}
+.home_title_route_left {
+	display: grid;
+	grid-template-rows: repeat(4, vh(40));
+	align-content: space-between;
+}
+
+.home_title_route_btn {
+	text-align: center;
+	width: vw(170);
+	height: vh(40);
+	background-image: url('@/assets/images/home/home_menu_btn.png');
+	background-size: 100% 100%;
+	cursor: pointer;
+	display: grid;
+	grid-template-columns: 1fr 1.5fr;
+	grid-column-gap: vw(11);
+	justify-self: center;
+	align-items: center;
+}
+.home_title_route_btn_icon {
+	width: vw(20);
+	height: vh(21);
+	background-size: 100% 100%;
+	justify-self: end;
+}
+.home_route_icon_1 {
+	background-image: url('@/assets/images/home/home_dis_pre_route/fire.png');
+}
+.home_route_icon_2 {
+	background-image: url('@/assets/images/home/home_dis_pre_route/gas.png');
+}
+.home_route_icon_3 {
+	background-image: url('@/assets/images/home/home_dis_pre_route/dust.png');
+}
+.home_route_icon_4 {
+	background-image: url('@/assets/images/home/home_dis_pre_route/water.png');
+}
+
+.home_route_text {
+	justify-self: start;
+	font-size: vh(20);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	line-height: vh(40);
+}
+@mixin resDom {
+	display: grid;
+	grid-template-rows: vh(33) vh(38);
+	.res_text {
+		font-size: vh(18);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		font-style: italic;
+		color: #96b6d3;
+		line-height: vh(33);
+	}
+	.res_btn {
+		width: vw(152);
+		height: vh(38);
+		cursor: pointer;
+		background-image: url('@/assets/images/home/home_dis_pre_route/general_button.png');
+		background-size: 100% 100%;
+		display: grid;
+		place-content: center center;
+		grid-template-columns: vw(13) auto;
+		grid-column-gap: vw(5);
+		.res_btn_icon {
+			width: vw(13);
+			height: vh(17);
+			background-image: url('@/assets/images/home/home_dis_pre_route/hand.png');
+			background-size: 100% 100%;
+			align-self: center;
+		}
+		.res_btn_text {
+			font-size: vh(16);
+			font-family:
+				Adobe Heiti Std,
+				serif;
+			font-weight: normal;
+			color: #19c3f7;
+			line-height: vh(38);
+		}
+	}
+}
+
+.home_title_route_right {
+	display: grid;
+	grid-template-rows: repeat(3, 1fr);
+}
+
+.home_title_route_top {
+	@include resDom;
+}
+.home_title_route_bottom {
+	@include resDom;
+}
+
+.home_title_route_right_btn {
+	align-self: center;
+	width: vw(153);
+	height: vh(38);
+	background-image: url('@/assets/images/home/home_menu_btn.png');
+	background-size: 100% 100%;
+	cursor: pointer;
+	font-size: vh(20);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	text-align: center;
+	display: grid;
+	grid-template-columns: vw(71) auto;
+	align-items: center;
+
+	span {
+		justify-self: start;
+	}
+}
+.home_reverse_wind_btn_icon {
+	width: vw(22);
+	height: vh(22);
+	background-image: url('@/assets/images/home/home_reverse_wind/btn_icon.png');
+	background-size: 100% 100%;
+	justify-self: center;
+}

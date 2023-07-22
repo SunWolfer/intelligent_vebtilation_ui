@@ -31,6 +31,15 @@ const useHomeMenu = () => {
 			home.updateRoam(data)
 		},
 	})
+	// 是否反风
+	const reverseWind = computed({
+		get() {
+			return home.reverseWind
+		},
+		set(data) {
+			home.updateReverseWind(data)
+		},
+	})
 	// 是否显示避灾
 	const avoidDisaster = computed({
 		get() {
@@ -52,7 +61,7 @@ const useHomeMenu = () => {
 
 	// 控制首页除3D.预警提示外显示
 	const dislodgeDom = computed(() => {
-		return roam.value || avoidDisaster.value || disaster.value
+		return roam.value || reverseWind.value || avoidDisaster.value || disaster.value
 	})
 
 	const dislodgeDomStyle = computed(() => {
@@ -67,7 +76,7 @@ const useHomeMenu = () => {
 	})
 	//	控制预警提示
 	const showWarn = computed(() => {
-		return avoidDisaster.value || disaster.value
+		return reverseWind.value || avoidDisaster.value || disaster.value
 	})
 
 	const warnStyle = computed(() => {
@@ -91,6 +100,7 @@ const useHomeMenu = () => {
 		roam,
 		avoidDisaster,
 		disaster,
+		reverseWind,
 	}
 }
 

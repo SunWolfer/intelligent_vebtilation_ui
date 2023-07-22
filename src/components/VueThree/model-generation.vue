@@ -3,7 +3,7 @@
 	import { OperateModel } from '@/components/VueThree/IModelOperate'
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 	import mixin from './model-mixin.vue'
-  import {Mesh, Object3D, WebGLRenderer} from 'three'
+	import { Color, Mesh, Object3D, WebGLRenderer } from 'three'
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 	import { defineComponent } from 'vue'
 	import { IModels } from './models'
@@ -49,10 +49,13 @@
 							geometryType: 'Box',
 						},
 						material: {
+							type: 'MeshStandardMaterial',
 							mapUrl: 'file/material/011.png',
 							transparent: true,
 							opacity: 0.6,
 							side: 2,
+							roughness: 0,
+							metalness: 0.5,
 						},
 					},
 					{
@@ -84,12 +87,14 @@
 							geometryType: 'Box',
 						},
 						material: {
+							type: 'MeshStandardMaterial',
 							mapUrl: 'file/material/80.png',
-							transparent: true,
+							transparent: false,
 							opacity: 0.8,
-							side: 0,
-							depthTest: true,
-							depthWrite: false,
+							side: 1,
+							colorWrite: true,
+							roughness: 0,
+							metalness: 0,
 						},
 					},
 				]
@@ -97,13 +102,13 @@
 					i.nodes = nodes
 					i.meshes = tunnel
 					i.showNode = false
-          i.showWind = Math.random() > 0.5
-          i.windMesh = {
-            windType: Math.random() > 0.5 ? 1 : 2,
-            windPosition : 1200,
-            size: 10,
-            direction: true
-          }
+					i.showWind = Math.random() > 0.5
+					i.windMesh = {
+						windType: Math.random() > 0.5 ? 1 : 2,
+						windPosition: 1200,
+						size: 10,
+						direction: true,
+					}
 				})
 				this.tunnelMesh.add(...models)
 
@@ -114,8 +119,8 @@
 			addObject() {
 				if (!this.object) return
 				this.wrapper.add(this.object)
-        this.windObject = new Object3D()
-        this.wrapper.add(this.windObject)
+				this.windObject = new Object3D()
+				this.wrapper.add(this.windObject)
 				// this.object = this.wrapper
 				this.updateCamera()
 				this.updateModel()
@@ -129,24 +134,24 @@
 					this.scene,
 				)
 				this.$emit('on-model', this.operateModel)
-        this.addWind()
+				this.addWind()
 			},
-    //   添加风流
-      addWind(direction=true) {
-        if (!this.windObject) return
-        this.windObject.remove(...this.windMeshList)
-        let models: IModelNode[] = IModels
-        let meshList = []
-        for (let i = 0; i < models.length; i++) {
-          let modelNode = models[i]
-          if (modelNode.showWind && modelNode.windMesh) {
-            modelNode.windMesh.direction = direction
-            meshList.push(this.tunnelMesh.addWindMesh(modelNode))
-          }
-        }
-        this.windMeshList = meshList
-        this.windObject.add(...this.windMeshList)
-      }
+			//   添加风流
+			addWind(direction = true) {
+				if (!this.windObject) return
+				this.windObject.remove(...this.windMeshList)
+				let models: IModelNode[] = IModels
+				let meshList = []
+				for (let i = 0; i < models.length; i++) {
+					let modelNode = models[i]
+					if (modelNode.showWind && modelNode.windMesh) {
+						modelNode.windMesh.direction = direction
+						meshList.push(this.tunnelMesh.addWindMesh(modelNode))
+					}
+				}
+				this.windMeshList = meshList
+				this.windObject.add(...this.windMeshList)
+			},
 		},
 	})
 </script>

@@ -1,9 +1,10 @@
 <!--风网解算-->
 <script setup>
 	import { homeSolution } from '@/api/request/home/homeSolution'
+	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
 	const emits = defineEmits(['loadText'])
-	const { domStyle, checkedWind, checkedWindAge, checkedWindPressure } = homeSolution()
-
+	const { checkedWind, checkedWindAge, checkedWindPressure } = homeSolution()
+	const { domStyle } = useMenuItemPosition(299)
 	watch(
 		() => [checkedWind.value, checkedWindPressure.value, checkedWindAge.value],
 		() => {

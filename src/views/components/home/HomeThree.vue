@@ -10,11 +10,12 @@
 	import MainFanMsg from '@/views/components/equiptmentMsg/MainFanMsg.vue'
 	import LocalFanMsg from '@/views/components/equiptmentMsg/LocalFanMsg.vue'
 	import WindSpeedMsg from '@/views/components/equiptmentMsg/WindSpeedMsg.vue'
+	import { ClickEventTypes } from '@/api/request/home/menuType'
 
 	const tabs = reactive([
 		{
 			name: '默认显示',
-			domName: markRaw(DoorMsg),
+			domName: markRaw(NormalMsg),
 		},
 		{
 			name: '风门漫游',
@@ -46,6 +47,7 @@
 		},
 	])
 	const { roam } = useHomeMenu()
+
 	const chooseTab = (type) => {
 		if (!roam.value) {
 			return tabs[0].domName
@@ -97,15 +99,43 @@
 		readyCamera,
 		createdLabelList,
 		operateModel,
+		intersectedPosition,
 	} = useThree()
 	// 绘制风流
 	const redrawingWind = (direction) => {
 		homeModelVisible.value?.addWind(direction)
 	}
 
+	// 点击类型
+	const clickType = ref(ClickEventTypes.NORMAL)
+
+	watch(
+		() => intersectedPosition.value,
+		(val) => {
+			// 点击类型为灾变地点
+			if (clickType.value === ClickEventTypes.DISASTER) {
+				operateModel.value.myDisPreRoute.createdDisaster(val, 960, 960)
+			}
+			// 点击类型为人员位置
+			if (clickType.value === ClickEventTypes.PERSONNEL) {
+				operateModel.value.myDisPreRoute.createdMark(val, 860, 1300)
+			}
+		},
+	)
+	// 改变点击类型
+	const changeClickType = (type) => {
+		clickType.value = type
+	}
+	// 改变灾变类型
+	const changeDisasterType = (type) => {
+		operateModel.value.myDisPreRoute.changeDisasterType(type)
+	}
+
 	defineExpose({
 		operateModel,
 		redrawingWind,
+		changeClickType,
+		changeDisasterType,
 	})
 </script>
 
@@ -127,12 +157,28 @@
 			@ready-camera="readyCamera"
 		>
 			<template #label v-if="isReady">
-				<template v-for="i in showTypeList" :key="i.id">
-					<component :is="chooseTab(i.type)" :data="i" :id="i.id" />
-				</template>
+				<div
+					v-for="(i, index) in showTypeList"
+					:key="i.id"
+					:id="i.id"
+					:class="roam ? 'label_bg_roam' : 'label_bg'"
+				>
+					<component :is="chooseTab(i.type)" :data="i" />
+				</div>
 			</template>
 		</model-generation>
 	</div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+	.label_bg {
+		position: absolute;
+		left: vh(77);
+		top: vh(-50);
+	}
+	.label_bg_roam {
+		position: absolute;
+		top: vh(-150);
+		left: vw(191);
+	}
+</style>

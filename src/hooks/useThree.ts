@@ -16,41 +16,28 @@ const useThree = () => {
 	})
 	//初始化后相机位置
 	const removePosition = reactive({
-		x: 6671.594497578317,
-		y: 132241.91773874534,
-		z: -23831.140190500846,
+		x: 2664.3369015526932,
+		y: 129291.21757011325,
+		z: 4664.617343535043,
 	})
 	// 初始化后相机朝向点
 	const removeLookAt = reactive({
-		x: 6287.947824435756,
-		y: 6493.960152537553,
-		z: -34461.285604863275,
+		x: 773.4890080180351,
+		y: 21674.616827062124,
+		z: -61220.03908038469,
 	})
 
 	// 相机移动固定参数
 	const cameraExcursion = ref({
 		x: 5000,
 		y: 10078,
-		z: 5000
+		z: 5000,
 	})
 
 	// 控制器默认参数
 	const controlsOptions = reactive({})
 	// 默认灯光
 	const lights = [
-		// {
-		// 	type: 'Hemispherelight',
-		// 	position: { x: 0, y: 1, z: 0 },
-		// 	skyColor: 0xffffff,
-		// 	groundColor: 0xffffff,
-		// 	intensity: 1,
-		// },
-		// {
-		// 	type: 'DirectionalLight',
-		// 	position: { x: 1, y: 1, z: 0 },
-		// 	color: 0xffffff,
-		// 	intensity: 0.4,
-		// },
 		{
 			type: 'pointlight',
 			position: { x: 6671, y: 300000, z: -23831 },
@@ -60,7 +47,7 @@ const useThree = () => {
 		{
 			type: 'ambientlight',
 			color: 0xffffff,
-			intensity: 8,
+			intensity: 1.5,
 		},
 	]
 	// 相机坐标
@@ -144,8 +131,6 @@ const useThree = () => {
 	}
 	// 总避灾路线数组
 	const disasterRoutes = ref<string[][]>([['118', '119', '129', '130', '131']])
-	// 避灾路线人员模型
-	const personnel = import.meta.env.BASE_URL + 'file/pao-02.glb'
 	// 生成避灾路线点位
 	const createdMoveModelPoints = (startNode: string, points: ICoordinates, radius = 4) => {
 		// cleanMove()
@@ -169,7 +154,6 @@ const useThree = () => {
 		}
 		if (positions.length > 1) {
 			const disasterRoutes = {
-				src: personnel,
 				points: positions,
 				lineRadius: radius,
 			}

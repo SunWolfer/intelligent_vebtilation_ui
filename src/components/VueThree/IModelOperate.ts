@@ -109,6 +109,17 @@ export class OperateModel {
 	addWrapperLabels(labelList: LabelAttribute[]) {
 		this.addLabelList(labelList, this.wrapper)
 	}
+	// 清空标签
+	cleanWrapperLabels() {
+		let removeList: any[] = []
+		for (let i = 0; i < this.wrapper.children.length; i++) {
+			const child: any = this.wrapper.children[i]
+			if (child.isCSS2DObject) {
+				removeList.push(child)
+			}
+		}
+		this.wrapper.remove(...removeList)
+	}
 	// 	创建自定义平面
 	addGeometry(points: Point[]) {
 		createPlaneGeometry(points, this.wrapper)
@@ -154,7 +165,6 @@ export class OperateModel {
 				break
 		}
 	}
-
 	// 	创建避灾路线
 	addDisPreRoute(pointObj: DisPreRoute) {
 		this.myDisPreRoute.initRoute(pointObj)
@@ -250,11 +260,11 @@ export class OperateModel {
 				text: font.text,
 				size: font.size,
 				color: font.color,
-				position: new Vector3(0,0,0)
+				position: new Vector3(0, 0, 0),
 			}
 			const length = font.text.length * font.size
 			let plane = createdTextBg(font.height, length)
-			this.object.traverse((child:any) => {
+			this.object.traverse((child: any) => {
 				if (child.name === font.parent) {
 					let chooseChild = child.isGroup ? child.children[0] : child
 					const position = chooseChild.position
@@ -278,7 +288,7 @@ export class OperateModel {
 	}
 }
 // 生成文字背景
-function createdTextBg(size:number, length:number) {
+function createdTextBg(size: number, length: number) {
 	const geometry = new PlaneGeometry(length, size)
 	geometry.rotateY(-Math.PI / 2)
 	const material = new MeshBasicMaterial({ color: 0x00ff00, side: DoubleSide })

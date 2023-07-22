@@ -274,21 +274,22 @@ export class IFires {
 				value += 0.008
 
 				if (value > 1) {
+					const size = pos.size / 60
 					value -= 1
 
-					rotation.setX(i, this.random(0, 3.14 * pos.size, 3))
+					rotation.setX(i, this.random(0, 3.14 * size, 3))
 
-					base.setXYZ(i, pos.x, pos.y + 0.1, pos.z)
+					base.setXYZ(i, pos.x, pos.y + 0.1 * size, pos.z)
 					offset.setXYZ(
 						i,
-						this.random(-0.2 * pos.size, 0.2 * pos.size, 3),
-						this.random(2.5 * pos.size, 3.0 * pos.size, 3),
+						this.random(-0.2 * size, 0.2 * size, 3),
+						this.random(2.5 * size, 3.0 * size, 3),
 						0,
 					)
 					scale.setXY(
 						i,
-						this.random(0.6 * pos.size, 1.2 * pos.size, 3),
-						this.random(0.6 * pos.size, 1.2 * pos.size, 3),
+						this.random(0.6 * size, 1.2 * size, 3),
+						this.random(0.6 * size, 1.2 * size, 3),
 					)
 				}
 

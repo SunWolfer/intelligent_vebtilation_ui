@@ -1,12 +1,9 @@
 //漫游样式
 .equipment_msg {
-	position: absolute;
 	display: grid;
 	grid-template-columns: vw(112) vw(373);
 	grid-template-rows: vh(227) vh(36) vh(37);
 	grid-column-gap: vw(10);
-	top: vh(-150);
-	left: vw(191);
 }
 .equipment_msg_top {
 	width: vw(373);
@@ -24,9 +21,18 @@
 .equipment_msg_center {
 	width: vw(112);
 	height: vh(36);
-	background: #00ffff;
+	color: #01ffff;
 	grid-column-start: 1;
 	grid-column-end: 3;
+	font-size: vh(20);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	line-height: vh(36);
+	text-align: center;
+	background-image: url('@/assets/images/home/home_equipment/title_bg.png');
+	background-size: 100% 100%;
 }
 .equipment_msg_footer {
 	position: relative;
@@ -43,6 +49,7 @@
 		height: 10px;
 		border-radius: 50%;
 		background: #052b9d;
+		box-shadow: 0 3px 7px 0 #4190f1 inset;
 		bottom: -5px;
 		left: -5px;
 	}
@@ -51,7 +58,7 @@
 .equipment_msg_top_item_1 {
 	width: 100%;
 	height: vh(28);
-	background: #267cef;
+	box-shadow: 0 0 vh(15) 0 #4190f1 inset;
 	border: 1px solid #67adfb;
 	font-size: vh(16);
 	font-family:

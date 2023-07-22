@@ -58,7 +58,7 @@ const useEquipment = defineStore('equipment-data', {
 						name: '一盘区输运大巷风窗',
 						type: '2',
 						warnType: '0',
-						point: { x: -17955.484179557665, y: 93272.19969896683, z: -22400.79719500969 },
+						point: { x: -19330.20920418488, y: 93182.02272240575, z: -22382.22573964162 },
 						showDetails: false,
 					},
 				],

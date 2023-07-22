@@ -78,4 +78,17 @@
 	height: 100%;
 	background-image: url('@/assets/images/home/home_roam/drive_bg.png');
 	background-size: 100% 100%;
+	display: grid;
+	padding-top: vh(754);
+	padding-left: vw(1207);
+	span {
+		cursor: pointer;
+		font-size: vh(36);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		line-height: vh(46);
+		color: #ffffff;
+	}
 }

@@ -6,6 +6,8 @@ const useHome = defineStore('home', {
 		showMenus: [],
 		// 	菜单点击位置
 		clickMenuDom: null,
+		// 反风
+		reverseWind: false,
 		//	漫游
 		roam: false,
 		//	避灾路线
@@ -23,6 +25,10 @@ const useHome = defineStore('home', {
 		//漫游
 		updateRoam(data) {
 			this.roam = data
+		},
+		// 反风
+		updateReverseWind(data) {
+			this.reverseWind = data
 		},
 		//避灾
 		updateAvoidDisaster(data) {

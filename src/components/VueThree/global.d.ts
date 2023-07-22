@@ -23,7 +23,6 @@ interface IAnimateData {
 
 // 避灾路线入参
 interface DisPreRoute {
-	src: string //模型链接
 	points: ICoordinates[] //路线生成点位
 	lineRadius?: number //路线粗细
 }
@@ -80,21 +79,21 @@ interface IModelNode {
 	showNode: boolean
 	// 显示巷道
 	showMesh: boolean
-// 	显示风流
-	showWind?:boolean
-// 	风流参数
-	windMesh?:windMesh
+	// 	显示风流
+	showWind?: boolean
+	// 	风流参数
+	windMesh?: windMesh
 }
 // 风流参数配置
 interface windMesh {
 	// 	风流类型
-	windType:number
+	windType: number
 	// 	风流位置
 	windPosition: number
 	// 	风流大小
-	size:number
+	size: number
 	// 	风流正向/反向
-	direction:boolean
+	direction: boolean
 }
 // 生成巷道节点模型参数配置
 interface INodeMesh {
@@ -167,7 +166,7 @@ interface IBoxGeometry {
 interface IMaterial {
 	type?: string
 	// 颜色
-	color?: string | undefined
+	color?: any | undefined
 	//材质贴图
 	mapUrl?: string | undefined
 	transparent?: boolean | undefined
@@ -175,6 +174,9 @@ interface IMaterial {
 	side?: number | undefined
 	depthWrite?: boolean | undefined
 	depthTest?: boolean | undefined
+	colorWrite?: boolean
+	metalness?: number
+	roughness?: number
 }
 // 传入三维字体
 interface IRootFont {

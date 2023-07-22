@@ -2,15 +2,17 @@
 <script setup>
 	import { homeRoam } from '@/api/request/home/homeRoam'
 	import { MenuTypes } from '@/api/request/home/menuType'
-  import useHomeMenu from "@/hooks/useHomeMenu";
+	import useHomeMenu from '@/hooks/useHomeMenu'
+	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
 	const emits = defineEmits(['moveCamera'])
 
-	const { chooseBtn, changeBtn, domStyle } = homeRoam(emits)
-  const {dislodgeDomStyle} = useHomeMenu()
+	const { chooseBtn, changeBtn } = homeRoam(emits)
+	const { domStyle } = useMenuItemPosition(359)
+	const { dislodgeDomStyle, roam } = useHomeMenu()
 </script>
 
 <template>
-	<div class="home_title_roam home_menu_item_bg" :style="{...domStyle,...dislodgeDomStyle}">
+	<div class="home_title_roam home_menu_item_bg" :style="{ ...domStyle, ...dislodgeDomStyle }">
 		<div class="home_roam_title">
 			<div class="home_roam_title_1">巡检路线</div>
 			<div class="home_roam_title_2">操作</div>
@@ -49,8 +51,10 @@
 				循环巡检
 			</div>
 		</div>
-	</div >
-  <div class="drive_bg" v-if="chooseBtn > 0"></div>
+	</div>
+	<div class="drive_bg" v-if="roam">
+		<span @click="changeBtn(0)">结束漫游</span>
+	</div>
 </template>
 
 <style scoped lang="scss">

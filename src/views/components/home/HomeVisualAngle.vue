@@ -1,10 +1,10 @@
 <script setup>
-	import { homeSolution } from '@/api/request/home/homeSolution'
 	import { homeVisualAngle } from '@/api/request/home/homeVisualAngle'
 	import WindFloorPlanMap from '@/views/components/home/WindFloorPlanMap.vue'
 	import useHomeMenu from '@/hooks/useHomeMenu'
+	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
 
-	const { domStyle } = homeSolution()
+	const { domStyle } = useMenuItemPosition(299)
 	const { checkedWindPath, checkedVenNetwork } = homeVisualAngle()
 	const { dislodgeDomStyle } = useHomeMenu()
 </script>

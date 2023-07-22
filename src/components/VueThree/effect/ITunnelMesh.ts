@@ -8,7 +8,8 @@ import {
 	MeshBasicMaterial,
 	MeshPhongMaterial,
 	MeshStandardMaterial,
-	Object3D, PlaneGeometry,
+	Object3D,
+	PlaneGeometry,
 	Quaternion,
 	RepeatWrapping,
 	SphereGeometry,
@@ -102,8 +103,9 @@ export class ITunnelMesh {
 		// 标准网格材质(一种基于物理的标准材质，使用Metallic-Roughness工作流程。)
 		if (iMaterial.type === 'MeshStandardMaterial') {
 			material = new MeshStandardMaterial({
-				metalness: 0.5, // 金属度属性
-				roughness: 0.25, //粗糙度属性
+				colorWrite: iMaterial.colorWrite ?? true,
+				metalness: iMaterial.metalness ?? 0, // 金属度属性
+				roughness: iMaterial.roughness ?? 0, //粗糙度属性
 			})
 		}
 		// Phong网格材质(一种用于具有镜面高光的光泽表面的材质。)
@@ -126,13 +128,11 @@ export class ITunnelMesh {
 		if (texture) {
 			material.map = texture
 		}
-		if (iMaterial.color) {
-			material.color.set(iMaterial.color)
-		}
 		material.transparent = iMaterial.transparent ?? false
 		material.opacity = iMaterial.opacity ?? 1
-		material.depthWrite = iMaterial.depthWrite ?? false
-		material.depthTest = iMaterial.depthTest ?? false
+		// material.depthWrite = iMaterial.depthWrite ?? true
+		// material.depthTest = iMaterial.depthTest ?? true
+		if (iMaterial.color) material.color = iMaterial.color
 		material.side = side
 		return material
 	}
@@ -230,19 +230,22 @@ export class ITunnelMesh {
 		}
 		return texture
 	}
-// 	添加风流
+	// 	添加风流
 	addWindMesh(modelNode: IModelNode) {
 		if (!modelNode.windMesh) return []
-		let iMaterial:IMaterial = {
-			mapUrl: modelNode.windMesh.windType === 1 ? 'file/material/red_arrow.png': 'file/material/blue_arrow.png',
+		let iMaterial: IMaterial = {
+			mapUrl:
+				modelNode.windMesh.windType === 1
+					? 'file/material/red_arrow.png'
+					: 'file/material/blue_arrow.png',
 			side: 2,
 		}
 
 		let texture = this.loadTexture(iMaterial)
-		let material: MeshBasicMaterial= new MeshBasicMaterial({
+		let material: MeshBasicMaterial = new MeshBasicMaterial({
 			map: texture,
 			side: DoubleSide,
-			transparent:true
+			transparent: true,
 		})
 		const geometry = new PlaneGeometry(15 * modelNode.windMesh.size, 54 * modelNode.windMesh.size)
 		geometry.rotateX(-Math.PI / 2)
