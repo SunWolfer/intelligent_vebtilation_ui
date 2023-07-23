@@ -101,7 +101,7 @@
 				models.forEach((i) => {
 					i.nodes = nodes
 					i.meshes = tunnel
-					i.showNode = false
+					i.showNode = true
 					i.showWind = Math.random() > 0.5
 					i.windMesh = {
 						windType: Math.random() > 0.5 ? 1 : 2,

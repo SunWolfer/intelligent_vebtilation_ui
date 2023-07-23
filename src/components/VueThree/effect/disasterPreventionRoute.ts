@@ -7,8 +7,6 @@ import {
 	MeshBasicMaterial,
 	Object3D,
 	RepeatWrapping,
-	Sprite,
-	SpriteMaterial,
 	SRGBColorSpace,
 	TextureLoader,
 } from 'three'
@@ -70,9 +68,9 @@ export class DisasterPreventionRoute {
 		let loader = new GLTFLoader()
 		let src = import.meta.env.BASE_URL + 'file/pao-02.glb'
 		loader.load(src, (data) => {
-			data.scene.scale.x = 100
-			data.scene.scale.y = 100
-			data.scene.scale.z = 100
+			data.scene.scale.x = 5000
+			data.scene.scale.y = 5000
+			data.scene.scale.z = 5000
 
 			data.scene.traverse(function (object: any) {
 				if (object.isMesh) {
@@ -108,7 +106,7 @@ export class DisasterPreventionRoute {
 		if (!this.runObject) return
 		let { curve } = useEditModel().createMotionTrack(pointObj.points)
 
-		let moveModel = this.runObject.scene.clone()
+		let moveModel = this.runObject.scene
 		this.extraObject.remove(moveModel)
 		this.moveModelList.push(moveModel)
 		this.extraObject.add(moveModel)
@@ -137,15 +135,12 @@ export class DisasterPreventionRoute {
 		this.extraObject.add(mesh)
 		this.lineMeshList.push(mesh)
 	}
-	// 清除避灾路线相关
+	// 清除避灾路线
 	cleanMoveModel(index: number) {
 		if (index === -1) {
-			this.extraObject.remove(...this.startMark)
 			this.extraObject.remove(...this.lineMeshList)
 			this.extraObject.remove(...this.moveModelList)
 			this.animateList = []
-			this.startMark = []
-			this.disasterMeshList = []
 			this.lineMeshList = []
 			this.moveModelList = []
 		} else {
@@ -157,6 +152,13 @@ export class DisasterPreventionRoute {
 			this.lineMeshList.splice(index, 1)
 			this.moveModelList.splice(index, 1)
 		}
+	}
+	// 清除起点&灾变点
+	cleanDisasterMesh() {
+		this.extraObject.remove(...this.startMark)
+		this.extraObject.remove(...this.disasterMeshList)
+		this.startMark = []
+		this.disasterMeshList = []
 	}
 	renderRoute() {
 		this.routeReqId = requestAnimationFrame(this.renderRoute.bind(this))

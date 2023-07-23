@@ -29,9 +29,14 @@ export const home = () => {
 		threeRef.value?.changeDisaster(type)
 	}
 	// 创建避灾路线
-	const imitateRoute = () => {}
+	const imitateRoute = () => {
+		threeRef.value?.disasterRoute()
+	}
 	// 退出避灾路线事件
-	const backDisasterRoute = () => {}
+	const backDisasterRoute = () => {
+		// 	清除避灾路线及起点
+		threeRef.value?.cleanDisasterRoute()
+	}
 
 	return {
 		threeRef,

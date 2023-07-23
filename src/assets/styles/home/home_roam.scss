@@ -79,9 +79,10 @@
 	background-image: url('@/assets/images/home/home_roam/drive_bg.png');
 	background-size: 100% 100%;
 	display: grid;
-	padding-top: vh(754);
-	padding-left: vw(1207);
 	span {
+		position: absolute;
+		left: vw(1207);
+		top: vh(754);
 		cursor: pointer;
 		font-size: vh(36);
 		font-family:
@@ -91,4 +92,109 @@
 		line-height: vh(46);
 		color: #ffffff;
 	}
+}
+
+//巡检漫游设备列表
+.home_roam_equipment {
+	position: fixed;
+	z-index: 1;
+	top: vh(118);
+	left: vw(38);
+	width: vw(522);
+	height: vh(952);
+	background: rgba(12, 41, 70, 0.85);
+	border-radius: 10px;
+	padding: vh(15) vw(30) vh(200) vw(40);
+}
+.home_roam_equipment_title {
+	position: relative;
+	width: 100%;
+	height: vh(28);
+	font-size: vh(19);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	line-height: vh(19);
+	&:after {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		content: '';
+		width: vw(446);
+		height: vh(12);
+		background-image: url('@/assets/images/home/home_right/mes_line.svg');
+		background-size: 100% 100%;
+	}
+}
+.home_roam_equipment_bottom {
+	width: 100%;
+	height: calc(100% - #{vh(28)});
+	padding-top: vh(26);
+	overflow-y: auto;
+	display: grid;
+	grid-template-columns: vw(29) auto;
+	grid-template-rows: repeat(auto-fill, vh(27) vh(60));
+	grid-column-gap: vw(40);
+}
+
+.home_roam_equipment_bottom_icon {
+	width: vh(15);
+	height: vh(14);
+	background-size: 100% 100%;
+	place-self: center center;
+}
+.home_roam_equipment_bottom_icon_1 {
+	background-image: url('@/assets/images/home/home_roam/icon_1.png');
+}
+.home_roam_equipment_bottom_icon_2 {
+	background-image: url('@/assets/images/home/home_roam/icon_2.png');
+}
+.home_roam_equipment_bottom_icon_3 {
+	background-image: url('@/assets/images/home/home_roam/icon_3.png');
+}
+.home_roam_equipment_bottom_title_text {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	color: #a9b8d8;
+	font-size: vh(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	line-height: vh(27);
+	padding-left: vw(20);
+	z-index: 2;
+	&:before {
+		position: absolute;
+		content: url('@/assets/images/home/home_dis_pre_route/route_text_bg.png');
+		width: vw(310);
+		height: vh(27);
+		background-size: 100% 100%;
+		left: 0;
+		z-index: -1;
+	}
+}
+.home_roam_equipment_bottom_body_text {
+	width: 100%;
+	height: 100%;
+	padding-left: vw(40);
+	font-size: vh(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #a9b8d8;
+	line-height: vh(26);
+	display: grid;
+	grid-template-rows: repeat(2, vh(26));
+}
+
+.home_roam_equipment_bottom_border {
+	justify-self: center;
+	width: 1px;
+	height: 100%;
+	background: rgba(38, 124, 238, 1);
 }

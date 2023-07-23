@@ -130,7 +130,10 @@ const useThree = () => {
 		operateModel.value?.cleanMoveModel(index)
 	}
 	// 总避灾路线数组
-	const disasterRoutes = ref<string[][]>([['118', '119', '129', '130', '131']])
+	const disasterRoutes = ref<string[][]>([
+		['118', '119', '129', '130', '131'],
+		['142', '143', '144', '141'],
+	])
 	// 生成避灾路线点位
 	const createdMoveModelPoints = (startNode: string, points: ICoordinates, radius = 4) => {
 		// cleanMove()

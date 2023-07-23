@@ -6,7 +6,7 @@ export const homeRoam = (emits) => {
 	//开始巡检序号
 	const roamIndex = ref(0)
 	//   全部设备
-	const { allDataList, toPosition, setAllType } = useEquipmentData()
+	const { allDataList, toPosition, setAllType, showTypeList } = useEquipmentData()
 	// 设备巡检
 	const toRoam = (time = 2, nextFun = () => {}, one = false) => {
 		if (roamIndex.value === -1) return
@@ -102,6 +102,24 @@ export const homeRoam = (emits) => {
 		},
 	)
 
+	// 当前索引
+	const tIndex = computed(() => {
+		return chooseBtn.value === MenuTypes.ONE || chooseBtn.value === MenuTypes.TWO
+			? roamIndex.value
+			: windowRoamIndex.value
+	})
+
+	// 巡检内容最大显示条数
+	const roamMaxTotal = ref(8)
+	// 巡检列表定位最大可视索引
+	const maxIndex = ref(5)
+	// 巡检列表可显示内容
+	const roamList = computed(() => {
+		return showTypeList.value.filter((i, index) => {
+			return index >= tIndex.value && index < roamMaxTotal.value
+		})
+	})
+
 	onBeforeUnmount(() => {
 		changeBtn(0)
 	})
@@ -110,5 +128,6 @@ export const homeRoam = (emits) => {
 		chooseBtn,
 		changeBtn,
 		cleanInterval,
+		roamList,
 	}
 }

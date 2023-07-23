@@ -138,3 +138,104 @@
 	background-size: 100% 100%;
 	justify-self: center;
 }
+
+//人员撤退计划
+.home_reverse_wind_people {
+	position: absolute;
+	top: vh(114);
+	right: vw(59);
+	width: vw(522);
+	height: vh(561);
+	padding: vh(15) vw(30) vh(31) vw(40);
+	background: rgba(12, 41, 70, 0.85);
+
+	border-radius: 10px;
+}
+
+.home_reverse_wind_people_title {
+	position: relative;
+	width: 100%;
+	height: vh(28);
+	font-size: vh(19);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	line-height: vh(19);
+	&:after {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		content: '';
+		width: vw(446);
+		height: vh(12);
+		background-image: url('@/assets/images/home/home_right/mes_line.svg');
+		background-size: 100% 100%;
+	}
+}
+.home_reverse_wind_people_bottom {
+	width: 100%;
+	height: calc(100% - #{vh(28)});
+	padding-top: vh(26);
+	overflow-y: auto;
+	display: grid;
+	grid-template-columns: vw(29) auto;
+	grid-template-rows: repeat(auto-fill, vh(29) vh(50));
+	grid-column-gap: vw(11);
+	grid-template-areas:
+		'one two'
+		'three two';
+}
+.home_reverse_wind_people_bottom_icon {
+	grid-area: one;
+	width: vh(29);
+	height: vh(29);
+	background: #16304b;
+	border: vh(3) solid #00ffff;
+	border-radius: 50%;
+
+	font-size: vh(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #00ffff;
+	line-height: vh(23);
+	text-align: center;
+}
+.home_reverse_wind_people_bottom_text {
+	position: relative;
+	grid-area: two;
+	width: 100%;
+	height: 100%;
+
+	font-size: vh(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	line-height: vh(29);
+	padding-left: vw(20);
+	z-index: 2;
+	span {
+		color: rgba(18, 253, 0, 1);
+	}
+	&:before {
+		position: absolute;
+		content: url('@/assets/images/home/home_dis_pre_route/route_text_bg.png');
+		width: vw(310);
+		height: vh(27);
+		background-size: 100% 100%;
+		left: 0;
+		z-index: -1;
+	}
+}
+.home_reverse_wind_people_bottom_border {
+	grid-area: three;
+	justify-self: center;
+	width: 1px;
+	height: 100%;
+	background: rgba(38, 124, 238, 1);
+}

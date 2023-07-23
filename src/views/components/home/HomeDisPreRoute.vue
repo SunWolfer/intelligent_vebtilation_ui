@@ -15,7 +15,9 @@
 		'changeDisasterType',
 	])
 
-	const { setDisaster, setPersonnel, changeDisaster, imitateRoute } = homeDisPreRoute(emits)
+	const { setDisaster, setPersonnel, changeDisaster, imitateRoute, quit, disasterRouteText } =
+		homeDisPreRoute(emits)
+	const { avoidDisaster } = useHomeMenu()
 </script>
 
 <template>
@@ -59,9 +61,34 @@
 			</div>
 		</div>
 	</div>
+	<!--  显示避灾路线层-->
+	<div v-if="avoidDisaster" class="reverse_wind_ing">
+		<!--    人员撤退计划-->
+		<div class="home_reverse_wind_people">
+			<div class="home_reverse_wind_people_title">人员撤退路线规划</div>
+			<div class="home_reverse_wind_people_bottom">
+				<template v-for="(i, index) in disasterRouteText">
+					<div class="home_reverse_wind_people_bottom_icon">{{ index + 1 }}</div>
+					<div class="home_reverse_wind_people_bottom_text">
+						{{ i.startLabel }}
+						<span>{{ i.specialLabel }}</span>
+						{{ i.lastLabel }}
+					</div>
+					<div
+						v-if="index !== disasterRouteText.length - 1"
+						class="home_reverse_wind_people_bottom_border"
+					></div>
+				</template>
+			</div>
+		</div>
+		<div class="reverse_wind_ing_bottom">
+			<div class="reverse_wind_ing_bottom_1" @click="quit"></div>
+		</div>
+	</div>
 </template>
 
 <style scoped lang="scss">
 	@import '@/assets/styles/home/home_menu';
 	@import '@/assets/styles/home/home_dis_pre_route';
+	@import '@/assets/styles/home/home_reverse_wind';
 </style>

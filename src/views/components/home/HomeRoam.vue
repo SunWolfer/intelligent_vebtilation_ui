@@ -6,7 +6,7 @@
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
 	const emits = defineEmits(['moveCamera'])
 
-	const { chooseBtn, changeBtn } = homeRoam(emits)
+	const { chooseBtn, changeBtn, roamList } = homeRoam(emits)
 	const { domStyle } = useMenuItemPosition(359)
 	const { dislodgeDomStyle, roam } = useHomeMenu()
 </script>
@@ -54,6 +54,21 @@
 	</div>
 	<div class="drive_bg" v-if="roam">
 		<span @click="changeBtn(0)">结束漫游</span>
+	</div>
+	<!--  巡检列表-->
+	<div class="home_roam_equipment" v-if="roam">
+		<div class="home_roam_equipment_title">巡检列表</div>
+		<div class="home_roam_equipment_bottom">
+			<template v-for="i in roamList">
+				<div class="home_roam_equipment_bottom_icon home_roam_equipment_bottom_icon_1"></div>
+				<div class="home_roam_equipment_bottom_title_text">【监测点5】一盘区输运大巷风门</div>
+				<div class="home_roam_equipment_bottom_border"></div>
+				<div class="home_roam_equipment_bottom_body_text">
+					<span>巡检位置：一盘区输运大巷风门西50米</span>
+					<span> 巡检状态： 时间： </span>
+				</div>
+			</template>
+		</div>
 	</div>
 </template>
 

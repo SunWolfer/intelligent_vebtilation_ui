@@ -1,4 +1,5 @@
 import { DisasterTypes } from '@/api/request/home/menuType'
+import useHomeMenu from '@/hooks/useHomeMenu'
 
 export const homeDisPreRoute = (emits) => {
 	// 灾变类型
@@ -16,18 +17,31 @@ export const homeDisPreRoute = (emits) => {
 	const setPersonnel = () => {
 		emits('setPersonnel')
 	}
+	const { avoidDisaster } = useHomeMenu()
 	// 点击模拟生成避灾路线
 	const imitateRoute = () => {
 		emits('imitateRoute')
+		avoidDisaster.value = true
 	}
 	// 退出
-	const back = () => {
+	const quit = () => {
 		emits('backDisasterRoute')
+		avoidDisaster.value = false
 	}
+	// 人员避灾路线
+	const disasterRouteText = ref([
+		{
+			startLabel: '沿',
+			specialLabel: '021306',
+			lastLabel: '运逆风流方向迅速进行回撤',
+		},
+	])
 	return {
 		changeDisaster,
 		setDisaster,
 		setPersonnel,
 		imitateRoute,
+		quit,
+		disasterRouteText,
 	}
 }
