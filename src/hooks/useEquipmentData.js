@@ -8,6 +8,15 @@ const useEquipmentData = () => {
 	const equipmentList = computed(() => {
 		return equipmentData.data
 	})
+	// 当前显示设备索引
+	const tEquipmentIndex = computed({
+		get() {
+			return equipmentData.tEquipmentIndex
+		},
+		set(val) {
+			equipmentData.updateTEquipmentIndex(val)
+		},
+	})
 	// 可显示设备类型
 	const equipTypeList = computed({
 		get() {
@@ -76,6 +85,7 @@ const useEquipmentData = () => {
 
 	return {
 		equipmentList,
+		tEquipmentIndex,
 		equipTypeList,
 		setAllType,
 		showTypeList,

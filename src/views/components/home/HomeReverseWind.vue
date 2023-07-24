@@ -4,17 +4,13 @@
 
 	const { domStyle } = useMenuItemPosition(299)
 
-	const emits = defineEmits(['redrawingWind'])
-
 	const { reverseWind, dislodgeDomStyle } = useHomeMenu()
 	const imitate = () => {
 		reverseWind.value = true
-		emits('redrawingWind', false)
 	}
 	//   退出
 	const quit = () => {
 		reverseWind.value = false
-		emits('redrawingWind', true)
 	}
 </script>
 

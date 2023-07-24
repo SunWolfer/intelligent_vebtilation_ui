@@ -16,10 +16,8 @@
 		threeRef,
 		moveCamera,
 		loadText,
-		redrawingWind,
 		setDisaster,
 		setPersonnel,
-		backDisasterRoute,
 		imitateRoute,
 		changeDisasterType,
 	} = home()
@@ -59,13 +57,12 @@
 		<!--    多视角-->
 		<HomeVisualAngle v-if="showMultiplePerspectives" />
 		<!--    反风模拟-->
-		<HomeReverseWind v-if="showReverseWindSimulation" @redrawing-wind="redrawingWind" />
+		<HomeReverseWind v-if="showReverseWindSimulation" />
 		<!--    避灾路线模拟-->
 		<HomeDisPreRoute
 			v-if="showDisasterPreventionRoute"
 			@set-disaster="setDisaster"
 			@set-personnel="setPersonnel"
-			@back-disaster-route="backDisasterRoute"
 			@imitate-route="imitateRoute"
 			@change-disaster-type="changeDisasterType"
 		/>

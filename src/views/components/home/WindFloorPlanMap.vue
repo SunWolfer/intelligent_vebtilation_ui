@@ -6,7 +6,7 @@
 	})
 	const mapData = ref({})
 	const iconLayer = ref({})
-	const textTent = [2306.015744065793, 1385.2053892506574, 3147.0157440657367, 1979.2053892506574]
+	const textTent = [2306, 1385, 3147, 1979]
 
 	function initialize() {
 		let datalayerList = [
@@ -15,14 +15,14 @@
 				type: 'wms',
 			},
 		]
-		initMap(textTent, 'windCoalMap', mapData, [iconLayer], datalayerList, 2.5, {})
+		initMap(textTent, 'windCoalMap', mapData, [iconLayer], datalayerList, 1, {})
 	}
 </script>
 
 <template>
 	<div class="fullDom">
-    <div @contextmenu.prevent id="windCoalMap" style="width: 100%; height: 100%"></div>
-  </div>
+		<div @contextmenu.prevent id="windCoalMap" style="width: 100%; height: 100%"></div>
+	</div>
 </template>
 
 <style lang="scss" scoped></style>

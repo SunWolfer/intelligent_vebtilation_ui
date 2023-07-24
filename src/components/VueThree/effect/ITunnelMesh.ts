@@ -72,6 +72,8 @@ export class ITunnelMesh {
 				meshGeometry.height ?? 1,
 				meshGeometry.radiusBottom,
 			)
+		} else if (meshGeometry.geometryType === 'Plane') {
+			geometry = new PlaneGeometry(meshGeometry.width, 1)
 		} else {
 			geometry = new CylinderGeometry(
 				meshGeometry.radiusTop,
@@ -84,8 +86,7 @@ export class ITunnelMesh {
 				meshGeometry.thetaLength,
 			)
 		}
-		geometry.rotateX(Math.PI / 2)
-
+		geometry.rotateX(-Math.PI / 2)
 		let material = this.setMaterial(mesh.material)
 		let CyMesh = new Mesh(geometry, material)
 		if (mesh.name) CyMesh.name = mesh.name
@@ -130,8 +131,8 @@ export class ITunnelMesh {
 		}
 		material.transparent = iMaterial.transparent ?? false
 		material.opacity = iMaterial.opacity ?? 1
-		// material.depthWrite = iMaterial.depthWrite ?? true
-		// material.depthTest = iMaterial.depthTest ?? true
+		material.depthWrite = iMaterial.depthWrite ?? true
+		material.depthTest = iMaterial.depthTest ?? true
 		if (iMaterial.color) material.color = iMaterial.color
 		material.side = side
 		return material
@@ -178,7 +179,8 @@ export class ITunnelMesh {
 		let geometryList = []
 		let meshGroup = new Group()
 		for (let j = 0; j < modelNode.meshes.length; j++) {
-			let cylinderGeometry = this.createdGeometry(modelNode.meshes[j])
+			let obj = modelNode?.meshes[j]
+			let cylinderGeometry = this.createdGeometry(obj)
 			let p1 = new Vector3(
 				modelNode.nodePosition.x,
 				modelNode.nodePosition.y,
@@ -199,6 +201,8 @@ export class ITunnelMesh {
 				p1.y + (p2.y - p1.y) / 2,
 				p1.z + (p2.z - p1.z) / 2,
 			)
+			cylinderGeometry.position.y = cylinderGeometry.position.y + (obj?.geometry?.offsetY ?? 0)
+
 			let mtx = new Matrix4() //创建一个4维矩阵
 			mtx.lookAt(p2, p1, cylinderGeometry.up) //设置朝向
 			let toRot = new Quaternion()
@@ -269,7 +273,7 @@ export class ITunnelMesh {
 			p1.z + (p2.z - p1.z) / 2,
 		)
 		let mtx = new Matrix4() //创建一个4维矩阵
-		if (modelNode.windMesh.direction) {
+		if (!modelNode.windMesh.direction) {
 			mtx.lookAt(p2, p1, mesh.up) //设置朝向
 		} else {
 			mtx.lookAt(p1, p2, mesh.up) //设置朝向

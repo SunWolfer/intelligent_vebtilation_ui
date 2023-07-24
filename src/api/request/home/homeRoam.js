@@ -6,11 +6,12 @@ export const homeRoam = (emits) => {
 	//开始巡检序号
 	const roamIndex = ref(0)
 	//   全部设备
-	const { allDataList, toPosition, setAllType, showTypeList } = useEquipmentData()
+	const { allDataList, toPosition, setAllType, showTypeList, tEquipmentIndex } = useEquipmentData()
 	// 设备巡检
 	const toRoam = (time = 2, nextFun = () => {}, one = false) => {
 		if (roamIndex.value === -1) return
 		const item = allDataList.value[roamIndex.value]
+		tEquipmentIndex.value = roamIndex.value
 		const position = toPosition?.(item)
 		roamIndex.value =
 			roamIndex.value >= allDataList.value.length - 1 ? (one ? -1 : 0) : roamIndex.value + 1
@@ -28,6 +29,7 @@ export const homeRoam = (emits) => {
 	const windowToRoam = (time = 2, nextFun = () => {}, one = false) => {
 		if (windowRoamIndex.value === -1) return
 		const item = windowList.value[windowRoamIndex.value]
+		tEquipmentIndex.value = windowRoamIndex.value
 		const position = toPosition?.(item)
 		windowRoamIndex.value =
 			windowRoamIndex.value >= windowList.value.length - 1
@@ -102,23 +104,38 @@ export const homeRoam = (emits) => {
 		},
 	)
 
-	// 当前索引
-	const tIndex = computed(() => {
-		return chooseBtn.value === MenuTypes.ONE || chooseBtn.value === MenuTypes.TWO
-			? roamIndex.value
-			: windowRoamIndex.value
-	})
-
 	// 巡检内容最大显示条数
 	const roamMaxTotal = ref(8)
 	// 巡检列表定位最大可视索引
-	const maxIndex = ref(5)
+	const maxIndex = ref(4)
+	// 巡检列表下移步数
+	const downStep = computed(() => {
+		return tEquipmentIndex.value - maxIndex.value > 0 ? tEquipmentIndex.value - maxIndex.value : 0
+	})
 	// 巡检列表可显示内容
 	const roamList = computed(() => {
-		return showTypeList.value.filter((i, index) => {
-			return index >= tIndex.value && index < roamMaxTotal.value
+		let list = showTypeList.value.filter((i, index) => {
+			return index >= downStep.value && index < roamMaxTotal.value + downStep.value
 		})
+		list.length = roamMaxTotal.value
+
+		let temp = []
+		for (let i = 0; i < list.length; i++) {
+			temp[i] = list[list.length - 1 - i]
+		}
+		return temp
 	})
+	// 获取巡检列表样式
+	const iconStyle = (index) => {
+		const aIndex = roamMaxTotal.value - 1 + downStep.value - tEquipmentIndex.value
+		if (index < aIndex) {
+			return 'home_roam_equipment_bottom_icon_1'
+		} else if (index === aIndex) {
+			return 'home_roam_equipment_bottom_icon_2'
+		} else if (index > aIndex) {
+			return 'home_roam_equipment_bottom_icon_3'
+		}
+	}
 
 	onBeforeUnmount(() => {
 		changeBtn(0)
@@ -129,5 +146,6 @@ export const homeRoam = (emits) => {
 		changeBtn,
 		cleanInterval,
 		roamList,
+		iconStyle,
 	}
 }

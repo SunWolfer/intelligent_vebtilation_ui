@@ -25,7 +25,6 @@ export const homeDisPreRoute = (emits) => {
 	}
 	// 退出
 	const quit = () => {
-		emits('backDisasterRoute')
 		avoidDisaster.value = false
 	}
 	// 人员避灾路线

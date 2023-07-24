@@ -11,10 +11,6 @@ export const home = () => {
 	const loadText = (fontList) => {
 		threeRef.value?.operateModel.created3DFont(fontList)
 	}
-	// 重绘风流
-	const redrawingWind = (direction) => {
-		threeRef.value?.redrawingWind(direction)
-	}
 
 	// 创建灾变地点
 	const setDisaster = (type) => {
@@ -32,20 +28,13 @@ export const home = () => {
 	const imitateRoute = () => {
 		threeRef.value?.disasterRoute()
 	}
-	// 退出避灾路线事件
-	const backDisasterRoute = () => {
-		// 	清除避灾路线及起点
-		threeRef.value?.cleanDisasterRoute()
-	}
 
 	return {
 		threeRef,
 		moveCamera,
 		loadText,
-		redrawingWind,
 		setDisaster,
 		setPersonnel,
-		backDisasterRoute,
 		imitateRoute,
 		changeDisasterType,
 	}

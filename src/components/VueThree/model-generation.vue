@@ -49,32 +49,28 @@
 							geometryType: 'Box',
 						},
 						material: {
-							type: 'MeshStandardMaterial',
 							mapUrl: 'file/material/011.png',
 							transparent: true,
 							opacity: 0.6,
 							side: 2,
-							roughness: 0,
-							metalness: 0.5,
 						},
 					},
 					{
 						geometry: {
-							radiusTop: 350,
-							radiusBottom: 350,
-							height: 1,
-							radialSegments: 4,
-							openEnded: true,
-							geometryType: 'Box',
+							width: 300,
+							offsetY: 300,
+							geometryType: 'Plane',
 						},
 						material: {
 							type: 'MeshStandardMaterial',
 							mapUrl: 'file/material/111.png',
 							transparent: true,
-							opacity: 0.8,
+							opacity: 0.6,
 							side: 2,
+							roughness: 0.6,
+							metalness: 0.25,
+							depthWrite: true,
 							depthTest: false,
-							depthWrite: false,
 						},
 					},
 					{
@@ -137,7 +133,7 @@
 				this.addWind()
 			},
 			//   添加风流
-			addWind(direction = true) {
+			addWind(direction = false) {
 				if (!this.windObject) return
 				this.windObject.remove(...this.windMeshList)
 				let models: IModelNode[] = IModels

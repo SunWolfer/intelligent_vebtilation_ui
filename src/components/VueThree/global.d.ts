@@ -124,8 +124,9 @@ interface IMesh {
 	material: IMaterial
 }
 // 生成巷道模型
-interface IGeometry extends ICylinderGeometry, IBoxGeometry {
+interface IGeometry extends ICylinderGeometry, IBoxGeometry, IPlaneGeometry {
 	geometryType?: string
+	offsetY?: number
 }
 // 生成圆柱模型对象参数配置
 interface ICylinderGeometry {

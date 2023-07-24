@@ -4,9 +4,9 @@
 			type: Object,
 			default: {},
 		},
-		id: {
-			type: String,
-			default: '',
+		index: {
+			type: Number,
+			default: 0,
 		},
 	})
 </script>

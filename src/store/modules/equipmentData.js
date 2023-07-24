@@ -145,6 +145,8 @@ const useEquipment = defineStore('equipment-data', {
 				children: [],
 			},
 		],
+		// 当前显示设备索引
+		tEquipmentIndex: 0,
 		// 显示设备类型
 		equipTypeList: [],
 		// 避灾路线
@@ -154,6 +156,10 @@ const useEquipment = defineStore('equipment-data', {
 		// 更新设备列表数据
 		updateData(views) {
 			this.data = views
+		},
+		// 更新显示设备索引
+		updateTEquipmentIndex(data) {
+			this.tEquipmentIndex = data
 		},
 		// 更新显示设备类型
 		updateEquipTypeList(views) {

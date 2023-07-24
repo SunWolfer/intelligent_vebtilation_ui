@@ -19,6 +19,7 @@ const useHome = defineStore('home', {
 		updateShowMenus(views) {
 			this.showMenus = views
 		},
+
 		updateClickMenuDom(view) {
 			this.clickMenuDom = view
 		},

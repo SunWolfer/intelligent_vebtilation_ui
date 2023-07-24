@@ -1,4 +1,6 @@
 <script setup>
+	import useEquipmentData from '@/hooks/useEquipmentData'
+
 	const props = defineProps({
 		data: {
 			type: Object,
@@ -9,14 +11,36 @@
 			default: 0,
 		},
 	})
+	const { tEquipmentIndex } = useEquipmentData()
 </script>
 
 <template>
 	<div class="equipment_msg">
-		<div class="equipment_msg_top">
+		<div
+			class="equipment_msg_top"
+			:class="tEquipmentIndex === index ? '' : 'equipment_msg_top_opacity'"
+		>
 			<div class="equipment_msg_top_item_1">{{ data.name }}</div>
-			<div class="equipment_msg_top_item_2"></div>
-			<div class="equipment_msg_top_item_3"></div>
+			<div class="equipment_msg_top_item_2 equipment_msg_top_item_2_full_section">
+				<div class="equipment_msg_top_item_2_body">
+					<span>当前风量(m/min)</span>
+					<div class="lamp_op">2.5</div>
+				</div>
+				<div class="equipment_msg_top_item_2_body">
+					<span>当前风速(m/s)</span>
+					<div class="lamp_close">2.5</div>
+				</div>
+				<div class="equipment_msg_top_item_2_body">
+					<span>通讯</span>
+					<div class="lamp_dk">掉线</div>
+				</div>
+			</div>
+			<div class="equipment_msg_top_item_3 equipment_msg_top_item_3_door">
+				<span class="equipment_msg_top_item_3_text_left">测风站位置：</span>
+				<span>22123 回风顺槽瓦斯泵站 210 米</span>
+				<span class="equipment_msg_top_item_3_text_left">通讯IP：</span>
+				<span>19.</span>
+			</div>
 		</div>
 		<div class="equipment_msg_center">监测点{{ index + 1 }}</div>
 		<div class="equipment_msg_footer"></div>

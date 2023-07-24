@@ -7,13 +7,7 @@
 	const { domStyle } = useMenuItemPosition(430)
 	const { dislodgeDomStyle } = useHomeMenu()
 
-	const emits = defineEmits([
-		'setDisaster',
-		'setPersonnel',
-		'backDisasterRoute',
-		'imitateRoute',
-		'changeDisasterType',
-	])
+	const emits = defineEmits(['setDisaster', 'setPersonnel', 'imitateRoute', 'changeDisasterType'])
 
 	const { setDisaster, setPersonnel, changeDisaster, imitateRoute, quit, disasterRouteText } =
 		homeDisPreRoute(emits)
