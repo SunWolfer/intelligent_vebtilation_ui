@@ -17,7 +17,7 @@ export const home = () => {
 	}
 
 	// 创建灾变地点
-	const setDisaster = (type) => {
+	const setDisaster = () => {
 		threeRef.value?.changeClickType(ClickEventTypes.DISASTER)
 	}
 	// 创建灾变人员位置
@@ -26,7 +26,7 @@ export const home = () => {
 	}
 	// 改变灾变类型
 	const changeDisasterType = (type) => {
-		threeRef.value?.changeDisaster(type)
+		threeRef.value?.changeDisasterType(type)
 	}
 	// 创建避灾路线
 	const imitateRoute = () => {

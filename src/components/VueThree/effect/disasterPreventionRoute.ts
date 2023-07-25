@@ -6,12 +6,10 @@ import {
 	CatmullRomCurve3,
 	Clock,
 	DoubleSide,
-	Matrix4,
 	Mesh,
 	MeshBasicMaterial,
 	Object3D,
 	PlaneGeometry,
-	Quaternion,
 	RepeatWrapping,
 	SRGBColorSpace,
 	TextureLoader,
@@ -105,21 +103,21 @@ export class DisasterPreventionRoute {
 			let texture = loadLineTexture(import.meta.env.BASE_URL + 'file/material/fires2/' + i + '.png')
 			firesTexture.push(texture)
 		}
+		let waterTexture = []
+		//加载水灾图片资源
+		for (let i = 0; i < 1; i++) {
+			let texture = loadLineTexture(import.meta.env.BASE_URL + 'file/material/water/' + i + '.jpg')
+			waterTexture.push(texture)
+		}
 		this.disasterTextureImg = [
 			{ type: DisasterTypes.ONE, texture: firesTexture, showIndex: 0, length: 13 },
 			{ type: DisasterTypes.TWO, texture: [], showIndex: 0, length: 0 },
 			{ type: DisasterTypes.THREE, texture: [], showIndex: 0, length: 0 },
-			{ type: DisasterTypes.FOUR, texture: [], showIndex: 0, length: 0 },
+			{ type: DisasterTypes.FOUR, texture: waterTexture, showIndex: 0, length: 0 },
 		]
 	}
 	// 创建灾害蔓延
-	createdDisasterSpread(
-		positions: Vector3[],
-		size = 20,
-		type: DisasterTypes,
-		offsetY = 600,
-		time = 3000,
-	) {
+	createdDisasterSpread(positions: Vector3[], size = 20, type: DisasterTypes) {
 		// 查找Texture
 		const iTexture = this.disasterTextureImg.find((i) => {
 			return i.type === type
@@ -141,7 +139,7 @@ export class DisasterPreventionRoute {
 		}
 
 		// 	水灾蔓延
-		if (DisasterTypes.FOUR === type) this.createdWaterSpread()
+		if (DisasterTypes.FOUR === type) this.createdWaterSpread(material, curve, iTexture)
 	}
 	// 创建火焰蔓延
 	createdFireSpread(
@@ -187,7 +185,11 @@ export class DisasterPreventionRoute {
 		})
 	}
 	// 创建水灾
-	createdWaterSpread() {}
+	createdWaterSpread(
+		material: MeshBasicMaterial,
+		curve: CatmullRomCurve3,
+		iTexture: disasterTexture,
+	) {}
 	// 创建起点标识
 	createdMark(labelList: LabelAttribute[]) {
 		this.extraObject.remove(...this.startMark)
