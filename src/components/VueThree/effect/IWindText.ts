@@ -7,7 +7,7 @@ export class IWindText {
 	wrapper: Object3D
 	// 风网解算文字层
 	extraTextObject: Object3D
-	font: Font
+	font: Font | undefined
 	meshList: Mesh[]
 	constructor(zoneObj: Object3D) {
 		this.meshList = []
@@ -25,7 +25,8 @@ export class IWindText {
 	}
 	// 创建风网解算文字
 	created3DFont(fontData: IFontType, plane: Mesh) {
-		let textGroup = new Group()
+		if (!this.font) return
+		let textGroup = new Mesh()
 		// textGroup.position.copy(plane.position)
 		let geometry = new TextGeometry(fontData.text, {
 			font: this.font,

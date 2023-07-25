@@ -101,10 +101,10 @@
 		operateModel,
 		intersected,
 		intersectedPosition,
-		createdMoveModelPoints,
 	} = useThree()
-	// 监听反风，重绘风流
+
 	const { reverseWind } = useHomeMenu()
+	// 监听反风，重绘风流
 	watch(
 		() => reverseWind.value,
 		(value) => {
@@ -121,13 +121,15 @@
 		disasterClass,
 		isShowDisasterPeople,
 		disasterPeopleList,
-	} = threeDisasterRoute(operateModel, intersectedPosition, intersected, createdMoveModelPoints)
+		createdDisasterSpread,
+	} = threeDisasterRoute(operateModel, intersectedPosition, intersected)
 
 	defineExpose({
 		operateModel,
 		changeClickType,
 		changeDisasterType,
 		disasterRoute,
+		createdDisasterSpread,
 	})
 </script>
 
@@ -198,6 +200,7 @@
 		width: vh(40);
 		height: vh(40);
 		top: vh(-20);
+		left: 0;
 	}
 	.disaster_warn_body {
 		position: relative;

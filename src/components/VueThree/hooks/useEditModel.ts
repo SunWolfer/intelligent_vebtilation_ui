@@ -1,18 +1,20 @@
 import axios from 'axios'
-import { CatmullRomCurve3, Euler, Matrix4, Object3D, Quaternion, Vector3 } from 'three'
+import { CatmullRomCurve3, Euler, Matrix4, Mesh, Object3D, Quaternion, Vector3 } from 'three'
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
 import * as XLSX from 'xlsx'
 
 export interface IMoveTexture {
 	// 运动模型
-	obj: Object3D
+	obj: any
 	// 运动路线
 	curve: CatmullRomCurve3
 	// 物体运动时在运动路径的初始位置，范围0~1
-	counter: 0
+	counter: number
 	// 影响运动速率的一个值，范围0~1，需要和渲染频率结合计算才能得到真正的速率
 	speed: number
+	// 是否循环
+	isCirculate: boolean
 }
 
 const useEditModel = () => {
@@ -49,7 +51,7 @@ const useEditModel = () => {
 
 			data.counter += data.speed
 		} else {
-			data.counter = 0
+			data.counter = data.isCirculate ? 0 : 1
 		}
 	}
 

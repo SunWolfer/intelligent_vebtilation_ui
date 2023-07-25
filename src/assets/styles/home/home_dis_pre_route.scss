@@ -1,11 +1,10 @@
 .home_title_route {
 	width: vw(430);
 	height: vh(239);
-	padding: vh(25) 0 vh(17) vw(23);
+	padding: vh(17) 0 vh(17) vw(23);
 	display: grid;
 	background-image: url('@/assets/images/home/home_dis_pre_route/routeBg.png');
 	grid-template-columns: 1fr 1fr;
-	align-content: center;
 }
 .home_title_route_left {
 	display: grid;

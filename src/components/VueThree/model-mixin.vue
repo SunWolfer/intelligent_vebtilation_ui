@@ -720,9 +720,9 @@
 								if (object.isMesh) {
 									object.castShadow = true //阴影
 									object.frustumCulled = false
-									if (object.material.map?.colorSpace)
+									if (object.material.map?.colorSpace) {
 										object.material.map.colorSpace = SRGBColorSpace
-									console.log(object.material)
+									}
 								}
 							})
 							_self.wrapper.add(data.scene)

@@ -1,4 +1,6 @@
+import { IFires } from '@/components/VueThree/effect/IFires'
 import { IWindText } from '@/components/VueThree/effect/IWindText'
+import { isNull } from '@/utils/ruoyi'
 import gsap from 'gsap'
 import {
 	BufferAttribute,
@@ -21,7 +23,6 @@ import {
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
 import { DisasterPreventionRoute } from './effect/disasterPreventionRoute'
-import { IFires } from './effect/IFires'
 import useEditModel from './hooks/useEditModel'
 import useThreeExport from './hooks/useThreeExport'
 import wall1 from './image/0002.jpg'
@@ -44,10 +45,9 @@ export class OperateModel {
 	customizeAnimateList: any[]
 	// 自定义球体列表
 	ballMeshList: IBallData[]
-	// 火焰类
-	myFires: IFires
 	// 避灾路线类
-	myDisPreRoute: DisasterPreventionRoute
+	myDisPreRoute: DisasterPreventionRoute | undefined
+	muFire: IFires
 	// 文字类
 	myWindText: IWindText
 	editId: number | undefined
@@ -75,12 +75,11 @@ export class OperateModel {
 		this.slotLabelList = []
 		// 初始化自定义动画
 		this.customizeAnimateList = []
-		// 初始化火焰
-		this.myFires = new IFires(this.size)
-		// 初始化避灾路线
-		this.myDisPreRoute = new DisasterPreventionRoute(this.scene)
+		// 加载避灾路线类
+		this.initDisPreRoute()
 		// 文字
 		this.myWindText = new IWindText(this.scene)
+		this.muFire = new IFires(this.size)
 		this.resetFrame()
 	}
 	// 	模型添加/更新标签
@@ -153,12 +152,19 @@ export class OperateModel {
 				break
 		}
 	}
+	// 初始化避灾/避灾路线
+	initDisPreRoute() {
+		// 初始化避灾路线
+		if (!this.myDisPreRoute) this.myDisPreRoute = new DisasterPreventionRoute(this.scene)
+	}
 	// 	创建避灾路线
 	addDisPreRoute(pointObj: DisPreRoute) {
+		if (!this.myDisPreRoute) return
 		this.myDisPreRoute.initRoute(pointObj)
 	}
 	// 清除避灾路线相关
 	cleanMoveModel(index: number) {
+		if (!this.myDisPreRoute) return
 		this.myDisPreRoute.cleanMoveModel(index)
 	}
 
@@ -198,16 +204,6 @@ export class OperateModel {
 	exportObjects() {
 		useThreeExport().exportGLTF([this.object])
 	}
-	// 	创建火焰
-	addFire(pointsPosition: IFiresPosition[]) {
-		this.myFires.config(this.scene, this.renderer, this.camera, this.controls)
-		this.myFires.setPosition(pointsPosition)
-		this.myFires.showFire()
-	}
-	// 清除火焰
-	resetFires() {
-		this.myFires.unMountClass()
-	}
 	// 模型线框材质
 	setLineBasicMaterial() {
 		const lineMaterial = new LineBasicMaterial({ color: '#1E90FF' })
@@ -244,6 +240,7 @@ export class OperateModel {
 		this.myWindText.cleanText()
 		for (let i = 0; i < fontDataList.length; i++) {
 			const font = fontDataList[i]
+			if (font.text.length === 2) return
 			let fontData: IFontType = {
 				text: font.text,
 				size: font.size,
@@ -270,8 +267,7 @@ export class OperateModel {
 	}
 	// 页面注销后操作
 	unmountEditModel() {
-		this.myDisPreRoute.unMountClass()
-		this.myFires.unMountClass()
+		if (this.myDisPreRoute) this.myDisPreRoute.unMountClass()
 		cancelAnimationFrame(this.editId!)
 	}
 }

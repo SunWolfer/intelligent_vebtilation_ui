@@ -21,7 +21,6 @@ export const homeDisPreRoute = (emits) => {
 	// 点击模拟生成避灾路线
 	const imitateRoute = () => {
 		emits('imitateRoute')
-		avoidDisaster.value = true
 	}
 	// 退出
 	const quit = () => {

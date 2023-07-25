@@ -150,7 +150,10 @@ const useEquipment = defineStore('equipment-data', {
 		// 显示设备类型
 		equipTypeList: [],
 		// 避灾路线
-		disasterPreventionRoute: [],
+		disasterPreventionRoute: [
+			['118', '119', '129', '130', '131'],
+			['142', '143', '144', '141'],
+		],
 	}),
 	actions: {
 		// 更新设备列表数据

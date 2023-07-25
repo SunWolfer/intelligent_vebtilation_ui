@@ -11,6 +11,10 @@ export const home = () => {
 	const loadText = (fontList) => {
 		threeRef.value?.operateModel.created3DFont(fontList)
 	}
+	// 清除风网解算文字
+	const cleanText = () => {
+		threeRef.value?.operateModel.myWindText.cleanText()
+	}
 
 	// 创建灾变地点
 	const setDisaster = (type) => {
@@ -28,14 +32,20 @@ export const home = () => {
 	const imitateRoute = () => {
 		threeRef.value?.disasterRoute()
 	}
+	// 创建灾害模拟
+	const generateDisaster = () => {
+		threeRef.value?.createdDisasterSpread()
+	}
 
 	return {
 		threeRef,
 		moveCamera,
 		loadText,
+		cleanText,
 		setDisaster,
 		setPersonnel,
 		imitateRoute,
 		changeDisasterType,
+		generateDisaster,
 	}
 }

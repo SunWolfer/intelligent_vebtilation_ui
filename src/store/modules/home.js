@@ -6,13 +6,13 @@ const useHome = defineStore('home', {
 		showMenus: [],
 		// 	菜单点击位置
 		clickMenuDom: null,
-		// 反风
+		// 显示反风
 		reverseWind: false,
-		//	漫游
+		//	显示漫游
 		roam: false,
-		//	避灾路线
+		//	显示避灾路线
 		avoidDisaster: false,
-		//	灾害模拟
+		//	显示灾害模拟
 		disaster: false,
 	}),
 	actions: {

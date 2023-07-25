@@ -59,8 +59,6 @@ const useThree = () => {
 	// 点击位置
 	const intersectedPosition = ref({})
 
-	// 自定义球体
-	const chooseBall = ref<IBallData | undefined>()
 	// 单击
 	function onClick(event: MouseEvent, CIntersected: any) {
 		if (!CIntersected) {
@@ -79,9 +77,6 @@ const useThree = () => {
 		console.log(cameraWorldPosition.value)
 		console.log('---------相机朝向点---------')
 		console.log(cameraLookAtPoint.value)
-		chooseBall.value = operateModel.value?.ballMeshList.find((i) => {
-			return i.uuid === intersected.value.uuid
-		})
 	}
 
 	// 双击
@@ -105,17 +100,13 @@ const useThree = () => {
 	function resetControls() {
 		if (!homeModelVisible.value) return
 		homeModelVisible.value.controls?.saveState()
-		nextTick(() => {
+		nextTick().then(() => {
 			homeModelVisible.value!.controls?.reset()
 		})
 	}
 	// 	创建自定义平面
 	const createdGeometry = (planeGeometryList: Point[]) => {
 		operateModel.value?.addGeometry(planeGeometryList)
-	}
-	// 创建避灾路线
-	const createdMoveModel = (disasterRoutes: DisPreRoute) => {
-		operateModel.value?.addDisPreRoute(disasterRoutes)
 	}
 	// 改变相机位置、
 	const changeCameraPosition = (toPosition: ICoordinates, toLookAt: ICoordinates, time = 3) => {
@@ -125,62 +116,11 @@ const useThree = () => {
 	const createdLabelList = (list: LabelAttribute[]) => {
 		operateModel.value?.addWrapperLabels(list)
 	}
-	// 清除避灾路线
-	const cleanMove = (index = -1) => {
-		operateModel.value?.cleanMoveModel(index)
-	}
-	// 总避灾路线数组
-	const disasterRoutes = ref<string[][]>([
-		['118', '119', '129', '130', '131'],
-		['142', '143', '144', '141'],
-	])
-	// 生成避灾路线点位
-	const createdMoveModelPoints = (startNode: string, points: ICoordinates, radius = 4) => {
-		// cleanMove()
-		// 	点击位置起止点
-		let positions = [points]
-		let object = homeModelVisible.value?.object
-		for (let i = 0; i < disasterRoutes.value.length; i++) {
-			const datas: string[] = disasterRoutes.value[i]
-			const index = datas.indexOf(startNode)
-			if (index !== -1) {
-				for (let j = index; j < datas.length; j++) {
-					if (object) {
-						object.traverse((item: Object3D) => {
-							if (item.name === datas[j]) {
-								positions.push(item.position)
-							}
-						})
-					}
-				}
-			}
-		}
-		if (positions.length > 1) {
-			const disasterRoutes = {
-				points: positions,
-				lineRadius: radius,
-			}
-			nextTick(() => {
-				createdMoveModel(disasterRoutes)
-			})
-		}
-	}
-
-	// 添加自定义球
-	const createdBallModel = (ballList: IBall[]) => {
-		operateModel.value?.addBall(ballList)
-	}
 	// 保存主模型
 	const saveModel = () => {
 		operateModel.value?.exportObjects()
 	}
 
-	// 火焰位置
-	const firePositions = ref<IFiresPosition[]>([])
-	// 添加火焰
-	const addFires = () => {
-		operateModel.value?.addFire(firePositions.value)
-	}
 	return {
 		ModelGltf,
 		indoorFileUrl,
@@ -201,18 +141,11 @@ const useThree = () => {
 		intersected,
 		resetControls,
 		createdGeometry,
-		createdMoveModel,
 		changeCameraPosition,
 		cameraLookAtPoint,
 		createdLabelList,
-		createdMoveModelPoints,
-		cleanMove,
-		createdBallModel,
-		chooseBall,
 		operateModel,
 		saveModel,
-		firePositions,
-		addFires,
 	}
 }
 

@@ -11,15 +11,18 @@
 	import HomeVisualAngle from '@/views/components/home/HomeVisualAngle.vue'
 	import useHomeMenu from '@/hooks/useHomeMenu'
 	import HomeDisPreRoute from '@/views/components/home/HomeDisPreRoute.vue'
+	import HomeDisaster from '@/views/components/home/HomeDisaster.vue'
 
 	const {
 		threeRef,
 		moveCamera,
 		loadText,
+		cleanText,
 		setDisaster,
 		setPersonnel,
 		imitateRoute,
 		changeDisasterType,
+		generateDisaster,
 	} = home()
 	// 首页菜单
 	const {
@@ -52,6 +55,7 @@
 		<HomeSolution
 			v-if="showWindNetworkCalculation"
 			@load-text="loadText"
+			@clean-text="cleanText"
 			:style="dislodgeDomStyle"
 		/>
 		<!--    多视角-->
@@ -65,6 +69,13 @@
 			@set-personnel="setPersonnel"
 			@imitate-route="imitateRoute"
 			@change-disaster-type="changeDisasterType"
+		/>
+		<!--    灾害模拟-->
+		<home-disaster
+			v-if="showDisasterSimulation"
+			@set-disaster="setDisaster"
+			@change-disaster-type="changeDisasterType"
+			@generate-disaster="generateDisaster"
 		/>
 	</div>
 </template>

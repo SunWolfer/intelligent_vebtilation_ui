@@ -83,6 +83,16 @@ const useEquipmentData = () => {
 		return allDataList.value.filter((i) => i.warnType !== '0')
 	})
 
+	//显示避灾路线
+	const disasterPreventionRoute = computed({
+		get() {
+			return equipmentData.disasterPreventionRoute
+		},
+		set(val) {
+			equipmentData.updateRouteData(val)
+		},
+	})
+
 	return {
 		equipmentList,
 		tEquipmentIndex,
@@ -92,6 +102,7 @@ const useEquipmentData = () => {
 		toPosition,
 		allDataList,
 		warnList,
+		disasterPreventionRoute,
 	}
 }
 

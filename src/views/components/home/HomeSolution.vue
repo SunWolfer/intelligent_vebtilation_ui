@@ -2,7 +2,7 @@
 <script setup>
 	import { homeSolution } from '@/api/request/home/homeSolution'
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
-	const emits = defineEmits(['loadText'])
+	const emits = defineEmits(['loadText', 'cleanText'])
 	const { checkedWind, checkedWindAge, checkedWindPressure } = homeSolution()
 	const { domStyle } = useMenuItemPosition(299)
 	watch(
@@ -39,13 +39,16 @@
 				text: text,
 				color: '#000',
 				size: 300,
-				height: 600,
+				height: 500,
 			})
 		}
 		emits('loadText', fontList)
 	}
 	onMounted(() => {
 		splitText()
+	})
+	onBeforeUnmount(() => {
+		emits('cleanText')
 	})
 </script>
 

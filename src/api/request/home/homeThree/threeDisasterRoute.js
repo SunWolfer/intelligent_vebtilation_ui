@@ -1,13 +1,43 @@
 import { ClickEventTypes, DisasterTypes } from '@/api/request/home/menuType'
 import useCurrentInstance from '@/hooks/useCurrentInstance'
 import useHomeMenu from '@/hooks/useHomeMenu'
+import useEquipmentData from '@/hooks/useEquipmentData'
+import { IModels } from '@/components/VueThree/models'
 
-export const threeDisasterRoute = (
-	operateModel,
-	intersectedPosition,
-	intersected,
-	createdMoveModelPoints,
-) => {
+export const threeDisasterRoute = (operateModel, intersectedPosition, intersected) => {
+	const object = IModels
+	const { disasterPreventionRoute } = useEquipmentData()
+	// 生成避灾路线点位
+	const createdMoveModelPoints = (startNode, points, radius = 4) => {
+		// 	点击位置起止点
+		let positions = [points]
+		for (let i = 0; i < disasterPreventionRoute.value.length; i++) {
+			const data = disasterPreventionRoute.value[i]
+			const index = data.indexOf(startNode)
+			if (index !== -1) {
+				for (let j = index; j < data.length; j++) {
+					if (object) {
+						for (let k = 0; k < object.length; k++) {
+							const item = object[k]
+							if (item.nodeName === data[j]) {
+								positions.push(item.nodePosition)
+							}
+						}
+					}
+				}
+			}
+		}
+		if (positions.length > 1) {
+			const disasterRoutes = {
+				points: positions,
+				lineRadius: radius,
+			}
+			nextTick().then(() => {
+				operateModel.value?.addDisPreRoute(disasterRoutes)
+			})
+		}
+	}
+
 	// 显示灾变地点
 	const isShowDisaster = ref(false)
 
@@ -107,7 +137,6 @@ export const threeDisasterRoute = (
 		},
 	)
 
-	// 刷洗人员层
 	const { proxy } = useCurrentInstance()
 	// 创建避灾路线
 	const disasterRoute = () => {
@@ -125,6 +154,8 @@ export const threeDisasterRoute = (
 			proxy.$modal.msgWarning('人员地点请选择巷道')
 			return
 		}
+		avoidDisaster.value = true
+		clickType.value = ClickEventTypes.NORMAL
 		const startPoint = pointObj[1]
 		operateModel.value.myDisPreRoute.cleanMoveModel(-1)
 		createdMoveModelPoints?.(startPoint, disasterPeople.position, 400)
@@ -142,13 +173,72 @@ export const threeDisasterRoute = (
 		operateModel.value.myDisPreRoute.cleanMoveModel(-1)
 		operateModel.value.myDisPreRoute.cleanDisasterMesh()
 	}
-	const { avoidDisaster } = useHomeMenu()
+	const { avoidDisaster, disaster } = useHomeMenu()
+	// 监听避灾路线菜单显示清除避灾路线相关
 	watch(
 		() => avoidDisaster.value,
 		(value) => {
 			if (!value) cleanDisasterRoute()
 		},
 	)
+
+	// 灾害模拟相关
+	//   创建灾害蔓延
+	const createdDisasterSpread = () => {
+		if (!disasterWarnList.value.length) {
+			proxy.$modal.msgWarning('请选择灾变地点')
+			return
+		}
+
+		let startPoint = disasterWarnList.value[0].point
+		let endPoint = {
+			x: -4902.90625,
+			y: 96500,
+			z: -14248.630859375,
+		}
+		operateModel.value.myDisPreRoute.createdDisasterSpread(
+			[startPoint, endPoint],
+			80,
+			disasterType.value,
+		)
+		createdDisasterPreventionRoute()
+
+		isShowDisaster.value = false
+		disasterWarnList.value = []
+		operateModel.value.myDisPreRoute.cleanDisasterMesh()
+		clickType.value = ClickEventTypes.NORMAL
+		disaster.value = true
+	}
+
+	//   创建灾害模拟避灾路线
+	const createdDisasterPreventionRoute = () => {
+		createdMoveModelPoints?.(
+			'143',
+			{
+				x: -4221.058428933942,
+				y: 96870.74612915481,
+				z: -14285.663893880277,
+			},
+			400,
+		)
+	}
+
+	// 清除灾害模拟
+	const cleanDisasterPrevent = () => {
+		clickType.value = ClickEventTypes.NORMAL
+		isShowDisaster.value = false
+		disasterWarnList.value = []
+		disasterType.value = DisasterTypes.ONE
+		operateModel.value.myDisPreRoute.cleanMoveModel(-1)
+		operateModel.value.myDisPreRoute.cleanDisasterSpread()
+	}
+	watch(
+		() => disaster.value,
+		(val) => {
+			if (!val) cleanDisasterPrevent()
+		},
+	)
+
 	return {
 		isShowDisaster,
 		disasterWarnList,
@@ -159,5 +249,6 @@ export const threeDisasterRoute = (
 		changeDisasterType,
 		disasterRoute,
 		cleanDisasterRoute,
+		createdDisasterSpread,
 	}
 }
