@@ -8,7 +8,7 @@
 		<breadcrumb class="breadcrumb-container" v-show="!showBreadcrumb" />
 
 		<!--内容-->
-		<div class="sys-content">
+		<div :class="showBreadcrumb ? 'sys_content' : 'sys_content_default'">
 			<app-main />
 		</div>
 	</div>
@@ -63,8 +63,8 @@
 	.breadcrumb-container {
 		position: absolute;
 		top: vh(100);
-		padding: 0 vw(40);
-		z-index: 1;
+		padding: 0 vw(80);
+		z-index: 0;
 
 		:deep(.el-breadcrumb__inner) {
 			color: #97a8be;
@@ -74,11 +74,18 @@
 			}
 		}
 	}
-	//  系统内容
-	.sys-content {
+	//  系统内容(无面包屑)
+	.sys_content {
 		position: absolute;
 		width: 100%;
 		height: calc(100vh - #{vh(91)});
 		top: vh(91);
+	}
+	//  系统内容(有面包屑)
+	.sys_content_default {
+		position: absolute;
+		width: 100%;
+		height: calc(100vh - #{vh(121)});
+		top: vh(121);
 	}
 </style>

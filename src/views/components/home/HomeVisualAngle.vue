@@ -24,7 +24,7 @@
 	</div>
 	<!--  风路分支图-->
 	<div v-if="checkedWindPath" class="other_wind_path">
-		<span class="other_title">风路分支图</span>
+		<span class="other_title"><border-box name="border2" title="风路分支图"></border-box></span>
 		<div class="other_wind_path_body">
 			<div class="other_wind_path_body_item">
 				<div class="other_wind_path_body_item_1">回风井</div>
@@ -42,7 +42,7 @@
 	</div>
 	<!--  通风网络图-->
 	<div v-if="checkedVenNetwork" class="other_wind_net">
-		<span class="other_title">通风网络图</span>
+		<span class="other_title"> <border-box name="border2" title="通风网络图"></border-box></span>
 		<wind-floor-plan-map />
 	</div>
 </template>

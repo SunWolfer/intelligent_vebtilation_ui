@@ -1,0 +1,20 @@
+.normal_btn {
+	width: vw(136);
+	height: vh(48);
+	background-image: url('@/assets/images/accPerOfRomance/btn_normal.png');
+	background-size: 100% 100%;
+	font-size: vh(14);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	font-style: italic;
+	color: #ffffff;
+	line-height: vh(48);
+	text-align: center;
+	cursor: pointer;
+	&:hover,
+	&:active {
+		background-image: url('@/assets/images/accPerOfRomance/btn_active.png');
+	}
+}

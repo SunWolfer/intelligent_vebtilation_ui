@@ -57,7 +57,9 @@
 	</div>
 	<!--  巡检列表-->
 	<div class="home_roam_equipment" v-if="roam">
-		<div class="home_roam_equipment_title">巡检列表</div>
+		<div class="home_roam_equipment_title">
+			<border-box name="border2" title="巡检列表"></border-box>
+		</div>
 		<div class="home_roam_equipment_bottom">
 			<template v-for="(i, index) in roamList">
 				<div class="home_roam_equipment_bottom_body" :class="!i ? 'equipment_op' : ''">

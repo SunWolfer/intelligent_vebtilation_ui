@@ -104,29 +104,11 @@
 	height: vh(952);
 	background: rgba(12, 41, 70, 0.85);
 	border-radius: 10px;
-	padding: vh(15) vw(30) vh(180) vw(40);
+	padding: vh(10) vw(30) vh(180) vw(40);
 }
 .home_roam_equipment_title {
 	position: relative;
-	width: 100%;
-	height: vh(28);
-	font-size: vh(19);
-	font-family:
-		Adobe Heiti Std,
-		serif;
-	font-weight: normal;
-	color: #ffffff;
-	line-height: vh(19);
-	&:after {
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		content: '';
-		width: vw(446);
-		height: vh(12);
-		background-image: url('@/assets/images/home/home_right/mes_line.svg');
-		background-size: 100% 100%;
-	}
+	height: vh(27);
 }
 .home_roam_equipment_bottom {
 	width: 100%;

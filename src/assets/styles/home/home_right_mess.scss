@@ -7,27 +7,11 @@
 	border-radius: 10px;
 	top: vh(40);
 	right: vw(40);
-	padding: vh(15) 0 vh(15) vw(23);
+	padding: vh(10) 0 vh(15) vw(23);
 }
 .home_right_message_title {
 	position: relative;
-	font-size: vh(20);
-	font-family:
-		Adobe Heiti Std,
-		serif;
-	font-weight: normal;
-	color: #ffffff;
-	line-height: vh(20);
-	&:after {
-		position: absolute;
-		left: 0;
-		top: vh(8);
-		content: '';
-		width: vw(396);
-		height: vh(30);
-		background-image: url('@/assets/images/home/home_right/mes_line.svg');
-		background-size: 100% 100%;
-	}
+	height: vh(27);
 }
 .home_right_message_body1 {
 	display: grid;
@@ -203,7 +187,7 @@
 }
 .home_body3_warn_text {
 	font-size: vh(22);
-	font-family: YouSheBiaoTiHei-2, serif;
+	font-family: YouSheBiaoTiHei, serif;
 	font-weight: 400;
 	font-style: italic;
 	color: #dd0303;
@@ -296,7 +280,7 @@
 .home_body4_item_body_E {
 	grid-area: E;
 	font-size: vh(10);
-	font-family: YouSheBiaoTiHei-2, serif;
+	font-family: YouSheBiaoTiHei, serif;
 	font-weight: 400;
 	color: #ffffff;
 	justify-self: center;

@@ -15,9 +15,7 @@
 		const first = matched[0]
 		// 判断是否为首页
 		if (!isDashboard(first)) {
-			let homeMatched: any[] = [
-				{ path: '/index', meta: { title: '首页', name: 'Index' } },
-			]
+			let homeMatched: any[] = [{ path: '/index', meta: { title: '首页', name: 'Index' } }]
 			matched = homeMatched.concat(matched)
 		}
 
@@ -53,34 +51,34 @@
 	getBreadcrumb()
 </script>
 <template>
-  <el-breadcrumb class="app-breadcrumb" separator=">">
-    <transition-group name="breadcrumb">
-      <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
+	<el-breadcrumb class="app-breadcrumb" separator=">">
+		<transition-group name="breadcrumb">
+			<el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
 				<span
-          v-if="
-						item.redirect === 'noRedirect' || index === levelList.length - 1
-					"
-          class="no-redirect"
-        >{{ item.meta.title }}</span
-        >
-        <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
-      </el-breadcrumb-item>
-    </transition-group>
-  </el-breadcrumb>
+					v-if="item.redirect === 'noRedirect' || index === levelList.length - 1"
+					class="no-redirect"
+					>{{ item.meta.title }}</span
+				>
+				<a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
+			</el-breadcrumb-item>
+		</transition-group>
+	</el-breadcrumb>
 </template>
 
 <style lang="scss" scoped>
 	@mixin textColor {
-		font-size: vh(20);
-		font-family: Adobe Heiti Std;
-		font-weight: normal;
-		color: #00feff;
+		font-family:
+			Adobe Heiti Std,
+			serif;
 		line-height: vh(30);
+		font-size: vh(14);
+		font-weight: normal;
+		color: #709de1;
 	}
 
-	.app-breadcrumb.el-breadcrumb {
+	.app-breadcrumb .el-breadcrumb {
 		display: inline-block;
-		--el-text-color-placeholder: #00feff;
+		--el-text-color-placeholder: #709de1;
 
 		.no-redirect {
 			cursor: text;

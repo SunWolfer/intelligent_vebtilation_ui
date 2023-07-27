@@ -27,7 +27,9 @@
 
 <template>
 	<div class="home_right_message" :style="dislodgeDomStyle">
-		<div class="home_right_message_title">矿井总风量</div>
+		<div class="home_right_message_title">
+			<border-box name="border2" title="矿井总风量"></border-box>
+		</div>
 		<div class="home_right_message_body1">
 			<div class="home_right_message_body1_left"></div>
 			<div class="home_right_message_body1_right">
@@ -48,7 +50,9 @@
 			</div>
 		</div>
 		<!--    区域风量-->
-		<div class="home_right_message_title">区域风量</div>
+		<div class="home_right_message_title">
+			<border-box name="border2" title="区域风量"></border-box>
+		</div>
 		<div class="home_right_message_body2">
 			<template v-for="(item, index) in regionalAirVolumeList">
 				<div class="home_right_message_body2_bg">
@@ -60,7 +64,9 @@
 			</template>
 		</div>
 		<!--    预警总览-->
-		<div class="home_right_message_title">预警总览</div>
+		<div class="home_right_message_title">
+			<border-box name="border2" title="预警总览"></border-box>
+		</div>
 		<div class="home_right_message_body3">
 			<div class="home_body3_top_left">
 				<div class="home_body3_warn_right">

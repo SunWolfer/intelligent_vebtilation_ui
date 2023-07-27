@@ -7,6 +7,9 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Border1: typeof import('./src/components/BorderBox/border1.vue')['default']
+    Border2: typeof import('./src/components/BorderBox/border2.vue')['default']
+    BorderBox: typeof import('./src/components/BorderBox/index.vue')['default']
     Breadcrumb: typeof import('./src/components/Breadcrumb/index.vue')['default']
     CountTo: typeof import('./src/components/CountTo/index.vue')['default']
     DeleteDialog: typeof import('./src/components/VueThree/ModelEdit/deleteDialog.vue')['default']

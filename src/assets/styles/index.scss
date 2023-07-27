@@ -7,7 +7,7 @@
 	src: url('@/assets/fonts/ZHSRXT2011-GB.ttf');
 }
 @font-face {
-	font-family: 'YouSheBiaoTiHei-2';
+	font-family: 'YouSheBiaoTiHei';
 	src: url('@/assets/fonts/YouSheBiaoTiHei-2.ttf');
 }
 @import 'variables.module';
@@ -17,6 +17,7 @@
 @import 'btn';
 @import 'ruoyi';
 @import 'scrollStyle';
+@import 'custBtn';
 
 body {
 	height: 100%;
@@ -24,7 +25,13 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
-	font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial,
+	font-family:
+		Helvetica Neue,
+		Helvetica,
+		PingFang SC,
+		Hiragino Sans GB,
+		Microsoft YaHei,
+		Arial,
 		sans-serif;
 }
 

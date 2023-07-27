@@ -1,0 +1,49 @@
+<script lang="ts">
+	import { defineComponent } from 'vue'
+	import Border1 from './border1.vue'
+	import Border2 from './border2.vue'
+
+	export default defineComponent({
+		name: 'BorderBox',
+		components: {
+			Border1,
+			Border2,
+		},
+		props: {
+			name: {
+				type: String,
+				required: true,
+			},
+			color: {
+				type: Array,
+				default: () => ['#b4b4bf', 'rgba(6, 134, 216, 0.5)', 'rgba(6, 134, 216, 1)'],
+			},
+			backgroundColor: {
+				type: String,
+				default: 'rgba(24, 25, 49, 0.54)',
+			},
+			dur: {
+				type: Number,
+				default: 3,
+			},
+			title: {
+				type: String,
+				default: '',
+			},
+		},
+	})
+</script>
+
+<template>
+	<component
+		:is="name"
+		:color="color"
+		:background-color="backgroundColor"
+		:dur="dur"
+		:title="title"
+	>
+		<slot></slot>
+	</component>
+</template>
+
+<style scoped lang="scss"></style>

@@ -145,7 +145,7 @@
 	right: vw(59);
 	width: vw(522);
 	height: vh(561);
-	padding: vh(15) vw(30) vh(31) vw(40);
+	padding: vh(10) vw(30) vh(31) vw(40);
 	background: rgba(12, 41, 70, 0.85);
 
 	border-radius: 10px;
@@ -153,25 +153,7 @@
 
 .home_reverse_wind_people_title {
 	position: relative;
-	width: 100%;
-	height: vh(28);
-	font-size: vh(19);
-	font-family:
-		Adobe Heiti Std,
-		serif;
-	font-weight: normal;
-	color: #ffffff;
-	line-height: vh(19);
-	&:after {
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		content: '';
-		width: vw(446);
-		height: vh(12);
-		background-image: url('@/assets/images/home/home_right/mes_line.svg');
-		background-size: 100% 100%;
-	}
+	height: vh(27);
 }
 .home_reverse_wind_people_bottom {
 	width: 100%;
