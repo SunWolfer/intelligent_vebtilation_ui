@@ -38,6 +38,8 @@ export interface useFormResult<TData> {
  * @param formParams 表单参数
  * @param formId 表单主键
  * @param titleMes 弹窗标题
+ * @param isResetTitle 是否重写标题
+ * @param resetTitle 重置标题
  * @param afterAddInitFun 新增进入后执行
  * @param initApi 表单初始化接口
  * @param afterExamineFun 查看表单后执行

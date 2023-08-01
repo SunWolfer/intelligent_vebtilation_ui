@@ -1,7 +1,6 @@
-.normal_btn {
-	width: vw(136);
-	height: vh(48);
-	background-image: url('@/assets/images/accPerOfRomance/btn_normal.png');
+@mixin IBtn {
+	width: vw(134);
+	height: vh(49);
 	background-size: 100% 100%;
 	font-size: vh(14);
 	font-family:
@@ -13,8 +12,25 @@
 	line-height: vh(48);
 	text-align: center;
 	cursor: pointer;
+}
+.btn_default_size {
+	width: vw(134);
+	height: vh(49);
+}
+.normal_btn {
+	@include IBtn;
+	background-image: url('@/assets/images/accPerOfRomance/btn_normal.png');
 	&:hover,
 	&:active {
 		background-image: url('@/assets/images/accPerOfRomance/btn_active.png');
+	}
+}
+
+.normal_2_btn {
+	@include IBtn;
+	background-image: url('@/assets/images/accPerOfRomance/btn_2_normal.png');
+	&:hover,
+	&:active {
+		background-image: url('@/assets/images/accPerOfRomance/btn_2_active.png');
 	}
 }

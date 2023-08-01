@@ -1,0 +1,251 @@
+.home_air_door_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 0 vw(57) vh(47) vw(48);
+	display: grid;
+	grid-template-columns: auto vw(690);
+	grid-column-gap: vw(26);
+	grid-template-rows: auto vh(305);
+	grid-row-gap: vh(16);
+}
+.home_air_door_body_c1 {
+	display: grid;
+	grid-template-columns: auto vw(512);
+	grid-template-rows: 1fr 1fr;
+	.home_air_door_body_c1_c1 {
+		grid-row-start: 1;
+		grid-row-end: 3;
+	}
+	.home_air_door_body_c1_l1 {
+	}
+	.home_air_door_body_c1_l2 {
+	}
+}
+
+@mixin dashLine {
+	width: 1px;
+	height: 100%;
+	background: radial-gradient(circle, #00ffff, #235794);
+	-webkit-mask:
+		linear-gradient(to right, #00ffff 6px, transparent 6px) repeat-x,
+		linear-gradient(to bottom, #00ffff 6px, transparent 6px) repeat-y,
+		linear-gradient(to right, #00ffff 6px, transparent 6px) repeat-x 0 100%,
+		linear-gradient(to bottom, #00ffff 6px, transparent 6px) repeat-y 100% 0;
+	-webkit-mask-size:
+		8px 2px,
+		2px 8px,
+		8px 2px,
+		2px 8px;
+}
+
+.home_air_door_body_c2 {
+	grid-column-start: 2;
+	grid-column-end: 3;
+	grid-row-start: 1;
+	grid-row-end: 3;
+	background: rgba(95, 104, 149, 0.28);
+	display: grid;
+	grid-template-rows: vh(37) vh(65) vh(147) vh(60) vh(37) vh(250) vh(37) auto;
+	.home_air_door_body_c2_item1 {
+		padding: 0 vw(14);
+	}
+	.home_air_door_body_c2_item2 {
+		margin: vh(21) vw(14) 0 vw(14);
+		background: rgba(21, 80, 149, 0.65);
+		font-size: vh(14);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: #4bc8fc;
+		display: grid;
+		grid-template-columns: repeat(3, auto);
+		grid-column-gap: vw(10);
+		grid-template-rows: 1fr;
+		align-items: center;
+		padding-left: vw(16);
+	}
+	.home_air_door_body_c2_item3 {
+		width: 100%;
+		height: 100%;
+		padding: vh(32) 0;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr) 1px repeat(2, 1fr);
+		grid-template-rows: 1fr 1fr;
+		grid-template-areas:
+			'c1 c2 c3 c4 c5'
+			'r1 r2 c3 r4 r4';
+		font-size: vh(18);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: #ffffff;
+		align-items: center;
+		.home_air_door_body_c2_item3_c1 {
+			display: flex;
+			align-items: center;
+			padding-left: vw(30);
+		}
+		.home_air_door_body_c2_item3_c3 {
+			@include dashLine;
+			grid-area: c3;
+		}
+	}
+	.home_air_door_body_c2_item4 {
+		background: rgba(22, 78, 145, 0.73);
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		align-items: center;
+		justify-items: center;
+		font-size: 18px;
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: #4bc8fc;
+		.home_air_door_body_c2_item4_item {
+			display: flex;
+			align-items: center;
+			span {
+				margin: 0 vw(10);
+			}
+		}
+	}
+	.home_air_door_body_c2_item5 {
+		padding: 0 vw(14);
+	}
+	.home_air_door_body_c2_item6 {
+		width: 100%;
+		height: 100%;
+		padding: vh(14) 0;
+		display: grid;
+		grid-template-columns: vw(182) vw(167) 1px vw(144);
+		grid-template-rows: auto vh(79) vh(79);
+		grid-row-gap: vh(12);
+		justify-content: space-around;
+		grid-template-areas:
+			'l1 l1 l1 l1'
+			'l2 l3 l4 l5'
+			'l6 l7 l4 l5';
+		.home_air_door_body_c2_item6_l1 {
+			grid-area: l1;
+			justify-self: center;
+			width: vw(112);
+			height: vh(31);
+			background: #273051;
+			border: 1px solid #1385e0;
+			display: flex;
+			font-size: vh(16);
+			font-family:
+				Adobe Heiti Std,
+				serif;
+			font-weight: normal;
+			color: #19c3f7;
+			align-items: center;
+			justify-content: center;
+		}
+		.home_air_door_body_c2_item6_l2 {
+			grid-area: l2;
+		}
+		.home_air_door_body_c2_item6_l3 {
+			grid-area: l3;
+		}
+		.home_air_door_body_c2_item6_l4 {
+			grid-area: l4;
+		}
+		.home_air_door_body_c2_item6_l5 {
+			grid-area: l5;
+		}
+		.home_air_door_body_c2_item6_l6 {
+			grid-area: l6;
+		}
+		.home_air_door_body_c2_item6_l7 {
+			grid-area: l7;
+		}
+	}
+	.home_air_door_body_c2_item7 {
+		padding: 0 vw(14);
+	}
+	.home_air_door_body_c2_item8 {
+	}
+}
+.home_air_door_body_r2 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-column-gap: vw(7);
+	.home_air_door_body_r2_c {
+	}
+}
+
+@mixin smallLight {
+	width: vw(25);
+	height: vh(26);
+	background-size: 100% 100%;
+}
+.small_light_1 {
+	@include smallLight;
+	background-image: url('@/assets/images/equipment/small_light_1.png');
+}
+
+.small_light_2 {
+	@include smallLight;
+	background-image: url('@/assets/images/equipment/small_light_2.png');
+}
+@mixin largeLight {
+	width: vw(40);
+	height: vh(40);
+	background-size: 100% 100%;
+}
+.large_light_1 {
+	@include largeLight;
+	background-image: url('@/assets/images/equipment/large_light_1.png');
+}
+.large_light_2 {
+	@include largeLight;
+	background-image: url('@/assets/images/equipment/large_light_2.png');
+}
+
+//远程开门图片
+.open_door_btn {
+	width: vw(182);
+	height: vh(79);
+	background-image: url('@/assets/images/equipment/door_open_btn.png');
+	background-size: 100% 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	span {
+		font-size: vh(21);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		background: linear-gradient(0deg, #51fcfe 0%, #fbfdfd 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}
+//远程关门图片
+.close_door_btn {
+	width: vw(167);
+	height: vh(68);
+	background-image: url('@/assets/images/equipment/door_close_btn.png');
+	background-size: 100% 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	span {
+		font-size: vh(21);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		background: linear-gradient(0deg, #8d8e8e 0%, #fbfdfd 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}

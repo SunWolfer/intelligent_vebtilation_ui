@@ -8,6 +8,8 @@ export interface lineData {
 	xData: string[]
 	yDataList: number[][]
 	legends: string[]
+	// 图例位置
+	legendPosition: string
 	units: string
 	xUnits?: string
 	colors: string[][]
@@ -128,6 +130,7 @@ export function defaultLineChart({
 	xData,
 	yDataList,
 	legends,
+	legendPosition = 'right',
 	units,
 	xUnits = '',
 	colors,
@@ -158,8 +161,7 @@ export function defaultLineChart({
 	option.value = {
 		legend: {
 			data: legends,
-			right: 5,
-			top: 0,
+			x: legendPosition,
 			textStyle: {
 				color: '#fff',
 			},
@@ -184,17 +186,22 @@ export function defaultLineChart({
 		xAxis: [
 			{
 				name: xUnits,
-				nameLocation: 'end', // 坐标轴名称显示位置
+				nameLocation: 'middle', // 坐标轴名称显示位置
 				nameTextStyle: {
+					fontSize: 11,
+					fontWeight: 400,
 					padding: [0, 0, 0, 0], //间距分别是 上 右 下 左
 				},
 				type: 'category',
 				boundaryGap: false,
 				axisLine: {
-					show: false,
+					show: true,
+					lineStyle: {
+						color: 'rgba(230, 230, 230, 1)',
+					},
 				},
 				axisLabel: {
-					color: 'rgba(255, 255, 255, 0.4)',
+					color: 'rgba(255, 255, 255, 0.6)',
 				},
 				splitLine: {
 					show: showXSplitLine,
@@ -212,7 +219,15 @@ export function defaultLineChart({
 				name: units,
 				nameLocation: 'end', // 坐标轴名称显示位置
 				nameTextStyle: {
-					padding: [0, 30, -5, 0], //间距分别是 上 右 下 左
+					fontSize: 11,
+					fontWeight: 400,
+					padding: [0, 0, 0, 0], //间距分别是 上 右 下 左
+				},
+				axisLine: {
+					show: true,
+					lineStyle: {
+						color: 'rgba(230, 230, 230, 1)',
+					},
 				},
 				// max: 1000,
 				splitLine: {
@@ -223,7 +238,7 @@ export function defaultLineChart({
 					},
 				},
 				axisLabel: {
-					color: 'rgba(255, 255, 255, 0.4)',
+					color: 'rgba(255, 255, 255, 0.6)',
 				},
 			},
 		],

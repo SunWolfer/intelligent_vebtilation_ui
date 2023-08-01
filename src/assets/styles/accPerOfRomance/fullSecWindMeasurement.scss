@@ -1,0 +1,150 @@
+.full_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 0 vw(49) vh(42) vw(66);
+	display: grid;
+	grid-template-columns: vw(378) vw(1459) vw(529);
+	grid-template-rows: vh(460) vh(400);
+	grid-row-gap: vh(24);
+	justify-content: space-between;
+	grid-template-areas:
+		'l1 l2 l3'
+		'l1 l4 l4';
+}
+.full_body_l1 {
+	height: 100%;
+	grid-area: l1;
+	display: grid;
+	grid-template-rows: vh(127) auto;
+	grid-row-gap: vh(11);
+	.full_body_l1_top {
+		display: grid;
+		width: 100%;
+		height: 100%;
+		grid-template-columns: vw(120) vw(163);
+		grid-column-gap: vw(25);
+		place-content: center;
+		place-items: center;
+		.full_body_l1_top_text {
+			font-size: vh(26);
+			font-family: YouSheBiaoTiHei, serif;
+			font-weight: 400;
+			color: rgba(255, 255, 255, 0.78);
+			text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+			background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+		.full_body_l1_top_btn {
+			cursor: pointer;
+			width: 100%;
+			height: vh(62);
+			background-image: url('@/assets/images/accPerOfRomance/ane_btn.png');
+			background-size: 100% 100%;
+			display: grid;
+			place-items: center;
+			span {
+				font-size: vh(22);
+				font-family: YouSheBiaoTiHei, serif;
+				font-weight: 400;
+				color: rgba(255, 255, 255, 0.78);
+				line-height: vh(62);
+				text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+				background: linear-gradient(180deg, #ffffff 0%, #17a9c7 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+		}
+	}
+	.full_body_l1_bottom {
+		display: grid;
+		overflow-y: auto;
+		grid-template-rows: repeat(auto-fill, vh(212));
+		grid-row-gap: vh(8);
+		.full_body_l1_bottom_item {
+			width: 100%;
+			height: 100%;
+			padding: 8px;
+		}
+		.full_body_top_body_item {
+			width: 100%;
+			height: 100%;
+			padding: vh(20) 0 vh(15) vw(26);
+			display: grid;
+			grid-template-columns: auto vw(135);
+		}
+		.full_body_top_body_item_warn {
+			box-shadow: inset 0 0 30px #c08c0d;
+		}
+		.full_body_l1_bottom_item_left {
+			width: 100%;
+			display: grid;
+			grid-template-rows: vh(52) vh(17) repeat(3, vh(23));
+			place-content: space-between;
+			.full_body_l1_bottom_item_left_top {
+				display: grid;
+			}
+			.full_body_l1_bottom_item_left_center {
+				font-size: vh(23);
+				font-family: YouSheBiaoTiHei, serif;
+				font-weight: 400;
+				color: rgba(255, 255, 255, 0.78);
+				line-height: vh(17);
+				text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+				background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+			.full_body_l1_bottom_item_left_text {
+				font-size: vh(14);
+				font-family:
+					Adobe Heiti Std,
+					serif;
+				font-weight: normal;
+
+				.text_label {
+					color: #4bc8fc;
+				}
+				.text_value {
+					padding-left: vw(5);
+					color: #ffffff;
+				}
+			}
+		}
+		.full_body_l1_bottom_item_right {
+			display: grid;
+			grid-template-columns: vw(130);
+			grid-template-rows: repeat(2, vh(50)) auto;
+			align-items: center;
+			.full_body_l1_bottom_item_btn {
+				height: vh(50);
+			}
+		}
+	}
+}
+.full_body_l2 {
+	grid-area: l2;
+}
+.full_body_l3 {
+	grid-area: l3;
+	display: grid;
+	width: 100%;
+	grid-template-columns: 1fr;
+	grid-template-rows: vh(165) auto;
+	grid-row-gap: vh(10);
+}
+.full_body_l4 {
+	grid-area: l4;
+	width: 100%;
+	height: 100%;
+	background: rgba(35, 43, 85, 0.76);
+	border-radius: 10px;
+	padding: vh(5) vw(10) 0 vw(10);
+	display: grid;
+	grid-template-rows: vh(27) vh(38) auto;
+	grid-row-gap: vh(20);
+}

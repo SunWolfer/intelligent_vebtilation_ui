@@ -48,7 +48,6 @@
 	const getDiaHeight = computed(() => {
 		return dynamicHeight(props.height) + 'px'
 	})
-	const diaLogDom = ref(null)
 
 	function submitForms() {
 		emits('submit')
@@ -57,42 +56,31 @@
 
 <template>
 	<div class="os-dialog" v-if="showDiaLog">
-		<div
-			class="os-dialog-content animate__animated animate__fast animate__bounceIn"
-			ref="diaLogDom"
+		<transition
+			mode="out-in"
+			appear
+			enter-active-class="animate__animated animate__faster animate__bounceIn"
+			leave-active-class="animate__animated animate__faster animate__bounceOut"
 		>
-			<border-box name="border2" :title="title" background-color="#162f62">
-				<div class="os-dialog-border-content">
-					<!--        关闭按钮-->
+			<div class="os-dialog-content">
+				<border-box name="border4" :title="title">
 					<div class="os-dialog-close" @click="closeDia">
 						<el-icon>
 							<Close />
 						</el-icon>
 					</div>
-					<div class="os-dialog-border-body">
-						<div
-							:class="
-								hasBottomBtn ? 'os-dialog-border-body-content-btn' : 'os-dialog-border-body-content'
-							"
-						>
+					<div :class="hasBottomBtn ? 'os-dialog-content_type_2' : 'os-dialog-content_type_1'">
+						<div class="content_type_2_header">
 							<slot></slot>
 						</div>
-						<div v-if="hasBottomBtn" class="os-dialog-border-body-btn">
-							<div style="position: relative; width: 100%; height: 100%">
-								<slot name="btn">
-									<el-button class="ordinary-btn dia-btn" type="primary" @click="submitForms"
-										>{{ btnList[0] }}
-									</el-button>
-									<el-button class="reset-btn dia-btn" @click="closeDia"
-										>{{ btnList[1] }}
-									</el-button>
-								</slot>
-							</div>
+						<div v-if="hasBottomBtn" class="content_type_2_bottom">
+							<div class="normal_btn" @click="submitForms">{{ btnList[0] }}</div>
+							<div class="normal_2_btn" @click="closeDia">{{ btnList[1] }}</div>
 						</div>
 					</div>
-				</div>
-			</border-box>
-		</div>
+				</border-box>
+			</div>
+		</transition>
 	</div>
 </template>
 
@@ -114,71 +102,42 @@
 		position: absolute;
 		width: v-bind(getDiaWidth);
 		height: v-bind(getDiaHeight);
-		align-self: center;
-		justify-content: center;
-		display: flex;
-
-		.os-dialog-border-body-content {
-			position: relative;
-			width: 100%;
-			height: 100%;
-			min-height: 150px;
-			padding: 0 10px 20px 10px;
-		}
-
-		.os-dialog-border-body-content-btn {
-			position: relative;
-			width: 100%;
-			height: calc(100% - 50px);
-			min-height: 150px;
-			padding: 10px 10px 20px 10px;
-		}
-
-		.os-dialog-border-body-btn {
-			position: relative;
-			width: 100%;
-			height: 50px;
-			text-align: center;
-			align-self: center;
-			justify-content: center;
-			display: flex;
-			margin-bottom: vh(40);
-		}
 	}
-
-	.os-dialog-border-content {
+	.os-dialog-content_type_1 {
 		position: relative;
 		width: 100%;
 		height: 100%;
-		margin-top: 14px;
-
-		.os-dialog-border-body {
-			position: relative;
-			width: 100%;
-			height: calc(100% - 40px);
-			margin-top: 40px;
-		}
 	}
-
+	.os-dialog-content_type_2 {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: grid;
+		grid-template-columns: 1fr 2fr 1fr;
+		grid-template-rows: auto vh(100);
+		grid-template-areas:
+			'l1 l1 l1'
+			'. l2 .';
+	}
+	.content_type_2_header {
+		grid-area: l1;
+	}
+	.content_type_2_bottom {
+		grid-area: l2;
+		width: 100%;
+		height: 100%;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		place-items: center center;
+	}
+	//  关闭按钮
 	.os-dialog-close {
 		position: absolute;
-		width: 29px;
-		height: 27px;
-		border: 1px solid #2994f7;
-		right: 16px;
+		right: 25px;
+		top: 45px;
+		width: 12px;
+		height: 11px;
+		color: rgba(185, 220, 239, 1);
 		cursor: pointer;
-		text-align: center;
-		display: flex;
-
-		.el-icon {
-			margin: auto;
-			color: #03bffc;
-			font-size: 20px;
-		}
-	}
-
-	.dia-btn {
-		width: vw(105);
-		height: vh(41);
 	}
 </style>

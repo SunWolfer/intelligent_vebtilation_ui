@@ -67,7 +67,7 @@
 		'. header header'
 		'. l2 l2'
 		'l3 l4 l5'
-		'l6 l6 l6';
+		'l3 l6 l6';
 }
 .acc_body_top_body_item_warn {
 	box-shadow: inset 0 0 30px #c08c0d;
@@ -109,11 +109,29 @@
 }
 
 .acc_body_top_body_item_icon {
+	position: relative;
 	justify-self: end;
 	margin-right: vw(7);
 	grid-area: l3;
 	width: vw(73);
 	height: vh(85);
+	text-align: center;
+	span {
+		position: absolute;
+		width: 100%;
+		text-align: center;
+		height: vh(27);
+		font-size: vh(14);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: #ff0000;
+		border: 1px #ff0000 solid;
+		line-height: vh(27);
+		left: 0;
+		bottom: vh(-30);
+	}
 }
 .item_icon_normal {
 	background-image: url('@/assets/images/accPerOfRomance/normal.png');
@@ -154,7 +172,15 @@
 .acc_body_top_body_item_l6 {
 	grid-area: l6;
 	display: grid;
-	grid-template-columns: repeat(2, vw(134));
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: vh(49);
 	place-content: center end;
 	padding-right: vw(16);
+}
+
+//折线图区域
+.acc_body_bottom_line {
+	width: 100%;
+	height: 100%;
+	padding-bottom: vh(10);
 }

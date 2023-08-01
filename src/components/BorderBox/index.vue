@@ -2,12 +2,15 @@
 	import { defineComponent } from 'vue'
 	import Border1 from './border1.vue'
 	import Border2 from './border2.vue'
-
+	import Border3 from './border3.vue'
+	import Border4 from './border4.vue'
 	export default defineComponent({
 		name: 'BorderBox',
 		components: {
 			Border1,
 			Border2,
+			Border3,
+			Border4,
 		},
 		props: {
 			name: {

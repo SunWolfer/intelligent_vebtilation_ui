@@ -9,6 +9,14 @@
 			default: 0,
 		},
 	})
+	const router = useRouter()
+	const toChildMenu = () => {
+		switch (props.data.type) {
+			case '1':
+				router.push({ path: '/homeChild/homeAirDoor' })
+				break
+		}
+	}
 </script>
 
 <template>
@@ -16,7 +24,10 @@
 		<div :class="data.warnType !== '0' ? 'three_label_header_warn' : 'three_label_header'">
 			<div :class="'home_map_' + data.type"></div>
 		</div>
-		<div :class="data.warnType !== '0' ? 'three_label_content_warn' : 'three_label_content'">
+		<div
+			:class="data.warnType !== '0' ? 'three_label_content_warn' : 'three_label_content'"
+			@click="toChildMenu"
+		>
 			<div class="three_label_content_bg">
 				<div class="three_label_content_bg_text">
 					<!--                预警-->

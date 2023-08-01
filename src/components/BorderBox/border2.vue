@@ -1,7 +1,5 @@
 <script setup lang="ts">
 	interface ReqBorderBox {
-		// 线条颜色组
-		color?: string[]
 		// 动画时间
 		dur?: number
 		//   标题
@@ -10,10 +8,7 @@
 	import { useAutoResize } from '@/components/BorderBox/borderUtils'
 	import { dynamicHeight } from '@/utils/ruoyi'
 
-	const props = withDefaults(defineProps<ReqBorderBox>(), {
-		color: () => ['#fbfcff', 'rgba(39, 150, 243, 1)', 'rgba(37, 163, 248, 1)'],
-		dur: 3,
-	})
+	const props = defineProps<ReqBorderBox>()
 	const { domRef, width, height } = useAutoResize()
 
 	//   折线点位
@@ -25,23 +20,6 @@
 	//   文字位置
 	const textPosition = computed(() => {
 		return height.value - dynamicHeight(8)
-	})
-
-	//   装饰点1
-	const polygonPoint1 = computed(() => {
-		const w = width.value
-		const h = height.value
-		return `${w - 59},${h - 4} ${w - 51},${h - 4} ${w - 47},${h - 9}, ${w - 55},${h - 9}`
-	})
-	const polygonPoint2 = computed(() => {
-		const w = width.value
-		const h = height.value
-		return `${w - 66},${h - 4} ${w - 62},${h - 4} ${w - 58},${h - 9}, ${w - 62},${h - 9}`
-	})
-	const polygonPoint3 = computed(() => {
-		const w = width.value
-		const h = height.value
-		return `${w - 73},${h - 4} ${w - 69},${h - 4} ${w - 65},${h - 9}, ${w - 69},${h - 9}`
 	})
 </script>
 
@@ -62,7 +40,7 @@
 			</defs>
 			<polyline
 				:points="brokenLinePoints"
-				:stroke="color[1]"
+				stroke="rgba(39, 150, 243, 1)"
 				stroke-width="1"
 				fill="none"
 				filter="url(#border-box-2-filterId)"
@@ -75,7 +53,7 @@
 				height="4"
 				x="0"
 				:y="height - 2"
-				:fill="color[0]"
+				fill="#ffffff"
 				filter="url(#border-box-2-filterId)"
 			>
 				<animate
@@ -86,33 +64,57 @@
 					repeatCount="indefinite"
 				/>
 			</rect>
-			<polygon :points="polygonPoint1" :fill="color[2]" filter="url(#border-box-2-filterId)">
+			<rect
+				width="8"
+				height="4"
+				:x="width - 38"
+				:y="height - 12"
+				fill="rgba(0, 255, 255, 1)"
+				class="skewRect"
+				filter="url(#border-box-2-filterId)"
+			>
+				<animate
+					attributeName="opacity"
+					values="1;0.2;1"
+					:dur="dur"
+					begin="0s"
+					repeatCount="indefinite"
+				/>
+			</rect>
+			<rect
+				width="8"
+				height="4"
+				:x="width - 47"
+				:y="height - 12"
+				fill="rgba(44, 201, 235, 1)"
+				class="skewRect"
+				filter="url(#border-box-2-filterId)"
+			>
+				<animate
+					attributeName="opacity"
+					values="1;0.4;1"
+					:dur="dur"
+					begin="0s"
+					repeatCount="indefinite"
+				/>
+			</rect>
+			<rect
+				width="8"
+				height="4"
+				:x="width - 58"
+				:y="height - 12"
+				fill="rgba(44, 202, 235, 0.4)"
+				class="skewRect"
+				filter="url(#border-box-2-filterId)"
+			>
 				<animate
 					attributeName="opacity"
 					values="1;0.7;1"
-					dur="2s"
+					:dur="dur"
 					begin="0s"
 					repeatCount="indefinite"
 				/>
-			</polygon>
-			<polygon :points="polygonPoint2" :fill="color[2]" filter="url(#border-box-2-filterId)">
-				<animate
-					attributeName="opacity"
-					values="0.7;0.4;0.7"
-					dur="2s"
-					begin="0s"
-					repeatCount="indefinite"
-				/>
-			</polygon>
-			<polygon :points="polygonPoint3" :fill="color[2]" filter="url(#border-box-2-filterId)">
-				<animate
-					attributeName="opacity"
-					values="0.5;0.2;0.5"
-					dur="2s"
-					begin="0s"
-					repeatCount="indefinite"
-				/>
-			</polygon>
+			</rect>
 		</svg>
 		<div class="border-box-content">
 			<slot></slot>

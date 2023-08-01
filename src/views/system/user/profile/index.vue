@@ -135,7 +135,6 @@
 	getUser()
 </script>
 <style lang="scss" scoped>
-	@import '@/assets/styles/user/profile.scss';
 	.profile-individual {
 		position: absolute;
 		width: vw(332);
@@ -221,7 +220,9 @@
 			.el-form-item__content {
 				span {
 					font-size: vh(16);
-					font-family: PingFang SC, serif;
+					font-family:
+						PingFang SC,
+						serif;
 					font-weight: 400;
 					color: #ffffff;
 				}

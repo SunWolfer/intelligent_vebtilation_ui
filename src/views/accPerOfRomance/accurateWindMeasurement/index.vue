@@ -1,3 +1,4 @@
+<!--精准测风-->
 <script setup>
 	import { accurateWindMeasurement } from '@/api/request/accPerOfRomance/accurateWindMeasurement'
 
@@ -9,9 +10,13 @@
 		showNext,
 		getStyle,
 		getTextStyle,
-		getBorderStyle,
 		dateRange,
 		queryForm,
+		showCharts,
+		choose,
+		chooseItem,
+		default_color,
+		choose_color,
 	} = accurateWindMeasurement()
 </script>
 
@@ -19,16 +24,25 @@
 	<div class="acc_body">
 		<div class="acc_body_icon_1" v-show="showLast" @click="toLast"></div>
 		<div class="acc_body_top">
-			<template v-for="i in inShowList">
-				<border-box name="border1" :color="getBorderStyle(i.type).color">
+			<template v-for="(i, index) in inShowList">
+				<border-box
+					name="border1"
+					:color="choose === index ? choose_color : default_color"
+					background-color="rgba(36, 38, 83, 0.54)"
+				>
 					<div class="acc_body_top_body">
-						<div class="acc_body_top_body_item" :class="getBorderStyle(i.type).borderClass">
+						<div
+							class="acc_body_top_body_item"
+							:class="choose === index ? 'acc_body_top_body_item_warn' : ''"
+						>
 							<div class="acc_body_top_body_item_header">{{ i.name }}</div>
 							<div class="acc_body_top_body_item_l2_text" :class="getTextStyle(i.type)">
 								<span class="acc_body_top_body_item_l2_text_1"> 风量(m3/min)：</span>
 								<span class="acc_body_top_body_item_l2_text_2">{{ i.airVolume }}</span>
 							</div>
-							<div class="acc_body_top_body_item_icon" :class="getStyle(i.type)"></div>
+							<div class="acc_body_top_body_item_icon" :class="getStyle(i.type)">
+								<span v-if="i.warnReason">{{ i.warnReason }}</span>
+							</div>
 							<div class="acc_body_top_body_item_l4">
 								<div>
 									<span class="l_title">[ 风速(m/s) ] </span>
@@ -58,8 +72,8 @@
 								</div>
 							</div>
 							<div class="acc_body_top_body_item_l6">
-								<div class="normal_btn">历史记录</div>
-								<div class="normal_btn">预警记录</div>
+								<div class="normal_btn" style="width: 100%">历史记录</div>
+								<div class="normal_btn" style="width: 100%">预警记录</div>
 							</div>
 						</div>
 					</div>
@@ -73,7 +87,7 @@
 				<el-form-item label="时间区间：">
 					<el-date-picker
 						v-model="dateRange"
-						style="width: 490px"
+						style="width: 490px; height: 100%"
 						value-format="YYYY-MM-DD hh:mm:ss"
 						type="datetimerange"
 						range-separator="-"
@@ -86,6 +100,7 @@
 					<div class="normal_btn">查询</div>
 				</el-form-item>
 			</el-form>
+			<div v-if="showCharts" id="acc_chart_line" class="fullDom"></div>
 		</div>
 	</div>
 </template>

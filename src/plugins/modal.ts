@@ -1,9 +1,4 @@
-import {
-	ElMessage,
-	ElMessageBox,
-	ElNotification,
-	ElLoading,
-} from 'element-plus'
+import { ElMessage, ElMessageBox, ElNotification, ElLoading } from 'element-plus'
 import PromptBox from '@/components/PromptBox/index.vue'
 import { createVNode, render } from 'vue'
 
@@ -76,8 +71,8 @@ export default {
 		message = '',
 		confirmButtonText = '确定',
 		cancelButtonText = '取消',
-		width = 600,
-		height = 300,
+		width = 900,
+		height = 400,
 		icon = '',
 	}) {
 		return new Promise<void>((resolve, reject) => {
@@ -113,7 +108,7 @@ function getCustomizeModel({
 	message = '',
 	confirmButtonText = '确定',
 	cancelButtonText = '取消',
-	width = 600,
+	width = 900,
 	height = 300,
 	icon = '',
 	resolve = (val: any) => {},

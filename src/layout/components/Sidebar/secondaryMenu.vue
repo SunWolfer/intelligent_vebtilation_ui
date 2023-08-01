@@ -79,7 +79,7 @@
 		display: grid;
 		grid-template-columns: auto;
 		grid-template-rows: repeat(auto-fill, vh(52));
-		z-index: 1;
+		z-index: 10;
 	}
 	@mixin textDefault {
 		cursor: pointer;

@@ -51,6 +51,9 @@
 
 .border-box-4 {
 	@include borderBox;
+	.border-box-content {
+		padding: 50px 44px 25px 44px;
+	}
 }
 
 .border-box-5 {
@@ -75,4 +78,8 @@
 
 .border-box-10 {
 	@include borderBox;
+}
+
+.skewRect {
+	transform: skewX(-45deg);
 }
