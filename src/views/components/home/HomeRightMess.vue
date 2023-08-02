@@ -113,6 +113,7 @@
 								<div class="home_body4_item_body_E">{{ child.warnDateTime }}</div>
 								<div class="home_body4_item_body_F" @click="setPosition(child)">定位</div>
 								<div class="home_body4_item_body_G"></div>
+								<div class="home_body4_item_body_H">预警级别：1级</div>
 							</div>
 						</template>
 					</div>

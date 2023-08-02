@@ -7,8 +7,6 @@
 		'header content'
 		'footer content';
 	justify-items: center;
-	//left: vh(77);
-	//top: vh(-50);
 }
 @mixin threeLabelHeader {
 	grid-area: header;

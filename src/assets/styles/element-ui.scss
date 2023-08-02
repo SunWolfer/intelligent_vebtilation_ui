@@ -20,7 +20,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 	--el-input-bg-color: $sdt-el-color3;
 	--el-input-text-color: #ffffff;
 	padding: 1px;
-	box-shadow: 0 0 10px 0 rgba(19, 133, 224, 0.77) inset;
+	box-shadow: 0 0 10px 4px rgba(19, 133, 224, 0.77) inset;
 	height: vh(32);
 	font-size: $form-font-size;
 	.el-input__wrapper {

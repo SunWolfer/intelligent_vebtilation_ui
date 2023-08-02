@@ -5,9 +5,12 @@ export default (domId: string) => {
 	let myChart = echarts.init(charEle)
 	const option = ref({})
 
-	watch(option, () => {
-		myChart.setOption(option.value)
-	})
+	watch(
+		() => option.value,
+		() => {
+			myChart.setOption(option.value)
+		},
+	)
 
 	return {
 		myChart,

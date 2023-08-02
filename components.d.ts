@@ -11,6 +11,7 @@ declare module 'vue' {
     Border2: typeof import('./src/components/BorderBox/border2.vue')['default']
     Border3: typeof import('./src/components/BorderBox/border3.vue')['default']
     Border4: typeof import('./src/components/BorderBox/border4.vue')['default']
+    Border5: typeof import('./src/components/BorderBox/border5.vue')['default']
     BorderBox: typeof import('./src/components/BorderBox/index.vue')['default']
     Breadcrumb: typeof import('./src/components/Breadcrumb/index.vue')['default']
     CountTo: typeof import('./src/components/CountTo/index.vue')['default']

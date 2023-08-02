@@ -5,8 +5,10 @@ const useEquipment = defineStore('equipment-data', {
 		data: [
 			{
 				id: 1,
-				name: '风门 [18]',
+				name: '风门',
 				type: '1',
+				total: 18,
+				onLine: 5,
 				children: [
 					{
 						id: 'c1',
@@ -17,6 +19,7 @@ const useEquipment = defineStore('equipment-data', {
 						warnMes: '气源动力不足',
 						point: { x: -10148.393558086434, y: 97294.98794581147, z: -28709.720973348452 },
 						showDetails: false,
+						onLine: true,
 					},
 					{
 						id: 'c2',
@@ -50,8 +53,10 @@ const useEquipment = defineStore('equipment-data', {
 			},
 			{
 				id: 2,
-				name: '风窗 [42]',
+				name: '风窗',
 				type: '2',
+				total: 18,
+				onLine: 5,
 				children: [
 					{
 						id: 'c21',
@@ -65,8 +70,10 @@ const useEquipment = defineStore('equipment-data', {
 			},
 			{
 				id: 3,
-				name: '风速传感器 [26]',
+				name: '风速传感器',
 				type: '3',
+				total: 18,
+				onLine: 5,
 				children: [
 					{
 						id: 'c31',
@@ -80,8 +87,10 @@ const useEquipment = defineStore('equipment-data', {
 			},
 			{
 				id: 4,
-				name: '多参传感器 [13]',
+				name: '多参传感器',
 				type: '4',
+				total: 18,
+				onLine: 5,
 				children: [
 					{
 						id: 'c41',
@@ -95,8 +104,10 @@ const useEquipment = defineStore('equipment-data', {
 			},
 			{
 				id: 5,
-				name: '全断面测风 [26]',
+				name: '全断面测风',
 				type: '5',
+				total: 18,
+				onLine: 5,
 				children: [
 					{
 						id: 'c51',
@@ -110,8 +121,10 @@ const useEquipment = defineStore('equipment-data', {
 			},
 			{
 				id: 6,
-				name: '主扇 [1]',
+				name: '主扇',
 				type: '6',
+				total: 1,
+				onLine: 1,
 				children: [
 					{
 						id: 'c61',
@@ -125,8 +138,10 @@ const useEquipment = defineStore('equipment-data', {
 			},
 			{
 				id: 7,
-				name: '局扇 [18]',
+				name: '局扇',
 				type: '7',
+				total: 18,
+				onLine: 5,
 				children: [
 					{
 						id: 'c71',
@@ -142,6 +157,8 @@ const useEquipment = defineStore('equipment-data', {
 				id: 8,
 				name: '全部设备 [148]',
 				type: '8',
+				total: 148,
+				onLine: 50,
 				children: [],
 			},
 		],

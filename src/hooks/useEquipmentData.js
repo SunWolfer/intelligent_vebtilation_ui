@@ -1,5 +1,6 @@
 import useEquipment from '@/store/modules/equipmentData'
 import useThree from '@/hooks/useThree'
+import { deviceTypes } from '@/api/request/home/menuType'
 
 const useEquipmentData = () => {
 	const equipmentData = useEquipment()
@@ -93,6 +94,22 @@ const useEquipmentData = () => {
 		},
 	})
 
+	// 全部设备类型
+	const equipmentTypeMap = new Map([
+		[deviceTypes.ONE, '风门'],
+		[deviceTypes.TWO, '风窗'],
+		[deviceTypes.THREE, '风速传感器'],
+		[deviceTypes.FOUR, '多参传感器'],
+		[deviceTypes.FIVE, '全断面测风'],
+		[deviceTypes.SIX, '主通风机'],
+		[deviceTypes.SEVEN, '局扇风机'],
+	])
+
+	// 格式化设备类型显示
+	const formatterEquipmentType = (type) => {
+		return equipmentTypeMap.get(type)
+	}
+
 	return {
 		equipmentList,
 		tEquipmentIndex,
@@ -103,6 +120,7 @@ const useEquipmentData = () => {
 		allDataList,
 		warnList,
 		disasterPreventionRoute,
+		formatterEquipmentType,
 	}
 }
 

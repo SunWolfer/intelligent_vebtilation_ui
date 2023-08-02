@@ -11,7 +11,7 @@
 			default: 0,
 		},
 	})
-	const { tEquipmentIndex } = useEquipmentData()
+	const { tEquipmentIndex, formatterEquipmentType } = useEquipmentData()
 </script>
 
 <template>
@@ -20,24 +20,31 @@
 			class="equipment_msg_top"
 			:class="tEquipmentIndex === index ? '' : 'equipment_msg_top_opacity'"
 		>
-			<div class="equipment_msg_top_item_1">{{ data.name }}</div>
-			<div class="equipment_msg_top_item_2 equipment_msg_top_item_2_window">
-				<div class="equipment_msg_top_item_2_body">
-					<span>当前模式</span>
-					<div class="lamp_yc">远程模式</div>
+			<div class="equipment_msg_top_item_1">
+				<div class="equipment_msg_top_item_1_text">
+					<span>[设备类型]</span>
+					{{ formatterEquipmentType(data.type) }}
 				</div>
-				<div class="equipment_msg_top_item_2_body">
+				<div :class="data.warnType === '1' ? 'equipment_warn' : 'equipment_normal'" />
+			</div>
+			<div class="equipment_msg_top_item_2">{{ data.name }}</div>
+			<div class="equipment_msg_top_item_3 equipment_msg_top_item_3_window">
+				<div class="equipment_msg_top_item_3_body">
 					<span>当前开度</span>
-					<div class="lamp_close">50</div>
+					<div class="equipment_text">50</div>
 				</div>
-				<div class="equipment_msg_top_item_2_body">
+				<div class="equipment_msg_top_item_3_body">
+					<span>当前模式</span>
+					<div class="lamp_yc">远程</div>
+				</div>
+				<div class="equipment_msg_top_item_3_body">
 					<span>通讯</span>
 					<div class="lamp_dk">掉线</div>
 				</div>
 			</div>
-			<div class="equipment_msg_top_item_3 equipment_msg_top_item_3_door">
+			<div class="equipment_msg_top_item_4 equipment_msg_top_item_4_door">
 				<span class="equipment_msg_top_item_3_text_left">风窗位置：</span>
-				<span>22123 回风顺槽瓦斯泵站210米</span>
+				<span class="overText">22123 回风顺槽瓦斯泵站210米</span>
 				<span class="equipment_msg_top_item_3_text_left">通讯IP：</span>
 				<span>19.</span>
 			</div>

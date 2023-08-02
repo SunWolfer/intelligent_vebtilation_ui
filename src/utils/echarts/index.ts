@@ -40,6 +40,8 @@ import {
 	VisualMapComponent,
 	VisualMapComponentOption,
 	MarkLineComponent,
+	GraphicComponent,
+	GraphicComponentOption,
 } from 'echarts/components'
 import { LabelLayout, UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -55,6 +57,7 @@ export type ECOption = echarts.ComposeOption<
 	| TitleComponentOption
 	| TooltipComponentOption
 	| GridComponentOption
+	| GraphicComponentOption
 	| DatasetComponentOption
 	| DataZoomComponentOption
 	| RadarSeriesOption
@@ -70,6 +73,7 @@ echarts.use([
 	TitleComponent,
 	TooltipComponent,
 	ToolboxComponent,
+	GraphicComponent,
 	GridComponent,
 	DatasetComponent,
 	DataZoomComponent,

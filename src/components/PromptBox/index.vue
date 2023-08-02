@@ -51,7 +51,6 @@
 
 	onMounted(() => {
 		showDiaLog.value = true
-		console.log(props.icon)
 	})
 
 	const getDiaWidth = computed(() => {
@@ -104,6 +103,8 @@
 		position: relative;
 		width: v-bind(getDiaWidth);
 		height: v-bind(getDiaHeight);
+		min-width: 560px;
+		min-height: 330px;
 		text-align: center;
 		.sd-dialog-border-body {
 			position: relative;

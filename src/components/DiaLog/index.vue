@@ -102,6 +102,8 @@
 		position: absolute;
 		width: v-bind(getDiaWidth);
 		height: v-bind(getDiaHeight);
+		min-width: 560px;
+		min-height: 330px;
 	}
 	.os-dialog-content_type_1 {
 		position: relative;

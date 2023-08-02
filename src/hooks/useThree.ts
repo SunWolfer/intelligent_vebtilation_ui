@@ -37,7 +37,7 @@ const useThree = () => {
 	// 控制器默认参数
 	const controlsOptions = reactive({})
 	// 默认灯光
-	const lights = [
+	const lights = ref<any>([
 		{
 			type: 'pointlight',
 			position: { x: 6671, y: 300000, z: -23831 },
@@ -49,7 +49,7 @@ const useThree = () => {
 			color: 0xffffff,
 			intensity: 1.5,
 		},
-	]
+	])
 	// 相机坐标
 	const cameraWorldPosition = ref<Vector3>()
 	// 相机朝向点

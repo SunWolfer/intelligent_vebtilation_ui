@@ -349,8 +349,8 @@
 				if (this.width === 0 || this.height === 0) {
 					this.$nextTick(() => {
 						this.size = {
-							width: (this.$refs.canvas as HTMLDivElement).offsetWidth,
-							height: (this.$refs.canvas as HTMLDivElement).offsetHeight,
+							width: (this.$refs.container as HTMLDivElement).offsetWidth,
+							height: (this.$refs.container as HTMLDivElement).offsetHeight,
 						}
 					})
 				}

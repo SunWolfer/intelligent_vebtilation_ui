@@ -1,3 +1,4 @@
+<!--首页底部弹出菜单-->
 <script setup lang="ts">
 	interface ReqBorderBox {
 		backgroundColor?: string

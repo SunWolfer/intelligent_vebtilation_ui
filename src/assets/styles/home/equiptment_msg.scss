@@ -1,21 +1,21 @@
 //漫游样式
 .equipment_msg {
 	display: grid;
-	grid-template-columns: vw(112) vw(373);
-	grid-template-rows: vh(227) vh(36) vh(37);
+	grid-template-columns: vw(112) vw(447.6);
+	grid-template-rows: vh(272.4) vh(36) vh(37);
 	grid-column-gap: vw(10);
 }
 .equipment_msg_top {
-	width: vw(373);
-	height: vh(227);
+	width: vw(447.6);
+	height: vh(272.4);
 	background-image: url('@/assets/images/home/home_equipment/t_roam_bg.png');
 	background-size: 100% 100%;
 	display: grid;
-	padding: vh(20) vw(28) vh(40) vw(75);
+	padding: vh(20) vw(28) vh(45) vw(85);
 	grid-column-start: 1;
 	grid-column-end: 3;
 	justify-self: end;
-	grid-template-rows: vh(28) vh(60) vh(60);
+	grid-template-rows: vh(62) vh(40) vh(53) auto;
 	align-content: space-between;
 }
 .equipment_msg_top_opacity {
@@ -59,58 +59,79 @@
 }
 
 .equipment_msg_top_item_1 {
-	width: 100%;
-	height: vh(28);
-	box-shadow: 0 0 vh(15) 0 #4190f1 inset;
-	border: 1px solid #67adfb;
-	font-size: vh(16);
-	font-family:
-		Adobe Heiti Std,
-		serif;
-	font-weight: normal;
-	color: #ffffff;
-	line-height: vh(28);
-	text-align: center;
+	display: grid;
+	grid-template-columns: auto vw(52);
+	align-items: center;
+	.equipment_msg_top_item_1_text {
+		align-self: center;
+		font-size: vh(14);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: #ffffff;
+		span {
+			color: #69d2f9;
+		}
+	}
 }
 .equipment_msg_top_item_2 {
+	justify-self: center;
+	align-self: center;
 	display: grid;
+	font-size: vh(22);
+	font-family: YouSheBiaoTiHei, serif;
+	font-weight: 400;
+	color: rgba(255, 255, 255, 0.78);
+	text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+	background: linear-gradient(0deg, #b8d6ff 0%, #2bc9ea 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 .equipment_msg_top_item_3 {
 	display: grid;
 }
+.equipment_msg_top_item_4 {
+	display: grid;
+}
 //风门信息
-.equipment_msg_top_item_2_door {
-	grid-template-columns: repeat(4, 1fr);
+.equipment_msg_top_item_3_door {
+	grid-template-columns: repeat(4, vw(72));
+	justify-content: space-between;
 }
 //风窗信息
-.equipment_msg_top_item_2_window {
-	grid-template-columns: repeat(3, 1fr);
+.equipment_msg_top_item_3_window {
+	grid-template-columns: vw(88) vw(72) vw(72);
+	justify-content: space-between;
 }
 //风速传感器
-.equipment_msg_top_item_2_wind_speed {
-	grid-template-columns: repeat(3, 1fr);
+.equipment_msg_top_item_3_wind_speed {
+	grid-template-columns: vw(132) vw(103) vw(72);
+	justify-content: space-between;
 }
 //全断面测风
-.equipment_msg_top_item_2_full_section {
+.equipment_msg_top_item_3_full_section {
 	grid-template-columns: repeat(3, 1fr);
 }
 //多参传感器
-.equipment_msg_top_item_2_duo_shen {
-	grid-template-columns: repeat(5, 1fr);
+.equipment_msg_top_item_3_duo_shen {
+	grid-template-columns: vw(51) vw(62) vw(51) vw(52) vw(60);
+	justify-content: space-between;
 }
 //主扇
-.equipment_msg_top_item_2_main_fan {
+.equipment_msg_top_item_3_main_fan {
 	grid-template-columns: repeat(4, 1fr);
 }
 //局扇
-.equipment_msg_top_item_2_local_fan {
+.equipment_msg_top_item_3_local_fan {
 	grid-template-columns: repeat(4, 1fr);
 }
-.equipment_msg_top_item_2_body {
+.equipment_msg_top_item_3_body {
 	display: grid;
-	grid-template-rows: repeat(2, 1fr);
+	grid-template-rows: vh(13) vh(26);
 	grid-row-gap: vh(5);
-	font-size: vw(14);
+	font-size: vh(13);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -150,10 +171,29 @@
 	@include Lamp;
 	background-image: url('@/assets/images/home/home_equipment/lamp_dk.png');
 }
-.equipment_msg_top_item_3_door {
+.equipment_text {
+	width: 100%;
+	height: 100%;
+	border: 1px solid rgba(109, 202, 243, 0.57);
+	box-shadow: 0 0 5px 3px rgba(109, 202, 243, 0.57) inset;
+}
+.equipment_warn {
+	width: vw(52);
+	height: vh(52);
+	background-image: url('@/assets/images/accPerOfRomance/red-gj.gif');
+	background-size: 100% 100%;
+}
+.equipment_normal {
+	width: vw(52);
+	height: vh(52);
+	background-image: url('@/assets/images/accPerOfRomance/green-gj.gif');
+	background-size: 100% 100%;
+}
+//底部文字
+.equipment_msg_top_item_4_door {
 	grid-template-columns: auto auto;
 	grid-template-rows: repeat(2, 1fr);
-	font-size: vh(14);
+	font-size: vh(13);
 	font-family:
 		Adobe Heiti Std,
 		serif;

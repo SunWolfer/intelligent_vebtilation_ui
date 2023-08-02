@@ -10,7 +10,8 @@ export interface lineData {
 	legends: string[]
 	// 图例位置
 	legendPosition: string
-	units: string
+	title?: string
+	units?: string
 	xUnits?: string
 	colors: string[][]
 	// 	是否平滑
@@ -131,7 +132,8 @@ export function defaultLineChart({
 	yDataList,
 	legends,
 	legendPosition = 'right',
-	units,
+	title = '',
+	units = '',
 	xUnits = '',
 	colors,
 	smooth = true,
@@ -159,6 +161,15 @@ export function defaultLineChart({
 	})
 
 	option.value = {
+		title: {
+			text: title,
+			textStyle: {
+				color: 'rgba(75, 200, 252, 1)',
+				fontSize: dynamicHeight(11),
+				fontWeight: 400,
+			},
+			right: '0',
+		},
 		legend: {
 			data: legends,
 			x: legendPosition,
@@ -168,10 +179,10 @@ export function defaultLineChart({
 			icon: 'path://M801.171 547.589H222.83c-17.673 0-32-14.327-32-32s14.327-32 32-32h578.341c17.673 0 32 14.327 32 32s-14.327 32-32 32z',
 		},
 		grid: {
-			left: '2%',
+			left: '5%',
 			right: '5%',
 			top: '15%',
-			bottom: '10%',
+			bottom: '5%',
 			containLabel: true,
 		},
 		tooltip: {
@@ -186,9 +197,9 @@ export function defaultLineChart({
 		xAxis: [
 			{
 				name: xUnits,
-				nameLocation: 'middle', // 坐标轴名称显示位置
+				nameLocation: 'end', // 坐标轴名称显示位置
 				nameTextStyle: {
-					fontSize: 11,
+					fontSize: dynamicHeight(11),
 					fontWeight: 400,
 					padding: [0, 0, 0, 0], //间距分别是 上 右 下 左
 				},
@@ -202,6 +213,7 @@ export function defaultLineChart({
 				},
 				axisLabel: {
 					color: 'rgba(255, 255, 255, 0.6)',
+					fontSize: dynamicHeight(14),
 				},
 				splitLine: {
 					show: showXSplitLine,
@@ -219,7 +231,7 @@ export function defaultLineChart({
 				name: units,
 				nameLocation: 'end', // 坐标轴名称显示位置
 				nameTextStyle: {
-					fontSize: 11,
+					fontSize: dynamicHeight(11),
 					fontWeight: 400,
 					padding: [0, 0, 0, 0], //间距分别是 上 右 下 左
 				},
@@ -239,6 +251,7 @@ export function defaultLineChart({
 				},
 				axisLabel: {
 					color: 'rgba(255, 255, 255, 0.6)',
+					fontSize: dynamicHeight(14),
 				},
 			},
 		],

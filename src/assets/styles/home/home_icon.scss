@@ -13,25 +13,28 @@
 }
 .home_icon_search {
 	margin-left: vw(80);
-  margin-top: vh(20);
+	margin-top: vh(20);
 	:deep(.el-input) {
 		width: vw(170);
 		height: vh(22);
 		--el-input-bg-color: rgba(0, 0, 0, 0);
 		--el-input-border-color: rgba(105, 210, 249, 1);
-    --el-input-hover-border:rgba(105, 210, 249, 1);
-    --el-input-focus-border:rgba(105, 210, 249, 1);
-    --el-input-hover-border-color:rgba(105, 210, 249, 1);
+		--el-input-hover-border: rgba(105, 210, 249, 1);
+		--el-input-focus-border: rgba(105, 210, 249, 1);
+		--el-input-hover-border-color: rgba(105, 210, 249, 1);
 		--el-font-size-base: #{vh(12)};
 		--el-input-height: #{vh(22)};
-    --el-input-text-color:rgba(105, 210, 249, 1);
+		--el-input-text-color: rgba(105, 210, 249, 1);
 		.el-input__wrapper {
 			padding: 0 0 0 vw(7);
-      box-shadow:0 1px 0 0 var(--el-input-border-color) inset,0 -1px 0 0 var(--el-input-border-color) inset,1px 0 0 0 var(--el-input-border-color) inset;
+			box-shadow:
+				0 1px 0 0 var(--el-input-border-color) inset,
+				0 -1px 0 0 var(--el-input-border-color) inset,
+				1px 0 0 0 var(--el-input-border-color) inset;
 		}
 		.el-input-group__append {
-      --el-fill-color-light:rgba(0, 0, 0, 0);
-      padding: 0 vw(12);
+			--el-fill-color-light: rgba(0, 0, 0, 0);
+			padding: 0 vw(12);
 		}
 	}
 }
@@ -65,11 +68,9 @@
 	margin-left: vw(4);
 	padding-left: vh(9);
 	cursor: pointer;
-	width: vh(130);
+	width: max-content;
 	height: vh(25);
-	background-image: url('@/assets/images/home/home_icons/icon_text.png');
-	background-size: 100% 100%;
-
+	z-index: 0;
 	font-size: vh(16);
 	font-family:
 		Adobe Heiti Std,
@@ -77,6 +78,17 @@
 	font-weight: normal;
 	color: #ffffff;
 	line-height: vh(25);
+	&:after {
+		position: absolute;
+		content: '';
+		left: 0;
+		top: 0;
+		width: vw(112);
+		height: vh(25);
+		background-image: url('@/assets/images/home/home_icons/icon_text.png');
+		background-size: 100% 100%;
+		z-index: -1;
+	}
 }
 
 .home_icon_s_m {

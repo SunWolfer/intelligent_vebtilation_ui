@@ -11,6 +11,7 @@
 	import LocalFanMsg from '@/views/components/equiptmentMsg/LocalFanMsg.vue'
 	import WindSpeedMsg from '@/views/components/equiptmentMsg/WindSpeedMsg.vue'
 	import { threeDisasterRoute } from '@/api/request/home/homeThree/threeDisasterRoute'
+	import { deviceTypes } from '@/api/request/home/menuType'
 
 	const tabs = reactive([
 		{
@@ -53,19 +54,19 @@
 			return tabs[0].domName
 		}
 		switch (type) {
-			case '1':
+			case deviceTypes.ONE:
 				return tabs[1].domName
-			case '2':
+			case deviceTypes.TWO:
 				return tabs[2].domName
-			case '3':
+			case deviceTypes.THREE:
 				return tabs[3].domName
-			case '4':
+			case deviceTypes.FOUR:
 				return tabs[4].domName
-			case '5':
+			case deviceTypes.FIVE:
 				return tabs[5].domName
-			case '6':
+			case deviceTypes.SIX:
 				return tabs[6].domName
-			case '7':
+			case deviceTypes.SEVEN:
 				return tabs[7].domName
 		}
 	}
@@ -184,8 +185,8 @@
 	}
 	.label_bg_roam {
 		position: absolute;
-		top: vh(-150);
-		left: vw(186.5);
+		top: vh(-180);
+		left: vw(228);
 	}
 	.disaster_start {
 		position: absolute;

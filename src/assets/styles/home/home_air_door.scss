@@ -24,19 +24,12 @@
 }
 
 @mixin dashLine {
-	width: 1px;
+	width: 8px;
 	height: 100%;
 	background: radial-gradient(circle, #00ffff, #235794);
-	-webkit-mask:
-		linear-gradient(to right, #00ffff 6px, transparent 6px) repeat-x,
-		linear-gradient(to bottom, #00ffff 6px, transparent 6px) repeat-y,
-		linear-gradient(to right, #00ffff 6px, transparent 6px) repeat-x 0 100%,
-		linear-gradient(to bottom, #00ffff 6px, transparent 6px) repeat-y 100% 0;
-	-webkit-mask-size:
-		8px 2px,
-		2px 8px,
-		8px 2px,
-		2px 8px;
+	-webkit-mask-image: url('@/assets/images/line-01.svg');
+	-webkit-mask-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
 }
 
 .home_air_door_body_c2 {
@@ -71,7 +64,7 @@
 		height: 100%;
 		padding: vh(32) 0;
 		display: grid;
-		grid-template-columns: repeat(2, 1fr) 1px repeat(2, 1fr);
+		grid-template-columns: repeat(2, 1fr) 6px repeat(2, 1fr);
 		grid-template-rows: 1fr 1fr;
 		grid-template-areas:
 			'c1 c2 c3 c4 c5'
@@ -86,7 +79,7 @@
 		.home_air_door_body_c2_item3_c1 {
 			display: flex;
 			align-items: center;
-			padding-left: vw(30);
+			padding-left: vw(20);
 		}
 		.home_air_door_body_c2_item3_c3 {
 			@include dashLine;
@@ -99,7 +92,7 @@
 		grid-template-columns: 1fr 1fr;
 		align-items: center;
 		justify-items: center;
-		font-size: 18px;
+		font-size: vh(18);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -132,19 +125,6 @@
 		.home_air_door_body_c2_item6_l1 {
 			grid-area: l1;
 			justify-self: center;
-			width: vw(112);
-			height: vh(31);
-			background: #273051;
-			border: 1px solid #1385e0;
-			display: flex;
-			font-size: vh(16);
-			font-family:
-				Adobe Heiti Std,
-				serif;
-			font-weight: normal;
-			color: #19c3f7;
-			align-items: center;
-			justify-content: center;
 		}
 		.home_air_door_body_c2_item6_l2 {
 			grid-area: l2;
@@ -154,9 +134,41 @@
 		}
 		.home_air_door_body_c2_item6_l4 {
 			grid-area: l4;
+			@include dashLine;
 		}
 		.home_air_door_body_c2_item6_l5 {
 			grid-area: l5;
+			.home_air_door_body_c2_item6_l5_bg {
+				position: relative;
+				width: vw(144);
+				height: vw(144);
+				background-image: url('@/assets/images/equipment/deadlock.png');
+				background-size: 100% 100%;
+				text-align: center;
+				padding-top: vw(86);
+				cursor: pointer;
+				span {
+					font-size: vh(14);
+					font-family:
+						Adobe Heiti Std,
+						serif;
+					font-weight: normal;
+					color: #ffffff;
+					background: linear-gradient(0deg, #c4ddff 55.2734375%, #01e5ff 100%);
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+				}
+			}
+			.home_air_door_body_c2_item6_l5_title {
+				width: 100%;
+				text-align: center;
+				font-size: vh(16);
+				font-family:
+					Adobe Heiti Std,
+					serif;
+				font-weight: normal;
+				color: #ffffff;
+			}
 		}
 		.home_air_door_body_c2_item6_l6 {
 			grid-area: l6;
@@ -177,34 +189,6 @@
 	grid-column-gap: vw(7);
 	.home_air_door_body_r2_c {
 	}
-}
-
-@mixin smallLight {
-	width: vw(25);
-	height: vh(26);
-	background-size: 100% 100%;
-}
-.small_light_1 {
-	@include smallLight;
-	background-image: url('@/assets/images/equipment/small_light_1.png');
-}
-
-.small_light_2 {
-	@include smallLight;
-	background-image: url('@/assets/images/equipment/small_light_2.png');
-}
-@mixin largeLight {
-	width: vw(40);
-	height: vh(40);
-	background-size: 100% 100%;
-}
-.large_light_1 {
-	@include largeLight;
-	background-image: url('@/assets/images/equipment/large_light_1.png');
-}
-.large_light_2 {
-	@include largeLight;
-	background-image: url('@/assets/images/equipment/large_light_2.png');
 }
 
 //远程开门图片
@@ -248,4 +232,237 @@
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}
+}
+
+//风门参数设置
+@mixin ParamItemText {
+	font-size: vh(14);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+}
+.door_param {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: vh(15) vw(50);
+	display: grid;
+	grid-template-rows: vh(35) vh(23) 1fr 1fr;
+	grid-row-gap: vh(24);
+}
+.door_param_title {
+	width: vw(194);
+	height: 100%;
+	justify-self: center;
+	.door_param_title_body {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.door_param_title_icon {
+		width: vw(20);
+		height: vh(20);
+		background-image: url('@/assets/images/equipment/title_icon_02.png');
+		background-size: 100% 100%;
+	}
+	span {
+		@include ParamItemText;
+		font-size: vh(18);
+		color: rgba(255, 255, 255, 0.78);
+		text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+		background: linear-gradient(0deg, #b8d6ff 0%, #2bc9ea 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}
+
+.door_param_item_1 {
+	display: grid;
+	@include ParamItemText;
+	grid-template-columns: repeat(4, vw(160));
+	justify-content: space-between;
+	align-content: center;
+	.door_param_item_1_body {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		.el-input {
+			width: vw(43);
+			height: vh(23);
+			line-height: vh(23);
+		}
+	}
+}
+
+.door_param_item_2 {
+	display: grid;
+	grid-template-columns: vw(78) vw(136) vw(72) vw(136) vw(139);
+	grid-template-rows: 1fr;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.door_param_item_2_l1 {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: vh(27);
+
+	@include ParamItemText;
+}
+@mixin juCenter {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.door_param_item_2_l2 {
+	align-self: start;
+	@include ParamItemText;
+	position: relative;
+	@include juCenter;
+	.el-input {
+		width: vw(52);
+		height: vh(23);
+	}
+	&:after {
+		position: absolute;
+		left: 0;
+		top: vh(27);
+		content: '';
+		background-image: url('@/assets/images/equipment/next_step.png');
+		width: 100%;
+		height: vh(23);
+		background-size: 100% 100%;
+	}
+}
+.door_param_item_2_l3 {
+	display: grid;
+	width: 100%;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(2, vh(24));
+	grid-row-gap: vh(8);
+	align-items: center;
+	text-align: center;
+	@include ParamItemText;
+}
+.door_param_item_2_l4 {
+	@include juCenter;
+	@include ParamItemText;
+	.el-input {
+		width: vw(52);
+		height: vh(23);
+	}
+}
+
+//操作按钮
+.operation_btn {
+	position: relative;
+	width: vw(112);
+	height: vh(31);
+	background: #1385e0;
+	display: flex;
+	font-size: vh(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #19c3f7;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	clip-path: polygon(
+		9px 0,
+		0 9px,
+		0 calc(100% - 9px),
+		11px 100%,
+		calc(100% - 9px) 100%,
+		100% calc(100% - 9px),
+		100% 9px,
+		calc(100% - 9px) 0
+	);
+	border: 2px solid transparent;
+	z-index: 1;
+	&:after {
+		position: absolute;
+		content: '';
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		background: #273051;
+		z-index: -1;
+		clip-path: polygon(
+			8px 0,
+			0 8px,
+			0 calc(100% - 8px),
+			8px 100%,
+			calc(100% - 8px) 100%,
+			100% calc(100% - 8px),
+			100% 8px,
+			calc(100% - 8px) 0
+		);
+	}
+}
+
+.green_bg {
+	background: linear-gradient(0deg, #00b58c, #014552);
+}
+.orange_bg {
+	background: linear-gradient(0deg, #eca205, #4e3a21);
+}
+
+@mixin smallLight {
+	width: vw(26);
+	height: vh(26);
+	background-size: 100% 100%;
+}
+.small_light_1 {
+	@include smallLight;
+	background-image: url('@/assets/images/equipment/small_light_1.png');
+}
+
+.small_light_2 {
+	@include smallLight;
+	background-image: url('@/assets/images/equipment/small_light_2.png');
+}
+@mixin largeLight {
+	width: vw(40);
+	height: vh(40);
+	background-size: 100% 100%;
+}
+.large_light_1 {
+	@include largeLight;
+	background-image: url('@/assets/images/equipment/large_light_1.png');
+}
+.large_light_2 {
+	@include largeLight;
+	background-image: url('@/assets/images/equipment/large_light_2.png');
+}
+
+@mixin doorIcon {
+	width: vw(23);
+	height: vh(24);
+	background-size: 100% 100%;
+}
+//通信状态图标
+.door_icon_1 {
+	@include doorIcon;
+	background-image: url('@/assets/images/equipment/icon1.png');
+}
+//气源动力图标
+.door_icon_2 {
+	@include doorIcon;
+	background-image: url('@/assets/images/equipment/icon2.png');
+}
+//操作记录图标
+.door_icon_3 {
+	width: vw(14);
+	height: vh(14);
+	background-image: url('@/assets/images/equipment/icon3.png');
+	background-size: 100% 100%;
+	margin: 0 vw(7);
+	box-shadow: 0 0 5px 4px #395ac7;
 }

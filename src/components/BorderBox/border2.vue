@@ -1,3 +1,4 @@
+<!--文字下横线装饰-->
 <script setup lang="ts">
 	interface ReqBorderBox {
 		// 动画时间

@@ -86,11 +86,15 @@
 	-webkit-text-fill-color: transparent;
 }
 .acc_body_top_body_item_l2_text {
+	height: 100%;
+	width: 100%;
 	grid-area: l2;
 	font-family:
 		Adobe Heiti Std,
 		serif;
 	font-weight: normal;
+	display: flex;
+	align-items: center;
 }
 .green_text {
 	color: #00ff43;
@@ -101,11 +105,9 @@
 .acc_body_top_body_item_l2_text_1 {
 	padding-left: vw(3);
 	font-size: vh(16);
-	line-height: vh(21);
 }
 .acc_body_top_body_item_l2_text_2 {
 	font-size: vh(30);
-	line-height: vh(30);
 }
 
 .acc_body_top_body_item_icon {

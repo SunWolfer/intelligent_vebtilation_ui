@@ -15,6 +15,9 @@
 			case '1':
 				router.push({ path: '/homeChild/homeAirDoor' })
 				break
+			case '2':
+				router.push({ path: '/homeChild/homeAirWindow' })
+				break
 		}
 	}
 </script>

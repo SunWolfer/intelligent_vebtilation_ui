@@ -36,7 +36,9 @@
 				<div class="home_icon_dom" :style="iconStyle(index)">
 					<div :class="getEquipmentClass(item)" @click="setChooseFather(item.type)"></div>
 					<div class="home_icon_text" @click="clickFirstMenu(item, index, $event)">
-						{{ item.name }}
+						{{ item.name + ` [${item.total}/` }}
+						<span class="text-green">{{ item.onLine }}</span
+						>]
 					</div>
 				</div>
 			</template>

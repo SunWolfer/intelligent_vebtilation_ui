@@ -231,7 +231,7 @@
 
 	grid-column-gap: vw(10);
 	grid-template-areas:
-		'A B .'
+		'A B H'
 		'A C D'
 		'E . F'
 		'G G G';
@@ -247,7 +247,7 @@
 		Adobe Heiti Std,
 		serif;
 	font-weight: normal;
-	color: #ffffff;
+	color: #000000;
 	line-height: vh(30);
 	text-align: center;
 	justify-self: center;
@@ -302,7 +302,7 @@
 .home_body4_item_body_G {
 	grid-area: G;
 	width: 100%;
-	height: vh(1);
+	height: 1px;
 	position: relative;
 	background: radial-gradient(circle, #ffffff, rgba(255, 255, 255, 0) 60%);
 	&:before {
@@ -318,7 +318,14 @@
 		transform: perspective(vw(30)) rotateX(10deg);
 	}
 }
-
+//预警级别
+.home_body4_item_body_H {
+	grid-area: H;
+	@include itemText;
+	font-size: vh(14);
+	color: #ec06cb;
+	justify-self: center;
+}
 //预警图标
 .warn_icon {
 	position: fixed;
