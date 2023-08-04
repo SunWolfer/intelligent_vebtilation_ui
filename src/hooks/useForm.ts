@@ -1,5 +1,6 @@
 import type { FormInstance } from 'element-plus'
 import useCurrentInstance from '@/hooks/useCurrentInstance'
+import { Ref } from 'vue'
 
 export interface IForm<TData> {
 	formParams?: any
@@ -181,6 +182,7 @@ export function useForm<TData = any>({
 export type gainForm<TData, TParams> = {
 	apiFun: (param?: TParams) => Promise<IApiResponseData<TData>>
 	dataArgs?: { [key: string]: TData }
+	queryArgs?: { [key: string]: any }
 	afterReadyDataFun?: () => void
 }
 
@@ -193,17 +195,19 @@ interface GainFormResult<TData> {
  *
  * @param apiFun
  * @param dataArgs
+ * @param queryArgs
  * @param afterReadyDataFun
  */
 export function useGainForm<TData = any, TParams = any>({
 	apiFun,
 	dataArgs,
+	queryArgs = {},
 	afterReadyDataFun,
 }: gainForm<TData, TParams>): GainFormResult<TData> {
 	const dataFrom = ref(Object.assign({ ...dataArgs }))
-
+	const queryParams = ref<any>({ ...queryArgs })
 	const getDataForm = async () => {
-		const res = await apiFun()
+		const res = await apiFun(queryParams.value)
 		dataFrom.value = res.data
 		if (typeof afterReadyDataFun === 'function') afterReadyDataFun()
 	}

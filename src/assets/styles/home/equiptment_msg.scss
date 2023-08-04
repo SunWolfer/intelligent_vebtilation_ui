@@ -15,7 +15,7 @@
 	grid-column-start: 1;
 	grid-column-end: 3;
 	justify-self: end;
-	grid-template-rows: vh(62) vh(40) vh(53) auto;
+	grid-template-rows: vh(62) vh(30) vh(53) auto;
 	align-content: space-between;
 }
 .equipment_msg_top_opacity {
@@ -85,7 +85,7 @@
 	color: rgba(255, 255, 255, 0.78);
 	text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
-	background: linear-gradient(0deg, #b8d6ff 0%, #2bc9ea 100%);
+	background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
@@ -112,26 +112,29 @@
 }
 //全断面测风
 .equipment_msg_top_item_3_full_section {
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: vw(123) vw(106) vw(72);
+	justify-content: space-between;
 }
 //多参传感器
 .equipment_msg_top_item_3_duo_shen {
-	grid-template-columns: vw(51) vw(62) vw(51) vw(52) vw(60);
+	grid-template-columns: vw(70) vw(80) vw(56) vw(56) vw(60);
 	justify-content: space-between;
 }
 //主扇
 .equipment_msg_top_item_3_main_fan {
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: vw(72) vw(72) vw(90) vw(77);
+	justify-content: space-between;
 }
 //局扇
 .equipment_msg_top_item_3_local_fan {
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: vw(72) vw(70) vw(85) vw(85);
+	justify-content: space-between;
 }
 .equipment_msg_top_item_3_body {
 	display: grid;
-	grid-template-rows: vh(13) vh(26);
+	grid-template-rows: vh(18) vh(26);
 	grid-row-gap: vh(5);
-	font-size: vh(13);
+	font-size: vw(13);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -179,13 +182,13 @@
 }
 .equipment_warn {
 	width: vw(52);
-	height: vh(52);
+	height: vw(52);
 	background-image: url('@/assets/images/accPerOfRomance/red-gj.gif');
 	background-size: 100% 100%;
 }
 .equipment_normal {
 	width: vw(52);
-	height: vh(52);
+	height: vw(52);
 	background-image: url('@/assets/images/accPerOfRomance/green-gj.gif');
 	background-size: 100% 100%;
 }

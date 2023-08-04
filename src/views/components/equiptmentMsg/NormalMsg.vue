@@ -1,4 +1,6 @@
 <script setup>
+	import useEquipmentParams from '@/hooks/useEquipmentParams'
+
 	const props = defineProps({
 		data: {
 			type: Object,
@@ -10,12 +12,15 @@
 		},
 	})
 	const router = useRouter()
+
 	const toChildMenu = () => {
 		switch (props.data.type) {
 			case '1':
+				useEquipmentParams().setParams(props.data)
 				router.push({ path: '/homeChild/homeAirDoor' })
 				break
 			case '2':
+				useEquipmentParams().setParams(props.data)
 				router.push({ path: '/homeChild/homeAirWindow' })
 				break
 		}

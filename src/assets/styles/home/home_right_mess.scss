@@ -334,7 +334,7 @@
 	top: 0;
 	left: 0;
 	pointer-events: none;
-	z-index: 999;
+	z-index: 9;
 }
 .warn_icon_dom {
 	position: absolute;
@@ -373,7 +373,7 @@
 	height: vh(203);
 	background-image: url('@/assets/images/home/home_right/warnIcon.png');
 	background-size: 100% 100%;
-	z-index: 999;
+	z-index: 9;
 	animation: concealWarnIcon 2s infinite;
 }
 .warn_icon_top_left {

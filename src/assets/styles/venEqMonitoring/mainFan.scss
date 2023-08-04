@@ -1,0 +1,25 @@
+.main_fan_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	padding: vh(5) vw(55) vh(46) vw(44);
+	grid-template-columns: repeat(2, vw(691)) vw(451) vw(545);
+	grid-template-rows: vh(606) vh(284);
+	place-content: space-between;
+	grid-template-areas:
+		'l1 l1 l1 l2'
+		'l3 l4 l5 l2';
+}
+.main_fan_body_l1 {
+	grid-area: l1;
+}
+.main_fan_body_l2 {
+	grid-area: l2;
+}
+.main_fan_body_l3 {
+}
+.main_fan_body_l4 {
+}
+.main_fan_body_l5 {
+}

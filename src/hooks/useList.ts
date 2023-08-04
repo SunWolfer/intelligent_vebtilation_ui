@@ -104,6 +104,7 @@ const useList = <TData = any, Params = any>({
 		dataList.value = []
 		loading.value = true
 		const res = await apiFun(addDateRange(queryParams.value, dateRange.value))
+		if (!res) return
 		loading.value = false
 		if (typeof resetReadyListFun === 'function') {
 			resetReadyListFun(res)

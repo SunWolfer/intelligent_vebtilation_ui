@@ -45,7 +45,7 @@
 		left: 0;
 		right: 0;
 		text-align: center;
-		z-index: 2000;
+		z-index: 20;
 		background-color: rgba(0, 0, 0, 0.2);
 	}
 	.three-box__wrapper::after {
@@ -56,7 +56,8 @@
 		vertical-align: middle;
 	}
 	.three-box.confirmForm {
-		background: linear-gradient(to left, #4cd7ff, #4cd7ff) left top no-repeat,
+		background:
+			linear-gradient(to left, #4cd7ff, #4cd7ff) left top no-repeat,
 			linear-gradient(to bottom, #4cd7ff, #4cd7ff) left top no-repeat,
 			linear-gradient(to left, #4cd7ff, #4cd7ff) right top no-repeat,
 			linear-gradient(to bottom, #4cd7ff, #4cd7ff) right top no-repeat,
@@ -64,7 +65,11 @@
 			linear-gradient(to bottom, #4cd7ff, #4cd7ff) left bottom no-repeat,
 			linear-gradient(to left, #4cd7ff, #4cd7ff) right bottom no-repeat,
 			linear-gradient(to left, #4cd7ff, #4cd7ff) right bottom no-repeat;
-		background-size: 1px 14px, 14px 1px, 1px 14px, 14px 1px;
+		background-size:
+			1px 14px,
+			14px 1px,
+			1px 14px,
+			14px 1px;
 		border-radius: 4px;
 		background-color: #0d3773;
 		padding: 5px;

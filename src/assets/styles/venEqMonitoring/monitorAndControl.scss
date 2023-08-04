@@ -1,0 +1,220 @@
+.ven_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	padding: 0 vw(66);
+	grid-template-rows: vh(160) vh(700) vh(75);
+	align-content: center;
+}
+.ven_body_top {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(7, vw(290));
+	justify-content: space-between;
+}
+
+@mixin textFlow {
+	mask-image: url('@/assets/images/venEqMonitoring/montoring/stripe.svg');
+	mask-size: cover;
+	background-size: 200% 100%;
+	-webkit-mask-image: url('@/assets/images/venEqMonitoring/montoring/stripe.svg');
+	-webkit-mask-size: cover;
+	-webkit-background-size: 200% 100%;
+	background-image: linear-gradient(to right, #0d3f87 40%, rgba(62, 214, 255, 1) 50%, #0d3f87 60%);
+}
+
+@mixin statusImg {
+	position: relative;
+	width: 100%;
+	height: vh(121);
+	background-size: 100% 100%;
+	padding: vh(15) vw(7) vh(5) vw(13);
+	display: grid;
+	grid-template-rows: vh(35) vh(65);
+	align-content: space-between;
+	place-items: center;
+	.status_title {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		text-align: center;
+		font-size: vh(26);
+		font-family:
+			Source Han Sans CN,
+			serif;
+		font-weight: bold;
+		color: #ffffff;
+		line-height: vh(35);
+		&:after {
+			position: absolute;
+			content: '';
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			@include textFlow;
+			animation: stream 4s linear infinite;
+		}
+	}
+	.status_value {
+		font-size: vh(40);
+		font-family:
+			Source Han Sans CN,
+			serif;
+		font-weight: bold;
+	}
+	.light_point {
+		position: absolute;
+		top: -11px;
+		left: 9%;
+		width: 82%;
+		height: 5px;
+	}
+}
+
+@keyframes stream {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+.monitoring-status-blue {
+	@include statusImg;
+	.status_value {
+		color: #00ffff;
+	}
+	background-image: url('@/assets/images/venEqMonitoring/montoring/monitoring_blue.png');
+}
+.monitoring-status-green {
+	@include statusImg;
+	.status_value {
+		color: rgba(0, 255, 0, 1);
+	}
+	background-image: url('@/assets/images/venEqMonitoring/montoring/monitoring_green.png');
+}
+.monitoring-status-yellow {
+	@include statusImg;
+	.status_value {
+		color: rgba(255, 255, 0, 1);
+	}
+	background-image: url('@/assets/images/venEqMonitoring/montoring/monitoring_yellow.png');
+}
+.monitoring-status-orange {
+	@include statusImg;
+	.status_value {
+		color: rgba(255, 155, 0, 1);
+	}
+	background-image: url('@/assets/images/venEqMonitoring/montoring/monitoring_orange.png');
+}
+.monitoring-status-red {
+	@include statusImg;
+	.status_value {
+		color: rgba(255, 0, 87, 1);
+	}
+	background-image: url('@/assets/images/venEqMonitoring/montoring/monitoring_red.png');
+}
+.monitoring-status-pink {
+	@include statusImg;
+	.status_value {
+		color: rgba(209, 0, 255, 1);
+	}
+	background-image: url('@/assets/images/venEqMonitoring/montoring/monitoring_pink.png');
+}
+.monitoring-status-purple {
+	@include statusImg;
+	.status_value {
+		color: rgba(131, 1, 253, 1);
+	}
+	background-image: url('@/assets/images/venEqMonitoring/montoring/monitoring_purple.png');
+}
+
+.ven_body_center {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, vw(555));
+	justify-content: space-between;
+	grid-row-gap: vh(45);
+}
+.ven_body_center_item {
+	width: 100%;
+	height: vh(325);
+}
+.ven_body_center_item_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 50px vw(10) vh(25) 0;
+	display: grid;
+	grid-template-rows: auto vh(28);
+}
+
+.ven_body_center_item_body_line {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: repeat(auto-fill, vh(20));
+	grid-row-gap: vh(10);
+
+	font-size: vh(18);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #a2ccdb;
+	line-height: vh(36);
+	span {
+		padding-left: vw(55);
+		span {
+			padding-left: 0;
+		}
+	}
+}
+.ven_body_center_item_body_icon {
+	height: 100%;
+	justify-self: end;
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	span {
+		cursor: pointer;
+		font-size: vh(20);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: #4ec5f9;
+		margin-right: vw(20);
+		margin-left: vw(5);
+	}
+}
+@mixin iconControl {
+	width: vh(20);
+	height: vh(20);
+	background-size: 100% 100%;
+}
+.ven_icon_control {
+	@include iconControl;
+	background-image: url('@/assets/images/venEqMonitoring/montoring/form-icon-control.png');
+}
+.ven_icon_monitor {
+	@include iconControl;
+	background-image: url('@/assets/images/venEqMonitoring/montoring/form-icon-monitor.png');
+}
+.ven_icon_warning {
+	@include iconControl;
+	background-image: url('@/assets/images/venEqMonitoring/montoring/form-icon-warning.png');
+}
+.ven_body_bottom {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	place-items: center;
+}

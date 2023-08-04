@@ -1,5 +1,7 @@
 <script setup>
 	import LoadDoorModel from '@/views/components/loadModel/LoadDoorModel.vue'
+	import { homeAirDoor } from '@/api/request/home/homeAirDoor'
+	const { dataForm } = homeAirDoor()
 </script>
 
 <template>

@@ -96,7 +96,7 @@
 				font-weight: 400;
 				.full_body_l1_bottom_item_left_top_icon {
 					width: vw(52);
-					height: vh(52);
+					height: vw(52);
 					background-size: 100% 100%;
 				}
 				.full_normal_icon {
@@ -300,7 +300,7 @@
 			height: vh(40);
 			background-image: url('@/assets/images/home/home_menu_btn.png');
 			background-size: 100% 100%;
-
+			cursor: pointer;
 			font-size: vh(20);
 			font-family:
 				Adobe Heiti Std,

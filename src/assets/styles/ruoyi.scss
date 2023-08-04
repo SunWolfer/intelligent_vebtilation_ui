@@ -101,7 +101,7 @@ h6 {
 
 /* text color */
 .text-green {
-	color: #00ff00;
+	color: rgba(0, 255, 0, 1);
 }
 
 .text-primary {
@@ -132,7 +132,7 @@ h6 {
 }
 
 .text-orange {
-	color: #ff9b00;
+	color: rgba(255, 155, 0, 1);
 }
 .text-red {
 	color: #ff0000;
@@ -341,7 +341,9 @@ h6 {
 }
 
 @mixin gradualText {
-	font-family: Microsoft YaHei, serif;
+	font-family:
+		Microsoft YaHei,
+		serif;
 
 	font-size: vh(24);
 	font-weight: 600;
@@ -433,5 +435,5 @@ h6 {
 }
 
 .leader-line {
-	z-index: 99;
+	z-index: 10;
 }

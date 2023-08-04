@@ -7,8 +7,19 @@ import {
 	getChart4,
 	getLineChartOption,
 } from '@/api/request/home/remoterControlCharts'
+import useEquipmentParams from '@/hooks/useEquipmentParams'
 
 export const homeAirWindow = () => {
+	const dataForm = ref({})
+
+	const equipmentParams = useEquipmentParams()
+	onMounted(() => {
+		dataForm.value = equipmentParams.dataParams
+	})
+	onBeforeUnmount(() => {
+		equipmentParams.cleanParams()
+	})
+
 	// 风阻特性曲线
 	const initChart1 = () => {
 		let xData = []
@@ -56,6 +67,7 @@ export const homeAirWindow = () => {
 	const { showCharts: showChart3 } = useResetCharts(initChart3)
 
 	return {
+		dataForm,
 		showChart1,
 		showChart2,
 		showChart3,
