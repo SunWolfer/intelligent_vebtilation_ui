@@ -6,7 +6,8 @@
 	import Border4 from './border4.vue'
 	import Border5 from '@/components/BorderBox/border5.vue'
 	import Border6 from './border6.vue'
-
+	import Border7 from '@/components/BorderBox/border7.vue'
+	import Border8 from '@/components/BorderBox/border8.vue'
 	export default defineComponent({
 		name: 'BorderBox',
 		components: {
@@ -16,6 +17,8 @@
 			Border4,
 			Border5,
 			Border6,
+			Border7,
+			Border8,
 		},
 		props: {
 			name: {

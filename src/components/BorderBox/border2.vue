@@ -68,7 +68,7 @@
 			<rect
 				width="8"
 				height="4"
-				:x="width - 38"
+				:x="width - 25"
 				:y="height - 12"
 				fill="rgba(0, 255, 255, 1)"
 				class="skewRect"
@@ -85,7 +85,7 @@
 			<rect
 				width="8"
 				height="4"
-				:x="width - 47"
+				:x="width - 35"
 				:y="height - 12"
 				fill="rgba(44, 201, 235, 1)"
 				class="skewRect"
@@ -102,7 +102,7 @@
 			<rect
 				width="8"
 				height="4"
-				:x="width - 58"
+				:x="width - 45"
 				:y="height - 12"
 				fill="rgba(44, 202, 235, 0.4)"
 				class="skewRect"

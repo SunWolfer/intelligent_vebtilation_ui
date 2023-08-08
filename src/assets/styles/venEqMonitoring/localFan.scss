@@ -1,0 +1,390 @@
+.local_fan_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: vh(5) vw(56) vh(45) vw(24);
+	display: grid;
+	grid-template-columns: vw(691) vw(691) vw(465) vw(545);
+	grid-template-rows: vh(155) vh(445) vh(285);
+	place-content: space-between;
+	grid-template-areas:
+		'l1 l1 l1 l1'
+		'l2 l2 l2 l3'
+		'l4 l5 l6 l3';
+}
+@mixin btnIcon {
+	width: vw(13);
+	height: vh(100);
+	background-image: url('@/assets/images/accPerOfRomance/move_icon_1.png');
+	background-size: 100% 100%;
+	cursor: pointer;
+}
+.local_fan_body_l1 {
+	grid-area: l1;
+	width: 100%;
+	height: 100%;
+	background: rgba(95, 104, 149, 0.28);
+	display: grid;
+	grid-template-columns: vw(40) auto vw(40);
+	place-items: center;
+	grid-template-areas: 't1 t2 t3';
+	.local_fan_body_l1_t1 {
+		width: 100%;
+		height: 100%;
+		grid-area: t1;
+		@include btnIcon;
+	}
+	.local_fan_body_l1_t2 {
+		grid-area: t2;
+		width: 100%;
+		height: 100%;
+		display: grid;
+		grid-template-columns: repeat(8, 2px 1fr);
+		place-items: center;
+	}
+	.local_fan_body_l1_t3 {
+		grid-area: t3;
+		width: 100%;
+		height: 100%;
+		@include btnIcon;
+		transform: rotateY(180deg);
+	}
+	.local_fan_body_l1_line {
+		width: 2px;
+		height: 90%;
+		background: radial-gradient(circle, rgba(0, 160, 233, 1), rgba(0, 160, 233, 0));
+	}
+	.local_fan_body_l1_item {
+		width: 100%;
+		height: 100%;
+		padding: vh(10) 0;
+		display: grid;
+		grid-template-columns: vw(110) auto;
+		grid-template-rows: vh(20) repeat(5, vh(16));
+		align-content: space-between;
+		align-items: center;
+		grid-template-areas:
+			'c1 cl1'
+			'c1 cl2'
+			'c1 cl3'
+			'c1 cl4'
+			'c1 cl5'
+			'c1 cl6';
+		.local_fan_body_l1_item_c1 {
+			grid-area: c1;
+			justify-self: center;
+			width: vh(73);
+			height: vh(85);
+			background-size: 100% 100%;
+		}
+		.local_fan_body_l1_item_c1_normal {
+			background-image: url('@/assets/images/accPerOfRomance/normal.png');
+		}
+		.local_fan_body_l1_item_c1_warn {
+			background-image: url('@/assets/images/venEqMonitoring/fans/status_icon_1.png');
+		}
+		.local_fan_body_l1_item_l1 {
+			grid-area: cl1;
+			width: 100%;
+			font-size: vh(18);
+			font-family:
+				Adobe Heiti Std,
+				serif;
+			font-weight: normal;
+			color: #00bfff;
+		}
+		@mixin l1ItemText {
+			font-size: vh(14);
+			font-family:
+				Adobe Heiti Std,
+				serif;
+			font-weight: normal;
+			color: #ffffff;
+		}
+		.local_fan_body_l1_item_l2 {
+			@include l1ItemText;
+		}
+		.open_text {
+			color: #02ff00;
+		}
+		.close_text {
+			color: #878787;
+		}
+		.local_fan_body_l1_item_l3 {
+			@include l1ItemText;
+			span {
+				color: #00bfff;
+			}
+		}
+	}
+}
+.local_fan_body_l2 {
+	grid-area: l2;
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.local_fan_body_l3 {
+	grid-area: l3;
+	width: 100%;
+	height: 100%;
+	background: rgba(95, 104, 149, 0.28);
+	display: grid;
+	grid-template-rows: vh(38) vh(180) vh(38) vh(44) vh(140) vh(265);
+	padding-left: vw(12);
+	.local_fan_body_l3_l2 {
+		width: 100%;
+		height: 100%;
+		padding-top: vh(14);
+		padding-left: vw(40);
+		display: grid;
+		grid-template-columns: repeat(2, vw(100) 1fr);
+		grid-column-gap: vw(14);
+		grid-template-rows: repeat(2, 1fr);
+		grid-row-gap: vh(8);
+		place-content: center;
+		align-items: center;
+		.local_fan_body_l3_l2_item {
+			width: 100%;
+			height: 100%;
+			justify-self: start;
+			display: grid;
+			align-items: center;
+			align-content: center;
+			.local_fan_body_l3_l2_item_value {
+				font-size: vh(22);
+				font-family: AdobeHeitiStd-Regular, 'Microsoft YaHei', sans-serif;
+				font-weight: 400;
+				color: #ffffff;
+				line-height: vh(26);
+			}
+			.local_fan_body_l3_l2_item_label {
+				font-size: vh(14);
+				font-family:
+					Adobe Heiti Std,
+					serif;
+				font-weight: normal;
+				color: #9fd3ff;
+			}
+		}
+		@for $i from 1 through 4 {
+			.local_fan_body_l3_l2_icon_#{$i} {
+				width: vw(77);
+				height: vh(77);
+				justify-self: end;
+				background-image: url('@/assets/images/venEqMonitoring/fans/local_icon#{$i}.png');
+				background-size: 100% 100%;
+			}
+		}
+	}
+	.local_fan_body_l3_l4 {
+		padding-right: vw(14);
+		justify-self: end;
+		font-size: vh(14);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: #4bc8fc;
+	}
+	.local_fan_body_l3_l5 {
+		width: 100%;
+		height: 100%;
+		padding-right: vw(12);
+		display: flex;
+		justify-content: space-between;
+		.local_fan_body_l3_l5_item {
+			width: vw(257);
+			height: vh(128);
+			border: 1px solid #269ef5;
+			display: grid;
+			grid-template-rows: vh(27) 1fr;
+			place-items: center;
+			.local_fan_body_l3_l5_item_title {
+				width: 100%;
+				background: rgba(27, 68, 138, 0.51);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				.local_fan_body_l3_l5_item_title_icon {
+					width: vw(20);
+					height: vh(20);
+					background-image: url('@/assets/images/equipment/title_icon_02.png');
+					background-size: 100% 100%;
+					margin: 0 vw(5);
+				}
+				span {
+					font-size: vh(18);
+					font-family:
+						Adobe Heiti Std,
+						serif;
+					font-weight: normal;
+					color: rgba(255, 255, 255, 0.78);
+					text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+					background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+				}
+			}
+			.local_fan_body_l3_l5_item_body {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				font-size: vh(14);
+				font-family:
+					Adobe Heiti Std,
+					serif;
+				font-weight: normal;
+				color: #ffffff;
+				.el-input {
+					width: vw(64);
+					height: vh(32);
+				}
+				.normal_btn {
+					width: vw(92);
+					height: vh(34);
+					line-height: vh(34);
+				}
+			}
+		}
+	}
+	.local_fan_body_l3_l6 {
+		width: 100%;
+		height: 100%;
+		background-image: url('@/assets/images/venEqMonitoring/fans/border_2.svg');
+		background-size: 100% 100%;
+		padding-top: vh(40);
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: vh(22) vh(42) vh(42) vh(68);
+		grid-row-gap: vh(21);
+		grid-auto-flow: column;
+		justify-content: center;
+		place-items: center;
+		grid-template-areas:
+			'l6_1 l6_2'
+			'l6_3 l6_4'
+			'l6_5 l6_6'
+			'l6_7 l6_7';
+	}
+	@mixin l6Title {
+		font-size: vh(22);
+		font-family: AdobeHeitiStd-Regular, 'Microsoft YaHei', sans-serif;
+		font-weight: 400;
+		color: #ffffff;
+		text-shadow: 0 1px 2px rgba(4, 0, 0, 0.64);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	.local_fan_body_l3_l6_title_1 {
+		background: linear-gradient(0deg, #16d1d9 0%, #dffff8 100%);
+		@include l6Title;
+	}
+	.local_fan_body_l3_l6_title_2 {
+		background: linear-gradient(0deg, #16b1fc 0%, #dffff8 100%);
+	}
+	@mixin l6Btn {
+		position: relative;
+		width: vw(176);
+		height: vh(68);
+		text-align: center;
+		z-index: 0;
+		cursor: pointer;
+		span {
+			font-size: vh(22);
+			font-family: YouSheBiaoTiHei, serif;
+			font-weight: 400;
+			color: rgba(255, 255, 255, 0.78);
+			text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+			line-height: vh(68);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+		&:before {
+			position: absolute;
+			content: '';
+			width: 100%;
+			height: 100%;
+			left: 0;
+			top: 0;
+			z-index: -1;
+			background-size: 100% 100%;
+		}
+	}
+	.local_fan_body_l3_l6_btn_1 {
+		span {
+			background: linear-gradient(180deg, #ffffff 0%, #17a9c7 100%);
+		}
+		@include l6Btn;
+		&:before {
+			background-image: url('@/assets/images/venEqMonitoring/fans/btn3.png');
+		}
+	}
+	.local_fan_body_l3_l6_btn_2 {
+		span {
+			background: linear-gradient(180deg, #ffffff 0%, #dd8c00 100%);
+		}
+		@include l6Btn;
+
+		&:before {
+			background-image: url('@/assets/images/venEqMonitoring/fans/btn4.png');
+		}
+	}
+	.local_fan_body_l3_l6_btn_3 {
+		grid-area: l6_7;
+		span {
+			background: linear-gradient(180deg, #feecea 29.6875%, #b44f50 100%);
+		}
+		@include l6Btn;
+		&:before {
+			background-image: url('@/assets/images/venEqMonitoring/fans/btn2.png');
+		}
+	}
+}
+.local_fan_body_l4 {
+	grid-area: l4;
+}
+.local_fan_body_l5 {
+	grid-area: l5;
+}
+.local_fan_body_l6 {
+	grid-area: l6;
+
+	.local_fan_body_l6_body {
+		width: 100%;
+		height: 100%;
+		padding: vh(56) 0 vh(46) 0;
+		display: grid;
+		grid-template-columns: vw(230) auto;
+		grid-column-gap: vw(27);
+		grid-template-rows: repeat(3, vh(42));
+		align-content: space-between;
+		align-items: center;
+		.local_fan_body_l6_label {
+			justify-self: end;
+			font-size: vh(26);
+			font-family: YouSheBiaoTiHei, serif;
+			font-weight: 400;
+			color: rgba(255, 255, 255, 0.78);
+			text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+			background: linear-gradient(0deg, #b8d6ff 0%, #2bc9ea 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+		.local_fan_body_l6_icon {
+			width: vw(104);
+			height: vh(42);
+			background-size: 100% 100%;
+			cursor: pointer;
+		}
+		.local_fan_body_l6_icon_open {
+			background-image: url('@/assets/images/venEqMonitoring/fans/btn_open.png');
+		}
+		.local_fan_body_l6_icon_close {
+			background-image: url('@/assets/images/venEqMonitoring/fans/btn_close.png');
+		}
+	}
+}

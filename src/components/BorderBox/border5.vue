@@ -31,7 +31,7 @@
 	.border-box-5-line {
 		fill: none;
 		stroke-width: 2px;
-		stroke: #269ef5;
+		stroke: rgba(38, 158, 245, 1);
 	}
 	.border-box-5-fill {
 		fill: rgba(27, 68, 138, 0.51);

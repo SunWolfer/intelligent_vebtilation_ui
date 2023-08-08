@@ -1,8 +1,10 @@
 import { IFires } from '@/components/VueThree/effect/IFires'
 import { IWindText } from '@/components/VueThree/effect/IWindText'
+import { ModelAnimation } from '@/components/VueThree/modelAnimation'
 import { isNull } from '@/utils/ruoyi'
 import gsap from 'gsap'
 import {
+	AnimationMixer,
 	BufferAttribute,
 	BufferGeometry,
 	DoubleSide,
@@ -41,6 +43,8 @@ export class OperateModel {
 	renderer: WebGLRenderer
 	size: ISize
 	scene: Scene
+	// 初始动画类
+	defaultAnimation: ModelAnimation | undefined
 	// 自定义动画方法列表
 	customizeAnimateList: any[]
 	// 自定义球体列表
@@ -53,6 +57,8 @@ export class OperateModel {
 	editId: number | undefined
 	// label标签
 	slotLabelList: CSS2DObject[]
+	// 其他标签
+	otherLabelList: CSS2DObject[]
 	constructor(
 		object: Object3D,
 		wrapper: Object3D,
@@ -73,6 +79,8 @@ export class OperateModel {
 		this.ballMeshList = []
 		// label标签
 		this.slotLabelList = []
+		// 其他标签
+		this.otherLabelList = []
 		// 初始化自定义动画
 		this.customizeAnimateList = []
 		// 加载避灾路线类
@@ -96,6 +104,14 @@ export class OperateModel {
 	addWrapperLabels(labelList: LabelAttribute[]) {
 		this.addLabelList(labelList, this.wrapper)
 	}
+	// 添加其他标签
+	addOtherLabelList(labelList: LabelAttribute[]) {
+		this.wrapper.remove(...this.otherLabelList)
+		let Css2DomList = useEditModel().addCss2DomList(labelList)
+		if (!Css2DomList?.length) return
+		this.otherLabelList.push(...Css2DomList)
+		this.wrapper.add(...Css2DomList)
+	}
 	// 清空所有标签
 	cleanWrapperLabels() {
 		let removeList: any[] = []
@@ -110,6 +126,13 @@ export class OperateModel {
 	// 	创建自定义平面
 	addGeometry(points: Point[]) {
 		createPlaneGeometry(points, this.wrapper)
+	}
+	// 初始化默认动画
+	initDefaultAnimation() {
+		if (this.defaultAnimation) return
+		// 加载初始动画
+		this.defaultAnimation = new ModelAnimation(this.wrapper)
+		this.defaultAnimation._disposeMod(-1)
 	}
 	// 	添加自定义动画
 	addAnimations(animateData: IAnimateData) {
@@ -268,6 +291,7 @@ export class OperateModel {
 	// 页面注销后操作
 	unmountEditModel() {
 		if (this.myDisPreRoute) this.myDisPreRoute.unMountClass()
+		if (this.defaultAnimation) this.defaultAnimation.unMountClass()
 		cancelAnimationFrame(this.editId!)
 	}
 }

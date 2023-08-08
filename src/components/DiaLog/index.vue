@@ -63,7 +63,7 @@
 			leave-active-class="animate__animated animate__faster animate__bounceOut"
 		>
 			<div class="os-dialog-content">
-				<border-box name="border4" :title="title">
+				<border-box name="border8" :title="title">
 					<div class="os-dialog-close" @click="closeDia">
 						<el-icon>
 							<Close />

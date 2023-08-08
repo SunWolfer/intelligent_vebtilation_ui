@@ -783,6 +783,7 @@
 		<slot name="label"></slot>
 		<slot name="edit"></slot>
 		<slot name="warn"></slot>
+		<slot></slot>
 	</div>
 </template>
 <style>

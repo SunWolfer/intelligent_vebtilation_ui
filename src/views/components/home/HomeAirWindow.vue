@@ -136,6 +136,16 @@
 						<div class="normal_btn">设定</div>
 					</div>
 				</div>
+				<div class="window_operation">
+					<div class="operation_btn">
+						<border-box name="border7">
+							<div class="operation_btn_body">
+								<div class="door_icon_3"></div>
+								操作记录
+							</div>
+						</border-box>
+					</div>
+				</div>
 			</border-box>
 		</div>
 	</div>

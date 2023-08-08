@@ -78,8 +78,12 @@
 			</div>
 			<div class="home_air_door_body_c2_item6">
 				<div class="home_air_door_body_c2_item6_l1 operation_btn">
-					<div class="door_icon_3"></div>
-					操作记录
+					<border-box name="border7">
+						<div class="operation_btn_body">
+							<div class="door_icon_3"></div>
+							操作记录
+						</div>
+					</border-box>
 				</div>
 				<div class="home_air_door_body_c2_item6_l2">
 					<div class="open_door_btn">

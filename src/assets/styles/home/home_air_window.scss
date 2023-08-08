@@ -142,6 +142,11 @@
 	grid-template-rows: vh(35) auto;
 	grid-row-gap: vh(17);
 }
+.window_operation {
+	position: absolute;
+	top: vh(30);
+	right: vw(30);
+}
 .window_param_title_icon {
 	width: vw(20);
 	height: vh(20);
@@ -149,6 +154,7 @@
 	background-size: 100% 100%;
 }
 .window_param_body {
+	position: relative;
 	display: grid;
 	grid-template-columns: auto vw(170);
 	grid-template-rows: repeat(3, vh(33));
