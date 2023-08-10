@@ -51,6 +51,7 @@ export const naturalDisNetSolution = () => {
 		['3', '添加传感器'],
 	])
 	const showImitateVisible = () => {
+		// 获取添加信息
 		const { deviceList, tunnelList } = modelRef.value?.getOperating()
 		for (let i = 0; i < deviceList.length; i++) {
 			const device = deviceList[i]
@@ -66,7 +67,6 @@ export const naturalDisNetSolution = () => {
 				label: '连接巷道',
 			})
 		}
-		// 获取添加信息
 		imitateVisible.value = true
 	}
 	const cancelImitateVisible = () => {

@@ -63,6 +63,7 @@
 	//   关闭解算后界面
 	function cancelAfterCalVisible() {
 		afterCalVisible.value = false
+		TOperationStepsList.value = []
 		emits('cancelCalVisible')
 	}
 </script>
@@ -84,8 +85,8 @@
 						<template v-for="(i, index) in TOperationStepsList">
 							<div class="imitate_body_border_item">
 								<div class="imitate_body_border_text_index">{{ index + 1 }}</div>
-								<div class="imitate_body_border_text">{{ i.name }}</div>
-								<div class="imitate_body_border_text">{{ i.label }}</div>
+								<div class="imitate_body_border_text overText">{{ i.name }}</div>
+								<div class="imitate_body_border_text overText">{{ i.label }}</div>
 								<div class="imitate_body_border_text_bg"></div>
 							</div>
 						</template>

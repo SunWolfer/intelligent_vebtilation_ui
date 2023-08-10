@@ -34,6 +34,12 @@
 		intersectedPosition,
 	} = useThree()
 
+	const emits = defineEmits(['choose-tunnel'])
+
+	watch(intersected, (val) => {
+		val && emits('choose-tunnel', val)
+	})
+
 	function readyCamera() {
 		//   添加风流
 		homeModelVisible.value?.addWind()

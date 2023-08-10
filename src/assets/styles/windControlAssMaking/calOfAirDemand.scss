@@ -1,0 +1,332 @@
+.cal_air_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 0 vw(60) vh(60) vw(70);
+	display: grid;
+	grid-template-rows: vh(590) vh(65) auto;
+}
+
+.cal_air_body_top {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: vw(167) 1fr;
+}
+.cal_air_body_top_left {
+	width: 100%;
+	height: 100%;
+	padding-top: vh(55);
+	display: grid;
+	grid-template-rows: repeat(auto-fill, vh(59));
+	grid-row-gap: vh(31);
+	justify-content: center;
+	align-items: center;
+}
+@mixin calAirBtn {
+	position: relative;
+	width: vw(167);
+	height: vh(59);
+	background-size: 100% 100%;
+	display: flex;
+	cursor: pointer;
+	padding-top: vh(10);
+	&:before {
+		content: '';
+		position: absolute;
+		top: vh(5);
+		left: vw(8);
+		width: vw(30);
+		height: vh(4);
+		-webkit-mask-size: 100% 100%;
+		-webkit-background-size: 200% 100%;
+		-webkit-mask-image: url('@/assets/images/home/home_roam/title_decorate.png');
+		background-image: linear-gradient(to right, #0686d8, #00ffff, #0686d8);
+		animation: stream 3s linear infinite;
+	}
+	span {
+		position: relative;
+		width: 100%;
+		padding-left: vw(15);
+		text-align: center;
+		font-size: vh(24);
+		font-family: YouSheBiaoTiHei, serif;
+		font-weight: 400;
+		color: rgba(255, 255, 255, 0.78);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		&:before {
+			position: absolute;
+			content: '';
+			left: vw(25);
+			width: vw(20);
+			height: vh(20);
+			background-image: url('@/assets/images/windControlAssMaking/cal_icon_1.png');
+			background-size: 100% 100%;
+		}
+	}
+}
+//直线移动
+@keyframes stream {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+.cal_air_btn_1 {
+	@include calAirBtn;
+	background-image: url('@/assets/images/windControlAssMaking/cal_label.png');
+
+	span {
+		background: linear-gradient(0deg, #4691f7 0%, #2bc9ea 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}
+.cal_air_btn_1_active {
+	@include calAirBtn;
+	background-image: url('@/assets/images/windControlAssMaking/cal_label_active.png');
+}
+
+.cal_air_body_top_right {
+	width: 100%;
+	height: 100%;
+}
+.cal_air_body_center {
+	margin: vh(10) 0;
+	position: relative;
+	padding-left: vw(65);
+	font-size: vh(20);
+	font-family: YouSheBiaoTiHei, serif;
+	font-weight: 400;
+	color: #9cb9ff;
+	line-height: vh(43);
+	z-index: 0;
+	&:after {
+		position: absolute;
+		content: '';
+		width: vw(239);
+		height: vh(43);
+		left: 0;
+		top: 0;
+		background-image: url('@/assets/images/accPerOfRomance/table_label.png');
+		background-size: 100% 100%;
+		z-index: -1;
+	}
+}
+.cal_air_body_end {
+	width: 100%;
+	height: 100%;
+	padding-left: vw(47);
+}
+
+//子组件
+.cal_child_body {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	padding: vh(24) vw(40) vh(23) vw(38);
+	grid-template-rows: vh(38) vh(450) vh(38);
+	align-content: space-between;
+	.el-select {
+		line-height: vh(38);
+	}
+	:deep(.el-input) {
+		height: vh(38);
+	}
+}
+.cal_child_body_center {
+	width: 100%;
+	height: 100%;
+}
+.cal_child_body_bottom {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	font-size: vh(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	.el-input {
+		width: vw(158.4);
+		margin: 0 vw(12);
+	}
+}
+//工作面详细内容
+.child_work_body {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: repeat(5, vw(425));
+	grid-template-rows: vh(264) vh(179);
+	place-content: space-between;
+	grid-template-areas:
+		'c1 c2 c3 c4 c5'
+		'c1 c2 c3 c4 c6';
+	.child_body_item_c1 {
+		grid-area: c1;
+	}
+	.child_body_item_c2 {
+		grid-area: c2;
+	}
+	.child_body_item_c3 {
+		grid-area: c3;
+	}
+	.child_body_item_c4 {
+		grid-area: c4;
+	}
+	.child_body_item_c5 {
+		grid-area: c5;
+	}
+	.child_body_item_c6 {
+		grid-area: c6;
+	}
+}
+// 掘进面详细内容
+.child_head_body {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: repeat(5, vw(425));
+	place-content: space-between;
+}
+//三行
+.child_body_item {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	padding: vh(25) vw(23);
+	grid-template-columns: 1fr;
+	grid-template-rows: vh(38) vh(44) 1fr;
+	place-content: center;
+	align-items: center;
+}
+.child_body_item_t1 {
+	width: vh(287);
+	height: vh(38);
+	padding: 0 vw(20);
+	justify-self: center;
+	.child_body_item_t1_text {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: vh(18);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: rgba(255, 255, 255, 0.78);
+		text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+		background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		&:before {
+			position: absolute;
+			content: '';
+			width: vh(28);
+			height: vh(28);
+			background-image: url('@/assets/images/equipment/title_icon_02.png');
+			background-size: 100% 100%;
+			left: vw(14);
+		}
+	}
+}
+.child_body_item_t2 {
+	width: 100%;
+	height: vh(24);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+@mixin itemText {
+	position: relative;
+	width: vw(91);
+	height: vh(24);
+	z-index: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	span {
+		font-size: vh(12);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: #ffffff;
+	}
+	&:before {
+		position: absolute;
+		content: '';
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		transform: skewX(30deg);
+		z-index: -1;
+	}
+}
+.child_body_item_t2_default {
+	@include itemText;
+	&:before {
+		background: linear-gradient(180deg, #0292e9, #265a91);
+	}
+}
+.child_body_item_t2_active {
+	@include itemText;
+	span {
+		color: #4bc8fc;
+	}
+	&:before {
+		background: linear-gradient(180deg, #1e3673, #0090e6);
+	}
+}
+//两行
+.child_body_item_2 {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	padding: vh(25) 0;
+	grid-template-columns: 1fr;
+	grid-template-rows: vh(38) 1fr;
+	place-content: center;
+}
+.child_body_item_t3 {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-rows: repeat(auto-fill, vh(38));
+	grid-row-gap: vh(5);
+}
+
+.child_body_item_t3_line {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: auto vw(102);
+	grid-column-gap: vw(15);
+	align-items: center;
+	span {
+		justify-self: end;
+		font-size: vh(14);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: #ffffff;
+	}
+	:deep(.el-input) {
+		width: vw(102);
+		height: vh(38);
+	}
+}

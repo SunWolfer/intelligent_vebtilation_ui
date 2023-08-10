@@ -1,0 +1,219 @@
+//左侧巷道信息
+.on_dem_left {
+	position: absolute;
+	left: vw(70);
+	top: 0;
+	width: vw(820);
+	height: 100%;
+	padding-bottom: vh(36);
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: vh(40) 1fr;
+	place-content: center;
+	align-items: center;
+	pointer-events: none;
+}
+.on_dem_left_top {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(2, vw(134));
+	grid-column-gap: vw(10);
+	justify-content: end;
+	pointer-events: auto;
+}
+.on_dem_left_bottom {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	overflow-y: auto;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(auto-fill, vh(200));
+	grid-row-gap: vh(22);
+}
+.on_dem_item {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: vh(21) vw(15) vh(13) vw(15);
+	display: grid;
+	grid-template-rows: vh(38) 1fr;
+	grid-row-gap: vh(10);
+	pointer-events: auto;
+}
+
+//已设置图片
+.set_btn {
+	position: absolute;
+	top: vh(20);
+	left: vh(12);
+	width: vw(147);
+	height: vh(60);
+	background-image: url('@/assets/images/windControlAssMaking/on_btn_1.png');
+	background-size: 100% 100%;
+}
+
+.on_dem_item_top {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: vh(38);
+}
+.on_dem_item_top_body {
+	min-width: vw(195);
+	height: vh(38);
+}
+
+@mixin noBorderInput {
+	:deep(.el-input) {
+		height: vh(24);
+		box-shadow: none;
+
+		.el-input__wrapper {
+			background-color: transparent;
+			&:hover {
+				box-shadow: none;
+			}
+		}
+		.el-input__inner {
+			--el-input-inner-height: #{vh(24)};
+		}
+	}
+}
+
+.on_dem_item_title {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	padding: 0 vw(16);
+	.title_icon {
+		width: vh(28);
+		height: vh(28);
+		background-image: url('@/assets/images/equipment/title_icon_02.png');
+		background-size: 100% 100%;
+		margin-right: vw(5);
+	}
+	@include noBorderInput;
+	:deep(.el-input__inner) {
+		font-size: vh(18);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: rgba(255, 255, 255, 0.78);
+		text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+		background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}
+.on_dem_item_body {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr vw(20) 1fr;
+	justify-content: center;
+}
+.on_dem_item_body_title {
+	width: 100%;
+	text-align: center;
+	font-size: vh(23);
+	font-family: YouSheBiaoTiHei, serif;
+	font-weight: 400;
+	color: rgba(255, 255, 255, 0.78);
+	text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+	background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+.dashLine {
+	justify-self: center;
+	width: 8px;
+	height: 100%;
+	background: radial-gradient(circle, #00ffff, #235794);
+	-webkit-mask-image: url('@/assets/images/line-01.svg');
+	-webkit-mask-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+}
+//巷道信息
+.on_dem_item_left {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: vh(23) repeat(3, vh(24));
+	place-items: center;
+	font-size: vh(14);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	place-content: space-between;
+	.on_dem_item_left_item {
+		width: 100%;
+		height: 100%;
+		display: grid;
+		align-items: center;
+		grid-template-columns: max-content auto;
+		@include noBorderInput;
+	}
+	.on_dem_item_left_label {
+		color: #4bc8fc;
+		margin-right: vw(5);
+	}
+	.on_dem_item_body_title {
+		grid-column-start: 1;
+		grid-column-end: 3;
+	}
+}
+//通风数据
+.on_dem_item_right {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr vw(130);
+	grid-template-rows: vh(23) 1fr;
+	grid-template-areas:
+		'header .'
+		'l1 l2';
+	justify-content: space-between;
+	align-items: center;
+	.on_dem_item_right_item {
+		grid-area: l1;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+	}
+	.on_dem_item_body_title {
+		grid-area: header;
+	}
+	.on_dem_item_right_label {
+		font-size: vh(14);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: rgba(255, 255, 255, 0.78);
+		margin-right: vw(10);
+	}
+	:deep(.el-input) {
+		width: vw(93.5);
+		height: vh(32);
+		.el-input__inner {
+			--el-input-inner-height: #{vh(32)};
+		}
+	}
+	.on_dem_item_right_btn {
+		grid-area: l2;
+		width: 100%;
+		height: 100%;
+		display: grid;
+		align-items: center;
+		justify-content: center;
+		grid-template-columns: 1fr;
+	}
+}

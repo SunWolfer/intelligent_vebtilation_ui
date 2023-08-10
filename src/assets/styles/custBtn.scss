@@ -34,3 +34,8 @@
 		background-image: url('@/assets/images/accPerOfRomance/btn_2_active.png');
 	}
 }
+.normal_3_btn {
+	@include IBtn;
+	background-image: url('@/assets/images/btns/btn_3.png');
+	background-size: 100% 100%;
+}
