@@ -2,35 +2,24 @@
 <script setup>
 	import { homeSolution } from '@/api/request/home/homeSolution'
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
+	import { useWindNetCalculation } from '@/hooks/useWindNetCalculation'
 	const emits = defineEmits(['loadText', 'cleanText'])
 	const { checkedWind, checkedWindAge, checkedWindPressure } = homeSolution()
 	const { domStyle } = useMenuItemPosition(299)
+
+	const { windTextList } = useWindNetCalculation()
+
 	watch(
 		() => [checkedWind.value, checkedWindPressure.value, checkedWindAge.value],
 		() => {
 			splitText()
 		},
 	)
-
-	const windTextList = ref([
-		{
-			parent: '023-043',
-			airQuantity: '1235',
-			windage: '38.5',
-			windPressure: '26.8',
-		},
-		{
-			parent: '128-124',
-			airQuantity: '1235',
-			windage: '38.5',
-			windPressure: '26.8',
-		},
-	])
 	const splitText = () => {
 		let fontList = []
 		for (let i = 0; i < windTextList.value.length; i++) {
 			const wind = windTextList.value[i]
-			let airQuantity = checkedWind.value ? `解算风量：${wind.airQuantity}m3/min` : ''
+			let airQuantity = checkedWind.value ? `解算风量：${wind.airQuantity}m³/min` : ''
 			let windage = checkedWindAge.value ? `风阻：${wind.windage}m/s` : ''
 			let windPressure = checkedWindPressure.value ? `风压：${wind.windPressure}Kpa` : ''
 			let text = `${airQuantity} ${windage} ${windPressure}`
@@ -40,13 +29,11 @@
 				color: '#000',
 				size: 300,
 				height: 500,
+				planeColor: '#00ff00',
 			})
 		}
 		emits('loadText', fontList)
 	}
-	onMounted(() => {
-		splitText()
-	})
 	onBeforeUnmount(() => {
 		emits('cleanText')
 	})

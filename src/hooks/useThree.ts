@@ -1,5 +1,5 @@
 import ModelGltf from '@/components/VueThree/model-gltf.vue'
-import { Object3D, Vector3 } from 'three'
+import { Vector3 } from 'three'
 import { OperateModel } from '@/components/VueThree/IModelOperate'
 const useThree = () => {
 	const homeModelVisible = ref<InstanceType<typeof ModelGltf>>()
@@ -69,14 +69,14 @@ const useThree = () => {
 		intersectedPosition.value = CIntersected?.point
 		cameraWorldPosition.value = homeModelVisible.value?.camera.position
 		cameraLookAtPoint.value = homeModelVisible.value?.controls?.target
-		console.log('---------点击对象---------')
-		console.log(intersected.value)
-		console.log('---------点击位置---------')
-		console.log(intersectedPosition.value)
-		console.log('---------相机位置---------')
-		console.log(cameraWorldPosition.value)
-		console.log('---------相机朝向点---------')
-		console.log(cameraLookAtPoint.value)
+		// console.log('---------点击对象---------')
+		// console.log(intersected.value)
+		// console.log('---------点击位置---------')
+		// console.log(intersectedPosition.value)
+		// console.log('---------相机位置---------')
+		// console.log(cameraWorldPosition.value)
+		// console.log('---------相机朝向点---------')
+		// console.log(cameraLookAtPoint.value)
 	}
 
 	// 双击

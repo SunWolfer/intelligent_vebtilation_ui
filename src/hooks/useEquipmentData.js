@@ -45,6 +45,15 @@ const useEquipmentData = () => {
 		}
 		equipTypeList.value = typeList
 	}
+	// 全部设备
+	const allTypeList = computed(() => {
+		let childes = []
+		for (let i = 0; i < equipmentList.value.length; i++) {
+			let child = equipmentList.value[i]
+			childes = childes.concat(child.children)
+		}
+		return childes
+	})
 	// 可显示设备
 	const showTypeList = computed(() => {
 		let childes = []
@@ -115,6 +124,7 @@ const useEquipmentData = () => {
 		tEquipmentIndex,
 		equipTypeList,
 		setAllType,
+		allTypeList,
 		showTypeList,
 		toPosition,
 		allDataList,

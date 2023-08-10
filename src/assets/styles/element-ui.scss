@@ -368,3 +368,49 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 		color: #1f2d3d;
 	}
 }
+
+//滑块
+.el-slider {
+	--el-slider-main-bg-color: #dbecff;
+	--el-slider-runway-bg-color: #3b526b;
+	--el-slider-stop-bg-color: #dbecff;
+	--el-slider-disabled-color: #3b526b;
+	--el-slider-border-radius: 3px;
+	--el-slider-height: #{vh(6)};
+	--el-slider-button-size: #{vh(20)};
+	--el-slider-button-wrapper-size: #{vh(36)};
+	--el-slider-button-wrapper-offset: #{vh(-15)};
+	.el-slider__button {
+		border: 2px #2a6de6 solid;
+		background-color: #0b1c48;
+		position: relative;
+
+		&:after {
+			position: absolute;
+			content: '';
+			top: vh(5);
+			left: vh(5.5);
+			width: vh(5);
+			height: vh(5);
+			background: #b6d5f9;
+			border-radius: 50%;
+		}
+	}
+}
+//数字输入框
+.el-input-number {
+	.el-input-number__decrease,
+	.el-input-number__increase {
+		width: max-content;
+		background: transparent;
+		color: #8db0d8;
+		--el-border: none;
+	}
+	.el-input__wrapper {
+		padding-right: 15px;
+	}
+}
+.el-input-number.is-controls-right .el-input__wrapper {
+	padding-right: 15px;
+	padding-left: 5px;
+}

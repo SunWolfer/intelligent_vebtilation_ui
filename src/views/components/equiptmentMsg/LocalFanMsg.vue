@@ -38,7 +38,7 @@
 					<div class="lamp_close">关闭</div>
 				</div>
 				<div class="equipment_msg_top_item_3_body">
-					<span>风量(m3/min)</span>
+					<span>风量(m³/min)</span>
 					<div class="equipment_text">1</div>
 				</div>
 				<div class="equipment_msg_top_item_3_body">
@@ -60,7 +60,7 @@
 					<div class="equipment_text">1</div>
 				</div>
 				<div class="equipment_msg_top_item_3_body">
-					<span>粉尘(mg/m3)</span>
+					<span>粉尘(mg/m³)</span>
 					<div class="equipment_text">1</div>
 				</div>
 			</div>

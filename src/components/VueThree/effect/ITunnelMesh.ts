@@ -25,15 +25,91 @@ interface ITexture {
 	name: string
 	texture: Texture
 }
+
+const defaultNode: INodeMesh = {
+	geometry: {
+		radius: 300,
+	},
+	material: {
+		mapUrl: 'file/material/80.png',
+		transparent: true,
+		opacity: 1,
+	},
+}
+
+const defaultMesh: IMesh[] = [
+	{
+		geometry: {
+			radiusTop: 600,
+			radiusBottom: 600,
+			height: 1,
+			radialSegments: 4,
+			openEnded: true,
+			geometryType: 'Box',
+		},
+		material: {
+			mapUrl: 'file/material/edit/011.png',
+			transparent: true,
+			opacity: 0.6,
+			side: 2,
+		},
+	},
+	{
+		geometry: {
+			radiusTop: 200,
+			radiusBottom: 200,
+			height: 1,
+			radialSegments: 4,
+			openEnded: false,
+			geometryType: 'Box',
+		},
+		material: {
+			type: 'MeshStandardMaterial',
+			mapUrl: 'file/material/edit/80.png',
+			transparent: false,
+			opacity: 0.8,
+			side: 1,
+			colorWrite: true,
+			roughness: 0,
+			metalness: 0,
+		},
+	},
+]
+
 export class ITunnelMesh {
 	object: Object3D | undefined
 	iTexture: ITexture[]
+	connectNode: IModelNode
+	// 初始化巷道
+	defaultModel: IModelNode[]
+	// 新增巷道
+	newTunnel: IModelNode[]
+	// 改变巷道
+	changeTunnel: IModelNode[]
 	constructor() {
 		this.iTexture = []
+		this.defaultModel = []
+		this.newTunnel = []
+		this.changeTunnel = []
+		this.connectNode = {
+			meshes: defaultMesh,
+			nextNode: '',
+			nextNodePosition: undefined,
+			nodeName: '',
+			nodePosition: undefined,
+			nodes: defaultNode,
+			showMesh: true,
+			showNode: true,
+		}
 	}
 
 	config(obj: Object3D) {
 		this.object = obj
+	}
+	// 初始化巷道
+	initTunnel(...model: IModelNode[]) {
+		this.defaultModel = [...model]
+		this.add(...model)
 	}
 	// 添加
 	add(...model: IModelNode[]) {
@@ -139,6 +215,7 @@ export class ITunnelMesh {
 	}
 	// 	添加节点
 	addNodeMesh(modelNode: IModelNode) {
+		if (!modelNode.nodePosition || !modelNode.nextNodePosition) return []
 		if (!this.object) return []
 		let hasStart = false
 		let hasEnd = false
@@ -176,6 +253,7 @@ export class ITunnelMesh {
 	}
 	// 	添加巷道
 	addTunnelMesh(modelNode: IModelNode) {
+		if (!modelNode.nodePosition || !modelNode.nextNodePosition) return []
 		let geometryList = []
 		let meshGroup = new Group()
 		for (let j = 0; j < modelNode.meshes.length; j++) {
@@ -214,7 +292,7 @@ export class ITunnelMesh {
 		geometryList.push(meshGroup)
 		return geometryList
 	}
-
+	// 加载材质
 	loadTexture(nodeMaterial: IMaterial) {
 		let texture
 		const hasTexture = this.iTexture.find((i) => {
@@ -236,6 +314,7 @@ export class ITunnelMesh {
 	}
 	// 	添加风流
 	addWindMesh(modelNode: IModelNode) {
+		if (!modelNode.nodePosition || !modelNode.nextNodePosition) return []
 		if (!modelNode.windMesh) return []
 		let iMaterial: IMaterial = {
 			mapUrl:
@@ -283,5 +362,77 @@ export class ITunnelMesh {
 		toRot.setFromRotationMatrix(mtx) //计算出需要进行旋转的四元数值
 		mesh.quaternion.set(toRot.x, toRot.y, toRot.z, toRot.w)
 		return mesh
+	}
+	// 重置初始连接节点
+	resetConnectNode() {
+		this.connectNode = {
+			meshes: defaultMesh,
+			nextNode: '',
+			nextNodePosition: undefined,
+			nodeName: '',
+			nodePosition: undefined,
+			nodes: defaultNode,
+			showMesh: true,
+			showNode: true,
+		}
+	}
+	// 	判断节点并添加巷道
+	judgeNode(intersected: any) {
+		if (!intersected) return
+		const name = intersected.object.name
+		const names = name.split('-')
+		if (names.length === 1 && names[0]) {
+			// 	判断起点
+			if (!this.connectNode.nodeName) {
+				this.connectNode.nodeName = names[0]
+				this.connectNode.nodePosition = intersected.object.position
+				return
+			}
+
+			if (this.connectNode.nodeName === names[0]) return
+			// 	判断下一个节点
+			if (!this.connectNode.nextNode) {
+				this.connectNode.nextNode = names[0]
+				this.connectNode.nextNodePosition = intersected.object.position
+				this.add(this.connectNode)
+
+				this.newTunnel.push(this.connectNode)
+
+				return this.connectNode
+			}
+		}
+	}
+	// 	删除巷道
+	deleteTunnel(intersected: any) {
+		if (!intersected) return
+		const name = intersected.object.name
+		const names = name.split('-')
+		if (names.length === 2) {
+			const deleteIndex = this.newTunnel.findIndex((i) => {
+				return i.nodeName === names[0] && i.nextNode === names[1]
+			})
+			if (deleteIndex !== -1) {
+				this.deleteTunnelByName(name)
+				this.newTunnel.splice(deleteIndex, 1)
+			}
+		}
+	}
+	// 根据名称删除巷道
+	deleteTunnelByName(name: string) {
+		let removeList: Object3D[] = []
+		this.object?.traverse((child) => {
+			if (child.name === name) {
+				removeList.push(child)
+			}
+		})
+		this.object?.remove(...removeList)
+	}
+	// 	清空新增巷道
+	emptyNewTunnel() {
+		for (let i = 0; i < this.newTunnel.length; i++) {
+			const name = this.newTunnel[i].nodeName + '-' + this.newTunnel[i].nextNode
+			this.deleteTunnelByName(name)
+		}
+		this.newTunnel = []
 	}
 }

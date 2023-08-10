@@ -46,7 +46,7 @@
 							总功率(KW)：<span>{{ item.power }}</span>
 						</div>
 						<div class="local_fan_body_l1_item_l3">
-							风量(m3/min)：<span>{{ item.airQuantity }}</span>
+							风量(m³/min)：<span>{{ item.airQuantity }}</span>
 						</div>
 						<div class="local_fan_body_l1_item_l3">
 							风速(m/s)：<span>{{ item.windSpeed }}</span>

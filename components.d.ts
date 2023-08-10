@@ -32,6 +32,7 @@ declare module 'vue' {
     ModelGltf: typeof import('./src/components/VueThree/model-gltf.vue')['default']
     ModelJson: typeof import('./src/components/VueThree/model-json.vue')['default']
     ModelMixin: typeof import('./src/components/VueThree/model-mixin.vue')['default']
+    ModelNodeEdit: typeof import('./src/components/VueThree/model-node-edit.vue')['default']
     ModelPanPicture: typeof import('./src/components/VueThree/model-PanPicture.vue')['default']
     MVideo: typeof import('./src/components/MVideo/index.vue')['default']
     Pagination: typeof import('./src/components/Pagination/index.vue')['default']

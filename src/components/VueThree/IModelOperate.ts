@@ -57,6 +57,8 @@ export class OperateModel {
 	editId: number | undefined
 	// label标签
 	slotLabelList: CSS2DObject[]
+	// 临时标签
+	temporaryLabelList: CSS2DObject[]
 	// 其他标签
 	otherLabelList: CSS2DObject[]
 	constructor(
@@ -79,6 +81,8 @@ export class OperateModel {
 		this.ballMeshList = []
 		// label标签
 		this.slotLabelList = []
+		// 临时标签
+		this.temporaryLabelList = []
 		// 其他标签
 		this.otherLabelList = []
 		// 初始化自定义动画
@@ -94,6 +98,7 @@ export class OperateModel {
 	addLabelList(labelList: LabelAttribute[], IObj: Object3D) {
 		IObj.remove(...this.slotLabelList)
 		this.slotLabelList = []
+		this.slotLabelList = []
 
 		let Css2DomList = useEditModel().addCss2DomList(labelList)
 		if (!Css2DomList?.length) return
@@ -107,9 +112,21 @@ export class OperateModel {
 	// 添加其他标签
 	addOtherLabelList(labelList: LabelAttribute[]) {
 		this.wrapper.remove(...this.otherLabelList)
+		this.otherLabelList = []
+		if (!labelList?.length) return
 		let Css2DomList = useEditModel().addCss2DomList(labelList)
 		if (!Css2DomList?.length) return
 		this.otherLabelList.push(...Css2DomList)
+		this.wrapper.add(...Css2DomList)
+	}
+	// 添加临时标签
+	addTemporaryLabelList(labelList: LabelAttribute[]) {
+		this.wrapper.remove(...this.temporaryLabelList)
+		this.temporaryLabelList = []
+		if (!labelList.length) return
+		let Css2DomList = useEditModel().addCss2DomList(labelList)
+		if (!Css2DomList?.length) return
+		this.temporaryLabelList.push(...Css2DomList)
 		this.wrapper.add(...Css2DomList)
 	}
 	// 清空所有标签
@@ -271,7 +288,7 @@ export class OperateModel {
 				position: new Vector3(0, 0, 0),
 			}
 			const length = font.text.length * font.size
-			let plane = createdTextBg(font.height, length)
+			let plane = createdTextBg(font.height, length, font.planeColor)
 			this.object.traverse((child: any) => {
 				if (child.name === font.parent) {
 					let chooseChild = child.isGroup ? child.children[0] : child
@@ -296,10 +313,10 @@ export class OperateModel {
 	}
 }
 // 生成文字背景
-function createdTextBg(size: number, length: number) {
+function createdTextBg(size: number, length: number, planeColor: string) {
 	const geometry = new PlaneGeometry(length, size)
 	geometry.rotateY(-Math.PI / 2)
-	const material = new MeshBasicMaterial({ color: 0x00ff00, side: DoubleSide })
+	const material = new MeshBasicMaterial({ color: planeColor, side: DoubleSide })
 	return new Mesh(geometry, material)
 }
 //生成平面

@@ -1,8 +1,9 @@
 <script setup>
 	import { homeVisualAngle } from '@/api/request/home/homeVisualAngle'
-	import WindFloorPlanMap from '@/views/components/home/WindFloorPlanMap.vue'
 	import useHomeMenu from '@/hooks/useHomeMenu'
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
+	import HomeWindBranch from '@/views/components/home/HomeWindBranch.vue'
+	import HomeVenNetwork from '@/views/components/home/HomeVenNetwork.vue'
 
 	const { domStyle } = useMenuItemPosition(299)
 	const { checkedWindPath, checkedVenNetwork } = homeVisualAngle()
@@ -24,26 +25,11 @@
 	</div>
 	<!--  风路分支图-->
 	<div v-if="checkedWindPath" class="other_wind_path">
-		<span class="other_title"><border-box name="border2" title="风路分支图"></border-box></span>
-		<div class="other_wind_path_body">
-			<div class="other_wind_path_body_item">
-				<div class="other_wind_path_body_item_1">回风井</div>
-				<div class="other_wind_path_body_item_2">风量</div>
-				<div class="other_wind_path_body_item_3"></div>
-				<div class="other_wind_path_body_item_2">巷道</div>
-				<div class="other_wind_path_body_item_4">
-					<div class="other_item_4_icon_1">回</div>
-					<div class="other_item_4_text">10-11</div>
-					<div class="other_item_4_icon_2">进</div>
-					<div class="other_item_4_text">10-12</div>
-				</div>
-			</div>
-		</div>
+		<home-wind-branch />
 	</div>
 	<!--  通风网络图-->
 	<div v-if="checkedVenNetwork" class="other_wind_net">
-		<span class="other_title"> <border-box name="border2" title="通风网络图"></border-box></span>
-		<wind-floor-plan-map />
+		<home-ven-network />
 	</div>
 </template>
 

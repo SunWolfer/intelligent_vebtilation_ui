@@ -66,11 +66,11 @@ interface IModelNode {
 	// 开始节点名称
 	nodeName: string
 	// 开始节点位置
-	nodePosition: ICoordinates
+	nodePosition: ICoordinates | undefined
 	// 下一连接节点名称
 	nextNode: string
 	// 下一连接节点位置
-	nextNodePosition: ICoordinates
+	nextNodePosition: ICoordinates | undefined
 	// 节点模型&材质
 	nodes: INodeMesh
 	// 巷道模型&材质
@@ -181,11 +181,18 @@ interface IMaterial {
 }
 // 传入三维字体
 interface IRootFont {
+	// 文字所在父类名称
 	parent: string
+	// 文字
 	text: string
+	// 文字大小
 	size: number
+	// 文字颜色
 	color: string
+	// 文字高度偏移量
 	height: number
+	// 文字背景颜色
+	planeColor: string
 }
 // 创建三维字体
 interface IFontType {

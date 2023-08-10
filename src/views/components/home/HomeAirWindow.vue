@@ -125,7 +125,7 @@
 						<div class="window_param_item">
 							风量
 							<el-input />
-							m3/min
+							m³/min
 						</div>
 						<div class="normal_btn">设定</div>
 						<div class="window_param_item">

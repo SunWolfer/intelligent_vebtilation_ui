@@ -103,7 +103,7 @@ export const mainFan = () => {
 				icon: 'main_fan_body_l2_icon_4',
 			},
 			{
-				label: '风量(m3/min)',
+				label: '风量(m³/min)',
 				value: mainFanForm.value.airVolume,
 				icon: 'main_fan_body_l2_icon_5',
 			},

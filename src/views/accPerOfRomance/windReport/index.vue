@@ -34,25 +34,25 @@
 						<el-table-column prop="position" label="风速(m/s)" align="center"></el-table-column>
 						<el-table-column
 							prop="position"
-							label="风量(m3/min)"
+							label="风量(m³/min)"
 							width="110"
 							align="center"
 						></el-table-column>
 						<el-table-column
 							prop="position"
-							label="解算风量(m3/min)"
+							label="解算风量(m³/min)"
 							min-width="120"
 							align="center"
 						></el-table-column>
 						<el-table-column
 							prop="position"
-							label="计划风量(m3/min)"
+							label="计划风量(m³/min)"
 							min-width="120"
 							align="center"
 						></el-table-column>
 						<el-table-column
 							prop="position"
-							label="人工实测风量(m3/min)"
+							label="人工实测风量(m³/min)"
 							min-width="140"
 							align="center"
 						></el-table-column>

@@ -93,7 +93,7 @@ export const accurateWindMeasurement = () => {
 			yDataList: yData,
 			legends: ['6102胶运顺槽', '6103胶运顺槽'],
 			legendPosition: 'center',
-			units: 'm3/s',
+			units: 'm³/s',
 			colors: [
 				['rgba(178, 0, 237, 1)', 'rgba(178, 0, 237, 1)'],
 				['rgba(49, 255, 111, 1)', 'rgba(49, 255, 111, 1)'],

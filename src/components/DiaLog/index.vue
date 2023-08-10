@@ -74,8 +74,10 @@
 							<slot></slot>
 						</div>
 						<div v-if="hasBottomBtn" class="content_type_2_bottom">
-							<div class="normal_btn" @click="submitForms">{{ btnList[0] }}</div>
-							<div class="normal_2_btn" @click="closeDia">{{ btnList[1] }}</div>
+							<slot name="bottom">
+								<div class="normal_btn" @click="submitForms">{{ btnList[0] }}</div>
+								<div class="normal_2_btn" @click="closeDia">{{ btnList[1] }}</div>
+							</slot>
 						</div>
 					</div>
 				</border-box>
@@ -123,6 +125,9 @@
 	}
 	.content_type_2_header {
 		grid-area: l1;
+		position: relative;
+		width: 100%;
+		height: 100%;
 	}
 	.content_type_2_bottom {
 		grid-area: l2;

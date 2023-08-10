@@ -1,0 +1,182 @@
+.real_time_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+//实时解算频率
+.real_time_body_top {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: vh(130);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.real_time_body_top_body {
+		width: vw(668.2);
+		height: vh(128);
+		:deep(.border-box-content) {
+			padding: vh(10) vw(25) 0 vw(25);
+		}
+		.real_time_body_top_body_title {
+			font-size: vh(26);
+			font-family: YouSheBiaoTiHei, serif;
+			font-weight: 400;
+			color: rgba(255, 255, 255, 0.78);
+			line-height: vh(45);
+
+			background: linear-gradient(0deg, #4691f7 0%, #2bc9ea 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+		.real_time_body_top_body_line {
+			width: 100%;
+			display: grid;
+			justify-content: center;
+			grid-template-columns: vw(150) vw(80) vw(32) vw(130);
+			grid-column-gap: vw(20);
+			align-items: center;
+			font-size: vh(14);
+			font-family:
+				Adobe Heiti Std,
+				serif;
+			font-weight: normal;
+			color: #ffffff;
+			.el-slider {
+				width: vw(150);
+				height: vh(6);
+			}
+			.el-input-number {
+				width: vw(80);
+				height: vh(32);
+			}
+			.normal_btn {
+				width: vw(128);
+				height: vh(38);
+				line-height: vh(38);
+			}
+		}
+	}
+}
+
+//实时解算表格
+.real_time_body_bottom {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	bottom: vh(46);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.real_time_body_bottom_body {
+		width: vw(2378);
+		height: vh(388);
+		background-color: rgba(35, 43, 85, 0.76);
+		padding: 0 vw(3) vh(7) vw(12);
+		.real_time_body_bottom_body_title {
+			width: 100%;
+			height: vh(35);
+		}
+		.real_time_body_bottom_center {
+			width: 100%;
+			height: vh(75);
+			padding: 0 vw(77) 0 vw(39);
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			align-items: center;
+			.real_time_body_bottom_center_left {
+				width: 100%;
+				height: vh(45);
+				display: grid;
+				grid-template-columns: repeat(3, vw(130));
+				grid-column-gap: vw(20);
+			}
+			.real_time_body_bottom_center_right {
+				justify-self: end;
+				display: flex;
+
+				font-size: vh(12);
+				font-family:
+					Microsoft YaHei,
+					serif;
+				font-weight: 400;
+				color: #ffffff;
+			}
+		}
+		.real_time_body_bottom_table {
+			width: 100%;
+			height: vh(274);
+			padding: 0 vw(77) 0 vw(39);
+		}
+	}
+}
+
+.full_table_cell_bg {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+}
+
+.red_cell {
+	background: #fe0000;
+}
+.powder_cell {
+	background: #ff01d5;
+}
+.orange_cell {
+	background: #ff7f00;
+}
+
+@mixin Piece {
+	width: vw(67);
+	height: vh(18);
+	margin: 0 vw(5) 0 vw(10);
+}
+.red_piece {
+	@include Piece;
+	background: #fe0000;
+}
+.powder_piece {
+	@include Piece;
+	background: #ff01d5;
+}
+.orange_piece {
+	@include Piece;
+	background: #ff7f00;
+}
+
+@mixin btnText {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	background-size: 100% 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	span {
+		font-size: vh(17);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: rgba(255, 255, 255, 0.78);
+		text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+		background: linear-gradient(0deg, #b8d6ff 0%, #2bc9ea 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}
+
+.real_btn_1 {
+	background-image: url('@/assets/images/windControlAssMaking/btn_1.png');
+	@include btnText;
+}
+.real_btn_1_active {
+	background-image: url('@/assets/images/windControlAssMaking/btn_1_active.png');
+	@include btnText;
+}

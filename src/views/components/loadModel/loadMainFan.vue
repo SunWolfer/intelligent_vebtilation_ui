@@ -175,7 +175,7 @@
 			:camera-size="1"
 			:backgroundAlpha="0"
 			@load="onLoad"
-			@click="onClick"
+			@onClick="onClick"
 			@onModel="onModel"
 			@readyCamera="readyCamera"
 		>

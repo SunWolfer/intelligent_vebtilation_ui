@@ -442,7 +442,7 @@ export function getChart3(domId, value, title, title2) {
 					'\n{num|' +
 					dataArr +
 					'}' +
-					'{icon|m3/min}',
+					'{icon|m³/min}',
 				x: '50%',
 				y: '30%',
 				textAlign: 'center',

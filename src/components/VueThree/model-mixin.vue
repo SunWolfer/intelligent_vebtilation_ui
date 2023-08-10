@@ -251,6 +251,11 @@
 
 			element.appendChild(this.labelRenderer.domElement)
 
+			element.addEventListener('mousedown', this.onMouseDown, false)
+			element.addEventListener('mousemove', this.onMouseMove, false)
+			element.addEventListener('mouseup', this.onMouseUp, false)
+			element.addEventListener('click', this.onClick, false)
+			element.addEventListener('dblclick', this.onDblclick, false)
 			window.addEventListener('resize', this.onResize, false)
 
 			this.animate()
@@ -267,6 +272,12 @@
 			if (this.controls) {
 				this.controls.dispose()
 			}
+			const element = this.$refs.container as HTMLDivElement
+			element.removeEventListener('click', this.onClick, false)
+			element.removeEventListener('dblclick', this.onDblclick, false)
+			element.removeEventListener('mousedown', this.onMouseDown, false)
+			element.removeEventListener('mousemove', this.onMouseMove, false)
+			element.removeEventListener('mouseup', this.onMouseUp, false)
 
 			window.removeEventListener('resize', this.onResize, false)
 		},
@@ -356,38 +367,36 @@
 				}
 			},
 			onMouseDown(event: MouseEvent) {
-				if (!this.$attrs.onMousedown) return
+				if (!this.$attrs.onOnMousedown) return
 
 				const intersected = this.pick(event.clientX, event.clientY)
-				this.$emit('mousedown', event, intersected)
+				this.$emit('on-mousedown', event, intersected)
 			},
 			onMouseMove(event: MouseEvent) {
 				// console.log(this.$attrs)
-				if (!this.$attrs.onMousemove) return
+				if (!this.$attrs.onOnMousemove) return
 				const intersected = this.pick(event.clientX, event.clientY)
-				this.$emit('mousemove', event, intersected)
+				this.$emit('on-mousemove', event, intersected)
 			},
 			onMouseUp(event: MouseEvent) {
-				if (!this.$attrs.onMouseup) return
+				if (!this.$attrs.onOnMouseup) return
 
 				const intersected = this.pick(event.clientX, event.clientY)
-				this.$emit('mouseup', event, intersected)
+				this.$emit('on-mouseup', event, intersected)
 			},
 			onClick(event: MouseEvent) {
-				if (!this.$attrs.onClick) return
-
+				if (!this.$attrs.onOnClick) return
 				this.selectedObjects = []
 
 				const intersected: any = this.pick(event.clientX, event.clientY)
 				if (intersected !== null) this.selectedObjects.push(intersected.object)
-
-				this.$emit('click', event, intersected)
+				this.$emit('on-click', event, intersected)
 			},
 			onDblclick(event: MouseEvent) {
-				if (!this.$attrs.onDblclick) return
+				if (!this.$attrs.onOnDblclick) return
 
 				const intersected = this.pick(event.clientX, event.clientY)
-				this.$emit('dblclick', event, intersected)
+				this.$emit('on-dblclick', event, intersected)
 			},
 			pick(x: number, y: number) {
 				if (!this.object) return null
@@ -771,15 +780,7 @@
 		>
 			<slot name="poster" />
 		</div>
-		<canvas
-			@click="onClick"
-			@dblclick="onDblclick"
-			@mouseup="onMouseUp"
-			@mousedown="onMouseDown"
-			@mousemove="onMouseMove"
-			ref="canvas"
-			style="width: 100%; height: 100%"
-		></canvas>
+		<canvas ref="canvas" style="width: 100%; height: 100%"></canvas>
 		<slot name="label"></slot>
 		<slot name="edit"></slot>
 		<slot name="warn"></slot>

@@ -33,12 +33,12 @@
 						<el-table-column prop="position" label="测风地点" align="center"></el-table-column>
 						<el-table-column
 							prop="position"
-							label="需要风量(m3/min)"
+							label="需要风量(m³/min)"
 							align="center"
 						></el-table-column>
 						<el-table-column
 							prop="position"
-							label="有效风量(m3/min)"
+							label="有效风量(m³/min)"
 							align="center"
 						></el-table-column>
 					</el-table>

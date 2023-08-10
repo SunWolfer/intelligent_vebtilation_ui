@@ -30,7 +30,7 @@
 			<div class="equipment_msg_top_item_2">{{ data.name }}</div>
 			<div class="equipment_msg_top_item_3 equipment_msg_top_item_3_wind_speed">
 				<div class="equipment_msg_top_item_3_body">
-					<span>当前风量(m3/min)</span>
+					<span>当前风量(m³/min)</span>
 					<div class="equipment_text">2.53</div>
 				</div>
 				<div class="equipment_msg_top_item_3_body">

@@ -1,0 +1,135 @@
+//解算模拟弹窗
+.imitate_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	place-content: center;
+}
+.imitate_body_border {
+	width: vw(402);
+	height: vh(235);
+	padding-top: vh(33);
+	background-image: url('@/assets/images/windControlAssMaking/border_2.png');
+	background-size: 100% 100%;
+}
+.imitate_body_border_body {
+	height: 100%;
+	overflow-y: auto;
+	display: grid;
+	grid-template-columns: vw(312);
+	grid-template-rows: repeat(auto-fill, vh(40));
+	grid-row-gap: vh(20);
+	align-content: space-between;
+	justify-content: center;
+}
+.imitate_body_border_item {
+	position: relative;
+	width: 100%;
+	display: grid;
+	grid-template-columns: vw(48) repeat(2, 1fr) vw(48);
+	grid-template-rows: vh(30) 1px;
+	place-items: center;
+	z-index: 0;
+	grid-template-areas:
+		'one two three .'
+		'four four four four';
+}
+
+.imitate_body_border_text_bg {
+	grid-area: four;
+	position: relative;
+	width: 100%;
+	height: 1px;
+	background: radial-gradient(circle, #ffffff, rgba(255, 255, 255, 0) 60%);
+	&:before {
+		position: absolute;
+		content: '';
+		bottom: vh(-5);
+		left: vw(-10);
+		width: vw(312);
+		height: vh(30);
+		background: #223b64;
+		border: 1px solid #113c7f;
+		z-index: -1;
+		transform: rotateX(45deg) skew(-15deg, 0deg);
+	}
+}
+@mixin rightText {
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	font-size: vh(14);
+}
+.imitate_body_border_text_index {
+	@include rightText;
+	color: #ffffff;
+	width: vh(32);
+	height: vh(32);
+	background-image: url('@/assets/images/home/home_right/mes_ser_num.png');
+	background-size: 100% 100%;
+	text-align: center;
+	transform: translateY(vh(-4));
+}
+.imitate_body_border_text {
+	position: relative;
+	@include rightText;
+	color: #ffffff;
+}
+
+.imitate_body_branch {
+	width: vw(402);
+	height: vh(46);
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: vh(26);
+	place-content: end center;
+	justify-items: center;
+	.imitate_body_branch_item {
+		display: flex;
+		align-items: center;
+		.imitate_body_branch_item_label {
+			margin-right: vw(10);
+			font-size: vh(26);
+			font-family: YouSheBiaoTiHei, serif;
+			font-weight: 400;
+			color: rgba(255, 255, 255, 0.78);
+			background: linear-gradient(0deg, #4691f7 0%, #2bc9ea 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+	}
+}
+.home_reverse_wind_btn {
+	width: vw(170);
+	height: vh(40);
+	background-image: url('@/assets/images/home/home_menu_btn.png');
+	background-size: 100% 100%;
+	cursor: pointer;
+	font-size: vh(20);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	text-align: center;
+	display: grid;
+	grid-template-columns: vw(60) auto;
+	align-items: center;
+
+	span {
+		justify-self: start;
+	}
+}
+.normal_btn {
+	width: vw(134);
+	height: vh(51);
+}
+.home_reverse_wind_btn_icon {
+	width: vw(22);
+	height: vh(22);
+	background-image: url('@/assets/images/home/home_reverse_wind/btn_icon.png');
+	background-size: 100% 100%;
+	justify-self: center;
+}

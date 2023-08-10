@@ -37,7 +37,7 @@
 						>
 							<div class="acc_body_top_body_item_header">{{ i.name }}</div>
 							<div class="acc_body_top_body_item_l2_text" :class="getTextStyle(i.type)">
-								<span class="acc_body_top_body_item_l2_text_1"> 风量(m3/min)：</span>
+								<span class="acc_body_top_body_item_l2_text_1"> 风量(m³/min)：</span>
 								<span class="acc_body_top_body_item_l2_text_2">{{ i.airVolume }}</span>
 							</div>
 							<div class="acc_body_top_body_item_icon" :class="getStyle(i.type)">

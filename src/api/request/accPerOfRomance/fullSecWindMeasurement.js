@@ -70,7 +70,7 @@ export const fullSecWindMeasurement = () => {
 			yDataList: yData,
 			legends: ['6102胶运顺槽', '6103胶运顺槽'],
 			legendPosition: 'right',
-			units: 'm3/s',
+			units: 'm³/s',
 			colors: [
 				['rgba(178, 0, 237, 1)', 'rgba(178, 0, 237, 1)'],
 				['rgba(49, 255, 111, 1)', 'rgba(49, 255, 111, 1)'],
@@ -153,7 +153,7 @@ export const fullSecWindMeasurement = () => {
 			{
 				label: '风量：',
 				value: aneData.value.airVolume,
-				unit: 'm3/min',
+				unit: 'm³/min',
 			},
 			{
 				label: '温度：',

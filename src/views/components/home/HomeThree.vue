@@ -147,8 +147,8 @@
 			:choose-group="true"
 			@load="onLoad"
 			@onModel="onModel"
-			@click="onClick"
-			@dblclick="dblclick"
+			@onClick="onClick"
+			@onDblclick="dblclick"
 			@ready-camera="readyCamera"
 		>
 			<template #label v-if="isReady">

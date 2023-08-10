@@ -1,0 +1,141 @@
+.natural_top {
+	position: absolute;
+	width: vw(1028);
+	height: vh(148);
+	left: vw(71);
+	top: vh(23);
+	.natural_top_body {
+		width: 100%;
+		height: 100%;
+		padding: vh(25) vw(44) vh(20) vw(44);
+		display: grid;
+		grid-template-columns: vw(265) repeat(3, vw(104)) 1px repeat(2, vw(128));
+		justify-content: space-between;
+	}
+	.natural_top_body_c1 {
+		width: 100%;
+		height: 100%;
+		display: grid;
+		grid-template-rows: vh(70) auto;
+		.natural_top_body_c1_title {
+			font-size: vh(26);
+			font-family: YouSheBiaoTiHei, serif;
+			font-weight: 400;
+			color: rgba(255, 255, 255, 0.78);
+
+			background: linear-gradient(0deg, #4691f7 0%, #2bc9ea 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+		.natural_top_body_c1_bottom {
+			width: 100%;
+			display: flex;
+			justify-content: space-around;
+		}
+	}
+	@mixin bodyTB {
+		width: 100%;
+		height: 100%;
+		display: grid;
+		grid-template-rows: vh(70) auto;
+		place-items: center;
+		.top_img {
+			width: vh(76);
+			height: vh(77);
+			background-size: 100% 100%;
+		}
+	}
+	.natural_top_body_c2 {
+		@include bodyTB;
+		.top_img {
+			background-image: url('@/assets/images/windControlAssMaking/icon_1.png');
+		}
+	}
+	.natural_top_body_c3 {
+		@include bodyTB;
+		.top_img {
+			background-image: url('@/assets/images/windControlAssMaking/icon_2.png');
+		}
+	}
+	.natural_top_body_c4 {
+		@include bodyTB;
+		.top_img {
+			background-image: url('@/assets/images/windControlAssMaking/icon_3.png');
+		}
+	}
+	.natural_top_body_c5 {
+		width: 8px;
+		height: 100%;
+		background: radial-gradient(circle, #00ffff, #235794);
+		-webkit-mask-image: url('@/assets/images/line-01.svg');
+		-webkit-mask-size: 100% 100%;
+		-webkit-background-size: 100% 100%;
+	}
+	@mixin dealWith {
+		width: 100%;
+		height: 100%;
+		display: grid;
+		align-items: center;
+	}
+	.natural_top_body_c6 {
+		@include dealWith;
+	}
+	.natural_top_body_c7 {
+		@include dealWith;
+	}
+}
+@mixin btnBorder {
+	width: vw(104);
+	height: vh(43);
+	cursor: pointer;
+
+	background-size: 100% 100%;
+
+	font-size: vh(14);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #69d2f9;
+	text-align: center;
+	line-height: vh(43);
+}
+.btn_border_1 {
+	background-image: url('@/assets/images/windControlAssMaking/border_1.png');
+	@include btnBorder;
+}
+.btn_border_1_active {
+	background-image: url('@/assets/images/windControlAssMaking/border_1_active.png');
+	@include btnBorder;
+}
+
+//风窗弹窗表单
+.window_form_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.window_form_body_label {
+		font-size: vh(26);
+		font-family: YouSheBiaoTiHei, serif;
+		font-weight: 400;
+		color: rgba(255, 255, 255, 0.78);
+
+		background: linear-gradient(0deg, #4691f7 0%, #2bc9ea 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	.el-input-number {
+		margin: 0 vw(10);
+	}
+	.window_form_body_unit {
+		font-size: vh(14);
+		font-family:
+			Microsoft YaHei,
+			serif;
+		font-weight: 400;
+		color: #ffffff;
+	}
+}

@@ -43,7 +43,7 @@
 									</div>
 									<div class="full_body_l1_bottom_item_left_center">{{ i.name }}</div>
 									<div class="full_body_l1_bottom_item_left_text">
-										<span class="text_label">[ 风量(m3/min) ] </span>
+										<span class="text_label">[ 风量(m³/min) ] </span>
 										<span class="text_value">{{ i.airVolume }}</span>
 									</div>
 									<div class="full_body_l1_bottom_item_left_text">
