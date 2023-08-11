@@ -24,11 +24,11 @@
 <style scoped lang="scss">
 	@import '@/assets/styles/border-box';
 	.border-box-7-fill {
-		fill: rgba(39, 48, 81, 1);
-		stroke-width: 2px;
-		stroke: rgba(19, 133, 224, 1);
+		fill: #273051;
+		stroke-width: 1px;
+		stroke: #1385e0;
 	}
 	.border-box-content {
-		padding: 0 !important;
+		padding: 0;
 	}
 </style>

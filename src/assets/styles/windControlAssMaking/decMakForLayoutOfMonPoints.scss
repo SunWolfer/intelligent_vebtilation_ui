@@ -1,0 +1,120 @@
+.dec_point {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: vh(20) vw(80) vh(46) vw(40);
+	display: grid;
+	grid-template-columns: vw(331) 1fr;
+	grid-column-gap: vw(19);
+	grid-template-rows: vh(62) 1fr;
+	grid-row-gap: vh(12);
+	align-items: center;
+	grid-template-areas:
+		'left header'
+		'left right';
+}
+.dec_point_left {
+	grid-area: left;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: rgba(39, 48, 91, 0.5);
+	padding: vh(10) vw(30) 0 vw(45);
+	display: grid;
+	grid-template-rows: vh(38) 1fr;
+}
+.dec_point_left_top {
+}
+.dec_point_left_bottom {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	padding-top: vh(60);
+	display: grid;
+	grid-template-columns: vw(24) vw(194);
+	grid-template-rows: repeat(auto-fill, vh(26));
+	justify-content: center;
+	grid-row-gap: vh(90);
+}
+.dec_point_left_bottom_icon {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	&:after {
+		position: absolute;
+		content: '';
+		width: 1px;
+		height: vh(90);
+		background: #334b69;
+		top: vh(20);
+	}
+	&:nth-last-child(2),
+	&:nth-last-child(1) {
+		&:after {
+			height: 0;
+		}
+	}
+}
+@mixin DecPointIcon {
+	width: vw(15);
+	height: vh(14);
+	background-size: 100% 100%;
+	display: flex;
+	justify-content: center;
+}
+.dec_point_left_icon_default {
+	@include DecPointIcon;
+	background-image: url('@/assets/images/home/home_roam/icon_1.png');
+}
+.dec_point_left_icon_active {
+	@include DecPointIcon;
+	background-image: url('@/assets/images/windControlAssMaking/dec_icon_1.png');
+}
+@mixin DecPointBg {
+	position: relative;
+	width: vw(183);
+	height: vh(26);
+	background-size: 100% 100%;
+	transform: translateY(-10%);
+	padding-left: vw(22);
+	cursor: pointer;
+}
+.dec_point_left_bg_default {
+	@include DecPointBg;
+	background-image: url('@/assets/images/home/home_dis_pre_route/route_text_bg_1.png');
+
+	font-size: vh(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #a8b8d9;
+}
+.dec_point_left_bg_active {
+	@include DecPointBg;
+	background-image: url('@/assets/images/windControlAssMaking/dec_icon_2.png');
+
+	font-size: vh(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffff00;
+}
+
+.dec_point_header {
+	grid-area: header;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.dec_point_right {
+	grid-area: right;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}

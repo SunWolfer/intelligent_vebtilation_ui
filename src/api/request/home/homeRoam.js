@@ -137,6 +137,17 @@ export const homeRoam = (emits) => {
 		}
 	}
 
+	const textStyle = (index) => {
+		const aIndex = roamMaxTotal.value - 1 + downStep.value - tEquipmentIndex.value
+		if (index < aIndex) {
+			return 'home_roam_route_text_bg_1'
+		} else if (index === aIndex) {
+			return 'home_roam_route_text_bg_2'
+		} else if (index > aIndex) {
+			return 'home_roam_route_text_bg_3'
+		}
+	}
+
 	onBeforeUnmount(() => {
 		changeBtn(0)
 	})
@@ -147,5 +158,6 @@ export const homeRoam = (emits) => {
 		cleanInterval,
 		roamList,
 		iconStyle,
+		textStyle,
 	}
 }

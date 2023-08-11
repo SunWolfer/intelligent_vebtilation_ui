@@ -6,7 +6,7 @@
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
 	const emits = defineEmits(['moveCamera'])
 
-	const { chooseBtn, changeBtn, roamList, iconStyle } = homeRoam(emits)
+	const { chooseBtn, changeBtn, roamList, iconStyle, textStyle } = homeRoam(emits)
 	const { domStyle } = useMenuItemPosition(359)
 	const { dislodgeDomStyle, roam } = useHomeMenu()
 </script>
@@ -64,7 +64,10 @@
 			<template v-for="(i, index) in roamList">
 				<div class="home_roam_equipment_bottom_body" :class="!i ? 'equipment_op' : ''">
 					<div class="home_roam_equipment_bottom_icon" :class="iconStyle(index)"></div>
-					<div class="home_roam_equipment_bottom_title_text">【监测点5】{{ i?.name }}</div>
+					<div class="home_roam_equipment_bottom_title_text" :class="textStyle(index)">
+						<span>【监测点5】</span>
+						{{ i?.name }}
+					</div>
 					<div class="home_roam_equipment_bottom_border"></div>
 					<div class="home_roam_equipment_bottom_body_text">
 						<span>巡检位置：{{ i?.name }}</span>

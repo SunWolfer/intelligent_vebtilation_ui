@@ -26,7 +26,15 @@ let myFeatureAnimation = new FeatureAnimation()
  * @param {*} zoom 层级
  * @param {*} interactions 控制
  */
-export function initMap(myExtent, ids, mapData, blankLayerList, datalayerList, zoom, interactions) {
+export function initMap(
+	myExtent,
+	ids,
+	mapData,
+	blankLayerList,
+	datalayerList,
+	zoom = 2,
+	interactions = {},
+) {
 	let layers = getLayers(myExtent, datalayerList)
 
 	for (let i = 0; i < blankLayerList.length; i++) {
@@ -48,7 +56,7 @@ export function initMap(myExtent, ids, mapData, blankLayerList, datalayerList, z
 		view: new View({
 			projection: mapProjection,
 			center: extent.getCenter(myExtent),
-			zoom: zoom || 5,
+			zoom: zoom,
 			extent: myExtent,
 		}),
 		controls: control.defaults({
@@ -56,7 +64,7 @@ export function initMap(myExtent, ids, mapData, blankLayerList, datalayerList, z
 			rotate: false,
 			zoom: false,
 		}),
-		interactions: interaction.defaults(interactions || {}),
+		interactions: interaction.defaults(interactions),
 	})
 	mapData.value.render()
 }
