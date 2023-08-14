@@ -9,6 +9,8 @@ export interface barData {
 	yUnit?: string
 	xUnits?: string
 	colors: string[][]
+	// 单柱宽度
+	barWidth?: number
 	// 	是否区域渐变
 	isArea?: boolean
 	// 是否有边框
@@ -37,6 +39,7 @@ export function defaultBarChart({
 	yUnit = '',
 	xUnits = '',
 	colors,
+	barWidth = 10,
 	isArea = true,
 	hasBorder = false,
 	otherBorder = false,
@@ -55,7 +58,7 @@ export function defaultBarChart({
 		let series: any = {
 			name: legends && legends[i],
 			type: 'bar',
-			barWidth: '20%',
+			barWidth: barWidth,
 			itemStyle: {
 				color: new echarts.graphic.LinearGradient(
 					0,
@@ -172,7 +175,7 @@ export function defaultBarChart({
 					show: false,
 				},
 				axisLabel: {
-					color: 'rgba(255, 255, 255, 0.4)',
+					color: '#FFFFFF',
 				},
 				splitLine: {
 					show: showXSplitLine,
@@ -202,7 +205,7 @@ export function defaultBarChart({
 					},
 				},
 				axisLabel: {
-					color: 'rgba(0, 160, 233, 1)',
+					color: '#FFFFFF',
 				},
 			},
 		],

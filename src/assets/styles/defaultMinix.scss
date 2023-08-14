@@ -1,0 +1,22 @@
+//带图标标题
+@mixin defaultMinix1($width,$height){
+  position: relative;
+  padding-left: vw(65);
+  font-size: vh(20);
+  font-family: YouSheBiaoTiHei, serif;
+  font-weight: 400;
+  color: #9cb9ff;
+  line-height: vh($height);
+  z-index: 0;
+  &:after {
+    position: absolute;
+    content: '';
+    width: vw($width);
+    height: vh($height);
+    left: 0;
+    top: 0;
+    background-image: url('@/assets/images/accPerOfRomance/table_label.png');
+    background-size: 100% 100%;
+    z-index: -1;
+  }
+}

@@ -15,7 +15,7 @@
 		// 	选中路由路径
 		chooseBasePath: string
 		// 	鼠标点击位置
-		mousePosition: MouseEvent
+		mousePosition: MouseEvent | undefined
 	}
 
 	const props = withDefaults(defineProps<secondaryProps>(), {
@@ -33,6 +33,7 @@
 
 	// 	区域位置
 	const navigateStyle = computed(() => {
+		if (!props.mousePosition) return
 		const { offsetTop, offsetLeft, offsetHeight, offsetWidth }: any = props.mousePosition.target
 		const top = offsetTop + offsetHeight
 		return {

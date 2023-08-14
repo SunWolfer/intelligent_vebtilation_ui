@@ -1,3 +1,4 @@
+@import "@/assets/styles/defaultMinix";
 .cal_air_body {
 	position: relative;
 	width: 100%;
@@ -97,25 +98,7 @@
 }
 .cal_air_body_center {
 	margin: vh(10) 0;
-	position: relative;
-	padding-left: vw(65);
-	font-size: vh(20);
-	font-family: YouSheBiaoTiHei, serif;
-	font-weight: 400;
-	color: #9cb9ff;
-	line-height: vh(43);
-	z-index: 0;
-	&:after {
-		position: absolute;
-		content: '';
-		width: vw(239);
-		height: vh(43);
-		left: 0;
-		top: 0;
-		background-image: url('@/assets/images/accPerOfRomance/table_label.png');
-		background-size: 100% 100%;
-		z-index: -1;
-	}
+	@include defaultMinix1(239,43);
 }
 .cal_air_body_end {
 	width: 100%;

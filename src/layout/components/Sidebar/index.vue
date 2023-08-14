@@ -49,7 +49,10 @@
 			</div>
 			<div class="sys_top_right_navigate">
 				<template v-for="(item, index) in rightSidebarRouters" :key="item.name">
-					<div class="navigate_right_bg" @click="clickTheFirstLevelMenu(item, $event)">
+					<div
+						:class="getMenuChoose(item) ? 'navigate_left_bg_active' : 'navigate_left_bg'"
+						@click="clickTheFirstLevelMenu(item, $event)"
+					>
 						{{ item.meta?.title }}
 					</div>
 				</template>

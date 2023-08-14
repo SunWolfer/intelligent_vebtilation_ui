@@ -1,4 +1,5 @@
 // * Echarts 按需引入
+import { PolarComponentOption } from 'echarts'
 import * as echarts from 'echarts/core'
 import {
 	BarChart,
@@ -20,7 +21,7 @@ import {
 	ScatterSeriesOption,
 } from 'echarts/charts'
 
-import { LegendComponent } from 'echarts/components'
+import { LegendComponent, PolarComponent } from 'echarts/components'
 import {
 	TitleComponent,
 	// 组件类型的定义后缀都为 ComponentOption
@@ -65,6 +66,7 @@ export type ECOption = echarts.ComposeOption<
 	| HeatmapSeriesOption
 	| VisualMapComponentOption
 	| ScatterSeriesOption
+	| PolarComponentOption
 >
 
 // 注册必须的组件
@@ -91,5 +93,6 @@ echarts.use([
 	VisualMapComponent,
 	ScatterChart,
 	CanvasRenderer,
+	PolarComponent,
 ])
 export default echarts
