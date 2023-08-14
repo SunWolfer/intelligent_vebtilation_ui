@@ -4,14 +4,14 @@
 	height: 100%;
 	padding: 0 vw(57) vh(47) vw(48);
 	display: grid;
-	grid-template-columns: auto vw(690);
+	grid-template-columns: 1fr vw(690);
 	grid-column-gap: vw(26);
-	grid-template-rows: auto vh(305);
+	grid-template-rows: 1fr vh(305);
 	grid-row-gap: vh(16);
 }
 .home_air_door_body_c1 {
 	display: grid;
-	grid-template-columns: auto vw(512);
+	grid-template-columns: 1fr vw(512);
 	grid-template-rows: 1fr 1fr;
 	.home_air_door_body_c1_c1 {
 		grid-row-start: 1;
@@ -39,9 +39,37 @@
 	grid-row-end: 3;
 	background: rgba(95, 104, 149, 0.28);
 	display: grid;
-	grid-template-rows: vh(37) vh(65) vh(147) vh(60) vh(37) vh(250) vh(37) auto;
+	grid-template-rows: vh(37) vh(65) vh(147) vh(60) vh(37) vh(250) vh(37) 1fr;
 	.home_air_door_body_c2_item1 {
 		padding: 0 vw(14);
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		//	选择按钮
+		.door_choose_icon {
+			position: absolute;
+			top: vh(10);
+			cursor: pointer;
+			:deep(.el-icon) {
+				font-size: vh(20);
+				color: #00eaff;
+			}
+		}
+		//	更多按钮
+		.door_more_btn {
+			position: absolute;
+			top: vh(10);
+			right: 55px;
+			cursor: pointer;
+			font-size: vh(14);
+			font-family:
+				Adobe Heiti Std,
+				serif;
+			font-weight: normal;
+			color: #4bc8fc;
+		}
 	}
 	.home_air_door_body_c2_item2 {
 		margin: vh(21) vw(14) 0 vw(14);
@@ -53,7 +81,7 @@
 		font-weight: normal;
 		color: #4bc8fc;
 		display: grid;
-		grid-template-columns: repeat(3, auto);
+		grid-template-columns: repeat(3, 1fr);
 		grid-column-gap: vw(10);
 		grid-template-rows: 1fr;
 		align-items: center;
@@ -65,10 +93,11 @@
 		padding: vh(32) 0;
 		display: grid;
 		grid-template-columns: repeat(2, 1fr) 6px repeat(2, 1fr);
-		grid-template-rows: 1fr 1fr;
+		grid-template-rows: 1fr 1fr 1fr;
 		grid-template-areas:
-			'c1 c2 c3 c4 c5'
-			'r1 r2 c3 r4 r4';
+			'. . c3 . .'
+			'. . c3 . .'
+			'. . c3 . .';
 		font-size: vh(18);
 		font-family:
 			Adobe Heiti Std,
@@ -115,7 +144,7 @@
 		padding: vh(14) 0;
 		display: grid;
 		grid-template-columns: vw(182) vw(167) 1px vw(144);
-		grid-template-rows: auto vh(79) vh(79);
+		grid-template-rows: 1fr vh(79) vh(79);
 		grid-row-gap: vh(12);
 		justify-content: space-around;
 		grid-template-areas:
@@ -181,13 +210,121 @@
 		padding: 0 vw(14);
 	}
 	.home_air_door_body_c2_item8 {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		//	模式切换
+		.item8_bg {
+			position: absolute;
+			bottom: 0;
+			width: vh(691);
+			height: vh(217);
+			background-image: url('@/assets/images/home/home_equipment/Semicircle_bg.png');
+			background-size: 100% 100%;
+		}
+		//选中
+		.item8_active {
+			position: absolute;
+			width: vh(180);
+			height: vh(199);
+			background-image: url('@/assets/images/home/home_equipment/current_bg.png');
+			background-size: 100% 100%;
+			bottom: 0;
+			pointer-events: none;
+		}
+		//底条
+		.item8_bottom_line {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			height: vh(9);
+			background: #2886ce;
+		}
+		//小圆
+		.item8_small_bg {
+			position: absolute;
+			bottom: 0;
+			width: vh(125);
+			height: vh(63);
+			background-image: url('@/assets/images/home/home_equipment/smallCircle.png');
+			background-size: 100% 100%;
+		}
+		//	指针
+		.item8_needle {
+			position: absolute;
+			width: vh(25);
+			height: vh(132);
+			background-image: url('@/assets/images/home/home_equipment/pointer.png');
+			background-size: 100% 100%;
+			bottom: 0;
+		}
+		//	文字
+		.item8_text {
+			position: absolute;
+			bottom: vh(-180);
+			width: vh(360);
+			height: vh(360);
+			border-radius: 50%;
+			clip-path: polygon(25% 0, 50% 50%, 75% 0, 25% 0);
+			pointer-events: all;
+			display: flex;
+			justify-content: center;
+			cursor: pointer;
+			text-align: center;
+			.item8_text_dec {
+				width: vw(110);
+				height: vh(20);
+			}
+			span {
+				width: 100%;
+				font-size: vh(20);
+				font-family: Adobe Heiti Std;
+				font-weight: normal;
+			}
+		}
 	}
 }
+//文字选中样式
+.text_active {
+	color: #010000;
+}
+//文字默认样式
+.text_default {
+	color: #81bde3;
+}
+//文字偏转
+.item8_text_route_60 {
+	transform: rotate(60deg);
+}
+.item8_text_route_an_60 {
+	transform: rotate(-60deg);
+}
+// 恢复偏转
+.reset_60_route {
+	transform-origin: 50% 100%;
+	transform: rotate(0);
+}
+//顺时针偏转52
+.item8_route_60 {
+	transform-origin: 50% 100%;
+	transform: rotate(60deg);
+}
+//逆时针偏转52
+.item8_route_an_60 {
+	transform-origin: 50% 100%;
+	transform: rotate(-60deg);
+}
+
 .home_air_door_body_r2 {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-column-gap: vw(7);
 	.home_air_door_body_r2_c {
+		position: relative;
+		width: 100%;
+		height: 100%;
 	}
 }
 

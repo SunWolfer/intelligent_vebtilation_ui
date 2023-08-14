@@ -1,7 +1,9 @@
 <script setup>
 	import LoadDoorModel from '@/views/components/loadModel/LoadDoorModel.vue'
 	import { homeAirDoor } from '@/api/request/home/homeAirDoor'
-	const { dataForm } = homeAirDoor()
+	import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
+	import HomeAirDoorMore from '@/views/components/home/HomeAirDoorMore.vue'
+	const { dataForm, moreVisible, initMoreVisible, modelActive, changeModel } = homeAirDoor()
 </script>
 
 <template>
@@ -19,7 +21,22 @@
 		</div>
 		<div class="home_air_door_body_c2">
 			<div class="home_air_door_body_c2_item1">
-				<border-box name="border2" title="0503上顺槽风门"></border-box>
+				<border2 title="1010上顺槽风门" :hidden-glimmer="true" />
+				<!--        选择按钮-->
+				<div class="door_choose_icon" :style="{ left: dynamicHeight(7 * 24) + 'px' }">
+					<el-dropdown trigger="click">
+						<el-icon><CaretBottom /></el-icon>
+						<template #dropdown>
+							<el-dropdown-menu>
+								<el-dropdown-item>Action 1</el-dropdown-item>
+								<el-dropdown-item>Action 2</el-dropdown-item>
+								<el-dropdown-item>Action 3</el-dropdown-item>
+							</el-dropdown-menu>
+						</template>
+					</el-dropdown>
+				</div>
+				<!--        更多-->
+				<div class="door_more_btn" @click="initMoreVisible">更多</div>
 			</div>
 			<div class="home_air_door_body_c2_item2">
 				<span>位置：1301回风巷</span>
@@ -58,6 +75,22 @@
 				</div>
 				<div class="home_air_door_body_c2_item3_c1">
 					B门关闭中：
+					<div class="small_light_2"></div>
+				</div>
+				<div class="home_air_door_body_c2_item3_c1">
+					A门开超时：
+					<div class="small_light_1"></div>
+				</div>
+				<div class="home_air_door_body_c2_item3_c1">
+					A门关超时：
+					<div class="small_light_2"></div>
+				</div>
+				<div class="home_air_door_body_c2_item3_c1">
+					B门开超时：
+					<div class="small_light_1"></div>
+				</div>
+				<div class="home_air_door_body_c2_item3_c1">
+					B门关超时：
 					<div class="small_light_2"></div>
 				</div>
 			</div>
@@ -114,7 +147,32 @@
 			<div class="home_air_door_body_c2_item7">
 				<border-box name="border2" title="模式切换"></border-box>
 			</div>
-			<div class="home_air_door_body_c2_item8"></div>
+			<div class="home_air_door_body_c2_item8">
+				<div class="item8_bg"></div>
+				<div v-if="modelActive" class="item8_active" :class="modelActive"></div>
+				<!-- 手动 -->
+				<div class="item8_text item8_text_route_an_60" @click="changeModel('1')">
+					<div class="item8_text_dec">
+						<decorator2 title="manual手动" color="['#81bde3]"></decorator2>
+					</div>
+				</div>
+				<!-- 远程 -->
+				<div class="item8_text" @click="changeModel('3')">
+					<!-- <span :class="dataForm.doorMode === '3' ? 'text_active' : 'text_default'"
+						>remote远程</span
+					> -->
+					<div class="item8_text_dec">
+						<decorator2 title="remote远程" color="['#81bde3]"></decorator2>
+					</div>
+				</div>
+				<!-- 自动 -->
+				<div class="item8_text item8_text_route_60" @click="changeModel('2')">
+					<span :class="dataForm.doorMode === '2' ? 'text_active' : 'text_default'">auto自动</span>
+				</div>
+				<div class="item8_bottom_line"></div>
+				<div class="item8_small_bg"></div>
+				<div v-if="modelActive" class="item8_needle" :class="modelActive"></div>
+			</div>
 		</div>
 		<div class="home_air_door_body_r2">
 			<div class="home_air_door_body_r2_c">
@@ -270,6 +328,9 @@
 				</border-box>
 			</div>
 		</div>
+
+		<!--    更多弹窗-->
+		<home-air-door-more v-if="moreVisible" v-model="moreVisible" title="风门" />
 	</div>
 </template>
 

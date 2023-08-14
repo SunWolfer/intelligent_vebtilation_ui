@@ -7,6 +7,7 @@
 		:color="color"
 		:scan-dur="scanDur"
 		:halo-dur="haloDur"
+		:title="title"
 	>
 		<slot></slot>
 	</component>
@@ -14,11 +15,13 @@
 
 <script>
 	import decorator1 from './decorator1'
+	import decorator2 from './decorator2'
 
 	export default {
 		name: 'Decorator',
 		components: {
 			decorator1,
+			decorator2,
 		},
 		props: {
 			name: {
@@ -30,6 +33,10 @@
 				default() {
 					return ['#098dd2', '#00eaff']
 				},
+			},
+			title: {
+				type: String,
+				default: '',
 			},
 			reverse: {
 				type: Boolean,

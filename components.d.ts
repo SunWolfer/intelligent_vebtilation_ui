@@ -20,6 +20,7 @@ declare module 'vue' {
     CountTo: typeof import('./src/components/CountTo/index.vue')['default']
     Decorator: typeof import('./src/components/Decorator/index.vue')['default']
     Decorator1: typeof import('./src/components/Decorator/decorator1.vue')['default']
+    Decorator2: typeof import('./src/components/Decorator/decorator2.vue')['default']
     DeleteDialog: typeof import('./src/components/VueThree/ModelEdit/deleteDialog.vue')['default']
     DiaLog: typeof import('./src/components/DiaLog/index.vue')['default']
     EditArea: typeof import('./src/components/VueThree/ModelEdit/editArea.vue')['default']

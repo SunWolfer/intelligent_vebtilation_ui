@@ -66,10 +66,19 @@ export const homeAirWindow = () => {
 	}
 	const { showCharts: showChart3 } = useResetCharts(initChart3)
 
+	// 显示更多
+	const moreVisible = ref(false)
+
+	const initMoreVisible = () => {
+		moreVisible.value = true
+	}
+
 	return {
 		dataForm,
 		showChart1,
 		showChart2,
 		showChart3,
+		moreVisible,
+		initMoreVisible,
 	}
 }

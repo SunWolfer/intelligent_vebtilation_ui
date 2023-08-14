@@ -1,8 +1,10 @@
 <script setup>
 	import LoadWindowModel from '@/views/components/loadModel/loadWindowModel.vue'
 	import { homeAirWindow } from '@/api/request/home/homeAirWindow'
+	import { dynamicHeight } from '@/utils/ruoyi'
+	import HomeAirWindowMore from '@/views/components/home/HomeAirWindowMore.vue'
 
-	const { showChart1, showChart2, showChart3 } = homeAirWindow()
+	const { showChart1, showChart2, showChart3, moreVisible, initMoreVisible } = homeAirWindow()
 </script>
 
 <template>
@@ -18,7 +20,22 @@
 		</div>
 		<div class="home_air_window_body_l2">
 			<div class="home_air_window_body_l2_item_1">
-				<border-box name="border2" title="1301回风巷风窗"></border-box>
+				<border2 title="1301回风巷风窗" :hidden-glimmer="true" />
+				<!--        选择按钮-->
+				<div class="window_choose_icon" :style="{ left: dynamicHeight(7 * 24) + 'px' }">
+					<el-dropdown trigger="click">
+						<el-icon><CaretBottom /></el-icon>
+						<template #dropdown>
+							<el-dropdown-menu>
+								<el-dropdown-item>Action 1</el-dropdown-item>
+								<el-dropdown-item>Action 2</el-dropdown-item>
+								<el-dropdown-item>Action 3</el-dropdown-item>
+							</el-dropdown-menu>
+						</template>
+					</el-dropdown>
+				</div>
+				<!--        更多-->
+				<div class="window_more_btn" @click="initMoreVisible">更多</div>
 			</div>
 			<div class="home_air_window_body_l2_item_2">
 				<span>位置：1301回风巷</span>
@@ -148,6 +165,8 @@
 				</div>
 			</border-box>
 		</div>
+
+		<home-air-window-more v-if="moreVisible" v-model="moreVisible" title="123" />
 	</div>
 </template>
 

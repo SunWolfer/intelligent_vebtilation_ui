@@ -5,6 +5,8 @@
 		dur?: number
 		//   标题
 		title?: string
+		//   隐藏后方闪烁点
+		hiddenGlimmer?: boolean
 	}
 	import { useAutoResize } from '@/components/BorderBox/borderUtils'
 	import { dynamicHeight } from '@/utils/ruoyi'
@@ -65,57 +67,59 @@
 					repeatCount="indefinite"
 				/>
 			</rect>
-			<rect
-				width="8"
-				height="4"
-				:x="width - 25"
-				:y="height - 12"
-				fill="rgba(0, 255, 255, 1)"
-				class="skewRect"
-				filter="url(#border-box-2-filterId)"
-			>
-				<animate
-					attributeName="opacity"
-					values="1;0.2;1"
-					:dur="dur"
-					begin="0s"
-					repeatCount="indefinite"
-				/>
-			</rect>
-			<rect
-				width="8"
-				height="4"
-				:x="width - 35"
-				:y="height - 12"
-				fill="rgba(44, 201, 235, 1)"
-				class="skewRect"
-				filter="url(#border-box-2-filterId)"
-			>
-				<animate
-					attributeName="opacity"
-					values="1;0.4;1"
-					:dur="dur"
-					begin="0s"
-					repeatCount="indefinite"
-				/>
-			</rect>
-			<rect
-				width="8"
-				height="4"
-				:x="width - 45"
-				:y="height - 12"
-				fill="rgba(44, 202, 235, 0.4)"
-				class="skewRect"
-				filter="url(#border-box-2-filterId)"
-			>
-				<animate
-					attributeName="opacity"
-					values="1;0.7;1"
-					:dur="dur"
-					begin="0s"
-					repeatCount="indefinite"
-				/>
-			</rect>
+			<g v-if="!hiddenGlimmer">
+				<rect
+					width="8"
+					height="4"
+					:x="width - 25"
+					:y="height - 12"
+					fill="rgba(0, 255, 255, 1)"
+					class="skewRect"
+					filter="url(#border-box-2-filterId)"
+				>
+					<animate
+						attributeName="opacity"
+						values="1;0.2;1"
+						:dur="dur"
+						begin="0s"
+						repeatCount="indefinite"
+					/>
+				</rect>
+				<rect
+					width="8"
+					height="4"
+					:x="width - 35"
+					:y="height - 12"
+					fill="rgba(44, 201, 235, 1)"
+					class="skewRect"
+					filter="url(#border-box-2-filterId)"
+				>
+					<animate
+						attributeName="opacity"
+						values="1;0.4;1"
+						:dur="dur"
+						begin="0s"
+						repeatCount="indefinite"
+					/>
+				</rect>
+				<rect
+					width="8"
+					height="4"
+					:x="width - 45"
+					:y="height - 12"
+					fill="rgba(44, 202, 235, 0.4)"
+					class="skewRect"
+					filter="url(#border-box-2-filterId)"
+				>
+					<animate
+						attributeName="opacity"
+						values="1;0.7;1"
+						:dur="dur"
+						begin="0s"
+						repeatCount="indefinite"
+					/>
+				</rect>
+			</g>
 		</svg>
 		<div class="border-box-content">
 			<slot></slot>

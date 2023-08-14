@@ -37,13 +37,13 @@
 
 	const points = getPoints(point2)
 	const id = generateId()
-	const path = `bv-decoration-6-path-${id}`
-	const gradient = `bv-decoration-6-gradient-${id}`
-	const mask1 = `bv-decoration-6-mask1-${id}`
+	const path = `bv-decoration-1-path-${id}`
+	const gradient = `bv-decoration-1-gradient-${id}`
+	const mask1 = `bv-decoration-1-mask1-${id}`
 </script>
 
 <template>
-	<div class="bv-decoration-6" ref="domRef">
+	<div class="bv-decoration-1" ref="domRef">
 		<svg :width="width" :height="height">
 			<defs>
 				<polygon
@@ -71,7 +71,7 @@
 </template>
 
 <style lang="scss" scoped>
-	.bv-decoration-6 {
+	.bv-decoration-1 {
 		position: relative;
 		width: 100%;
 		height: 100%;

@@ -9,6 +9,8 @@
 	const { chooseBtn, changeBtn, roamList, iconStyle, textStyle } = homeRoam(emits)
 	const { domStyle } = useMenuItemPosition(359)
 	const { dislodgeDomStyle, roam } = useHomeMenu()
+
+	const videoUrl = import.meta.env.BASE_URL + 'file/pao1.mp4'
 </script>
 
 <template>
@@ -54,6 +56,8 @@
 	</div>
 	<div class="drive_bg" v-if="roam">
 		<span @click="changeBtn(0)">结束漫游</span>
+		<video :src="videoUrl" class="video_bg" autoplay loop />
+		<div class="video_bg_border"></div>
 	</div>
 	<!--  巡检列表-->
 	<div class="home_roam_equipment" v-if="roam">

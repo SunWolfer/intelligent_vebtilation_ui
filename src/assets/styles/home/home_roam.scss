@@ -79,6 +79,7 @@
 	background-image: url('@/assets/images/home/home_roam/drive_bg.png');
 	background-size: 100% 100%;
 	display: grid;
+	justify-content: center;
 	span {
 		position: absolute;
 		left: vw(1207);
@@ -91,6 +92,25 @@
 		font-weight: normal;
 		line-height: vh(46);
 		color: #ffffff;
+	}
+	.video_bg {
+		justify-self: center;
+		position: absolute;
+		left: vw(1071);
+		width: vw(442);
+		height: vh(208);
+		bottom: 0;
+	}
+	.video_bg_border {
+		justify-self: center;
+		position: absolute;
+		left: vw(1071);
+		width: vw(442);
+		height: vh(208);
+		background-image: url('@/assets/images/home/home_roam/video_frame_bg.png');
+		background-size: 100% 100%;
+		bottom: 0;
+		z-index: 1;
 	}
 }
 
