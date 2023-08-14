@@ -23,15 +23,18 @@
 <template>
 	<div class="bv-decoration-2" ref="domRef">
 		<svg :width="width" :height="height">
-			<def>
-				<path :id="path" :d="`M0 ${height} Q${width / 2} ${height / 2} ${width},${height}`" />
-			</def>
-			<text>
-				<textPath xlink:href="`#${path}`" :style="{ fill: color[0] }">
+			<defs>
+        <path :id="path"  :d="`M0 ${height} Q${width / 2} 5 ${width},${height}`" />
+			</defs>
+			<text class="bv-decoration-2_text" :x="width / 2">
+				<textPath :xlink:href="`#${path}`" :style="{ fill: color[0] }">
 					{{ title }}
 				</textPath>
 			</text>
 		</svg>
+    <div class="border-box-content">
+      <slot></slot>
+    </div>
 	</div>
 </template>
 
@@ -49,4 +52,12 @@
 			top: 0;
 		}
 	}
+  .bv-decoration-2_text{
+    font-size: vh(19);
+    font-family: Adobe Heiti Std,serif;
+    font-weight: normal;
+    text-anchor: middle;
+    width: 100%;
+  }
+
 </style>

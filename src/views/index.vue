@@ -50,21 +50,23 @@
 		<!--  设备索引-->
 		<HomeIcon v-if="showEquipmentIndex" @move-camera="moveCamera" :style="dislodgeDomStyle" />
 		<!--    巡检漫游-->
-		<HomeRoam v-if="showInspectionRoaming" @move-camera="moveCamera" />
+		<HomeRoam v-if="showInspectionRoaming" :dom-left="742" @move-camera="moveCamera" />
 		<!--    风网解算-->
 		<HomeSolution
 			v-if="showWindNetworkCalculation"
+      :dom-left="900"
 			@load-text="loadText"
 			@clean-text="cleanText"
 			:style="dislodgeDomStyle"
 		/>
 		<!--    多视角-->
-		<HomeVisualAngle v-if="showMultiplePerspectives" />
+		<HomeVisualAngle v-if="showMultiplePerspectives" :dom-left="1100" />
 		<!--    反风模拟-->
-		<HomeReverseWind v-if="showReverseWindSimulation" />
+		<HomeReverseWind v-if="showReverseWindSimulation" :dom-left="1270" />
 		<!--    避灾路线模拟-->
 		<HomeDisPreRoute
 			v-if="showDisasterPreventionRoute"
+      :dom-left="1382"
 			@set-disaster="setDisaster"
 			@set-personnel="setPersonnel"
 			@imitate-route="imitateRoute"
@@ -73,6 +75,7 @@
 		<!--    灾害模拟-->
 		<home-disaster
 			v-if="showDisasterSimulation"
+      :dom-left="1550"
 			@set-disaster="setDisaster"
 			@change-disaster-type="changeDisasterType"
 			@generate-disaster="generateDisaster"

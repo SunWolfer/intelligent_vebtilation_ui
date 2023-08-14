@@ -34,6 +34,10 @@ export const homeDisPreRoute = (emits) => {
 			lastLabel: '运逆风流方向迅速进行回撤',
 		},
 	])
+
+	onBeforeUnmount(() => {
+		quit()
+	})
 	return {
 		changeDisaster,
 		setDisaster,

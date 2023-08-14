@@ -4,10 +4,23 @@
 	import { MenuTypes } from '@/api/request/home/menuType'
 	import useHomeMenu from '@/hooks/useHomeMenu'
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
+
+  const props = defineProps({
+    domLeft:{
+      type:Number,
+      default: 0
+    },
+    domBottom: {
+      type: Number,
+      default: 90
+    }
+  })
+
+  const { domStyle } = useMenuItemPosition(props.domLeft,props.domBottom)
+
 	const emits = defineEmits(['moveCamera'])
 
 	const { chooseBtn, changeBtn, roamList, iconStyle, textStyle } = homeRoam(emits)
-	const { domStyle } = useMenuItemPosition(359)
 	const { dislodgeDomStyle, roam } = useHomeMenu()
 
 	const videoUrl = import.meta.env.BASE_URL + 'file/pao1.mp4'

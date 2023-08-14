@@ -153,21 +153,20 @@
 				<!-- 手动 -->
 				<div class="item8_text item8_text_route_an_60" @click="changeModel('1')">
 					<div class="item8_text_dec">
-						<decorator2 title="manual手动" color="['#81bde3]"></decorator2>
+						<decorator2 title="manual手动" :color="[dataForm.doorMode === '1' ? '#010000':'#81bde3']" color="['#81bde3]"></decorator2>
 					</div>
 				</div>
 				<!-- 远程 -->
 				<div class="item8_text" @click="changeModel('3')">
-					<!-- <span :class="dataForm.doorMode === '3' ? 'text_active' : 'text_default'"
-						>remote远程</span
-					> -->
 					<div class="item8_text_dec">
-						<decorator2 title="remote远程" color="['#81bde3]"></decorator2>
+            <decorator2 title="remote远程" :color="[dataForm.doorMode === '3' ? '#010000':'#81bde3']" color="['#81bde3]"></decorator2>
 					</div>
 				</div>
 				<!-- 自动 -->
 				<div class="item8_text item8_text_route_60" @click="changeModel('2')">
-					<span :class="dataForm.doorMode === '2' ? 'text_active' : 'text_default'">auto自动</span>
+          <div class="item8_text_dec">
+            <decorator2 title="auto自动" :color="[dataForm.doorMode === '2' ? '#010000':'#81bde3']" color="['#81bde3]"></decorator2>
+          </div>
 				</div>
 				<div class="item8_bottom_line"></div>
 				<div class="item8_small_bg"></div>

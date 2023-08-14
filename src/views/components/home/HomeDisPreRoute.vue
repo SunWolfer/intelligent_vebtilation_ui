@@ -4,7 +4,18 @@
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
 	import { DisasterTypes } from '@/api/request/home/menuType'
 
-	const { domStyle } = useMenuItemPosition(430)
+  const props = defineProps({
+    domLeft:{
+      type:Number,
+      default: 430
+    },
+    domBottom: {
+      type: Number,
+      default: 90
+    }
+  })
+
+	const { domStyle } = useMenuItemPosition(props.domLeft,props.domBottom)
 	const { dislodgeDomStyle } = useHomeMenu()
 
 	const emits = defineEmits(['setDisaster', 'setPersonnel', 'imitateRoute', 'changeDisasterType'])

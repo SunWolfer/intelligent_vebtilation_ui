@@ -90,7 +90,7 @@
 	.home_air_door_body_c2_item3 {
 		width: 100%;
 		height: 100%;
-		padding: vh(32) 0;
+
 		display: grid;
 		grid-template-columns: repeat(2, 1fr) 6px repeat(2, 1fr);
 		grid-template-rows: 1fr 1fr 1fr;
@@ -274,8 +274,10 @@
 			cursor: pointer;
 			text-align: center;
 			.item8_text_dec {
-				width: vw(110);
-				height: vh(20);
+				width: vw(130);
+				height: vh(28);
+				display: flex;
+				justify-content: center;
 			}
 			span {
 				width: 100%;

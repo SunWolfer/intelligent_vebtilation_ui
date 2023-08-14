@@ -3,9 +3,22 @@
 	import { homeSolution } from '@/api/request/home/homeSolution'
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
 	import { useWindNetCalculation } from '@/hooks/useWindNetCalculation'
+
+  const props = defineProps({
+    domLeft:{
+      type:Number,
+      default: 0
+    },
+    domBottom: {
+      type: Number,
+      default: 90
+    }
+  })
+
+  const { domStyle } = useMenuItemPosition(props.domLeft,props.domBottom)
+
 	const emits = defineEmits(['loadText', 'cleanText'])
 	const { checkedWind, checkedWindAge, checkedWindPressure } = homeSolution()
-	const { domStyle } = useMenuItemPosition(299)
 
 	const { windTextList } = useWindNetCalculation()
 

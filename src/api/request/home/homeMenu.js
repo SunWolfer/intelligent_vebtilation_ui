@@ -34,7 +34,7 @@ export const homeMenu = () => {
 			type: MenuTypes.SEVEN,
 		},
 	])
-	const { showMenus, clickEvent } = useHomeMenu()
+	const { showMenus } = useHomeMenu()
 	// 隐藏显示功能
 	const setHomeFun = (type, event) => {
 		const hasFun = showMenus.value.indexOf(type) !== -1
@@ -48,7 +48,6 @@ export const homeMenu = () => {
 					return i === MenuTypes.ONE
 				})
 				showMenus.value = otherType.concat([type])
-				clickEvent.value = event
 			}
 		}
 	}

@@ -12,15 +12,6 @@ const useHomeMenu = () => {
 			home.updateShowMenus(val)
 		},
 	})
-	//   点击位置
-	const clickEvent = computed({
-		get() {
-			return home.clickMenuDom
-		},
-		set(val) {
-			home.updateClickMenuDom(val)
-		},
-	})
 
 	// 是否漫游
 	const roam = computed({
@@ -92,7 +83,6 @@ const useHomeMenu = () => {
 
 	return {
 		showMenus,
-		clickEvent,
 		dislodgeDom,
 		dislodgeDomStyle,
 		showWarn,

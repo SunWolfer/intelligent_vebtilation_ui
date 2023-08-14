@@ -2,7 +2,18 @@
 	import useHomeMenu from '@/hooks/useHomeMenu'
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
 
-	const { domStyle } = useMenuItemPosition(299)
+  const props = defineProps({
+    domLeft:{
+      type:Number,
+      default: 0
+    },
+    domBottom: {
+      type: Number,
+      default: 90
+    }
+  })
+
+  const { domStyle } = useMenuItemPosition(props.domLeft,props.domBottom)
 
 	const { reverseWind, dislodgeDomStyle } = useHomeMenu()
 	const imitate = () => {
@@ -12,6 +23,9 @@
 	const quit = () => {
 		reverseWind.value = false
 	}
+  onBeforeUnmount(() => {
+    quit()
+  })
 </script>
 
 <template>

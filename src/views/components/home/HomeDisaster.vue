@@ -5,9 +5,21 @@
 	import { homeDisPreRoute } from '@/api/request/home/homeDisPreRoute'
 	import { DisasterTypes } from '@/api/request/home/menuType'
 
+  const props = defineProps({
+    domLeft:{
+      type:Number,
+      default: 430
+    },
+    domBottom: {
+      type: Number,
+      default: 90
+    }
+  })
+
+  const { domStyle } = useMenuItemPosition(props.domLeft,props.domBottom)
+
 	const emits = defineEmits(['changeDisasterType', 'setDisaster', 'generateDisaster'])
 
-	const { domStyle } = useMenuItemPosition(430)
 	const { dislodgeDomStyle } = useHomeMenu()
 	const { disaster } = useHomeMenu()
 	const { generateDisaster, quit } = homeDisaster(emits)

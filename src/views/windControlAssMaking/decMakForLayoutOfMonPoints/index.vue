@@ -1,7 +1,7 @@
 <!--监测点布置决策-->
 <script setup>
 	import { decMakForLayoutOfMonPoints } from '@/api/request/windControlAssMaking/decMakForLayoutOfMonPoints'
-	import LoadPlaneMap from '@/views/windControlAssMaking/windResAnaReport/loadPlaneMap.vue'
+	import LoadPlaneMap from '@/views/windControlAssMaking/decMakForLayoutOfMonPoints/loadPlaneMap.vue'
 
 	const { queryForm, chooseVersion, versionList, setVersion } = decMakForLayoutOfMonPoints()
 </script>

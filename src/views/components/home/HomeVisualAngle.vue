@@ -5,7 +5,19 @@
 	import HomeWindBranch from '@/views/components/home/HomeWindBranch.vue'
 	import HomeVenNetwork from '@/views/components/home/HomeVenNetwork.vue'
 
-	const { domStyle } = useMenuItemPosition(299)
+  const props = defineProps({
+    domLeft:{
+      type:Number,
+      default: 0
+    },
+    domBottom: {
+      type: Number,
+      default: 90
+    }
+  })
+
+  const { domStyle } = useMenuItemPosition(props.domLeft,props.domBottom)
+
 	const { checkedWindPath, checkedVenNetwork } = homeVisualAngle()
 	const { dislodgeDomStyle } = useHomeMenu()
 </script>

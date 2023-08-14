@@ -11,6 +11,9 @@ export const homeDisaster = (emits) => {
 	const quit = () => {
 		disaster.value = false
 	}
+	onBeforeUnmount(() => {
+		quit()
+	})
 	return {
 		generateDisaster,
 		quit,
