@@ -155,6 +155,66 @@ export function getType1PieChart(domId, data) {
 	}
 }
 
+export function getType2PieChart(domId, data) {
+	const { option } = useCharts(domId)
+
+	const legends = data.map((i) => i.name)
+
+	option.value = {
+		color: ['#EAEA4B', '#FFAD58', '#3DD1F9', '#27E17E', '#FE5656', '#906BF9'],
+		grid: {
+			left: 0,
+			top: 0,
+			bottom: 10,
+			right: 10,
+			containLabel: true,
+		},
+		tooltip: {
+			trigger: 'item',
+			formatter: '{b} : {c} ({d}%)',
+		},
+		legend: {
+			type: 'scroll',
+			orient: 'vartical',
+			top: 'center',
+			right: '15',
+			itemWidth: 16,
+			itemHeight: 8,
+			itemGap: 16,
+			textStyle: {
+				color: '#A3E2F4',
+				fontSize: 16,
+				fontWeight: 0,
+			},
+			data: legends,
+		},
+		series: [
+			{
+				center: ['40%', '50%'],
+				stack: 'a',
+				type: 'pie',
+				radius: ['20%', '80%'],
+				roseType: 'area',
+				zlevel: 10,
+				label: {
+					show: true,
+					color: '#A2CCDB',
+					fontFamily: 'Adobe Heiti Std',
+					formatter: '{c}',
+					fontSize: 12,
+					position: 'outside',
+				},
+				labelLine: {
+					show: true,
+					length: 10,
+					length2: 40,
+				},
+				data: data,
+			},
+		],
+	}
+}
+
 // 横向渐变柱图
 export function getCrosswiseBarChart(domId, data) {
 	const { option } = useCharts(domId)

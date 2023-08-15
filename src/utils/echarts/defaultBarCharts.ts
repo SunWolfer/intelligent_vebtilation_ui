@@ -29,6 +29,8 @@ export interface barData {
 	stack?: any
 	// 	图例位置
 	legendPosition?: string
+	// 	显示斑马纹
+	showSplitArea?: boolean
 }
 
 export function defaultBarChart({
@@ -49,6 +51,7 @@ export function defaultBarChart({
 	markLineList = [],
 	stack = '',
 	legendPosition = 'center',
+	showSplitArea = false,
 }: barData) {
 	const { option } = useCharts(domId)
 	let seriesData: any[] = []
@@ -202,6 +205,12 @@ export function defaultBarChart({
 					lineStyle: {
 						color: 'rgba(230, 230, 230, 0.3)',
 						type: 'dashed',
+					},
+				},
+				splitArea: {
+					show: showSplitArea,
+					areaStyle: {
+						color: ['rgba(73,146,255,0.15)', 'rgba(250,250,250,0.0)'],
 					},
 				},
 				axisLabel: {

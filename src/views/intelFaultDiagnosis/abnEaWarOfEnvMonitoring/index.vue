@@ -1,43 +1,42 @@
-<!--通风网络故障诊断-->
+<!--环境监测异常预警-->
 <script setup>
-	import { fauDiaOfVentNetwork } from '@/api/request/intelFaultDiagnosis/fauDiaOfVentNetwork'
+	import { fauDiaOfVentPower } from '@/api/request/intelFaultDiagnosis/fauDiaOfVentPower'
+	import { abnEaWarOfEnvMonitoring } from '@/api/request/intelFaultDiagnosis/abnEaWarOfEnvMonitoring'
 	import useResetCharts from '@/hooks/useResetCharts'
 
-	const {
-		initTunnelChart,
-		initTrendChart,
-		initTypeChart,
-		dateRange,
-		dataForm,
-		dataList,
-		warnLevelList,
-	} = fauDiaOfVentNetwork()
-	const { showCharts: showTunnelChart } = useResetCharts(initTunnelChart)
-	const { showCharts: showTrendChart } = useResetCharts(initTrendChart)
-	const { showCharts: showTypeChart } = useResetCharts(initTypeChart)
+	const { dataForm, dateRange, dataList, warnLevelList } = fauDiaOfVentPower()
+
+	const { initWarnPointList, initWarnTrendList, initWarnEquipList } = abnEaWarOfEnvMonitoring()
+
+	const { showCharts: showPointChart } = useResetCharts(initWarnPointList)
+	const { showCharts: showTrendChart } = useResetCharts(initWarnTrendList)
+	const { showCharts: showTypeChart } = useResetCharts(initWarnEquipList)
 </script>
 
 <template>
 	<div class="fau_net_body">
 		<div class="fau_net_body_c1">
-			<div class="fau_net_chart_title">预警巷道Top5</div>
-			<div v-if="showTunnelChart" class="fau_net_chart" id="fan_net_chart_1"></div>
+			<div class="fau_net_chart_title">预警点位Top5</div>
+			<div v-if="showPointChart" class="fau_net_chart" id="fan_mon_chart_1"></div>
 		</div>
 		<div class="fau_net_body_c2">
 			<div class="fau_net_chart_title">预警趋势</div>
-			<div v-if="showTrendChart" class="fau_net_chart" id="fan_net_chart_2"></div>
+			<div v-if="showTrendChart" class="fau_net_chart" id="fan_mon_chart_2"></div>
 		</div>
 		<div class="fau_net_body_c3">
 			<div class="fau_net_chart_title">预警类型</div>
-			<div v-if="showTypeChart" class="fau_net_chart" id="fan_net_chart_3"></div>
+			<div v-if="showTypeChart" class="fau_net_chart" id="fan_mon_chart_3"></div>
 		</div>
 		<div class="fau_net_body_l2">
 			<el-form :model="dataForm" inline>
 				<el-form-item label="预警类型">
 					<el-select v-model="dataForm.warnType"></el-select>
 				</el-form-item>
-				<el-form-item label="预警巷道">
-					<el-input v-model="dataForm.warnTunnel"></el-input>
+				<el-form-item label="预警设备">
+					<el-input v-model="dataForm.warnEquipment" />
+				</el-form-item>
+				<el-form-item label="设备类型">
+					<el-select v-model="dataForm.eqType"></el-select>
 				</el-form-item>
 				<el-form-item label="时间区间">
 					<el-date-picker
@@ -59,7 +58,8 @@
 		<div class="fau_net_body_l3">
 			<el-table :data="dataList" border height="100%">
 				<el-table-column label="预警类型" prop="warnType" align="center" />
-				<el-table-column label="预警巷道" prop="warnTunnel" align="center" />
+				<el-table-column label="预警点位" prop="warnEquipment" align="center" />
+				<el-table-column label="设备类型" prop="eqType" align="center" />
 				<el-table-column label="预警等级" prop="eqType" align="center">
 					<template #default="scope">
 						<span :style="{ color: warnLevelList.get(scope.row.warnLevel)[0] }">{{

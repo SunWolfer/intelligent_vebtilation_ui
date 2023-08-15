@@ -1,8 +1,11 @@
 <!--通风动力故障诊断-->
 <script setup>
 	import { fauDiaOfVentPower } from '@/api/request/intelFaultDiagnosis/fauDiaOfVentPower'
+	import useResetCharts from '@/hooks/useResetCharts'
 
-	const { showCharts, dataForm, dateRange, dataList, warnLevelList } = fauDiaOfVentPower()
+	const { initFansCharts, dataForm, dateRange, dataList, warnLevelList } = fauDiaOfVentPower()
+
+	const { showCharts } = useResetCharts(initFansCharts)
 </script>
 
 <template>

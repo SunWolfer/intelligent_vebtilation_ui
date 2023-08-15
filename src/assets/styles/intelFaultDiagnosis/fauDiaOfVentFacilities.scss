@@ -1,0 +1,19 @@
+@import 'fauDiaOfVentPower';
+.fau_fac_body{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.fau_fac_body_c1{
+  @include fauImg;
+}
+.fau_fac_body_c2{
+  @include fauChart;
+}
+.fau_fac_body_c3{
+  @include fauImg;
+}
+.fau_fac_body_c4{
+  @include fauChart;
+}

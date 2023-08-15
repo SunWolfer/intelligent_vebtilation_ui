@@ -1,5 +1,4 @@
 import { colors, getCrosswiseBarChart } from '@/api/request/intelFaultDiagnosis/chartsUtils'
-import useResetCharts from '@/hooks/useResetCharts'
 export const fauDiaOfVentPower = () => {
 	// 主扇预警类型Top5
 	const mainFanDataList = ref([
@@ -53,8 +52,6 @@ export const fauDiaOfVentPower = () => {
 		getCrosswiseBarChart('fan_chart_2', localFanDataList.value)
 	}
 
-	const { showCharts } = useResetCharts(initFansCharts)
-
 	// 日期
 	const dateRange = ref([])
 	//   表单
@@ -84,7 +81,6 @@ export const fauDiaOfVentPower = () => {
 	])
 
 	return {
-		showCharts,
 		mainFanDataList,
 		localFanDataList,
 		dataForm,
