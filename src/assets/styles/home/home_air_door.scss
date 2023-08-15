@@ -201,84 +201,6 @@
 	.home_air_door_body_c2_item7 {
 		padding: 0 vw(14);
 	}
-	.home_air_door_body_c2_item8 {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		justify-content: center;
-		//	模式切换
-		.item8_bg {
-			position: absolute;
-			bottom: 0;
-			width: vh(691);
-			height: vh(217);
-			background-image: url('@/assets/images/home/home_equipment/Semicircle_bg.png');
-			background-size: 100% 100%;
-		}
-		//选中
-		.item8_active {
-			position: absolute;
-			width: vh(180);
-			height: vh(199);
-			background-image: url('@/assets/images/home/home_equipment/current_bg.png');
-			background-size: 100% 100%;
-			bottom: 0;
-			pointer-events: none;
-		}
-		//底条
-		.item8_bottom_line {
-			position: absolute;
-			bottom: 0;
-			width: 100%;
-			height: vh(9);
-			background: #2886ce;
-		}
-		//小圆
-		.item8_small_bg {
-			position: absolute;
-			bottom: 0;
-			width: vh(125);
-			height: vh(63);
-			background-image: url('@/assets/images/home/home_equipment/smallCircle.png');
-			background-size: 100% 100%;
-		}
-		//	指针
-		.item8_needle {
-			position: absolute;
-			width: vh(25);
-			height: vh(132);
-			background-image: url('@/assets/images/home/home_equipment/pointer.png');
-			background-size: 100% 100%;
-			bottom: 0;
-		}
-		//	文字
-		.item8_text {
-			position: absolute;
-			bottom: vh(-180);
-			width: vh(360);
-			height: vh(360);
-			border-radius: 50%;
-			clip-path: polygon(25% 0, 50% 50%, 75% 0, 25% 0);
-			pointer-events: all;
-			display: flex;
-			justify-content: center;
-			cursor: pointer;
-			text-align: center;
-			.item8_text_dec {
-				width: vw(130);
-				height: vh(28);
-				display: flex;
-				justify-content: center;
-			}
-			span {
-				width: 100%;
-				font-size: vh(20);
-				font-family: Adobe Heiti Std, serif;
-				font-weight: normal;
-			}
-		}
-	}
 }
 //文字选中样式
 .text_active {
@@ -287,28 +209,6 @@
 //文字默认样式
 .text_default {
 	color: #81bde3;
-}
-//文字偏转
-.item8_text_route_60 {
-	transform: rotate(60deg);
-}
-.item8_text_route_an_60 {
-	transform: rotate(-60deg);
-}
-// 恢复偏转
-.reset_60_route {
-	transform-origin: 50% 100%;
-	transform: rotate(0);
-}
-//顺时针偏转52
-.item8_route_60 {
-	transform-origin: 50% 100%;
-	transform: rotate(60deg);
-}
-//逆时针偏转52
-.item8_route_an_60 {
-	transform-origin: 50% 100%;
-	transform: rotate(-60deg);
 }
 
 .home_air_door_body_r2 {
@@ -324,45 +224,11 @@
 
 //远程开门图片
 .open_door_btn {
-	width: vw(182);
-	height: vh(79);
-	background-image: url('@/assets/images/equipment/door_open_btn.png');
-	background-size: 100% 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	span {
-		font-size: vh(21);
-		font-family:
-			Adobe Heiti Std,
-			serif;
-		font-weight: normal;
-		background: linear-gradient(0deg, #51fcfe 0%, #fbfdfd 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-	}
+	@include openDoorBtn(182,79)
 }
 //远程关门图片
 .close_door_btn {
-	width: vw(167);
-	height: vh(68);
-	background-image: url('@/assets/images/equipment/door_close_btn.png');
-	background-size: 100% 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	span {
-		font-size: vh(21);
-		font-family:
-			Adobe Heiti Std,
-			serif;
-		font-weight: normal;
-		background: linear-gradient(0deg, #8d8e8e 0%, #fbfdfd 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-	}
+	@include closeDoorBtn(167,68)
 }
 
 //风门参数设置

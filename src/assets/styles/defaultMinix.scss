@@ -78,3 +78,153 @@
 .set_btn_cus_icon{
   @include setText;
 }
+
+@mixin ModelSwitch($size){
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  //	模式切换
+  .item_bg {
+    position: absolute;
+    bottom: 0;
+    width: vh(691 * $size);
+    height: vh(217 * $size);
+    background-image: url('@/assets/images/home/home_equipment/Semicircle_bg.png');
+    background-size: 100% 100%;
+  }
+  //选中
+  .item_active {
+    position: absolute;
+    width: vh(180 * $size);
+    height: vh(199 * $size);
+    background-image: url('@/assets/images/home/home_equipment/current_bg.png');
+    background-size: 100% 100%;
+    bottom: 0;
+    pointer-events: none;
+  }
+  //底条
+  .item_bottom_line {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: vh(9);
+    background: #2886ce;
+  }
+  //小圆
+  .item_small_bg {
+    position: absolute;
+    bottom: 0;
+    width: vh(125 * $size);
+    height: vh(63 * $size);
+    background-image: url('@/assets/images/home/home_equipment/smallCircle.png');
+    background-size: 100% 100%;
+  }
+  //	指针
+  .item_needle {
+    position: absolute;
+    width: vh(25 * $size);
+    height: vh(132 * $size);
+    background-image: url('@/assets/images/home/home_equipment/pointer.png');
+    background-size: 100% 100%;
+    bottom: 0;
+  }
+  //	文字
+  .item_text {
+    position: absolute;
+    bottom: vh(-180 * $size);
+    width: vh(360 * $size);
+    height: vh(360 * $size);
+    border-radius: 50%;
+    clip-path: polygon(25% 0, 50% 50%, 75% 0, 25% 0);
+    pointer-events: all;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    text-align: center;
+    .item_text_dec {
+      width: vw(130);
+      height: vh(28);
+      display: flex;
+      justify-content: center;
+    }
+    span {
+      width: 100%;
+      font-size: vh(20 * $size);
+      font-family: Adobe Heiti Std, serif;
+      font-weight: normal;
+    }
+  }
+
+  //文字偏转
+  .item_text_route_60 {
+    transform: rotate(60deg);
+  }
+  .item_text_route_an_60 {
+    transform: rotate(-60deg);
+  }
+  // 恢复偏转
+  .reset_60_route {
+    transform-origin: 50% 100%;
+    transform: rotate(0);
+  }
+  //顺时针偏转52
+  .item_route_60 {
+    transform-origin: 50% 100%;
+    transform: rotate(60deg);
+  }
+  //逆时针偏转52
+  .item_route_an_60 {
+    transform-origin: 50% 100%;
+    transform: rotate(-60deg);
+  }
+}
+
+//模式切换
+.modeSwitching{
+  @include ModelSwitch(1)
+}
+
+//远程开门按钮
+@mixin openDoorBtn($width,$height){
+  width: vw($width);
+  height: vh($height);
+  background-image: url('@/assets/images/equipment/door_open_btn.png');
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  span {
+    font-size: vh(21);
+    font-family:
+      Adobe Heiti Std,
+      serif;
+    font-weight: normal;
+    background: linear-gradient(0deg, #51fcfe 0%, #fbfdfd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+//远程关门按钮
+@mixin closeDoorBtn($width,$height){
+  width: vw($width);
+  height: vh($height);
+  background-image: url('@/assets/images/equipment/door_close_btn.png');
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  span {
+    font-size: vh(21);
+    font-family:
+      Adobe Heiti Std,
+      serif;
+    font-weight: normal;
+    background: linear-gradient(0deg, #8d8e8e 0%, #fbfdfd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

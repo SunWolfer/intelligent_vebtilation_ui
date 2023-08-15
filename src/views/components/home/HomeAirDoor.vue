@@ -1,7 +1,7 @@
 <script setup>
 	import LoadDoorModel from '@/views/components/loadModel/LoadDoorModel.vue'
 	import { homeAirDoor } from '@/api/request/home/homeAirDoor'
-	import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
+	import { dynamicHeight } from '@/utils/ruoyi'
 	import HomeAirDoorMore from '@/views/components/home/HomeAirDoorMore.vue'
 	const { dataForm, moreVisible, initMoreVisible, modelActive, changeModel } = homeAirDoor()
 </script>
@@ -147,12 +147,12 @@
 			<div class="home_air_door_body_c2_item7">
 				<border-box name="border2" title="模式切换"></border-box>
 			</div>
-			<div class="home_air_door_body_c2_item8">
-				<div class="item8_bg"></div>
-				<div v-if="modelActive" class="item8_active" :class="modelActive"></div>
+			<div class="modeSwitching">
+				<div class="item_bg"></div>
+				<div v-if="modelActive" class="item_active" :class="modelActive"></div>
 				<!-- 手动 -->
-				<div class="item8_text item8_text_route_an_60" @click="changeModel('1')">
-					<div class="item8_text_dec">
+				<div class="item_text item_text_route_an_60" @click="changeModel('1')">
+					<div class="item_text_dec">
 						<decorator2
 							title="manual手动"
 							:color="[dataForm.doorMode === '1' ? '#010000' : '#81bde3']"
@@ -161,8 +161,8 @@
 					</div>
 				</div>
 				<!-- 远程 -->
-				<div class="item8_text" @click="changeModel('3')">
-					<div class="item8_text_dec">
+				<div class="item_text" @click="changeModel('3')">
+					<div class="item_text_dec">
 						<decorator2
 							title="remote远程"
 							:color="[dataForm.doorMode === '3' ? '#010000' : '#81bde3']"
@@ -171,8 +171,8 @@
 					</div>
 				</div>
 				<!-- 自动 -->
-				<div class="item8_text item8_text_route_60" @click="changeModel('2')">
-					<div class="item8_text_dec">
+				<div class="item_text item_text_route_60" @click="changeModel('2')">
+					<div class="item_text_dec">
 						<decorator2
 							title="auto自动"
 							:color="[dataForm.doorMode === '2' ? '#010000' : '#81bde3']"
@@ -180,9 +180,9 @@
 						></decorator2>
 					</div>
 				</div>
-				<div class="item8_bottom_line"></div>
-				<div class="item8_small_bg"></div>
-				<div v-if="modelActive" class="item8_needle" :class="modelActive"></div>
+				<div class="item_bottom_line"></div>
+				<div class="item_small_bg"></div>
+				<div v-if="modelActive" class="item_needle" :class="modelActive"></div>
 			</div>
 		</div>
 		<div class="home_air_door_body_r2">

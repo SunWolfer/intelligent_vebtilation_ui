@@ -331,3 +331,12 @@ export const getInputSize = (value: any) => {
 export function getEmeImgUrl(name: string) {
 	return 'url(' + import.meta.env.BASE_URL + 'file/emergencyResponse/' + name + ')'
 }
+
+/**
+ * 自定义函数名：PrefixZero
+ * @param num
+ * @param n
+ */
+export function PrefixZero(num: number, n: number) {
+	return (Array(n).join('0') + num).slice(-n)
+}
