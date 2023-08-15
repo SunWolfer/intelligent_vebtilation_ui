@@ -201,30 +201,7 @@
 			grid-template-rows: vh(27) 1fr;
 			place-items: center;
 			.local_fan_body_l3_l5_item_title {
-				width: 100%;
 				background: rgba(27, 68, 138, 0.51);
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				.local_fan_body_l3_l5_item_title_icon {
-					width: vw(20);
-					height: vh(20);
-					background-image: url('@/assets/images/equipment/title_icon_02.png');
-					background-size: 100% 100%;
-					margin: 0 vw(5);
-				}
-				span {
-					font-size: vh(18);
-					font-family:
-						Adobe Heiti Std,
-						serif;
-					font-weight: normal;
-					color: rgba(255, 255, 255, 0.78);
-					text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-					background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
-					-webkit-background-clip: text;
-					-webkit-text-fill-color: transparent;
-				}
 			}
 			.local_fan_body_l3_l5_item_body {
 				width: 100%;

@@ -1,3 +1,4 @@
+@import "@/assets/styles/defaultMinix";
 .home_air_door_body {
 	position: relative;
 	width: 100%;
@@ -21,15 +22,6 @@
 	}
 	.home_air_door_body_c1_l2 {
 	}
-}
-
-@mixin dashLine {
-	width: 8px;
-	height: 100%;
-	background: radial-gradient(circle, #00ffff, #235794);
-	-webkit-mask-image: url('@/assets/images/line-01.svg');
-	-webkit-mask-size: 100% 100%;
-	-webkit-background-size: 100% 100%;
 }
 
 .home_air_door_body_c2 {
@@ -282,7 +274,7 @@
 			span {
 				width: 100%;
 				font-size: vh(20);
-				font-family: Adobe Heiti Std;
+				font-family: Adobe Heiti Std, serif;
 				font-weight: normal;
 			}
 		}
@@ -395,27 +387,6 @@
 	width: vw(194);
 	height: 100%;
 	justify-self: center;
-	.door_param_title_body {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.door_param_title_icon {
-		width: vw(20);
-		height: vh(20);
-		background-image: url('@/assets/images/equipment/title_icon_02.png');
-		background-size: 100% 100%;
-	}
-	span {
-		@include ParamItemText;
-		font-size: vh(18);
-		color: rgba(255, 255, 255, 0.78);
-		text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-
-		background: linear-gradient(0deg, #b8d6ff 0%, #2bc9ea 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-	}
 }
 
 .door_param_item_1 {

@@ -274,31 +274,7 @@
 		}
 		.main_fan_body_l2_l7_body_title {
 			grid-area: l1;
-			width: 100%;
-			height: 100%;
 			background-color: rgba(27, 68, 138, 0.51);
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			.main_fan_body_l2_l7_body_title_icon {
-				width: vw(20);
-				height: vh(20);
-				background-image: url('@/assets/images/equipment/title_icon_02.png');
-				background-size: 100% 100%;
-				margin: 0 vw(5);
-			}
-			span {
-				font-size: vh(18);
-				font-family:
-					Adobe Heiti Std,
-					serif;
-				font-weight: normal;
-				color: rgba(255, 255, 255, 0.78);
-				text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-				background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-			}
 		}
 		.main_fan_body_l2_l7_label {
 			font-size: vh(14);
@@ -433,54 +409,25 @@
 	.main_fan_customized_title {
 		width: vw(220);
 		height: vh(38);
-		cursor: pointer;
-		.main_fan_customized_title_body {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			.main_fan_customized_title_icon {
-				width: vw(20);
-				height: vh(20);
-				background-image: url('@/assets/images/equipment/title_icon_02.png');
-				background-size: 100% 100%;
-				margin: 0 vw(5);
-			}
-			font-size: vh(18);
-			font-family:
-				Adobe Heiti Std,
-				serif;
-			font-weight: normal;
-			color: rgba(255, 255, 255, 0.78);
-			text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-
-			background: linear-gradient(0deg, #b8d6ff 0%, #2bc9ea 100%);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-		}
 	}
 	.main_fan_customized_btn {
 		position: absolute;
 		right: vw(28);
-		width: vw(100);
+		width: vw(110);
 		height: vh(31);
 		cursor: pointer;
-		.main_fan_customized_btn_body {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: vh(16);
-			font-family:
-				Adobe Heiti Std,
-				serif;
-			font-weight: normal;
-			color: #19c3f7;
-			.main_fan_customized_btn_icon {
-				width: vw(20);
-				height: vh(20);
-				background-image: url('@/assets/images/equipment/title_icon_03.png');
-				background-size: 100% 100%;
-				margin: 0 vw(5);
-			}
+	}
+}
+.set_btn_cus_icon{
+	span {
+		&:before {
+			position: absolute;
+			content: '';
+			width: vh(24);
+			height: vh(24);
+			background-image: url('@/assets/images/equipment/title_icon_03.png');
+			background-size: 100% 100%;
+			left: 0;
 		}
 	}
 }

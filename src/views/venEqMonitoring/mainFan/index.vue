@@ -78,8 +78,7 @@
 			<border-box name="border2" title="风量定量调控"></border-box>
 			<div class="main_fan_body_l2_l7">
 				<div class="main_fan_body_l2_l7_body">
-					<div class="main_fan_body_l2_l7_body_title">
-						<div class="main_fan_body_l2_l7_body_title_icon"></div>
+					<div class="main_fan_body_l2_l7_body_title set_btn_default">
 						<span>一号风机</span>
 					</div>
 					<div class="main_fan_body_l2_l7_label">动叶角度(°)</div>
@@ -89,8 +88,7 @@
 					<div class="normal_btn">设置</div>
 				</div>
 				<div class="main_fan_body_l2_l7_body">
-					<div class="main_fan_body_l2_l7_body_title">
-						<div class="main_fan_body_l2_l7_body_title_icon"></div>
+					<div class="main_fan_body_l2_l7_body_title set_btn_default">
 						<span>二号风机</span>
 					</div>
 					<div class="main_fan_body_l2_l7_label">动叶角度(°)</div>
@@ -107,17 +105,15 @@
 					<div class="main_fan_customized_l1">
 						<div class="main_fan_customized_title">
 							<border-box name="border5">
-								<div class="main_fan_customized_title_body">
-									<div class="main_fan_customized_title_icon"></div>
-									一号风机运行参数
+								<div class="set_btn_default">
+									<span>一号风机运行参数</span>
 								</div>
 							</border-box>
 						</div>
 						<div class="main_fan_customized_btn">
 							<border-box name="border7">
-								<div class="main_fan_customized_btn_body" @click="showCustomizedVisible">
-									<div class="main_fan_customized_btn_icon"></div>
-									定制化
+								<div class="set_btn_cus_icon" @click="showCustomizedVisible">
+									<span>定制化</span>
 								</div>
 							</border-box>
 						</div>
@@ -163,17 +159,15 @@
 					<div class="main_fan_customized_l1">
 						<div class="main_fan_customized_title">
 							<border-box name="border5">
-								<div class="main_fan_customized_title_body">
-									<div class="main_fan_customized_title_icon"></div>
-									二号风机运行参数
+								<div class="set_btn_default">
+									<span>二号风机运行参数</span>
 								</div>
 							</border-box>
 						</div>
 						<div class="main_fan_customized_btn">
 							<border-box name="border7">
-								<div class="main_fan_customized_btn_body" @click="showCustomizedVisible">
-									<div class="main_fan_customized_btn_icon"></div>
-									定制化
+								<div class="set_btn_cus_icon" @click="showCustomizedVisible">
+									<span>定制化</span>
 								</div>
 							</border-box>
 						</div>

@@ -1,3 +1,4 @@
+@import "@/assets/styles/defaultMinix";
 .natural_top {
 	position: absolute;
 	width: vw(1028);
@@ -64,12 +65,7 @@
 		}
 	}
 	.natural_top_body_c5 {
-		width: 8px;
-		height: 100%;
-		background: radial-gradient(circle, #00ffff, #235794);
-		-webkit-mask-image: url('@/assets/images/line-01.svg');
-		-webkit-mask-size: 100% 100%;
-		-webkit-background-size: 100% 100%;
+		@include dashLine;
 	}
 	@mixin dealWith {
 		width: 100%;

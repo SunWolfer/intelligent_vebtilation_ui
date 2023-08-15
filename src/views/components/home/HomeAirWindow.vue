@@ -100,8 +100,7 @@
 				<div class="window_param">
 					<div class="door_param_title">
 						<border-box name="border5">
-							<div class="door_param_title_body">
-								<div class="window_param_title_icon"></div>
+							<div class="set_btn_cus_icon">
 								<span>风阻特性曲线</span>
 							</div>
 						</border-box>
@@ -113,8 +112,7 @@
 				<div class="window_param">
 					<div class="door_param_title">
 						<border-box name="border5">
-							<div class="door_param_title_body">
-								<div class="window_param_title_icon"></div>
+							<div class="set_btn_cus_icon">
 								<span>监测曲线</span>
 							</div>
 						</border-box>
@@ -126,8 +124,7 @@
 				<div class="window_param">
 					<div class="door_param_title">
 						<border-box name="border5">
-							<div class="door_param_title_body">
-								<div class="door_param_title_icon"></div>
+							<div class="set_btn_default">
 								<span>参数设定</span>
 							</div>
 						</border-box>

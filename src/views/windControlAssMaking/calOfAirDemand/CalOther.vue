@@ -20,7 +20,7 @@
 					<div class="child_body_item">
 						<div class="child_body_item_t1">
 							<border-box name="border5">
-								<div class="child_body_item_t1_text">按照瓦斯涌出预测</div>
+								<div class="set_btn_default"><span>按照瓦斯涌出预测</span></div>
 							</border-box>
 						</div>
 						<div class="child_body_item_t2">
@@ -67,7 +67,7 @@
 					<div class="child_body_item">
 						<div class="child_body_item_t1">
 							<border-box name="border5">
-								<div class="child_body_item_t1_text">按照风速进行验算</div>
+								<div class="set_btn_default"><span>按照风速进行验算</span></div>
 							</border-box>
 						</div>
 						<div class="child_body_item_t2"></div>

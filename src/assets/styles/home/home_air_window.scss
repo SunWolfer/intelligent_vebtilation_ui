@@ -175,11 +175,15 @@
 	top: vh(30);
 	right: vw(30);
 }
-.window_param_title_icon {
-	width: vw(20);
-	height: vh(20);
-	background-image: url('@/assets/images/equipment/title_icon_01.png');
-	background-size: 100% 100%;
+.set_btn_cus_icon{
+	span {
+		&:before {
+			position: absolute;
+			content: '';
+			@include setBtn;
+			background-image: url('@/assets/images/equipment/title_icon_01.png');
+		}
+	}
 }
 .window_param_body {
 	position: relative;

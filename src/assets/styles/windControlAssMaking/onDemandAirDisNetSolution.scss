@@ -1,3 +1,4 @@
+@import "@/assets/styles/defaultMinix";
 //左侧巷道信息
 .on_dem_left {
 	position: absolute;
@@ -88,11 +89,7 @@
 	align-items: center;
 	padding: 0 vw(16);
 	.title_icon {
-		width: vh(28);
-		height: vh(28);
-		background-image: url('@/assets/images/equipment/title_icon_02.png');
-		background-size: 100% 100%;
-		margin-right: vw(5);
+		@include setBtn;
 	}
 	@include noBorderInput;
 	:deep(.el-input__inner) {
@@ -131,12 +128,7 @@
 }
 .dashLine {
 	justify-self: center;
-	width: 8px;
-	height: 100%;
-	background: radial-gradient(circle, #00ffff, #235794);
-	-webkit-mask-image: url('@/assets/images/line-01.svg');
-	-webkit-mask-size: 100% 100%;
-	-webkit-background-size: 100% 100%;
+	@include dashLine;
 }
 //巷道信息
 .on_dem_item_left {

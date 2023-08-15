@@ -153,20 +153,32 @@
 				<!-- 手动 -->
 				<div class="item8_text item8_text_route_an_60" @click="changeModel('1')">
 					<div class="item8_text_dec">
-						<decorator2 title="manual手动" :color="[dataForm.doorMode === '1' ? '#010000':'#81bde3']" color="['#81bde3]"></decorator2>
+						<decorator2
+							title="manual手动"
+							:color="[dataForm.doorMode === '1' ? '#010000' : '#81bde3']"
+							color="['#81bde3]"
+						></decorator2>
 					</div>
 				</div>
 				<!-- 远程 -->
 				<div class="item8_text" @click="changeModel('3')">
 					<div class="item8_text_dec">
-            <decorator2 title="remote远程" :color="[dataForm.doorMode === '3' ? '#010000':'#81bde3']" color="['#81bde3]"></decorator2>
+						<decorator2
+							title="remote远程"
+							:color="[dataForm.doorMode === '3' ? '#010000' : '#81bde3']"
+							color="['#81bde3]"
+						></decorator2>
 					</div>
 				</div>
 				<!-- 自动 -->
 				<div class="item8_text item8_text_route_60" @click="changeModel('2')">
-          <div class="item8_text_dec">
-            <decorator2 title="auto自动" :color="[dataForm.doorMode === '2' ? '#010000':'#81bde3']" color="['#81bde3]"></decorator2>
-          </div>
+					<div class="item8_text_dec">
+						<decorator2
+							title="auto自动"
+							:color="[dataForm.doorMode === '2' ? '#010000' : '#81bde3']"
+							color="['#81bde3]"
+						></decorator2>
+					</div>
 				</div>
 				<div class="item8_bottom_line"></div>
 				<div class="item8_small_bg"></div>
@@ -179,10 +191,7 @@
 					<div class="door_param">
 						<div class="door_param_title">
 							<border-box name="border5">
-								<div class="door_param_title_body">
-									<div class="door_param_title_icon"></div>
-									<span> A风门参数设置</span>
-								</div>
+								<div class="set_btn_default"><span>A风门参数设置</span></div>
 							</border-box>
 						</div>
 						<div class="door_param_item_1">
@@ -255,8 +264,7 @@
 					<div class="door_param">
 						<div class="door_param_title">
 							<border-box name="border5">
-								<div class="door_param_title_body">
-									<div class="door_param_title_icon"></div>
+								<div class="set_btn_default">
 									<span> B风门参数设置</span>
 								</div>
 							</border-box>
