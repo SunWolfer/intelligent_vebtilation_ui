@@ -75,36 +75,7 @@ export const homeRightMess = () => {
 			}).label ?? ''
 		)
 	}
-	const equipmentTypeList = [
-		{
-			label: '风门',
-			value: '1',
-		},
-		{
-			label: '风窗',
-			value: '2',
-		},
-		{
-			label: '风速传感器',
-			value: '3',
-		},
-		{
-			label: '多参传感器',
-			value: '4',
-		},
-		{
-			label: '全断面测风',
-			value: '5',
-		},
-		{
-			label: '主扇',
-			value: '6',
-		},
-		{
-			label: '局扇',
-			value: '7',
-		},
-	]
+	const equipmentTypeList = useEquipmentData().equipmentTypeList
 	const formatterEquipmentTypeList = (type) => {
 		return equipmentTypeList.find((i) => {
 			return i.value === type

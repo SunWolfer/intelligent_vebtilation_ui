@@ -9,6 +9,8 @@ const useEquipmentData = () => {
 	const equipmentList = computed(() => {
 		return equipmentData.data
 	})
+	// 设备类型列表
+	const equipmentTypeList = equipmentData.equipmentTypeList
 	// 当前显示设备索引
 	const tEquipmentIndex = computed({
 		get() {
@@ -21,16 +23,16 @@ const useEquipmentData = () => {
 	// 可显示设备类型
 	const equipTypeList = computed({
 		get() {
-			return equipmentData.equipTypeList
+			return equipmentData.showEquipTypeList
 		},
 		set(val) {
-			equipmentData.updateEquipTypeList(val)
+			equipmentData.updateShowEquipTypeList(val)
 		},
 	})
 	// 添加全部设备类型
-	const setAllType = (type = '8') => {
+	const setAllType = (type = 'all') => {
 		let typeList = []
-		if (type === '8') {
+		if (type === 'all') {
 			typeList = equipmentList.value.map((i) => {
 				return i.type
 			})
@@ -105,13 +107,13 @@ const useEquipmentData = () => {
 
 	// 全部设备类型
 	const equipmentTypeMap = new Map([
-		[deviceTypes.ONE, '风门'],
-		[deviceTypes.TWO, '风窗'],
-		[deviceTypes.THREE, '风速传感器'],
-		[deviceTypes.FOUR, '多参传感器'],
-		[deviceTypes.FIVE, '全断面测风'],
-		[deviceTypes.SIX, '主通风机'],
-		[deviceTypes.SEVEN, '局扇风机'],
+		[deviceTypes.DOOR, '风门'],
+		[deviceTypes.WINDOW, '风窗'],
+		[deviceTypes.WINDSENSOR, '风速传感器'],
+		[deviceTypes.MULTIPARAMETE, '多参传感器'],
+		[deviceTypes.FULLWIND, '全断面测风'],
+		[deviceTypes.MAINFAN, '主通风机'],
+		[deviceTypes.LOCALFAN, '局扇风机'],
 	])
 
 	// 格式化设备类型显示
@@ -121,6 +123,7 @@ const useEquipmentData = () => {
 
 	return {
 		equipmentList,
+		equipmentTypeList,
 		tEquipmentIndex,
 		equipTypeList,
 		setAllType,

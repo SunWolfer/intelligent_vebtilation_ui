@@ -54,19 +54,19 @@
 			return tabs[0].domName
 		}
 		switch (type) {
-			case deviceTypes.ONE:
+			case deviceTypes.DOOR:
 				return tabs[1].domName
-			case deviceTypes.TWO:
+			case deviceTypes.WINDOW:
 				return tabs[2].domName
-			case deviceTypes.THREE:
+			case deviceTypes.WINDSENSOR:
 				return tabs[3].domName
-			case deviceTypes.FOUR:
+			case deviceTypes.MULTIPARAMETE:
 				return tabs[4].domName
-			case deviceTypes.FIVE:
+			case deviceTypes.FULLWIND:
 				return tabs[5].domName
-			case deviceTypes.SIX:
+			case deviceTypes.MAINFAN:
 				return tabs[6].domName
-			case deviceTypes.SEVEN:
+			case deviceTypes.LOCALFAN:
 				return tabs[7].domName
 		}
 	}

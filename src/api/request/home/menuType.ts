@@ -26,11 +26,12 @@ export enum ClickEventTypes {
 }
 //设备类型
 export enum deviceTypes {
-	ONE = '1',
-	TWO = '2',
-	THREE = '3',
-	FOUR = '4',
-	FIVE = '5',
-	SIX = '6',
-	SEVEN = '7',
+	DOOR = 'door',
+	WINDOW = 'window',
+	WINDSENSOR = 'windsensor',
+	MULTIPARAMETE = 'multiparamete',
+	FULLWIND = 'fullwind',
+	MAINFAN = 'mainfan',
+	LOCALFAN = 'localfan',
+	All = 'all',
 }

@@ -2,6 +2,7 @@ import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
 import { onClickOutside } from '@vueuse/core'
 import useThree from '@/hooks/useThree'
 import useEquipmentData from '@/hooks/useEquipmentData'
+import { deviceTypes } from '@/api/request/home/menuType'
 
 export const homeIcon = (emits) => {
 	const { equipmentList, equipTypeList, toPosition } = useEquipmentData()
@@ -9,16 +10,15 @@ export const homeIcon = (emits) => {
 	// 设备列表搜索
 	const equipSearch = ref('')
 	const queryEquipList = () => {}
-
 	const equipmentIconMap = new Map([
-		['1', 'home_icon_1'],
-		['2', 'home_icon_2'],
-		['3', 'home_icon_3'],
-		['4', 'home_icon_4'],
-		['5', 'home_icon_5'],
-		['6', 'home_icon_6'],
-		['7', 'home_icon_7'],
-		['8', 'home_icon_8'],
+		[deviceTypes.DOOR, 'home_icon_1'],
+		[deviceTypes.WINDOW, 'home_icon_2'],
+		[deviceTypes.WINDSENSOR, 'home_icon_3'],
+		[deviceTypes.MULTIPARAMETE, 'home_icon_4'],
+		[deviceTypes.FULLWIND, 'home_icon_5'],
+		[deviceTypes.MAINFAN, 'home_icon_6'],
+		[deviceTypes.LOCALFAN, 'home_icon_7'],
+		[deviceTypes.All, 'home_icon_8'],
 	])
 	// 菜单移动起点
 	const firstMenuStartingPoint = ref(0)
@@ -75,16 +75,16 @@ export const homeIcon = (emits) => {
 		const hasIn = equipTypeList.value.indexOf(type) !== -1
 		// 已存在
 		if (hasIn) {
-			if (type === '8') {
+			if (type === deviceTypes.All) {
 				typeList = []
 			} else {
 				typeList = equipTypeList.value.filter((i) => {
-					return i !== type && i !== '8'
+					return i !== type && i !== deviceTypes.All
 				})
 			}
 		} else {
 			// 	不存在
-			if (type === '8') {
+			if (type === deviceTypes.All) {
 				typeList = equipmentList.value.map((i) => {
 					return i.type
 				})

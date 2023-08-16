@@ -1,5 +1,5 @@
 import useEquipmentData from '@/hooks/useEquipmentData'
-import { MenuTypes } from '@/api/request/home/menuType'
+import { deviceTypes, MenuTypes } from '@/api/request/home/menuType'
 import useHomeMenu from '@/hooks/useHomeMenu'
 
 export const homeRoam = (emits) => {
@@ -22,7 +22,7 @@ export const homeRoam = (emits) => {
 	//   风窗列表
 	const windowList = computed(() => {
 		return allDataList.value.filter((i) => {
-			return i.type === '2'
+			return i.type === deviceTypes.WINDOW
 		})
 	})
 	// 风窗巡检
@@ -90,14 +90,14 @@ export const homeRoam = (emits) => {
 					startInterval(toRoam)
 					break
 				case MenuTypes.THREE:
-					setAllType?.('2')
+					setAllType?.('window')
 					startInterval(() => {
 						if (windowRoamIndex.value === -1) changeBtn(0)
 						windowToRoam(2, () => {}, true)
 					})
 					break
 				case MenuTypes.FOUR:
-					setAllType?.('2')
+					setAllType?.('window')
 					startInterval(windowToRoam)
 					break
 			}

@@ -7,12 +7,18 @@
 
 .fau_fac_body_c1{
   @include fauImg;
+  &:after{
+    background-image: url("@/assets/images/intelFaultDiagnosis/door.gif");
+  }
 }
 .fau_fac_body_c2{
   @include fauChart;
 }
 .fau_fac_body_c3{
   @include fauImg;
+  &:after{
+    background-image: url("@/assets/images/intelFaultDiagnosis/window.gif");
+  }
 }
 .fau_fac_body_c4{
   @include fauChart;

@@ -202,6 +202,9 @@
 		.el-carousel__container {
 			height: vh(240);
 			max-height: vh(240);
+			i {
+				display: none;
+			}
 			.el-carousel__arrow--left {
 				width: vh(46);
 				height: vh(67);
