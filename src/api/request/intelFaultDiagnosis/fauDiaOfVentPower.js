@@ -81,8 +81,7 @@ export const fauDiaOfVentPower = () => {
 	])
 
 	return {
-		mainFanDataList,
-		localFanDataList,
+		initFansCharts,
 		dataForm,
 		dateRange,
 		dataList,

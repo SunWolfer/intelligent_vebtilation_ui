@@ -39,3 +39,11 @@
 	background-image: url('@/assets/images/btns/btn_3.png');
 	background-size: 100% 100%;
 }
+.normal_4_btn{
+	@include IBtn;
+	background-image: url('@/assets/images/btns/g_button_m.png');
+	&:hover,
+	&:active {
+		background-image: url('@/assets/images/btns/g_button_x.png');
+	}
+}

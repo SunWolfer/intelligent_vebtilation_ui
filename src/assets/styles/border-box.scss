@@ -66,6 +66,9 @@
 
 .border-box-7 {
 	@include borderBox;
+	.border-box-content {
+		padding: 0;
+	}
 }
 
 .border-box-8 {
