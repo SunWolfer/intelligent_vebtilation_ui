@@ -74,7 +74,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 	font-size: $form-font-size;
 	line-height: vh(32);
 	height: vh(32);
-	.el-range__icon {
+	.el-range__icon,.el-input__icon {
 		color: #00e9ff;
 	}
 	.el-range-input {
@@ -83,7 +83,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 	.el-range-separator {
 		color: rgba(138, 168, 213, 1);
 	}
-	.el-range__close-icon {
+	.el-range__close-icon,.el-input__close-icon {
 		color: #00e9ff;
 	}
 }
@@ -262,6 +262,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 
 	font-size: vh(14);
 	background: url('@/assets/images/table_bg.png');
+	background-size: 100% 100%;
 	width: 100%;
 	height: 100%;
 	.el-table__cell,

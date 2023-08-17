@@ -2,23 +2,17 @@
 
 //水平居中
 .f-center {
-	display: grid;
+	display: flex;
 	justify-content: center;
-	place-content: start center;
 }
 //水平垂直居中
 .c-center {
-	display: grid;
-	place-content: center center;
-}
-//垂直居中，水平居左
-.v-center {
-	display: grid;
+	display: flex;
+	justify-content: center;
 	align-items: center;
-	justify-content: start;
 }
 //垂直居中
 .p-center {
-	display: grid;
+	display: flex;
 	align-items: center;
 }

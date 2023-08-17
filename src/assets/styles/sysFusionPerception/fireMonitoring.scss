@@ -1,0 +1,211 @@
+.fire_body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: vh(5) vw(57) vh(46) vw(71);
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-column-gap: vw(28);
+}
+@mixin halfBody{
+  background-color: rgba(12, 41, 70, 0.28);
+  border-radius: 10px;
+  padding: 0 vw(49) vh(10) vw(15);
+}
+.fire_body_left{
+  @include halfBody;
+  display: grid;
+  grid-template-rows: vh(38) vh(38) vh(220) vh(34) repeat(2,1fr);
+  grid-row-gap: vh(10);
+}
+.fire_body_right{
+  @include halfBody;
+  display: grid;
+  grid-template-rows: vh(38) vh(38) vh(105) vh(260) vh(34) 1fr;
+  grid-row-gap: vh(10);
+}
+//下拉选择
+.fire_select{
+  justify-self: end;
+}
+
+//闪烁边框
+@mixin textFlow {
+  -webkit-mask-image: url('@/assets/images/sysFusionPerception/fireMonitoring/gas-ext-zone-1-top-border.svg');
+  -webkit-mask-size: cover;
+  background-color: rgba(14, 139, 255, 1);
+}
+//闪烁边框内容
+@mixin glimmerBorderBody {
+  background-image: url('@/assets/images/sysFusionPerception/fireMonitoring/gas-ext-zone-1-top-border-bg.png');
+  background-size: 100% 100%;
+  text-align: center;
+  position: relative;
+  &:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: '';
+    width: 100%;
+    height: 100%;
+    @include textFlow;
+    animation: svg-glimmer 2s linear infinite;
+  }
+}
+.fire_left_l2 {
+  padding-left: vw(25);
+  display: grid;
+  grid-template-columns: repeat(4, vw(240));
+  grid-template-rows: repeat(2,vh(96));
+  place-content: space-between;
+}
+@mixin li-val-text {
+  font-size: vh(36);
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+}
+@mixin li-label-text {
+  font-size: vh(18);
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+  color: #ffffff;
+}
+.fire_left_l2_item{
+  width: vw(240);
+  height: vh(96);
+  padding: vh(21) 0 vw(15) 0;
+  @include glimmerBorderBody;
+  display: grid;
+  grid-template-rows: vh(36) vh(18);
+  place-content: space-between center;
+  place-items: center;
+  span {
+    @include li-label-text;
+  }
+}
+.fire-text-blue{
+  @include li-val-text;
+  color:#08C7F1 ;
+}
+.fire-text-yellow{
+  @include li-val-text;
+  color: #FFD725;
+}
+.fire-text-purple{
+  @include li-val-text;
+  color: #BD39E9;
+}
+.fire-text-green{
+  @include li-val-text;
+  color: #0DDE79;
+}
+
+//统计日期
+.fire_statistics{
+  display: grid;
+  grid-template-columns: repeat(3,vw(65));
+  grid-column-gap: vw(10);
+  font-size: vh(15);
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+  color: #FFFFFF;
+  justify-content: center;
+}
+.fire_statistics_item{
+  width: 100%;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fire_statistics_active{
+  background-color: rgba(15, 153, 223, 1);
+}
+@keyframes svg-glimmer {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+//光纤测温
+.fire_right_l2 {
+  display: grid;
+  padding: 0 vw(140);
+  grid-template-columns: repeat(3, vw(210));
+  grid-template-rows: vh(105);
+  place-content: center space-between;
+}
+.fire_right_l2_item{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: vh(21) 0 vh(27) 0;
+  display: grid;
+  grid-template-rows: vh(16) vh(33);
+  place-content: space-between center;
+  place-items: center;
+  .fire_right_l2_item_label{
+    font-size: vh(16);
+    font-family: Microsoft YaHei, serif;
+    font-weight: 400;
+    color: #FFFFFF;
+  }
+  .fire_right_l2_item_value{
+    font-size: vh(33);
+    font-family: Microsoft YaHei, serif;
+    font-weight: 400;
+  }
+  &:before{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    -webkit-mask-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    -webkit-mask-image: url('@/assets/images/sysFusionPerception/fireMonitoring/fire-optical.svg');
+  }
+  &:after{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    -webkit-mask-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    -webkit-mask-image: url('@/assets/images/sysFusionPerception/fireMonitoring/fire-optical-border.svg');
+    animation: svg-glimmer 3s linear infinite;
+  }
+}
+.fire_right_l2_item {
+  &:nth-child(1){
+    &:before,&:after{
+      background-color: #FF9B00;
+    }
+    .fire_right_l2_item_value{
+      color: #FF9B00;
+    }
+  }
+  &:nth-child(2){
+    &:before,&:after{
+      background-color: #36E5FF;
+    }
+    .fire_right_l2_item_value{
+      color: #36E5FF;
+    }
+  }
+  &:nth-child(3){
+    &:before,&:after{
+      background-color: #00FF00;
+    }
+    .fire_right_l2_item_value{
+      color: #00FF00;
+    }
+  }
+}
