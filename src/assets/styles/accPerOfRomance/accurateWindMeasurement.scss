@@ -179,7 +179,31 @@
 	place-content: center end;
 	padding-right: vw(16);
 }
-
+@mixin accIcon{
+	width: vh(14);
+	height: vh(14);
+	background-size: 100% 100%;
+}
+.icon_text{
+	font-size: vh(14);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #4bc8fc;
+	margin: 0 vw(5);
+	cursor: pointer;
+}
+//历史记录
+.his_icon{
+	@include accIcon;
+	background-image: url("@/assets/images/accPerOfRomance/History_ico.png");
+}
+//预警记录
+.warn_icon{
+	@include accIcon;
+	background-image: url("@/assets/images/accPerOfRomance/warning_ico.png");
+}
 //折线图区域
 .acc_body_bottom_line {
 	width: 100%;

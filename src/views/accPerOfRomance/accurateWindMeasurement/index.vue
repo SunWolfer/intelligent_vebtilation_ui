@@ -72,8 +72,14 @@
 								</div>
 							</div>
 							<div class="acc_body_top_body_item_l6">
-								<div class="normal_btn" style="width: 100%">历史记录</div>
-								<div class="normal_btn" style="width: 100%">预警记录</div>
+								<div class="c-center">
+									<div class="his_icon"></div>
+									<div class="icon_text">历史记录</div>
+								</div>
+								<div class="c-center">
+									<div class="warn_icon"></div>
+									<div class="icon_text">预警记录</div>
+								</div>
 							</div>
 						</div>
 					</div>

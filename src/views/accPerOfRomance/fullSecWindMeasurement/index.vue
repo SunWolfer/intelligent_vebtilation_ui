@@ -36,11 +36,21 @@
 								class="full_body_top_body_item"
 								:class="index === choose ? 'full_body_top_body_item_warn' : ''"
 							>
-								<div class="full_body_l1_bottom_item_left">
-									<div class="full_body_l1_bottom_item_left_top">
-										<div class="full_body_l1_bottom_item_left_top_icon full_normal_icon"></div>
-										<div class="full_text_normal">正常</div>
+								<div class="ull_body_l1_bottom_item_top">
+									<div class="full_body_l1_bottom_item_top_icon full_normal_icon"></div>
+									<div class="full_text_normal">正常</div>
+									<div class="full_body_l1_bottom_item_top_text">
+										<div class="c-center">
+											<div class="his_icon"></div>
+											<div class="icon_text">历史记录</div>
+										</div>
+										<div class="c-center">
+											<div class="warn_icon"></div>
+											<div class="icon_text">预警记录</div>
+										</div>
 									</div>
+								</div>
+								<div class="full_body_l1_bottom_item_left">
 									<div class="full_body_l1_bottom_item_left_center">{{ i.name }}</div>
 									<div class="full_body_l1_bottom_item_left_text">
 										<span class="text_label">[ 风量(m³/min) ] </span>
@@ -56,10 +66,9 @@
 									</div>
 								</div>
 								<div class="full_body_l1_bottom_item_right">
-									<div class="normal_btn">历史记录</div>
 									<div class="normal_btn" @click="chooseParamSetting(index)">参数设置</div>
 									<div class="full_body_l1_bottom_item_btn">
-										<div class="normal_2_btn">开始测风</div>
+										<div class="normal_4_btn">开始测风</div>
 									</div>
 								</div>
 							</div>

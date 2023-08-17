@@ -72,46 +72,80 @@
 		.full_body_top_body_item {
 			width: 100%;
 			height: 100%;
-			padding: vh(20) 0 vh(15) vw(26);
+			padding: vh(5) 0 vh(15) vw(26);
 			display: grid;
 			grid-template-columns: auto vw(135);
+			grid-template-rows: vh(52) 1fr;
 		}
 		.full_body_top_body_item_warn {
 			box-shadow: inset 0 0 30px #c08c0d;
 		}
+		.ull_body_l1_bottom_item_top{
+			grid-area: 1/1/2/3;
+			display: grid;
+			grid-template-columns: vw(52) vw(70) 1fr;
+			grid-column-gap: vw(7);
+			align-items: center;
+			font-size: vh(16);
+			font-family:
+				Microsoft YaHei,
+				serif;
+			font-weight: 400;
+			.full_body_l1_bottom_item_top_icon {
+				width: vw(52);
+				height: vw(52);
+				background-size: 100% 100%;
+			}
+			.full_normal_icon {
+				background-image: url('@/assets/images/accPerOfRomance/green-gj.gif');
+			}
+			.full_warn_icon {
+				background-image: url('@/assets/images/accPerOfRomance/red-gj.gif');
+			}
+			.full_text_normal {
+				color: #50e7b9;
+			}
+			.full_text_warn {
+				color: #ff007e;
+			}
+			.full_body_l1_bottom_item_top_text{
+				align-self: start;
+				display: grid;
+				grid-template-columns: repeat(2,1fr);
+			}
+		//	历史记录、预警记录
+			@mixin accIcon{
+				width: vh(14);
+				height: vh(14);
+				background-size: 100% 100%;
+			}
+			.icon_text{
+				font-size: vh(14);
+				font-family:
+					Adobe Heiti Std,
+					serif;
+				font-weight: normal;
+				color: #4bc8fc;
+				margin: 0 vw(5);
+				cursor: pointer;
+			}
+			//历史记录
+			.his_icon{
+				@include accIcon;
+				background-image: url("@/assets/images/accPerOfRomance/History_ico.png");
+			}
+			//预警记录
+			.warn_icon{
+				@include accIcon;
+				background-image: url("@/assets/images/accPerOfRomance/warning_ico.png");
+			}
+
+		}
 		.full_body_l1_bottom_item_left {
 			width: 100%;
 			display: grid;
-			grid-template-rows: vh(52) vh(17) repeat(3, vh(23));
+			grid-template-rows: vh(17) repeat(3, vh(23));
 			place-content: space-between;
-			.full_body_l1_bottom_item_left_top {
-				display: grid;
-				grid-template-columns: vw(52) auto;
-				grid-column-gap: vw(7);
-				align-items: center;
-				font-size: vh(16);
-				font-family:
-					Microsoft YaHei,
-					serif;
-				font-weight: 400;
-				.full_body_l1_bottom_item_left_top_icon {
-					width: vw(52);
-					height: vw(52);
-					background-size: 100% 100%;
-				}
-				.full_normal_icon {
-					background-image: url('@/assets/images/accPerOfRomance/green-gj.gif');
-				}
-				.full_warn_icon {
-					background-image: url('@/assets/images/accPerOfRomance/red-gj.gif');
-				}
-				.full_text_normal {
-					color: #50e7b9;
-				}
-				.full_text_warn {
-					color: #ff007e;
-				}
-			}
 			.full_body_l1_bottom_item_left_center {
 				font-size: vh(23);
 				font-family: YouSheBiaoTiHei, serif;
@@ -143,7 +177,7 @@
 		.full_body_l1_bottom_item_right {
 			display: grid;
 			grid-template-columns: vw(130);
-			grid-template-rows: repeat(2, vh(50)) auto;
+			grid-template-rows: repeat(2, vh(50));
 			align-items: center;
 			.full_body_l1_bottom_item_btn {
 				height: vh(50);
