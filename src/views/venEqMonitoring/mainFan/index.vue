@@ -2,9 +2,22 @@
 	import { mainFan } from '@/api/request/venEqMonitoring/mainFan'
 	import CustomizedDiaLog from '@/views/venEqMonitoring/mainFan/customizedDiaLog.vue'
 	import LoadMainFan from '@/views/components/loadModel/loadMainFan.vue'
+	import FanCharCurve from '@/views/venEqMonitoring/mainFan/fanCharCurve.vue'
+	import MonAndAnalysis from '@/views/venEqMonitoring/mainFan/monAndAnalysis.vue'
+	import TheSpectrum from '@/views/venEqMonitoring/mainFan/theSpectrum.vue'
 
-	const { customizedParametersList, mainFanMes, customizedVisible, showCustomizedVisible } =
-		mainFan()
+	const {
+		customizedParametersList,
+		mainFanMes,
+		customizedVisible,
+		showCustomizedVisible,
+		fanCharCurveVisible,
+		showFanCharCurveVisible,
+		monAndAnalysisVisible,
+		showMonAndAnalysisVisible,
+		theSpectrumVisible,
+		showTheSpectrumVisible,
+	} = mainFan()
 </script>
 
 <template>
@@ -23,9 +36,9 @@
 				</div>
 			</div>
 			<div class="main_fan_body_l1_btn">
-				<div class="main_fan_body_l1_btn_item">风机特性曲线</div>
-				<div class="main_fan_body_l1_btn_item">温振监测分析</div>
-				<div class="main_fan_body_l1_btn_item">温振图谱分析</div>
+				<div class="main_fan_body_l1_btn_item" @click="showFanCharCurveVisible">风机特性曲线</div>
+				<div class="main_fan_body_l1_btn_item" @click="showMonAndAnalysisVisible">温振监测分析</div>
+				<div class="main_fan_body_l1_btn_item" @click="showTheSpectrumVisible">温振图谱分析</div>
 				<div class="main_fan_body_l1_btn_item">操作记录</div>
 				<div class="main_fan_body_l1_btn_item">预警记录</div>
 			</div>
@@ -218,6 +231,12 @@
 			</border-box>
 		</div>
 		<customized-dia-log v-if="customizedVisible" v-model="customizedVisible" />
+		<!--    风机特性曲线-->
+		<fan-char-curve v-if="fanCharCurveVisible" v-model="fanCharCurveVisible" />
+		<!--    温振图谱分析-->
+		<mon-and-analysis v-if="monAndAnalysisVisible" v-model="monAndAnalysisVisible" />
+		<!--    温振图谱分析-->
+		<the-spectrum v-if="theSpectrumVisible" v-model="theSpectrumVisible" />
 	</div>
 </template>
 

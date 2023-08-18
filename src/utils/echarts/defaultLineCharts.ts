@@ -32,7 +32,7 @@ export interface lineData {
 	lineTypes?: any[]
 }
 
-function getSeriesData({
+export function getSeriesData({
 	yDataList,
 	lineTypes,
 	legends,

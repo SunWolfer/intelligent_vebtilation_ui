@@ -1,19 +1,19 @@
 import echarts from '@/utils/echarts/index'
 
 export default (domId: string) => {
-	const charEle = document.getElementById(domId) as HTMLElement
-	let myChart = echarts.init(charEle)
+	const myChart = ref<echarts.ECharts>()
 	const option = ref({})
+	const charEle = document.getElementById(domId) as HTMLElement
+	myChart.value = echarts.init(charEle)
 
 	watch(
 		() => option.value,
 		() => {
-			myChart.setOption(option.value)
+			myChart.value?.setOption(option.value)
 		},
 	)
 
 	return {
-		myChart,
 		option,
 	}
 }

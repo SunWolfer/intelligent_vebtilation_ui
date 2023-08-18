@@ -121,10 +121,33 @@ export const mainFan = () => {
 	const showCustomizedVisible = () => {
 		customizedVisible.value = true
 	}
+
+	// 风机特性曲线
+	const fanCharCurveVisible = ref(false)
+	const showFanCharCurveVisible = () => {
+		fanCharCurveVisible.value = true
+	}
+	// 温振监测分析
+	const monAndAnalysisVisible = ref(false)
+	const showMonAndAnalysisVisible = () => {
+		monAndAnalysisVisible.value = true
+	}
+
+	// 温振图谱分析
+	const theSpectrumVisible = ref(false)
+	const showTheSpectrumVisible = () => {
+		theSpectrumVisible.value = true
+	}
 	return {
 		customizedParametersList,
 		mainFanMes,
 		customizedVisible,
 		showCustomizedVisible,
+		fanCharCurveVisible,
+		showFanCharCurveVisible,
+		monAndAnalysisVisible,
+		showMonAndAnalysisVisible,
+		theSpectrumVisible,
+		showTheSpectrumVisible,
 	}
 }
