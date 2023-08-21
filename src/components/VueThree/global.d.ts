@@ -181,7 +181,7 @@ interface IMaterial {
 }
 // 传入三维字体
 interface IRootFont {
-	// 文字所在父类名称
+	// 文字所在父模型名称
 	parent: string
 	// 文字
 	text: string
@@ -200,4 +200,29 @@ interface IFontType {
 	position: any
 	size: number
 	color: string
+}
+//自定义平面
+interface IPlane {
+	// 点位置
+	points: ICoordinates[]
+	// 材质
+	material: IMaterial
+}
+// 自定义文字
+interface IText {
+	// 文字所在父模型名称
+	parent?: string
+	// 	自定义文字旋转方向
+	// 	起点
+	startPoint?: ICoordinates
+	// 终点
+	endPoint?: ICoordinates
+	// 文字
+	text: string
+	// 文字大小
+	size: number
+	// 文字颜色
+	color: string
+	// 文字高度偏移量
+	height: number
 }
