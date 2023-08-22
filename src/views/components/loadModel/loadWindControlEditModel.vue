@@ -1,4 +1,4 @@
-<!--3D模型编辑组件-->
+<!--自然分风网络测算-->
 <script setup>
 	import useThree from '@/hooks/useThree'
 	import useEquipmentData from '@/hooks/useEquipmentData'
@@ -73,7 +73,7 @@
 		intersectedPosition,
 	} = useThree()
 	// 显示全部设备图标
-	const { allTypeList } = useEquipmentData()
+	const { allTypeList, equipTypeImgClass } = useEquipmentData()
 
 	const isReady = ref(false)
 	watch(
@@ -184,7 +184,7 @@
 				<div v-for="i in allTypeList" :key="i.id" :id="i.id" class="wind_label_bg">
 					<div class="wind_three_label">
 						<div class="three_label_header">
-							<div :class="'home_map_' + i.type"></div>
+							<div :class="'home_map_' + equipTypeImgClass(i.type)"></div>
 						</div>
 						<div class="three_label_footer"></div>
 					</div>

@@ -125,6 +125,8 @@ export function useForm<TData = any>({
 
 	// 提交
 	const submitForm = async () => {
+		console.log(111)
+		console.log(formRef.value)
 		await formRef.value?.validate(async (valid: boolean) => {
 			if (valid) {
 				if (form.value[formId] !== undefined) {

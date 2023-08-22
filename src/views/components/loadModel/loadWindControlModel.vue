@@ -1,4 +1,4 @@
-<!--控风辅助决策3D组件-->
+<!--实时分风网络解算、按需分风网络解算-->
 <script setup>
 	import useThree from '@/hooks/useThree'
 

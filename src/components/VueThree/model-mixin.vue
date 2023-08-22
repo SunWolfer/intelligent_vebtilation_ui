@@ -373,7 +373,6 @@
 				this.$emit('on-mousedown', event, intersected)
 			},
 			onMouseMove(event: MouseEvent) {
-				// console.log(this.$attrs)
 				if (!this.$attrs.onOnMousemove) return
 				const intersected = this.pick(event.clientX, event.clientY)
 				this.$emit('on-mousemove', event, intersected)
@@ -634,7 +633,6 @@
 						const object = (this.getObject as any)(...args)
 
 						this.process(object)
-
 						this.addObject(object)
 						this.loadOtherLen++
 					},

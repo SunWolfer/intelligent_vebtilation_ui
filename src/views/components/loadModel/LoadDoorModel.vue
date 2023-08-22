@@ -12,19 +12,19 @@
 		lights,
 		onClick,
 	} = useThree()
-	indoorFileUrl.value = import.meta.env.BASE_URL + 'file/fengmen.fbx'
+	indoorFileUrl.value = import.meta.env.BASE_URL + 'file/fengmen.FBX'
 
 	cameraPosition.x = 1159.877256192039
 	cameraPosition.y = 248.12348365073817
 	cameraPosition.z = 789.3791784874053
 
-	removePosition.x = 799.0917014199865
-	removePosition.y = 249.50481701643704
-	removePosition.z = 528.3355869681393
+	removePosition.x = 725.1160178870106
+	removePosition.y = 211.47152329658059
+	removePosition.z = 613.7480312249114
 
-	removeLookAt.x = 94.71333168792881
-	removeLookAt.y = 88.36218453484395
-	removeLookAt.z = -155.67053278155916
+	removeLookAt.x = 49.12025738957178
+	removeLookAt.y = 123.56886494603395
+	removeLookAt.z = -111.01611113376853
 
 	lights.value = [
 		{
@@ -79,7 +79,6 @@
 	// 模型编辑类加载
 	function onModel(modelCLass: OperateModel) {
 		operateModel.value = modelCLass
-
 		let objs = operateModel.value.object
 		objs.traverse((obj) => {
 			// 递归遍历所有子对象
@@ -93,6 +92,7 @@
 				twoDoor.value[1] = obj.rotation.z
 			}
 		})
+		if (!props.dataForm) return
 		setMod(props.dataForm.openDoorFlag1 === '1' ? 'men1kai' : 'men1guan')
 		setMod(props.dataForm.openDoorFlag2 === '1' ? 'men2kai' : 'men2guan')
 	}
@@ -103,11 +103,11 @@
 		let rObj: Object3D = new Object3D()
 		sceneObj.traverse((obj) => {
 			// 递归遍历所有子对象
-			if (obj.name === 'Men-01') {
+			if (obj.name === 'Men-02') {
 				obj.rotateZ(onceNum)
 				rObj = obj
 			}
-			if (obj.name === 'Men-02') {
+			if (obj.name === 'Men-01') {
 				obj.rotateZ(onceNum)
 			}
 		})
@@ -122,11 +122,11 @@
 		let rObj: Object3D = new Object3D()
 		sceneObj.traverse((obj) => {
 			// 递归遍历所有子对象
-			if (obj.name === 'Men-01') {
+			if (obj.name === 'Men-02') {
 				obj.rotateZ(-onceNum)
 				rObj = obj
 			}
-			if (obj.name === 'Men-02') {
+			if (obj.name === 'Men-01') {
 				obj.rotateZ(-onceNum)
 			}
 		})
@@ -157,11 +157,11 @@
 		let rObj: Object3D = new Object3D()
 		sceneObj.traverse((obj) => {
 			// 递归遍历所有子对象
-			if (obj.name === 'Men-03') {
+			if (obj.name === 'Men-04') {
 				obj.rotateZ(onceNum)
 				rObj = obj
 			}
-			if (obj.name === 'Men-04') {
+			if (obj.name === 'Men-03') {
 				obj.rotateZ(onceNum)
 			}
 		})
@@ -176,11 +176,11 @@
 		let rObj: Object3D = new Object3D()
 		sceneObj.traverse((obj) => {
 			// 递归遍历所有子对象
-			if (obj.name === 'Men-03') {
+			if (obj.name === 'Men-04') {
 				obj.rotateZ(-onceNum)
 				rObj = obj
 			}
-			if (obj.name === 'Men-04') {
+			if (obj.name === 'Men-03') {
 				obj.rotateZ(-onceNum)
 			}
 		})

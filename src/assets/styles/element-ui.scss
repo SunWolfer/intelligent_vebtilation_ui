@@ -14,15 +14,18 @@ $form-font-size: vh(16);
 $input-hover: 0 0 10px 0 rgba(14, 252, 255, 0.77);
 $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 //输入框
-.el-input {
+.el-input{
 	--el-input-hover-border-color: $sdt-el-color4;
 	--el-input-icon-color: $sdt-el-color4;
 	--el-input-bg-color: $sdt-el-color3;
+	--el-disabled-bg-color: $sdt-el-color3;
 	--el-input-text-color: #ffffff;
+	--el-disabled-border-color: rgba(19, 133, 224, 0.77);
 	padding: 1px;
 	box-shadow: 0 0 10px 4px rgba(19, 133, 224, 0.77) inset;
 	height: vh(32);
 	font-size: $form-font-size;
+
 	.el-input__wrapper {
 		padding: 1px 8px;
 		box-shadow: none;
@@ -35,7 +38,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 		background: $sdt-el-color3;
 		box-shadow: none;
 	}
-	.el-input__suffix {
+	.el-input__suffix,.el-input__prefix {
 		color: $sdt-el-color4;
 	}
 }
@@ -47,6 +50,10 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 			font-size: $form-font-size;
 		}
 		.el-form-item__content {
+			.el-form-item__error{
+				font-size: vh(14);
+				padding-top: 0;
+			}
 			.el-input-number__decrease,
 			.el-input-number__increase {
 				background-color: $sdt-el-color3;
@@ -99,6 +106,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 
 .el-select {
 	--el-border-color-hover: $sdt-el-color4;
+	--el-select-disabled-border:none;
 	--el-color-info-light-9: $sdt-el-color3;
 	--el-fill-color: $sdt-el-color3;
 	--el-color-info-light-8: #00e9ff;
@@ -416,4 +424,67 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 .el-input-number.is-controls-right .el-input__wrapper {
 	padding-right: 15px;
 	padding-left: 5px;
+}
+
+//穿梭框
+.el-transfer{
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr vw(153) 1fr;
+	grid-column-gap: vw(17);
+	--el-transfer-panel-width: 100%;
+	--el-transfer-panel-body-height: calc(100% - #{vh(33)});
+	--el-font-size-base:#{vh(14)};
+	--el-transfer-border-color: rgba(19, 130, 235, 1);
+	--el-transfer-panel-header-height: #{vh(33)};
+	--el-transfer-panel-header-bg-color:rgba(10, 42, 167, 1);
+	--el-transfer-filter-height: #{vh(32)};
+	.el-transfer-panel{
+		background: transparent;
+		.el-transfer-panel__header{
+			.el-checkbox__label{
+				font-size: vh(14);
+				color: #ffffff;
+			}
+		}
+		.el-transfer-panel__body{
+			.el-input {
+				margin: 15px vw(12);
+				width: calc(100%  - #{vw(24)});
+			}
+			.el-checkbox{
+				height: vh(24);
+			}
+			.el-checkbox__input{
+				top: vh(5);
+			}
+			.el-checkbox__label{
+				font-size: vh(14);
+				color: #ffffff;
+			}
+		}
+	}
+	.el-transfer__buttons{
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(2,1fr);
+		grid-column-gap: vw(8);
+		align-items: center;
+		.el-button{
+			border: 1px solid rgba(109, 202, 243, 1);
+			width: vw(72);
+			height: vh(27);
+			background: transparent;
+			box-shadow: 0 0 1px 2px rgba(19, 133, 224, 0.77),0 0 1px 2px rgba(19, 133, 224, 0.77) inset;
+			font-size: vh(14);
+			font-family: Adobe Heiti Std, serif;
+			font-weight: normal;
+			color: #69D2F9;
+			padding: 0;
+		}
+	}
+	.el-transfer__button:nth-child(2){
+		margin: 0;
+	}
 }

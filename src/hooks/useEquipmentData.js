@@ -120,6 +120,19 @@ const useEquipmentData = () => {
 	const formatterEquipmentType = (type) => {
 		return equipmentTypeMap.get(type)
 	}
+	const typeClassMap = new Map([
+		[deviceTypes.DOOR, '1'],
+		[deviceTypes.WINDOW, '2'],
+		[deviceTypes.WINDSENSOR, '3'],
+		[deviceTypes.MULTIPARAMETE, '4'],
+		[deviceTypes.FULLWIND, '5'],
+		[deviceTypes.MAINFAN, '6'],
+		[deviceTypes.LOCALFAN, '7'],
+	])
+	// 设备类型图片
+	function equipTypeImgClass(type) {
+		return typeClassMap.get(type) ?? ''
+	}
 
 	return {
 		equipmentList,
@@ -134,6 +147,7 @@ const useEquipmentData = () => {
 		warnList,
 		disasterPreventionRoute,
 		formatterEquipmentType,
+		equipTypeImgClass,
 	}
 }
 

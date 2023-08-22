@@ -38,7 +38,7 @@ export default defineConfig(({ mode, command }) => {
 			proxy: {
 				// https://cn.vitejs.dev/config/#server-proxy
 				'/dev-api': {
-					target: 'http://127.0.0.1:8080',
+					target: 'http://127.0.0.1:8083/intelligent_ventilation',
 					changeOrigin: true,
 					rewrite: (p) => p.replace(/^\/dev-api/, ''),
 				},

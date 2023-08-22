@@ -118,7 +118,7 @@
 		height: 100%;
 		display: grid;
 		grid-template-columns: 1fr 2fr 1fr;
-		grid-template-rows: auto vh(100);
+		grid-template-rows: 1fr vh(100);
 		grid-template-areas:
 			'l1 l1 l1'
 			'. l2 .';
@@ -128,6 +128,7 @@
 		position: relative;
 		width: 100%;
 		height: 100%;
+		overflow-y: auto;
 	}
 	.content_type_2_bottom {
 		grid-area: l2;

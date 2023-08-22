@@ -18,23 +18,7 @@
 				auto-complete="off"
 				placeholder="密码"
 				@keyup.enter="handleLogin"
-			>
-			</el-input
-			><el-input
-				v-model="loginForm.code"
-				auto-complete="off"
-				placeholder="验证码"
-				@keyup.enter="handleLogin"
-			>
-				<template #prefix>
-					<svg-icon icon-class="code" class="form-code-icon"></svg-icon>
-				</template>
-				<template #append>
-					<div class="login-code">
-						<img :src="codeUrl" @click="getCode" class="login-code-img" />
-					</div>
-				</template>
-			</el-input>
+			/>
 			<div class="login-form-content_l4" @click="handleLogin">登录</div>
 		</div>
 	</div>
@@ -46,8 +30,6 @@
 
 	const userStore = useUserStore()
 	const router = useRouter()
-
-	const title = import.meta.env.VITE_APP_TITLE
 
 	const loginForm = ref({
 		username: 'admin',
@@ -69,19 +51,6 @@
 				getCode()
 			})
 	}
-	const codeUrl = ref('')
-	// 验证码开关
-	const captchaEnabled = ref(true)
-	function getCode() {
-		getCodeImg().then((res) => {
-			captchaEnabled.value = res.captchaEnabled === undefined ? true : res.captchaEnabled
-			if (captchaEnabled.value) {
-				codeUrl.value = 'data:image/gif;base64,' + res?.img
-				loginForm.value.uuid = res?.uuid
-			}
-		})
-	}
-	getCode()
 </script>
 
 <style lang="scss" scoped>
@@ -102,7 +71,7 @@
 		background-size: 100% 100%;
 		padding: vh(173) vw(97) vh(190) vw(110);
 		display: grid;
-		grid-template-rows: vh(34) vh(50) vh(50) vh(50) 1fr;
+		grid-template-rows: vh(34) vh(50) vh(50) 1fr;
 		grid-row-gap: vh(32);
 		justify-content: center;
 		align-items: center;
