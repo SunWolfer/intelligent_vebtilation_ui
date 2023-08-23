@@ -76,7 +76,7 @@
 	z-index: 8;
 	width: 100%;
 	height: 100%;
-	background-image: url('@/assets/images/home/home_roam/drive_bg.png');
+	background-image: url('@/assets/images/home/home_roam/drive_bg.gif');
 	background-size: 100% 100%;
 	display: grid;
 	justify-content: center;
@@ -119,7 +119,7 @@
 	position: fixed;
 	z-index: 1;
 	top: vh(118);
-	left: vw(38);
+	left: vw(150);
 	width: vw(522);
 	height: vh(952);
 	background: rgba(12, 41, 70, 0.85);

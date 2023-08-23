@@ -171,11 +171,7 @@
 			></polyline>
 			<g fill="url(#border4-grad3)" stroke="url(#border4-grad3)">
 				<!--背景色-->
-				<polyline
-					:points="linePoint3"
-					stroke-width="2px"
-					fill="rgba(22, 81, 142, 0.121)"
-				></polyline>
+				<polyline :points="linePoint3" stroke-width="2px" fill="rgba(23, 49, 76, 0.85)"></polyline>
 				<polyline :points="linePoint1" stroke-width="2px" fill="none"></polyline>
 				<polyline :points="linePoint2" stroke-width="2px" fill="none"></polyline>
 				<rect width="5" height="5" :x="width / 2 - titleLength - 10" y="22.5"></rect>

@@ -30,8 +30,13 @@ export function fanChart1({
 			containLabel: true,
 		},
 		tooltip: {
-			show: true,
 			trigger: 'axis',
+			axisPointer: {
+				type: 'line',
+				lineStyle: {
+					color: 'rgba(50, 216, 205, 1)',
+				},
+			},
 		},
 		xAxis: [
 			{
@@ -39,7 +44,7 @@ export function fanChart1({
 				axisLine: {
 					show: true,
 					lineStyle: {
-						color: 'rgba(255, 255, 255, 0.5)',
+						color: 'rgba(230, 230, 230, 1)',
 					},
 				},
 				axisTick: {
@@ -50,6 +55,7 @@ export function fanChart1({
 					margin: 6,
 				},
 				splitLine: {
+					show: true,
 					lineStyle: {
 						color: 'rgba(255, 255, 255, 0.5)',
 						type: 'dashed',
@@ -74,6 +80,7 @@ export function fanChart1({
 					},
 				},
 				splitLine: {
+					show: true,
 					lineStyle: {
 						color: 'rgba(255, 255, 255, 0.5)',
 						type: 'dashed',
@@ -149,6 +156,7 @@ export function fanChart1({
 					color: colors[0],
 					borderWidth: 2,
 				},
+				yAxisIndex: 0,
 				data: yData[0],
 			},
 			{

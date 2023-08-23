@@ -34,6 +34,7 @@
 	display: grid;
 	grid-template-columns: vw(24) vw(194);
 	grid-template-rows: repeat(auto-fill, vh(26));
+	grid-auto-rows: vh(26);
 	justify-content: center;
 	grid-row-gap: vh(90);
 }
