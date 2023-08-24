@@ -1,7 +1,6 @@
 import { IFires } from '@/components/VueThree/effect/IFires'
 import { IWindText } from '@/components/VueThree/effect/IWindText'
 import { ModelAnimation } from '@/components/VueThree/modelAnimation'
-import { isNull } from '@/utils/ruoyi'
 import gsap from 'gsap'
 import {
 	AnimationMixer,

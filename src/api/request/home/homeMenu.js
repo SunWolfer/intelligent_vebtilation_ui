@@ -1,4 +1,4 @@
-import { MenuTypes } from '@/api/request/home/menuType'
+import { MenuTypes } from '@/api/request/menuType'
 import useHomeMenu from '@/hooks/useHomeMenu'
 
 export const homeMenu = () => {

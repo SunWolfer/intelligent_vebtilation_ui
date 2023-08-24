@@ -25,6 +25,12 @@ interface ITexture {
 	name: string
 	texture: Texture
 }
+// 新增节点
+interface NewNode {
+	// 	是否确定添加
+	fixed: boolean
+	name: string
+}
 
 const defaultNode: INodeMesh = {
 	geometry: {
@@ -86,6 +92,8 @@ export class ITunnelMesh {
 	newTunnel: IModelNode[]
 	// 改变巷道
 	changeTunnel: IModelNode[]
+	// 新增节点
+	newNodes: NewNode[]
 	constructor() {
 		this.iTexture = []
 		this.defaultModel = []
@@ -101,6 +109,7 @@ export class ITunnelMesh {
 			showMesh: true,
 			showNode: true,
 		}
+		this.newNodes = []
 	}
 
 	config(obj: Object3D) {
@@ -118,8 +127,8 @@ export class ITunnelMesh {
 		for (let i = 0; i < models.length; i++) {
 			let modelNode = models[i]
 			let geometryList = []
-			if (modelNode.showNode) geometryList.push(...this.addNodeMesh(modelNode))
-			if (modelNode.showMesh) geometryList.push(...this.addTunnelMesh(modelNode))
+			if (modelNode.showNode) geometryList.push(...this.createdNodeMesh(modelNode))
+			if (modelNode.showMesh) geometryList.push(...this.createdTunnelMesh(modelNode))
 			this.object.add(...geometryList)
 		}
 	}
@@ -213,8 +222,8 @@ export class ITunnelMesh {
 		material.side = side
 		return material
 	}
-	// 	添加节点
-	addNodeMesh(modelNode: IModelNode) {
+	// 	创建节点
+	createdNodeMesh(modelNode: IModelNode) {
 		if (!modelNode.nodePosition || !modelNode.nextNodePosition) return []
 		if (!this.object) return []
 		let hasStart = false
@@ -251,8 +260,8 @@ export class ITunnelMesh {
 		}
 		return geometryList
 	}
-	// 	添加巷道
-	addTunnelMesh(modelNode: IModelNode) {
+	// 	创建巷道
+	createdTunnelMesh(modelNode: IModelNode) {
 		if (!modelNode.nodePosition || !modelNode.nextNodePosition) return []
 		let geometryList = []
 		let meshGroup = new Group()
@@ -376,7 +385,7 @@ export class ITunnelMesh {
 			showNode: true,
 		}
 	}
-	// 	判断节点并添加巷道
+	// 	判断节点并添加巷道(连接操作)
 	judgeNode(intersected: any) {
 		if (!intersected) return
 		const name = intersected.object.name
@@ -434,5 +443,16 @@ export class ITunnelMesh {
 			this.deleteTunnelByName(name)
 		}
 		this.newTunnel = []
+	}
+	// 	新增操作
+	newOperation(intersected: any) {
+		if (!intersected) return
+		const name = intersected.object.name
+		const names = name.split('-')
+		// 	判断点击模型类型
+		if (names.length === 2) {
+			console.log(name)
+		}
+		return undefined
 	}
 }

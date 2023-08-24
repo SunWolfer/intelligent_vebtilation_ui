@@ -4,6 +4,7 @@
 	import useEquipmentData from '@/hooks/useEquipmentData'
 	import TunnelMessage from '@/views/components/equiptmentMsg/TunnelMessage.vue'
 	import { EditType } from '@/components/VueThree/types/editType'
+	import { useModel } from '@/hooks/useModel'
 
 	const props = defineProps({
 		fontList: {
@@ -31,23 +32,6 @@
 		},
 	)
 
-	// 临时设备标签
-	const temReady = ref(false)
-	const temporaryLabelList = ref([])
-	watch(
-		() => temporaryLabelList.value,
-		(val) => {
-			temReady.value = false
-			nextTick(() => {
-				temReady.value = true
-				nextTick(() => {
-					operateModel.value.addTemporaryLabelList(val)
-				})
-			})
-		},
-		{ deep: true },
-	)
-
 	// 确认添加风窗
 	watch(
 		() => props.confirmAddWindow,
@@ -67,30 +51,14 @@
 		onLoad,
 		onModel,
 		onClick,
-		createdLabelList,
 		operateModel,
 		intersected,
-		intersectedPosition,
 	} = useThree()
 	// 显示全部设备图标
-	const { allTypeList, equipTypeImgClass } = useEquipmentData()
+	const { equipTypeImgClass } = useEquipmentData()
 
-	const isReady = ref(false)
-	watch(
-		() => allTypeList.value,
-		() => {
-			isReady.value = false
-			nextTick().then(() => {
-				loadAllTypeList()
-			})
-		},
-	)
-	function loadAllTypeList() {
-		isReady.value = true
-		nextTick(() => {
-			createdLabelList?.(allTypeList.value)
-		})
-	}
+	const { isReady, allTypeList, loadAllTypeList, temReady, temporaryLabelList } =
+		useModel(operateModel)
 
 	function readyCamera() {
 		//   添加风流
@@ -98,7 +66,7 @@
 		//   添加风网解算文字
 		operateModel.value.created3DFont(props.fontList)
 		//   添加图标
-		loadAllTypeList()
+		loadAllTypeList?.()
 	}
 	const emits = defineEmits(['addWindow'])
 	// 双击

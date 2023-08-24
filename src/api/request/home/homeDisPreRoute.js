@@ -1,4 +1,4 @@
-import { DisasterTypes } from '@/api/request/home/menuType'
+import { DisasterTypes } from '@/api/request/menuType'
 import useHomeMenu from '@/hooks/useHomeMenu'
 
 export const homeDisPreRoute = (emits) => {

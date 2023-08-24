@@ -1,0 +1,75 @@
+//系统图操作图标
+.ven_sys_operate{
+  position: absolute;
+  left: vw(61);
+  top: vh(5);
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,vw(135));
+  grid-column-gap: vw(6);
+}
+// 设备
+.ven_sys_sensor{
+  position: absolute;
+  left: vw(61);
+  top: vh(73);
+  width: vw(740);
+  height: vh(245);
+}
+//设备弹窗样式
+.ven_sys_sensor_body{
+  padding: vh(37) vw(25);
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  justify-content: space-between;
+  grid-template-rows: vh(31) 1fr vh(38);
+}
+
+@mixin VenBtn {
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  cursor: pointer;
+  span {
+    font-size: vh(14);
+    font-family: Adobe Heiti Std, serif;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 0.78);
+    text-shadow: 0 2px 2px rgba(0,0,0,0.2);
+
+    background: linear-gradient(180deg, #B8D6FF 0%, #2BC9EA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+//设备按钮
+.ven_btn {
+  @include VenBtn;
+  background-image: url("@/assets/images/venManagement/ven_icon_2.png");
+
+}
+//设备按钮选中
+.ven_btn_active{
+  @include VenBtn;
+  background-image: url("@/assets/images/venManagement/ven_icon_1.png");
+}
+//设备选择
+.ven_btn_select{
+  grid-area: 2/1/3/8;
+}
+//确认按钮区域
+.ven_btn_submit{
+  grid-area: 3/1/4/8;
+  display: grid;
+  grid-template-columns: repeat(2,vw(130));
+  grid-column-gap: vw(40);
+  justify-content: center;
+}
+//巷道信息
+.ven_sys_tunnel{
+  position: absolute;
+  left: vw(64);
+  top: vh(73);
+  width: vw(1010);
+  height: vh(365);
+}

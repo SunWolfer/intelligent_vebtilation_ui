@@ -2,7 +2,7 @@ import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
 import { onClickOutside } from '@vueuse/core'
 import useThree from '@/hooks/useThree'
 import useEquipmentData from '@/hooks/useEquipmentData'
-import { deviceTypes } from '@/api/request/home/menuType'
+import { deviceTypes } from '@/api/request/menuType'
 
 export const homeIcon = (emits) => {
 	const { equipmentList, equipTypeList, toPosition } = useEquipmentData()

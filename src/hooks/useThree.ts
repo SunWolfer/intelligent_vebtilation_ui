@@ -69,14 +69,14 @@ const useThree = () => {
 		intersectedPosition.value = CIntersected?.point
 		cameraWorldPosition.value = homeModelVisible.value?.camera.position
 		cameraLookAtPoint.value = homeModelVisible.value?.controls?.target
-		console.log('---------点击对象---------')
-		console.log(intersected.value)
-		console.log('---------点击位置---------')
-		console.log(intersectedPosition.value)
-		console.log('---------相机位置---------')
-		console.log(cameraWorldPosition.value)
-		console.log('---------相机朝向点---------')
-		console.log(cameraLookAtPoint.value)
+		// console.log('---------点击对象---------')
+		// console.log(intersected.value)
+		// console.log('---------点击位置---------')
+		// console.log(intersectedPosition.value)
+		// console.log('---------相机位置---------')
+		// console.log(cameraWorldPosition.value)
+		// console.log('---------相机朝向点---------')
+		// console.log(cameraLookAtPoint.value)
 	}
 
 	// 双击

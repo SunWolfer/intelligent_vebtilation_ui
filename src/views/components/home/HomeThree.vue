@@ -11,7 +11,7 @@
 	import LocalFanMsg from '@/views/components/equiptmentMsg/LocalFanMsg.vue'
 	import WindSpeedMsg from '@/views/components/equiptmentMsg/WindSpeedMsg.vue'
 	import { threeDisasterRoute } from '@/api/request/home/homeThree/threeDisasterRoute'
-	import { deviceTypes } from '@/api/request/home/menuType'
+	import { deviceTypes } from '@/api/request/menuType'
 
 	const tabs = reactive([
 		{

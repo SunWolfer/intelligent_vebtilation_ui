@@ -1,3 +1,4 @@
+@import "@/assets/styles/three/sensor_icon";
 .three_label {
 	//position: absolute;
 	display: grid;
@@ -190,14 +191,4 @@
 	width: vh(24);
 	height: vh(23);
 }
-@mixin homeMap {
-	width: vh(50);
-	height: vh(50);
-	background-size: 100% 100%;
-}
-@for $i from 1 through 7 {
-	.home_map_#{$i} {
-		@include homeMap;
-		background-image: url('@/assets/images/home/home_map/type#{$i}.png');
-	}
-}
+

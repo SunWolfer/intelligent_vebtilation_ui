@@ -25,6 +25,10 @@
 		background-image: url('@/assets/images/accPerOfRomance/btn_active.png');
 	}
 }
+.normal_btn_active{
+	@include IBtn;
+	background-image: url('@/assets/images/accPerOfRomance/btn_active.png');
+}
 
 .normal_2_btn {
 	@include IBtn;
@@ -34,10 +38,24 @@
 		background-image: url('@/assets/images/accPerOfRomance/btn_2_active.png');
 	}
 }
+.normal_2_btn_active{
+	@include IBtn;
+	background-image: url('@/assets/images/accPerOfRomance/btn_2_active.png');
+}
 .normal_3_btn {
 	@include IBtn;
 	background-image: url('@/assets/images/btns/btn_3.png');
+	&:hover,
+	&:active {
+		background-image:url('@/assets/images/btns/btn_3_active.png');
+	}
 }
+
+.normal_3_btn_active{
+	@include IBtn;
+	background-image: url('@/assets/images/btns/btn_3_active.png');
+}
+
 .normal_4_btn{
 	@include IBtn;
 	background-image: url('@/assets/images/btns/g_button_m.png');
@@ -45,4 +63,8 @@
 	&:active {
 		background-image: url('@/assets/images/btns/g_button_x.png');
 	}
+}
+.normal_4_btn_active{
+	@include IBtn;
+	background-image: url('@/assets/images/btns/g_button_x.png');
 }

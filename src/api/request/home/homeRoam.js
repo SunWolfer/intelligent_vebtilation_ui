@@ -1,5 +1,5 @@
 import useEquipmentData from '@/hooks/useEquipmentData'
-import { deviceTypes, MenuTypes } from '@/api/request/home/menuType'
+import { deviceTypes, MenuTypes } from '@/api/request/menuType'
 import useHomeMenu from '@/hooks/useHomeMenu'
 
 export const homeRoam = (emits) => {

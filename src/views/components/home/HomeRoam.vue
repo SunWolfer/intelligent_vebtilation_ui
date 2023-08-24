@@ -1,22 +1,22 @@
 <!--巡检漫游-->
 <script setup>
 	import { homeRoam } from '@/api/request/home/homeRoam'
-	import { MenuTypes } from '@/api/request/home/menuType'
+	import { MenuTypes } from '@/api/request/menuType'
 	import useHomeMenu from '@/hooks/useHomeMenu'
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
 
-  const props = defineProps({
-    domLeft:{
-      type:Number,
-      default: 0
-    },
-    domBottom: {
-      type: Number,
-      default: 90
-    }
-  })
+	const props = defineProps({
+		domLeft: {
+			type: Number,
+			default: 0,
+		},
+		domBottom: {
+			type: Number,
+			default: 90,
+		},
+	})
 
-  const { domStyle } = useMenuItemPosition(props.domLeft,props.domBottom)
+	const { domStyle } = useMenuItemPosition(props.domLeft, props.domBottom)
 
 	const emits = defineEmits(['moveCamera'])
 

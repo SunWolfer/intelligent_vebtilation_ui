@@ -1,6 +1,6 @@
 import useEquipment from '@/store/modules/equipmentData'
 import useThree from '@/hooks/useThree'
-import { deviceTypes } from '@/api/request/home/menuType'
+import { deviceTypes } from '@/api/request/menuType'
 
 const useEquipmentData = () => {
 	const equipmentData = useEquipment()

@@ -27,6 +27,7 @@ declare module 'vue' {
     HKVideo: typeof import('./src/components/MVideo/HKVideo.vue')['default']
     IFrame: typeof import('./src/components/iFrame/index.vue')['default']
     ImagePreview: typeof import('./src/components/ImagePreview/index.vue')['default']
+    ModelDxf: typeof import('./src/components/VueThree/model-dxf.vue')['default']
     ModelEdit: typeof import('./src/components/VueThree/ModelEdit/index.vue')['default']
     ModelFbx: typeof import('./src/components/VueThree/model-fbx.vue')['default']
     ModelGeneration: typeof import('./src/components/VueThree/model-generation.vue')['default']

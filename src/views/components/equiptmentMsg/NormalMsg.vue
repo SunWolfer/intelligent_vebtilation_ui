@@ -1,7 +1,7 @@
 <script setup>
 	import useEquipmentParams from '@/hooks/useEquipmentParams'
 	import useEquipmentData from '@/hooks/useEquipmentData'
-	import { deviceTypes } from '@/api/request/home/menuType'
+	import { deviceTypes } from '@/api/request/menuType'
 
 	const props = defineProps({
 		data: {

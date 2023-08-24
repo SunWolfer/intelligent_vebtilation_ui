@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import { deviceTypes } from '@/api/request/home/menuType'
+import { deviceTypes } from '@/api/request/menuType'
+import { EditType } from '@/components/VueThree/types/editType'
 const useEquipment = defineStore('equipment-data', {
 	state: () => ({
 		// 设备信息
@@ -170,30 +171,37 @@ const useEquipment = defineStore('equipment-data', {
 			{
 				label: '风门',
 				value: deviceTypes.DOOR,
+				modeType: EditType.DOOR,
 			},
 			{
 				label: '风窗',
 				value: deviceTypes.WINDOW,
+				modeType: EditType.WINDOW,
 			},
 			{
 				label: '风速传感器',
 				value: deviceTypes.WINDSENSOR,
+				modeType: EditType.WINDSENSOR,
 			},
 			{
 				label: '多参传感器',
 				value: deviceTypes.MULTIPARAMETE,
+				modeType: EditType.MULTIPARAMETE,
 			},
 			{
 				label: '全断面测风',
 				value: deviceTypes.FULLWIND,
+				modeType: EditType.FULLWIND,
 			},
 			{
 				label: '主扇',
 				value: deviceTypes.MAINFAN,
+				modeType: EditType.MAINFAN,
 			},
 			{
 				label: '局扇',
 				value: deviceTypes.LOCALFAN,
+				modeType: EditType.LOCALFAN,
 			},
 		],
 		// 显示设备类型

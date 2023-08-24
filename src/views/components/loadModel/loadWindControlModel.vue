@@ -28,10 +28,8 @@
 		onModel,
 		onClick,
 		dblclick,
-		createdLabelList,
 		operateModel,
 		intersected,
-		intersectedPosition,
 	} = useThree()
 
 	const emits = defineEmits(['choose-tunnel'])

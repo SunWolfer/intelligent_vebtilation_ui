@@ -8,7 +8,7 @@ export const naturalDisNetSolution = () => {
 	const showAirDisNetwork = ref(true)
 
 	//   选中菜单
-	const chooseMenu = ref(0)
+	const chooseMenu = ref(EditType.DEFAULT)
 
 	// 编辑
 	const changeChooseMenu = (type) => {

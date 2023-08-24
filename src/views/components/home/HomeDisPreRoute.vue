@@ -2,20 +2,20 @@
 	import { homeDisPreRoute } from '@/api/request/home/homeDisPreRoute'
 	import useHomeMenu from '@/hooks/useHomeMenu'
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
-	import { DisasterTypes } from '@/api/request/home/menuType'
+	import { DisasterTypes } from '@/api/request/menuType'
 
-  const props = defineProps({
-    domLeft:{
-      type:Number,
-      default: 430
-    },
-    domBottom: {
-      type: Number,
-      default: 90
-    }
-  })
+	const props = defineProps({
+		domLeft: {
+			type: Number,
+			default: 430,
+		},
+		domBottom: {
+			type: Number,
+			default: 90,
+		},
+	})
 
-	const { domStyle } = useMenuItemPosition(props.domLeft,props.domBottom)
+	const { domStyle } = useMenuItemPosition(props.domLeft, props.domBottom)
 	const { dislodgeDomStyle } = useHomeMenu()
 
 	const emits = defineEmits(['setDisaster', 'setPersonnel', 'imitateRoute', 'changeDisasterType'])

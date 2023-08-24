@@ -1,7 +1,6 @@
 import { Mesh, MeshBasicMaterial, Object3D } from 'three'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import { Font, FontLoader } from 'three/examples/jsm/loaders/FontLoader'
-import { Group } from 'three/src/Three'
 
 export class IWindText {
 	wrapper: Object3D

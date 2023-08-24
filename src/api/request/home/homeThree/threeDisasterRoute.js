@@ -1,4 +1,4 @@
-import { ClickEventTypes, DisasterTypes } from '@/api/request/home/menuType'
+import { ClickEventTypes, DisasterTypes } from '@/api/request/menuType'
 import useCurrentInstance from '@/hooks/useCurrentInstance'
 import useHomeMenu from '@/hooks/useHomeMenu'
 import useEquipmentData from '@/hooks/useEquipmentData'

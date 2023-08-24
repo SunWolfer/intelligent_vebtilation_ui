@@ -1,5 +1,5 @@
 // 避灾路线
-import { DisasterTypes } from '@/api/request/home/menuType'
+import { DisasterTypes } from '@/api/request/menuType'
 import usePoint from '@/components/VueThree/ModelEdit/IPoint'
 import {
 	AnimationMixer,

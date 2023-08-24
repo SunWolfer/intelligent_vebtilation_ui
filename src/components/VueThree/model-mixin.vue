@@ -17,6 +17,7 @@
 		WebGLRendererParameters,
 		SRGBColorSpace,
 		SpotLight,
+		Mesh,
 	} from 'three'
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 	import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
@@ -170,6 +171,7 @@
 				transformControl: null as null | TransformControls,
 				windObject: null as null | Object3D,
 				windMeshList: [] as any[],
+				planeModel: null as null | Mesh,
 			}
 			// 确保这些对象不被转为 vue reactive 对象，避免 three 渲染出错
 			Object.assign(this, result)
