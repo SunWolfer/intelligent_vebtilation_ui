@@ -94,19 +94,19 @@ export class OperateModel {
 		this.resetFrame()
 	}
 	// 	模型添加/更新标签
-	addLabelList(labelList: LabelAttribute[], IObj: Object3D) {
+	addLabelList(labelList: LabelAttribute[], IObj: Object3D, domKey = 'id') {
 		IObj.remove(...this.slotLabelList)
 		this.slotLabelList = []
 		this.slotLabelList = []
 
-		let Css2DomList = useEditModel().addCss2DomList(labelList)
+		let Css2DomList = useEditModel().addCss2DomList(labelList, domKey)
 		if (!Css2DomList?.length) return
 		this.slotLabelList.push(...Css2DomList)
 		IObj.add(...Css2DomList)
 	}
 	// 	总模型添加/更新标签
-	addWrapperLabels(labelList: LabelAttribute[]) {
-		this.addLabelList(labelList, this.wrapper)
+	addWrapperLabels(labelList: LabelAttribute[], domKey = 'id') {
+		this.addLabelList(labelList, this.wrapper, domKey)
 	}
 	// 添加其他标签
 	addOtherLabelList(labelList: LabelAttribute[]) {
@@ -287,7 +287,7 @@ export class OperateModel {
 				position: new Vector3(0, 0, 0),
 			}
 			const length = font.text.length * font.size
-			let plane = createdTextBg(font.height, length, font.planeColor)
+			let plane = createdTextBg(font.size * 2, length, font.planeColor)
 			this.object.traverse((child: any) => {
 				if (child.name === font.parent) {
 					let chooseChild = child.isGroup ? child.children[0] : child

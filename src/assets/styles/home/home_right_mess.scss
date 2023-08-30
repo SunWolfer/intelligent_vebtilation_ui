@@ -13,6 +13,12 @@
 	position: relative;
 	height: vh(27);
 }
+//矿井总风量
+.home_right_message_l2 {
+	position: relative;
+	width: 100%;
+	height: vh(163);
+}
 .home_right_message_body1 {
 	display: grid;
 	grid-template-columns: vw(108) vw(260);
@@ -74,6 +80,7 @@
 }
 //区域风量
 .home_right_message_body2 {
+	height: vh(228);
 	display: grid;
 	grid-template-columns: vw(365);
 	grid-template-rows: repeat(auto-fill, vh(30));
@@ -326,7 +333,6 @@
 	grid-area: H;
 	@include itemText;
 	font-size: vh(14);
-	color: #ec06cb;
 	justify-self: center;
 }
 //预警图标
@@ -413,4 +419,17 @@
 	100% {
 		opacity: 0;
 	}
+}
+//预警等级
+.warn_level_1{
+color: #ff0000;
+}
+.warn_level_2{
+	color: #ff9b00;
+}
+.warn_level_3{
+	color: #ffff00;
+}
+.warn_level_4{
+	color: #fd037e;
 }

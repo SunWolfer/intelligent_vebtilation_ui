@@ -1,22 +1,47 @@
 <!--风路分支图-->
-<script setup></script>
+<script setup>
+	// 查询风路分支图
+	import { branchDrawing } from '@/api/api/home'
+	import useResetCharts from '@/hooks/useResetCharts'
+	// 风路分支图列表
+	const windPathList = ref([])
+	const getWindPath = async () => {
+		const res = await branchDrawing()
+		if (res && res.data) {
+			windPathList.value = res.data
+		}
+	}
+	useResetCharts(getWindPath)
+</script>
 
 <template>
 	<div class="fullDom wind_full">
 		<span class="other_title"><border-box name="border2" title="风路分支图"></border-box></span>
 		<div class="other_wind_path_body">
-			<div class="other_wind_path_body_item">
-				<div class="other_wind_path_body_item_1">回风井</div>
-				<div class="other_wind_path_body_item_2">风量</div>
-				<div class="other_wind_path_body_item_3"></div>
-				<div class="other_wind_path_body_item_2">巷道</div>
-				<div class="other_wind_path_body_item_4">
-					<div class="other_item_4_icon_1">回</div>
-					<div class="other_item_4_text">10-11</div>
-					<div class="other_item_4_icon_2">进</div>
-					<div class="other_item_4_text">10-12</div>
+			<template v-for="item in windPathList">
+				<div class="other_wind_path_body_item">
+					<div class="other_wind_path_body_item_1">{{ item.regionName }}</div>
+					<div class="other_wind_path_body_item_4">
+						<template v-for="child in item.roadList">
+							<div class="other_wind_path_body_item_4_body">
+								<div
+									class="other_wind_path_body_item_4_bar"
+									:style="{ height: (child.airVolume / item.maxValue) * 100 + '%' }"
+								></div>
+								<div class="other_item_4_text">{{ child.airVolume }}</div>
+								<div
+									:class="
+										child.venAirDirection === '1' ? 'other_item_4_icon_1' : 'other_item_4_icon_2'
+									"
+								></div>
+								<div class="other_item_4_text">
+									<span>{{ child.code }}</span>
+								</div>
+							</div>
+						</template>
+					</div>
 				</div>
-			</div>
+			</template>
 		</div>
 	</div>
 </template>
@@ -38,6 +63,7 @@
 		overflow-y: auto;
 		display: grid;
 		grid-template-rows: repeat(auto-fill, vh(203));
+		grid-auto-rows: vh(203);
 	}
 	.other_wind_path_body_item {
 		width: 100%;
@@ -46,7 +72,7 @@
 		background-image: url('@/assets/images/home/home_visual_angle/home_visual_item.png');
 		background-size: 100% 100%;
 		display: grid;
-		grid-template-rows: vh(33) vh(16) vh(52) vh(16) vh(55);
+		grid-template-rows: vh(33) vh(140);
 		place-content: space-between center;
 	}
 	.other_wind_path_body_item_1 {
@@ -59,32 +85,28 @@
 		line-height: vh(22);
 		text-align: center;
 	}
-	.other_wind_path_body_item_2 {
-		justify-self: center;
-		width: vw(396);
-		height: vh(16);
-		background: linear-gradient(90deg, #031650, #2795f3, #041650);
-		font-size: vh(12);
-		font-family:
-			Adobe Heiti Std,
-			serif;
-		font-weight: normal;
-		color: #ffffff;
-		text-align: center;
-		line-height: vh(16);
-	}
-	.other_wind_path_body_item_3 {
-		width: vw(396);
-		height: vh(52);
-	}
 	.other_wind_path_body_item_4 {
+		position: relative;
 		width: vw(396);
-		height: vh(55);
+		height: 100%;
+		display: flex;
+		overflow-x: auto;
+		overflow-y: hidden;
+	}
+	.other_wind_path_body_item_4_body {
+		width: vw(35);
 		display: grid;
-		grid-template-columns: repeat(8, vh(35));
-		grid-template-rows: vh(35) vh(10);
-		place-content: center space-between;
-		grid-auto-flow: column;
+		grid-template-rows: 1fr vh(20) vh(35) vh(20);
+		place-content: center;
+		place-items: center;
+		position: relative;
+		height: 100%;
+		margin-left: vw(15);
+	}
+	.other_wind_path_body_item_4_bar {
+		align-self: end;
+		width: vw(11);
+		background-color: #01f4f4;
 	}
 	@mixin itemIcon {
 		width: vh(35);
@@ -106,10 +128,17 @@
 		background-image: url('@/assets/images/home/home_visual_angle/item_2.png');
 	}
 	.other_item_4_text {
+		height: 100%;
 		font-size: vh(12);
 		font-family: SimSun, serif;
 		font-weight: 400;
 		color: #ffffff;
-		line-height: vh(20);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		span {
+			position: absolute;
+			width: max-content;
+		}
 	}
 </style>

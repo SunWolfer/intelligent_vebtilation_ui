@@ -2,11 +2,18 @@ import { ClickEventTypes, DisasterTypes } from '@/api/request/menuType'
 import useCurrentInstance from '@/hooks/useCurrentInstance'
 import useHomeMenu from '@/hooks/useHomeMenu'
 import useEquipmentData from '@/hooks/useEquipmentData'
-import { IModels } from '@/components/VueThree/models'
+import threeModel from '@/store/modules/threeModel'
 
 export const threeDisasterRoute = (operateModel, intersectedPosition, intersected) => {
-	const object = IModels
-	const { disasterPreventionRoute } = useEquipmentData()
+	const modelData = threeModel()
+	const object = modelData.data
+	const {
+		disasterPreventionRoute,
+		disasterLocation,
+		disasterPosition,
+		personLocation,
+		personPosition,
+	} = useEquipmentData()
 	// 生成避灾路线点位
 	const createdMoveModelPoints = (startNode, points, radius = 4) => {
 		// 	点击位置起止点
@@ -111,6 +118,8 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 		(val) => {
 			// 点击类型为灾变地点
 			if (clickType.value === ClickEventTypes.DISASTER) {
+				disasterLocation.value = intersected.value.name
+				disasterPosition.value = val
 				disasterWarnList.value = []
 				disasterWarnList.value.push({
 					id: Math.random(),
@@ -123,6 +132,8 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 			}
 			// 点击类型为人员位置
 			if (clickType.value === ClickEventTypes.PERSONNEL) {
+				personLocation.value = intersected.value.name
+				personPosition.value = val
 				disasterPeople.obj = intersected.value
 				disasterPeople.position = intersectedPosition.value
 				disasterPeopleList.value = []
@@ -140,20 +151,6 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 	const { proxy } = useCurrentInstance()
 	// 创建避灾路线
 	const disasterRoute = () => {
-		if (!disasterWarnList.value.length) {
-			proxy.$modal.msgWarning('请选择灾变地点')
-			return
-		}
-		if (!disasterPeopleList.value.length) {
-			proxy.$modal.msgWarning('请选择人员位置')
-			return
-		}
-		// 生成起点
-		const pointObj = disasterPeople.obj.name.split('-')
-		if (pointObj.length < 2) {
-			proxy.$modal.msgWarning('人员地点请选择巷道')
-			return
-		}
 		avoidDisaster.value = true
 		clickType.value = ClickEventTypes.NORMAL
 		const startPoint = pointObj[1]
@@ -166,7 +163,11 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 		isShowDisaster.value = false
 		isShowDisasterPeople.value = false
 		disasterPeopleList.value = []
+		disasterPosition.value = undefined
+		disasterLocation.value = undefined
 		disasterWarnList.value = []
+		personPosition.value = undefined
+		personLocation.value = undefined
 		disasterType.value = DisasterTypes.ONE
 		disasterPeople.obj = null
 		disasterPeople.position = null

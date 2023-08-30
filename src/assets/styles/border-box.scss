@@ -80,6 +80,19 @@
 
 .border-box-9 {
 	@include borderBox;
+	.right-top {
+		right: 0;
+		transform: rotateY(180deg);
+	}
+
+	.left-bottom {
+		transform: rotateX(180deg);
+	}
+
+	.right-bottom {
+		right: 0;
+		transform: rotateX(180deg) rotateY(180deg);
+	}
 }
 
 .border-box-10 {

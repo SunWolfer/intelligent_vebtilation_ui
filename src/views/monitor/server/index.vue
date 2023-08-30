@@ -90,11 +90,11 @@
 </script>
 
 <template>
-	<universal-body>
+	<div class="fullDom server_body">
 		<template v-for="item in serverList">
 			<div :class="item.className">
 				<border-box
-					name="border8"
+					name="border9"
 					background-color="rgba(8, 35, 87, 0.6)"
 					:color="['#15b9e9', '#00ffff', 'none']"
 				>
@@ -125,7 +125,7 @@
 				</border-box>
 			</div>
 		</template>
-	</universal-body>
+	</div>
 </template>
 
 <style lang="scss" scoped>
@@ -139,7 +139,7 @@
 				margin: vh(17) auto auto;
 				width: vw(300);
 				height: vh(34);
-				background-image: url('@/assets/images/Sidebar/title-bg.png');
+				background-image: url('@/assets/images/title-bg.png');
 				background-size: 100% 100%;
 				text-align: center;
 				line-height: vh(34);
@@ -160,7 +160,9 @@
 					color: #000000;
 					background: #00afff;
 					font-size: vh(14);
-					font-family: PingFang SC, serif;
+					font-family:
+						PingFang SC,
+						serif;
 					font-weight: 400;
 					line-height: vh(32);
 					text-align: center;
@@ -173,7 +175,9 @@
 					width: 100%;
 					height: vh(34);
 					font-size: vh(14);
-					font-family: PingFang SC, serif;
+					font-family:
+						PingFang SC,
+						serif;
 					font-weight: 400;
 					color: #ffffff;
 					line-height: vh(34);
@@ -195,37 +199,26 @@
 			}
 		}
 	}
-	@mixin topServer {
-		position: absolute;
-		width: vw(479);
-		height: vh(248);
+	.server_body {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(3, 1fr);
+		grid-column-gap: vw(110);
+		grid-row-gap: vh(52);
+		padding: 0 vw(60) vh(50) vw(60);
 		@include serverBody;
 	}
+
 	.server-cpu {
-		@include topServer;
-		left: vw(137);
 	}
 	.server-internal {
-		@include topServer;
-		left: vw(726);
 	}
 	.server-server {
-		@include topServer;
-		left: vw(1316);
-	}
-	@mixin langServer {
-		position: absolute;
-		width: vw(1660);
-		height: vh(248);
-		left: vw(137);
-		@include serverBody;
 	}
 	.server-java {
-		@include langServer;
-		top: vh(300);
+		grid-column: 1/4;
 	}
 	.server-disc {
-		@include langServer;
-		top: vh(600);
+		grid-column: 1/4;
 	}
 </style>

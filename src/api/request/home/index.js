@@ -1,6 +1,34 @@
 import { ClickEventTypes } from '@/api/request/menuType'
+import useEquipment from '@/store/modules/equipmentData'
+import { deviceAll } from '@/api/api/home'
 
 export const home = () => {
+	const equipmentData = useEquipment()
+
+	async function getDeviceAll() {
+		const res = await deviceAll()
+		if (res && res.data) {
+			let dataList = res.data
+			for (let i = 0; i < dataList.length; i++) {
+				for (let j = 0; j < dataList[i].children.length; j++) {
+					dataList[i].children[j] = {
+						...dataList[i].children[j],
+						point: {
+							x: dataList[i].children[j].pointX,
+							y: dataList[i].children[j].pointY,
+							z: dataList[i].children[j].pointZ,
+						},
+					}
+				}
+			}
+			equipmentData.updateData(dataList)
+		}
+	}
+
+	onMounted(() => {
+		getDeviceAll()
+	})
+
 	// 3D图Dom
 	const threeRef = ref(null)
 	// 移动镜头

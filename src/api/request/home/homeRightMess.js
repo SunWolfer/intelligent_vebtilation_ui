@@ -1,25 +1,35 @@
 import useEquipmentData from '@/hooks/useEquipmentData'
+import { roadAll, totalAirVolume } from '@/api/api/home'
+import { useThreeModelData } from '@/hooks/useThreeModelData'
 
 export const homeRightMess = () => {
+	// 矿井总风量
+	const airVolumeList = ref({})
+
+	const infoAirVolumeList = async () => {
+		const res = await totalAirVolume()
+		if (res && res.data) {
+			airVolumeList.value = res.data
+		}
+	}
 	//  区域风量列表
-	const regionalAirVolumeList = ref([
-		{
-			name: '11251工作面回风顺槽',
-			airVolume: '7653.5',
-		},
-		{
-			name: '11252工作面回风顺槽',
-			airVolume: '7653.5',
-		},
-		{
-			name: '11253工作面回风顺槽',
-			airVolume: '7653.5',
-		},
-		{
-			name: '11254工作面回风顺槽',
-			airVolume: '7653.5',
-		},
-	])
+	const regionalAirVolumeList = ref([])
+	const { roadAllList } = useThreeModelData()
+
+	// 查询巷道信息
+	const getRoadAll = async () => {
+		const res = await roadAll()
+		if (res && res.data) {
+			regionalAirVolumeList.value = res.data.roadAreaList
+			roadAllList.value = res.data.roadAllList
+		}
+	}
+
+	onMounted(() => {
+		infoAirVolumeList()
+		getRoadAll()
+	})
+
 	const { warnList } = useEquipmentData()
 	// 是否显示预警
 	const isWarn = computed(() => {
@@ -57,11 +67,11 @@ export const homeRightMess = () => {
 		},
 		{
 			label: '通风网络预警',
-			value: '2',
+			value: '3',
 		},
 		{
 			label: '通风设施预警',
-			value: '3',
+			value: '2',
 		},
 		{
 			label: '通风融合预警',
@@ -84,28 +94,29 @@ export const homeRightMess = () => {
 	// 通风动力预警
 	const powerNum = computed(() => {
 		return warnList.value.filter((i) => {
-			return i.warnType === '1'
+			return i.mainType === '1'
 		}).length
 	})
 	// 通风网络预警
 	const theNetworkNum = computed(() => {
 		return warnList.value.filter((i) => {
-			return i.warnType === '2'
+			return i.mainType === '3'
 		}).length
 	})
 	// 通风设施预警
 	const facilitiesNum = computed(() => {
 		return warnList.value.filter((i) => {
-			return i.warnType === '3'
+			return i.mainType === '2'
 		}).length
 	})
 	// 通风融合预警
 	const fusionNum = computed(() => {
 		return warnList.value.filter((i) => {
-			return i.warnType === '4'
+			return i.mainType === '4'
 		}).length
 	})
 	return {
+		airVolumeList,
 		regionalAirVolumeList,
 		showWarnList,
 		powerNum,

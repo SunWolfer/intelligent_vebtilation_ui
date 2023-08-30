@@ -113,8 +113,8 @@ const useThree = () => {
 		homeModelVisible.value?.cameraReset(toPosition, toLookAt, time)
 	}
 	// 创建2D标签
-	const createdLabelList = (list: LabelAttribute[]) => {
-		operateModel.value?.addWrapperLabels(list)
+	const createdLabelList = (list: LabelAttribute[], domKey = 'id') => {
+		operateModel.value?.addWrapperLabels(list, domKey)
 	}
 	// 保存主模型
 	const saveModel = () => {

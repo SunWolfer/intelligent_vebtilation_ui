@@ -196,12 +196,11 @@ const useEditModel = () => {
 	}
 
 	// 添加Css2Dom
-	function addCss2DomList(labelList: LabelAttribute[]) {
+	function addCss2DomList(labelList: LabelAttribute[], domKey = 'id') {
 		let Css2DomList = []
 		for (let i = 0; i < labelList.length; i++) {
 			let obj = labelList[i]
-			let dom: HTMLElement | null = document.getElementById(obj.id)
-
+			let dom: HTMLElement | null = document.getElementById(obj[domKey])
 			if (!dom) return
 			const Css2Dom = new CSS2DObject(dom)
 			const { x, y, z } = obj.point

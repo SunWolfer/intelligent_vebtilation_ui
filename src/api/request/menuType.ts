@@ -10,10 +10,10 @@ export enum MenuTypes {
 }
 //灾变类型
 export enum DisasterTypes {
-	ONE = 1,
-	TWO,
-	THREE,
-	FOUR,
+	ONE = '1',
+	TWO = '2',
+	THREE = '3',
+	FOUR = '4',
 }
 //点击模型事件类型
 export enum ClickEventTypes {
@@ -29,7 +29,7 @@ export enum deviceTypes {
 	DOOR = 'door',
 	WINDOW = 'window',
 	WINDSENSOR = 'windsensor',
-	MULTIPARAMETE = 'multiparamete',
+	MULTIPARAMETE = 'multiparameter',
 	FULLWIND = 'fullwind',
 	MAINFAN = 'mainfan',
 	LOCALFAN = 'localfan',

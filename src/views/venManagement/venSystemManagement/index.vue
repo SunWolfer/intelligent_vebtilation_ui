@@ -20,6 +20,10 @@
 		dataForm,
 		sensorLabel,
 		sensorList,
+		tunnelHandle,
+		tunnelForm,
+		windDataForm,
+		closeTunnelHandle,
 	} = venSystemManagement()
 
 	const { equipmentTypeList } = useEquipmentData()
@@ -27,7 +31,7 @@
 
 <template>
 	<div class="fullDom">
-		<load-ven-sys-man-model ref="modelRef" :edit-type="editType" />
+		<load-ven-sys-man-model ref="modelRef" :edit-type="editType" @tunnel-handle="tunnelHandle" />
 		<!--    操作按钮-->
 		<div class="ven_sys_operate">
 			<div
@@ -81,7 +85,105 @@
 			</border-box>
 		</div>
 		<div class="ven_sys_tunnel" v-if="tunnelVisible">
-			<border-box name="border3"></border-box>
+			<border-box name="border3">
+				<div class="fullDom ven_sys_tunnel_body">
+					<div class="ven_sys_tunnel_body_title_c1">
+						<border-box name="border5">
+							<div class="set_btn_default"><span>巷道信息</span></div>
+						</border-box>
+					</div>
+					<div class="ven_sys_tunnel_body_title_c2">
+						<border-box name="border5">
+							<div class="set_btn_default"><span>通风数据</span></div>
+						</border-box>
+					</div>
+					<div class="fullDom">
+						<el-form
+							:model="tunnelForm"
+							inline
+							class="ven_sys_tunnel_body_l2_c1"
+							label-width="auto"
+							label-position="left"
+						>
+							<el-form-item label="巷道名称">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="巷道编号">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="巷道周长(m)">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="巷道长度(m)">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="巷道断面积(㎡)">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="巷道形状">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="巷道支护类型">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="进回风类型">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="起始高程(m)">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="结束高程(m)">
+								<el-input />
+							</el-form-item>
+						</el-form>
+					</div>
+					<div class="ven_sys_tunnel_body_l2_c2 fullDom"></div>
+					<div class="fullDom">
+						<el-form
+							:model="windDataForm"
+							inline
+							class="ven_sys_tunnel_body_l2_c1"
+							label-width="auto"
+							label-position="left"
+						>
+							<el-form-item label="最大风量(m3/min)">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="计划风量(m3/min)">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="人工实测风量(m3/min)">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="人工实测时间">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="风阻(N·S2/m8)">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="摩擦系数(N·s2/m4)">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="局部阻力">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="风路分支图区域">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="风阻测定来源">
+								<el-input />
+							</el-form-item>
+							<el-form-item label="人工测定风阻时间">
+								<el-input />
+							</el-form-item>
+						</el-form>
+					</div>
+					<div class="ven_sys_tunnel_body_l3 fullDom">
+						<div class="normal_btn">保存</div>
+						<div class="normal_btn" @click="closeTunnelHandle">取消</div>
+					</div>
+				</div>
+			</border-box>
 		</div>
 	</div>
 </template>

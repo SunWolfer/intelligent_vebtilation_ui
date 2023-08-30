@@ -2,25 +2,25 @@
 <script setup>
 	import { homeSolution } from '@/api/request/home/homeSolution'
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
-	import { useWindNetCalculation } from '@/hooks/useWindNetCalculation'
+	import { useThreeModelData } from '@/hooks/useThreeModelData'
 
-  const props = defineProps({
-    domLeft:{
-      type:Number,
-      default: 0
-    },
-    domBottom: {
-      type: Number,
-      default: 90
-    }
-  })
+	const props = defineProps({
+		domLeft: {
+			type: Number,
+			default: 0,
+		},
+		domBottom: {
+			type: Number,
+			default: 90,
+		},
+	})
 
-  const { domStyle } = useMenuItemPosition(props.domLeft,props.domBottom)
+	const { domStyle } = useMenuItemPosition(props.domLeft, props.domBottom)
 
 	const emits = defineEmits(['loadText', 'cleanText'])
 	const { checkedWind, checkedWindAge, checkedWindPressure } = homeSolution()
 
-	const { windTextList } = useWindNetCalculation()
+	const { roadAllList } = useThreeModelData()
 
 	watch(
 		() => [checkedWind.value, checkedWindPressure.value, checkedWindAge.value],
@@ -30,26 +30,54 @@
 	)
 	const splitText = () => {
 		let fontList = []
-		for (let i = 0; i < windTextList.value.length; i++) {
-			const wind = windTextList.value[i]
-			let airQuantity = checkedWind.value ? `解算风量：${wind.airQuantity}m³/min` : ''
-			let windage = checkedWindAge.value ? `风阻：${wind.windage}m/s` : ''
-			let windPressure = checkedWindPressure.value ? `风压：${wind.windPressure}Kpa` : ''
+		for (let i = 0; i < roadAllList.value.length; i++) {
+			const wind = roadAllList.value[i]
+			let airQuantity = checkedWind.value ? `解算风量：${wind.airVolume}m3/min` : ''
+			let windage = checkedWindAge.value ? `风阻：${wind.ventR}m/s` : ''
+			let windPressure = checkedWindPressure.value ? `风压：${wind.airPressure}Kpa` : ''
 			let text = `${airQuantity} ${windage} ${windPressure}`
+			// 添加解算数据
 			fontList.push({
-				parent: wind.parent,
+				parent: wind.code,
 				text: text,
 				color: '#000',
-				size: 300,
-				height: 500,
+				size: 100,
+				height: 800,
 				planeColor: '#00ff00',
 			})
+			//   添加人工实测风量
+			let text2 = wind.personQ
+				? `人工实测风量：${wind.personQ}m3/min   实际风量：${wind.airVolume}m3/min`
+				: ''
+			if (text2) {
+				fontList.push({
+					parent: wind.code,
+					text: text2,
+					color: '#000',
+					size: 100,
+					height: 600,
+					planeColor: '#00ffff',
+				})
+			}
+			//  人工测量时间
+			let text3 = wind.personQTime ? `人工测量时间：${wind.personQTime}` : ''
+			if (text3) {
+				fontList.push({
+					parent: wind.code,
+					text: text3,
+					color: '#000',
+					size: 100,
+					height: 400,
+					planeColor: '#005aff',
+				})
+			}
 		}
 		emits('loadText', fontList)
 	}
 	onBeforeUnmount(() => {
 		emits('cleanText')
 	})
+	splitText()
 </script>
 
 <template>

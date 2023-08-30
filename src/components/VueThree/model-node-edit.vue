@@ -2,8 +2,8 @@
 	import { ITunnelMesh } from '@/components/VueThree/effect/ITunnelMesh'
 	import { OperateModel } from '@/components/VueThree/IModelOperate'
 	import mixin from '@/components/VueThree/model-mixin.vue'
-	import { IModels } from '@/components/VueThree/models'
 	import { EditType } from '@/components/VueThree/types/editType'
+	import threeModel from '@/store/modules/threeModel'
 	import {
 		Box3,
 		DoubleSide,
@@ -34,10 +34,15 @@
 			},
 		},
 		watch: {
-			editType(val) {
+			editType(val, old) {
 				// 重置节点连接
-				if (val !== EditType.CONNECT) {
+				if (old === EditType.CONNECT) {
 					this.tunnelMesh.resetConnectNode()
+				}
+				//   由新增改变
+				if (old === EditType.ADD) {
+					this.tunnelMesh.resetConnectNode()
+					this.tunnelMesh.clearCylinder()
 				}
 			},
 			// 	监听平面高度变化
@@ -49,6 +54,7 @@
 		data() {
 			const tunnelMesh = new ITunnelMesh()
 			const loader = new GLTFLoader()
+			const modelData = threeModel()
 			return {
 				tunnelMesh,
 				content: [] as unknown[][],
@@ -57,6 +63,7 @@
 				initCameraPosition: new Vector3(),
 				//   平面高度
 				planeHei: 0,
+				modelData,
 			}
 		},
 		methods: {
@@ -65,7 +72,7 @@
 
 				this.object = new Object3D()
 				this.tunnelMesh.config(this.object)
-				let models: IModelNode[] = IModels
+				let models: IModelNode[] = this.modelData.data
 				this.tunnelMesh.initTunnel(...models)
 
 				this.addObject()
@@ -117,7 +124,7 @@
 			addWind(direction = false) {
 				if (!this.windObject) return
 				this.windObject.remove(...this.windMeshList)
-				let models: IModelNode[] = IModels
+				let models: IModelNode[] = this.modelData.data
 				let meshList = []
 				for (let i = 0; i < models.length; i++) {
 					let modelNode = models[i]
@@ -137,11 +144,12 @@
 				const intersected = this.pick(event.clientX, event.clientY)
 				// 新增巷道
 				if (this.editType === EditType.ADD) {
-					console.log(intersected)
 					const connectModel: IModelNode | undefined = this.tunnelMesh.newOperation(intersected)
 
 					if (connectModel) {
 						this.tunnelMesh.resetConnectNode()
+						// let redrawList = this.tunnelMesh.overEditHandle()
+						// this.tunnelMesh.redrawModel(redrawList)
 						//   返回连接完成
 						this.$emit('readyAdd')
 					}
@@ -156,8 +164,10 @@
 						this.$emit('readyConnect')
 					}
 				}
-				// 删除新增模型
+				// 删除连接模型
 				if (this.editType === EditType.DELETE) this.tunnelMesh.deleteTunnel(intersected)
+				// 删除全部类型模型
+				if (this.editType === EditType.DELETEALL) this.tunnelMesh.deleteAllTunnel(intersected)
 				this.$emit('on-dblclick', event, intersected)
 			},
 			onMouseDown(event: MouseEvent) {
@@ -180,6 +190,7 @@
 					) {
 						this.selectedObjects.push(intersected.object)
 						//   移动
+						this.tunnelMesh.mouseMoveCylinder(intersected.point)
 					}
 				} else if (event.buttons === 2) {
 					if (!this.planeModel) return

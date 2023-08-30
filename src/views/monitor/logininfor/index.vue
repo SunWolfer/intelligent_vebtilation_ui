@@ -117,7 +117,7 @@
 </script>
 
 <template>
-	<div class="app-container">
+	<div class="table_page_default">
 		<el-form
 			:model="queryParams"
 			ref="queryRef"
@@ -173,56 +173,43 @@
 				<el-button icon="Refresh" @click="resetQuery">重置</el-button>
 			</el-form-item>
 		</el-form>
-
-		<el-row :gutter="10" class="mb8">
-			<el-col :span="1.5">
-				<el-button
-					type="danger"
-					plain
-					icon="Delete"
-					:disabled="multiple"
-					@click="handleDelete"
-					v-hasPermi="['monitor:logininfor:remove']"
-					>删除</el-button
-				>
-			</el-col>
-			<el-col :span="1.5">
-				<el-button
-					type="danger"
-					plain
-					icon="Delete"
-					@click="handleClean"
-					v-hasPermi="['monitor:logininfor:remove']"
-					>清空</el-button
-				>
-			</el-col>
-			<el-col :span="1.5">
-				<el-button
-					type="primary"
-					plain
-					icon="Unlock"
-					:disabled="single"
-					@click="handleUnlock"
-					v-hasPermi="['monitor:logininfor:unlock']"
-					>解锁</el-button
-				>
-			</el-col>
-			<el-col :span="1.5">
-				<el-button
-					type="warning"
-					plain
-					icon="Download"
-					@click="handleExport"
-					v-hasPermi="['monitor:logininfor:export']"
-					>导出</el-button
-				>
-			</el-col>
-			<right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
-		</el-row>
-
+		<div class="table_page_btn_line">
+			<el-button
+				type="danger"
+				plain
+				icon="Delete"
+				:disabled="multiple"
+				@click="handleDelete"
+				v-hasPermi="['monitor:logininfor:remove']"
+				>删除</el-button
+			><el-button
+				type="danger"
+				plain
+				icon="Delete"
+				@click="handleClean"
+				v-hasPermi="['monitor:logininfor:remove']"
+				>清空</el-button
+			><el-button
+				type="primary"
+				plain
+				icon="Unlock"
+				:disabled="single"
+				@click="handleUnlock"
+				v-hasPermi="['monitor:logininfor:unlock']"
+				>解锁</el-button
+			><el-button
+				type="warning"
+				plain
+				icon="Download"
+				@click="handleExport"
+				v-hasPermi="['monitor:logininfor:export']"
+				>导出</el-button
+			>
+		</div>
 		<el-table
 			ref="logininforRef"
 			v-loading="loading"
+			border
 			:data="logininforList"
 			@selection-change="handleSelectionChange"
 			:default-sort="defaultSort"

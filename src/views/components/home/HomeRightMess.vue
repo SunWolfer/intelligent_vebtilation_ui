@@ -2,9 +2,12 @@
 	import { homeRightMess } from '@/api/request/home/homeRightMess'
 	import useEquipmentData from '@/hooks/useEquipmentData'
 	import useHomeMenu from '@/hooks/useHomeMenu'
+	import useDict from '@/hooks/useDict'
+	import { dynamicHeight, selectDictLabel } from '../../../utils/ruoyi'
 
 	const emits = defineEmits(['moveCamera'])
 	const {
+		airVolumeList,
 		regionalAirVolumeList,
 		showWarnList,
 		powerNum,
@@ -17,8 +20,13 @@
 		manualControlWarnIcon,
 		closeWarnIcon,
 	} = homeRightMess()
-	const { toPosition } = useEquipmentData()
+	const { toPosition, equipTypeList } = useEquipmentData()
+	const { fan_work_status } = useDict('fan_work_status')
 	const setPosition = (item) => {
+		// 判断是否存在
+		const hasIn = equipTypeList.value.indexOf(item.devType) !== -1
+		// 不存在则显示全部该类型数据
+		if (!hasIn) equipTypeList.value.push(item.devType)
 		const position = toPosition?.(item)
 		emits('moveCamera', position, item.point)
 	}
@@ -30,25 +38,36 @@
 		<div class="home_right_message_title">
 			<border-box name="border2" title="矿井总风量"></border-box>
 		</div>
-		<div class="home_right_message_body1">
-			<div class="home_right_message_body1_left"></div>
-			<div class="home_right_message_body1_right">
-				<div class="home_right_message_body1_right_body">
-					<div class="home_right_normal_text">
-						总风量(m³/min)：
-						<span class="home_right_blue_text">7741</span>
+		<div class="home_right_message_l2">
+			<el-carousel indicator-position="none" :height="dynamicHeight(163) + 'px'">
+				<el-carousel-item v-for="item in airVolumeList">
+					<div class="home_right_message_body1">
+						<div class="home_right_message_body1_left"></div>
+						<div class="home_right_message_body1_right">
+							<div class="home_right_message_body1_right_body">
+								<div class="home_right_normal_text">
+									总风量(m³/min)：
+									<span class="home_right_blue_text">{{ item.totalAirVolume }}</span>
+								</div>
+								<div class="home_right_normal_text">
+									一号风机：
+									<span class="home_right_green_text">{{
+										selectDictLabel(fan_work_status, item.workStatus1)
+									}}</span>
+								</div>
+								<div class="home_right_normal_text">
+									二号风机：
+									<span class="home_right_yellow_text">{{
+										selectDictLabel(fan_work_status, item.workStatus2)
+									}}</span>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="home_right_normal_text">
-						一号风机：
-						<span class="home_right_green_text">运行</span>
-					</div>
-					<div class="home_right_normal_text">
-						二号风机：
-						<span class="home_right_yellow_text">备用</span>
-					</div>
-				</div>
-			</div>
+				</el-carousel-item>
+			</el-carousel>
 		</div>
+
 		<!--    区域风量-->
 		<div class="home_right_message_title">
 			<border-box name="border2" title="区域风量"></border-box>
@@ -102,10 +121,10 @@
 					<div class="home_body4_item">
 						<template v-for="child in item">
 							<div class="home_body4_item_body">
-								<div class="home_body4_item_body_A">{{ child.warnMes }}</div>
-								<div class="home_body4_item_body_B">{{ formatterWarnType(child.warnType) }}</div>
+								<div class="home_body4_item_body_A">{{ child.warnName }}</div>
+								<div class="home_body4_item_body_B">{{ formatterWarnType(child.mainType) }}</div>
 								<div class="home_body4_item_body_C">
-									设备类型：{{ formatterEquipmentTypeList(child.type) }}
+									设备类型：{{ formatterEquipmentTypeList(child.devType) }}
 								</div>
 								<div class="home_body4_item_body_D overText" :title="child.name">
 									{{ child.name }}
@@ -113,7 +132,9 @@
 								<div class="home_body4_item_body_E">{{ child.warnDateTime }}</div>
 								<div class="home_body4_item_body_F" @click="setPosition(child)">定位</div>
 								<div class="home_body4_item_body_G"></div>
-								<div class="home_body4_item_body_H">预警级别：1级</div>
+								<div class="home_body4_item_body_H" :class="'warn_level_' + child.warnLevel">
+									预警级别：{{ child.warnLevel }}级
+								</div>
 							</div>
 						</template>
 					</div>

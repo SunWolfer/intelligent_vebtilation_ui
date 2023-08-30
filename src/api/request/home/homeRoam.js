@@ -1,42 +1,31 @@
 import useEquipmentData from '@/hooks/useEquipmentData'
 import { deviceTypes, MenuTypes } from '@/api/request/menuType'
 import useHomeMenu from '@/hooks/useHomeMenu'
+import { infoPath, infoPathList } from '@/api/api/home'
 
 export const homeRoam = (emits) => {
+	// 设备巡检列表
+	const pathList = ref([])
+	const getPathList = async () => {
+		const res = await infoPathList()
+		if (res && res.data) pathList.value = res.data
+	}
+	onMounted(() => {
+		getPathList()
+	})
 	//开始巡检序号
 	const roamIndex = ref(0)
 	//   全部设备
-	const { allDataList, toPosition, setAllType, showTypeList, tEquipmentIndex } = useEquipmentData()
+	const { allDataList, equipmentPathList, toPosition, tEquipmentIndex } = useEquipmentData()
+
 	// 设备巡检
 	const toRoam = (time = 2, nextFun = () => {}, one = false) => {
 		if (roamIndex.value === -1) return
-		const item = allDataList.value[roamIndex.value]
+		const item = equipmentPathList.value[roamIndex.value]
 		tEquipmentIndex.value = roamIndex.value
 		const position = toPosition?.(item)
 		roamIndex.value =
-			roamIndex.value >= allDataList.value.length - 1 ? (one ? -1 : 0) : roamIndex.value + 1
-		emits('moveCamera', position, item.point, time, nextFun)
-	}
-	// 风窗开启巡检序号
-	const windowRoamIndex = ref(0)
-	//   风窗列表
-	const windowList = computed(() => {
-		return allDataList.value.filter((i) => {
-			return i.type === deviceTypes.WINDOW
-		})
-	})
-	// 风窗巡检
-	const windowToRoam = (time = 2, nextFun = () => {}, one = false) => {
-		if (windowRoamIndex.value === -1) return
-		const item = windowList.value[windowRoamIndex.value]
-		tEquipmentIndex.value = windowRoamIndex.value
-		const position = toPosition?.(item)
-		windowRoamIndex.value =
-			windowRoamIndex.value >= windowList.value.length - 1
-				? one
-					? -1
-					: 0
-				: windowRoamIndex.value + 1
+			roamIndex.value >= equipmentPathList.value.length - 1 ? (one ? -1 : 0) : roamIndex.value + 1
 		emits('moveCamera', position, item.point, time, nextFun)
 	}
 	// 巡检定时
@@ -56,17 +45,31 @@ export const homeRoam = (emits) => {
 		roam.value = false
 		clearInterval(roamInterval.value)
 		roamIndex.value = 0
-		windowRoamIndex.value = 0
 	}
 
 	const chooseBtn = ref(0)
 
-	const changeBtn = (val) => {
-		if (val === chooseBtn.value) {
+	const changeBtn = async (val, id = undefined) => {
+		if (val === chooseBtn.value || id === undefined) {
 			chooseBtn.value = 0
 			return
 		}
-		chooseBtn.value = val
+
+		const res = await infoPath(id)
+		if (res && res.data) {
+			equipmentPathList.value = []
+			for (let i = 0; i < res.data.length; i++) {
+				const point = allDataList.value.find((item) => {
+					return item.id === res.data[i].devId && item.devType === res.data[i].devType
+				})
+				equipmentPathList.value.push({
+					...res.data[i],
+					uniqueCode: point.uniqueCode,
+					point: { ...point.point },
+				})
+			}
+			chooseBtn.value = val
+		}
 	}
 	watch(
 		() => chooseBtn.value,
@@ -78,7 +81,6 @@ export const homeRoam = (emits) => {
 					break
 				// 设备巡检
 				case MenuTypes.ONE:
-					setAllType?.()
 					startInterval(() => {
 						if (roamIndex.value === -1) changeBtn(0)
 						toRoam(2, () => {}, true)
@@ -86,19 +88,7 @@ export const homeRoam = (emits) => {
 					break
 				// 全部设备循环巡检
 				case MenuTypes.TWO:
-					setAllType?.()
 					startInterval(toRoam)
-					break
-				case MenuTypes.THREE:
-					setAllType?.('window')
-					startInterval(() => {
-						if (windowRoamIndex.value === -1) changeBtn(0)
-						windowToRoam(2, () => {}, true)
-					})
-					break
-				case MenuTypes.FOUR:
-					setAllType?.('window')
-					startInterval(windowToRoam)
 					break
 			}
 		},
@@ -114,7 +104,7 @@ export const homeRoam = (emits) => {
 	})
 	// 巡检列表可显示内容
 	const roamList = computed(() => {
-		let list = showTypeList.value.filter((i, index) => {
+		let list = equipmentPathList.value.filter((i, index) => {
 			return index >= downStep.value && index < roamMaxTotal.value + downStep.value
 		})
 		list.length = roamMaxTotal.value
@@ -136,6 +126,17 @@ export const homeRoam = (emits) => {
 			return 'home_roam_equipment_bottom_icon_3'
 		}
 	}
+	// 巡检状态
+	const pathStatus = (index) => {
+		const aIndex = roamMaxTotal.value - 1 + downStep.value - tEquipmentIndex.value
+		if (index < aIndex) {
+			return '待巡检'
+		} else if (index === aIndex) {
+			return '巡检中'
+		} else if (index > aIndex) {
+			return '已巡检'
+		}
+	}
 
 	const textStyle = (index) => {
 		const aIndex = roamMaxTotal.value - 1 + downStep.value - tEquipmentIndex.value
@@ -153,11 +154,14 @@ export const homeRoam = (emits) => {
 	})
 
 	return {
+		pathList,
 		chooseBtn,
 		changeBtn,
 		cleanInterval,
 		roamList,
 		iconStyle,
 		textStyle,
+		pathStatus,
+		roamMaxTotal,
 	}
 }

@@ -20,7 +20,16 @@
 
 	const emits = defineEmits(['moveCamera'])
 
-	const { chooseBtn, changeBtn, roamList, iconStyle, textStyle } = homeRoam(emits)
+	const {
+		pathList,
+		chooseBtn,
+		changeBtn,
+		roamList,
+		iconStyle,
+		textStyle,
+		pathStatus,
+		roamMaxTotal,
+	} = homeRoam(emits)
 	const { dislodgeDomStyle, roam } = useHomeMenu()
 
 	const videoUrl = import.meta.env.BASE_URL + 'file/pao1.mp4'
@@ -32,38 +41,23 @@
 			<div class="home_roam_title_1">巡检路线</div>
 			<div class="home_roam_title_2">操作</div>
 		</div>
-		<div class="home_roam_body">
-			<div class="home_roam_body_1">全部设备状态巡检</div>
-			<div
-				class="home_roam_body_2"
-				:class="MenuTypes.ONE === chooseBtn ? 'home_roam_text_active' : ''"
-				@click="changeBtn(MenuTypes.ONE)"
-			>
-				巡检
-			</div>
-			<div
-				class="home_roam_body_2"
-				:class="MenuTypes.TWO === chooseBtn ? 'home_roam_text_active' : ''"
-				@click="changeBtn(MenuTypes.TWO)"
-			>
-				循环巡检
-			</div>
-		</div>
-		<div class="home_roam_body">
-			<div class="home_roam_body_1">风窗状态巡检</div>
-			<div
-				class="home_roam_body_2"
-				:class="MenuTypes.THREE === chooseBtn ? 'home_roam_text_active' : ''"
-				@click="changeBtn(MenuTypes.THREE)"
-			>
-				巡检
-			</div>
-			<div
-				class="home_roam_body_2"
-				:class="MenuTypes.FOUR === chooseBtn ? 'home_roam_text_active' : ''"
-				@click="changeBtn(MenuTypes.FOUR)"
-			>
-				循环巡检
+		<div class="home_title_roam_body">
+			<div class="home_roam_body" v-for="item in pathList">
+				<div class="home_roam_body_1">{{ item.name }}</div>
+				<div
+					class="home_roam_body_2"
+					:class="MenuTypes.ONE === chooseBtn ? 'home_roam_text_active' : ''"
+					@click="changeBtn(MenuTypes.ONE, item.id)"
+				>
+					巡检
+				</div>
+				<div
+					class="home_roam_body_2"
+					:class="MenuTypes.TWO === chooseBtn ? 'home_roam_text_active' : ''"
+					@click="changeBtn(MenuTypes.TWO, item.id)"
+				>
+					循环巡检
+				</div>
 			</div>
 		</div>
 	</div>
@@ -82,13 +76,13 @@
 				<div class="home_roam_equipment_bottom_body" :class="!i ? 'equipment_op' : ''">
 					<div class="home_roam_equipment_bottom_icon" :class="iconStyle(index)"></div>
 					<div class="home_roam_equipment_bottom_title_text" :class="textStyle(index)">
-						<span>【监测点5】</span>
+						<span>【监测点{{ roamMaxTotal - index }}】</span>
 						{{ i?.name }}
 					</div>
 					<div class="home_roam_equipment_bottom_border"></div>
 					<div class="home_roam_equipment_bottom_body_text">
-						<span>巡检位置：{{ i?.name }}</span>
-						<span> 巡检状态： 时间： </span>
+						<span>巡检位置：{{ i?.devLocation }}</span>
+						<span> 巡检状态：{{ pathStatus(index) }} 时间：{{ i?.createTime }} </span>
 					</div>
 				</div>
 			</template>

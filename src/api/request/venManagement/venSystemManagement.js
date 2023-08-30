@@ -67,10 +67,40 @@ export const venSystemManagement = () => {
 		editType.value = EditType.DEFAULT
 	}
 	// 保存
-	const preserve = () => {}
+	const preserve = () => {
+		cancelEdit()
+		// 	获取改变巷道
+		const redrawList = modelRef.value?.changeHandle()
+		modelRef.value?.redrawModel(redrawList)
+	}
 
 	// 显示巷道信息弹窗
 	const tunnelVisible = ref(false)
+	// 选中巷道
+	const tunnelHandle = (intersected) => {
+		tunnelVisible.value = true
+		tunnelForm.value.code = intersected.name
+	}
+	// 关闭巷道弹窗
+	const closeTunnelHandle = () => {
+		tunnelVisible.value = false
+	}
+
+	// 监听编辑
+	watch(
+		() => editType.value,
+		(value) => {
+			if (value !== EditType.DEFAULT) closeTunnelHandle()
+		},
+	)
+
+	// 巷道信息表单
+	const tunnelForm = ref({
+		name: '',
+		code: '',
+	})
+	// 通风数据表单
+	const windDataForm = ref({})
 
 	return {
 		modelRef,
@@ -87,5 +117,9 @@ export const venSystemManagement = () => {
 		dataForm,
 		sensorLabel,
 		sensorList,
+		tunnelHandle,
+		tunnelForm,
+		windDataForm,
+		closeTunnelHandle,
 	}
 }

@@ -3,6 +3,7 @@
 	import useThree from '@/hooks/useThree'
 	import { useModel } from '@/hooks/useModel'
 	import useEquipmentData from '@/hooks/useEquipmentData'
+	import { EditType } from '@/components/VueThree/types/editType'
 
 	const props = defineProps({
 		//   编辑类型
@@ -11,6 +12,8 @@
 			default: 0,
 		},
 	})
+
+	const emits = defineEmits(['tunnelHandle'])
 
 	const {
 		homeModelVisible,
@@ -29,6 +32,22 @@
 
 	const { isReady, allTypeList, loadAllTypeList } = useModel(operateModel)
 
+	// 监听点击事件
+	watch(
+		() => intersected.value,
+		(value) => {
+			if (EditType.DEFAULT === props.editType) {
+				//   判断是否是巷道
+				const name = value?.name
+				if (!name) return
+				const names = name.split('-')
+				if (names.length === 2) {
+					emits('tunnelHandle', value)
+				}
+			}
+		},
+	)
+
 	//   双击
 	const dblclick = (event, CIntersected) => {}
 	//   相机事件完成
@@ -36,6 +55,18 @@
 		//   添加图标
 		loadAllTypeList?.()
 	}
+	//   获取改变巷道
+	const changeHandle = () => {
+		return homeModelVisible.value.tunnelMesh.overEditHandle()
+	}
+	// 保存并重绘巷道
+	const redrawModel = (redrawList) => {
+		return homeModelVisible.value.tunnelMesh.redrawModel(redrawList)
+	}
+	defineExpose({
+		changeHandle,
+		redrawModel,
+	})
 </script>
 
 <template>

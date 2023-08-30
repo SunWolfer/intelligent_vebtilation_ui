@@ -1,7 +1,6 @@
 <!--巡检路线管理-->
 <script setup>
 	import useList from '@/hooks/useList'
-	import { useForm } from '@/hooks/useForm'
 	import { deviceTypes } from '@/api/request/menuType'
 	import useEquipmentData from '@/hooks/useEquipmentData'
 	import RouteAddOrUpdate from '@/views/venManagement/patrolRouteManagement/routeAddOrUpdate.vue'

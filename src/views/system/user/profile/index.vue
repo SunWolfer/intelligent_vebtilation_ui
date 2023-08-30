@@ -1,12 +1,10 @@
 <template>
-	<universal-body>
+	<div class="fullDom">
 		<!-- 个人信息 -->
 		<div class="profile-individual">
 			<div class="profile-individual-top">
-				<border-box name="border6">
-					<div class="profile-individual-1"></div>
-					<span>个人信息</span>
-				</border-box>
+				<div class="profile-individual-1"></div>
+				<span>个人信息</span>
 			</div>
 			<div class="profile-individual-bottom">
 				<el-form :model="state.user" class="profile-form" label-width="auto" label-position="right">
@@ -91,7 +89,7 @@
 				</border-box>
 			</div>
 		</div>
-	</universal-body>
+	</div>
 </template>
 
 <script setup>

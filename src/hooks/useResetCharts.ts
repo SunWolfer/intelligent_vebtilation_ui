@@ -1,6 +1,8 @@
 import { nextTick } from 'vue'
 
 const useResetCharts = (initCharts: () => void, isOnLoad = true) => {
+	// 是否加载
+	const load = ref(false)
 	// 图表
 	const showCharts = ref(false)
 	const resetCharts = () => {
@@ -15,24 +17,21 @@ const useResetCharts = (initCharts: () => void, isOnLoad = true) => {
 	const hasOnload = ref(false)
 	const resizeCharts = () => {
 		resetCharts()
+		load.value = true
 		// 自适应
 		if (hasOnload.value) return
 		window.addEventListener('resize', resetCharts)
 		hasOnload.value = true
 	}
 	onMounted(() => {
-		if (!isOnLoad) return
+		if (!isOnLoad || load.value) return
 		resizeCharts()
 	})
 	onBeforeUnmount(() => {
 		window.removeEventListener('resize', resetCharts)
 	})
 	onActivated(() => {
-		if (!isOnLoad) return
-		if (hasOnload.value) {
-			hasOnload.value = false
-			return
-		}
+		if (!isOnLoad || load.value) return
 		resetCharts()
 	})
 	return {

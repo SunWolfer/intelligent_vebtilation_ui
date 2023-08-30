@@ -158,21 +158,35 @@
 	display: grid;
 	align-items: center;
 }
-.lamp_op {
+//红
+.lamp_red {
 	@include Lamp;
-	background-image: url('@/assets/images/home/home_equipment/lamp_op.png');
+	background-image: url('@/assets/images/home/home_equipment/state_red.png');
 }
-.lamp_close {
+//白
+.lamp_grey {
 	@include Lamp;
-	background-image: url('@/assets/images/home/home_equipment/lamp_colse.png');
+	background-image: url('@/assets/images/home/home_equipment/state_grey.png');
 }
-.lamp_yc {
+//绿
+.lamp_green {
 	@include Lamp;
-	background-image: url('@/assets/images/home/home_equipment/lamp_yc.png');
+	background-image: url('@/assets/images/home/home_equipment/state_green.png');
 }
-.lamp_dk {
+//橙
+.lamp_orange {
 	@include Lamp;
-	background-image: url('@/assets/images/home/home_equipment/lamp_dk.png');
+	background-image: url('@/assets/images/home/home_equipment/state_orange02.png');
+}
+//蓝
+.lamp_blue{
+	@include Lamp;
+	background-image: url("@/assets/images/home/home_equipment/state_bule.png");
+}
+//深蓝
+.lamp_dark_blue{
+	@include Lamp;
+	background-image: url("@/assets/images/home/home_equipment/state_dark_blue.png");
 }
 .equipment_text {
 	width: 100%;

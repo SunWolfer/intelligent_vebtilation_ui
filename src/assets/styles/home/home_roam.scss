@@ -4,8 +4,15 @@
 	display: grid;
 	background-image: url('@/assets/images/home/home_roam/roam_little_bg.png');
 	padding: vh(29) 0 0 0;
-	grid-template-rows: vh(33) repeat(2, vh(26));
-	grid-row-gap: vh(21);
+	grid-template-rows: vh(33) 1fr;
+	grid-row-gap: vh(10);
+}
+.home_title_roam_body{
+	overflow-y: auto;
+	display: grid;
+	grid-template-rows: repeat(auto-fill, vh(26));
+	grid-auto-rows: vh(26);
+	grid-row-gap: vh(10);
 }
 
 @mixin homeRoamText {

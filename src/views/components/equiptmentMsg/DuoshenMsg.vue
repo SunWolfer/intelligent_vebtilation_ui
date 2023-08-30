@@ -23,7 +23,7 @@
 			<div class="equipment_msg_top_item_1">
 				<div class="equipment_msg_top_item_1_text">
 					<span>[设备类型]</span>
-					{{ formatterEquipmentType(data.type) }}
+					{{ formatterEquipmentType(data.devType) }}
 				</div>
 				<div :class="data.warnType === '1' ? 'equipment_warn' : 'equipment_normal'" />
 			</div>
@@ -47,7 +47,7 @@
 				</div>
 				<div class="equipment_msg_top_item_3_body">
 					<span>通讯</span>
-					<div class="lamp_dk">掉线</div>
+					<div class="lamp_orange">掉线</div>
 				</div>
 			</div>
 			<div class="equipment_msg_top_item_4 equipment_msg_top_item_4_door">

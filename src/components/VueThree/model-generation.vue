@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { ITunnelMesh } from '@/components/VueThree/effect/ITunnelMesh'
 	import { OperateModel } from '@/components/VueThree/IModelOperate'
+	import threeModel from '@/store/modules/threeModel'
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 	import mixin from './model-mixin.vue'
 	import { Object3D, WebGLRenderer } from 'three'
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 	import { defineComponent } from 'vue'
-	import { IModels } from './models'
 
 	export default defineComponent({
 		name: 'model-generation',
@@ -14,10 +14,12 @@
 		data() {
 			const tunnelMesh = new ITunnelMesh()
 			const loader = new GLTFLoader()
+			const modelData = threeModel()
 			return {
 				tunnelMesh,
 				content: [] as unknown[][],
 				loader,
+				modelData,
 			}
 		},
 		methods: {
@@ -26,7 +28,7 @@
 
 				this.object = new Object3D()
 				this.tunnelMesh.config(this.object)
-				let models: IModelNode[] = IModels
+				let models: IModelNode[] = this.modelData.data
 
 				this.tunnelMesh.add(...models)
 
@@ -58,7 +60,7 @@
 			addWind(direction = false) {
 				if (!this.windObject) return
 				this.windObject.remove(...this.windMeshList)
-				let models: IModelNode[] = IModels
+				let models: IModelNode[] = this.modelData.data
 				let meshList = []
 				for (let i = 0; i < models.length; i++) {
 					let modelNode = models[i]

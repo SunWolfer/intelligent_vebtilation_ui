@@ -1,3 +1,4 @@
+@import "@/assets/styles/defaultMinix";
 //系统图操作图标
 .ven_sys_operate{
   position: absolute;
@@ -70,6 +71,54 @@
   position: absolute;
   left: vw(64);
   top: vh(73);
-  width: vw(1010);
+  width: vw(1100);
   height: vh(365);
+}
+.ven_sys_tunnel_body{
+  padding: vh(13) vw(40) vh(30) vw(25);
+  display: grid;
+  grid-template-columns: vw(455) 1fr vw(530);
+  grid-template-rows: vh(76) vh(192) 1fr;
+  justify-content: center;
+  align-items: center;
+}
+.ven_sys_tunnel_body_l2_c1 {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-column-gap: vw(10);
+  :deep(.el-form-item){
+    margin-right: 0;
+    .el-form-item__label{
+      font-size: vh(14);
+    }
+    --font-size:vh(14);
+  }
+}
+.ven_sys_tunnel_body_l2_c2{
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include dashLine;
+}
+.ven_sys_tunnel_body_title_c1{
+  grid-column: 1/2;
+  justify-self: center;
+  align-self: center;
+  width: vw(194);
+  height: vh(37);
+}
+.ven_sys_tunnel_body_title_c2{
+  grid-column: 3/4;
+  justify-self: center;
+  align-self: center;
+  width: vw(194);
+  height: vh(37);
+}
+.ven_sys_tunnel_body_l3{
+  padding: 0 vw(300);
+  grid-column: 1/4;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  place-items: center;
 }

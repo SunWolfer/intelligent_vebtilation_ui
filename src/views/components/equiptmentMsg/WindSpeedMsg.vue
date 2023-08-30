@@ -1,5 +1,7 @@
 <script setup>
 	import useEquipmentData from '@/hooks/useEquipmentData'
+	import { homeMsg } from '@/api/request/home/homeMsg'
+	import { selectDictLabel } from '@/utils/ruoyi'
 
 	const props = defineProps({
 		data: {
@@ -12,6 +14,7 @@
 		},
 	})
 	const { tEquipmentIndex, formatterEquipmentType } = useEquipmentData()
+	const { dataForm, online_status, onlineStatusClass } = homeMsg(props.data, props.index)
 </script>
 
 <template>
@@ -23,30 +26,32 @@
 			<div class="equipment_msg_top_item_1">
 				<div class="equipment_msg_top_item_1_text">
 					<span>[设备类型]</span>
-					{{ formatterEquipmentType(data.type) }}
+					{{ formatterEquipmentType(data.devType) }}
 				</div>
-				<div :class="data.warnType === '1' ? 'equipment_warn' : 'equipment_normal'" />
+				<div :class="data.warnStatus !== '0' ? 'equipment_warn' : 'equipment_normal'" />
 			</div>
-			<div class="equipment_msg_top_item_2">{{ data.name }}</div>
+			<div class="equipment_msg_top_item_2">{{ dataForm.name }}</div>
 			<div class="equipment_msg_top_item_3 equipment_msg_top_item_3_wind_speed">
 				<div class="equipment_msg_top_item_3_body">
 					<span>当前风量(m³/min)</span>
-					<div class="equipment_text">2.53</div>
+					<div class="equipment_text">{{ dataForm.airVolume }}</div>
 				</div>
 				<div class="equipment_msg_top_item_3_body">
 					<span>当前风速(m/s)</span>
-					<div class="equipment_text">2.5</div>
+					<div class="equipment_text">{{ dataForm.windSpeed }}</div>
 				</div>
 				<div class="equipment_msg_top_item_3_body">
 					<span>通讯</span>
-					<div class="lamp_dk">掉线</div>
+					<div :class="onlineStatusClass">
+						{{ selectDictLabel(online_status, dataForm.onlineStatus) }}
+					</div>
 				</div>
 			</div>
 			<div class="equipment_msg_top_item_4 equipment_msg_top_item_4_door">
 				<span class="equipment_msg_top_item_3_text_left">风速传感器位置:</span>
-				<span class="overText">22123 回风顺槽瓦斯泵站 210 米</span>
+				<span class="overText" :title="dataForm.location">{{ dataForm.location }}</span>
 				<span class="equipment_msg_top_item_3_text_left">通讯IP:</span>
-				<span>19.</span>
+				<span>{{ dataForm.ip }}</span>
 			</div>
 		</div>
 		<div class="equipment_msg_center">监测点{{ index + 1 }}</div>

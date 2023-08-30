@@ -4,8 +4,6 @@ export const homeVisualAngle = () => {
 	//   显示通风网络图
 	const checkedVenNetwork = ref(true)
 
-	watchEffect(() => {})
-
 	return {
 		checkedWindPath,
 		checkedVenNetwork,

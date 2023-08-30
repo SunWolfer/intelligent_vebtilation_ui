@@ -71,10 +71,6 @@ const useEquipmentData = () => {
 	// 相机移动固定参数
 	const { cameraExcursion } = useThree()
 	const toPosition = (item) => {
-		// 判断是否存在
-		const hasIn = equipTypeList.value.indexOf(item.type) !== -1
-		// 不存在则显示全部该类型数据
-		if (!hasIn) equipTypeList.value.push(item.type)
 		return {
 			x: item.point.x + cameraExcursion.value.x,
 			y: item.point.y + cameraExcursion.value.y,
@@ -86,13 +82,13 @@ const useEquipmentData = () => {
 		const dataList = equipmentData.data
 		let children = []
 		for (let i = 0; i < dataList.length; i++) {
-			children.push(...dataList[i].children)
+			if (dataList[i].children) children.push(...dataList[i].children)
 		}
 		return children
 	})
 	//   总预警列表
 	const warnList = computed(() => {
-		return allDataList.value.filter((i) => i.warnType !== '0')
+		return allDataList.value.filter((i) => i.warnStatus && i.warnStatus !== '0')
 	})
 
 	//显示避灾路线
@@ -102,6 +98,42 @@ const useEquipmentData = () => {
 		},
 		set(val) {
 			equipmentData.updateRouteData(val)
+		},
+	})
+	// 灾变位置
+	const disasterPosition = computed({
+		get() {
+			return equipmentData.disasterPosition
+		},
+		set(val) {
+			equipmentData.updateDisasterPosition(val)
+		},
+	})
+	// 灾变位置名称
+	const disasterLocation = computed({
+		get() {
+			return equipmentData.disasterLocation
+		},
+		set(val) {
+			equipmentData.updateDisasterLocation(val)
+		},
+	})
+	// 灾变人员位置
+	const personPosition = computed({
+		get() {
+			return equipmentData.personPosition
+		},
+		set(val) {
+			equipmentData.updatePersonPosition(val)
+		},
+	})
+	// 灾变人员位置名称
+	const personLocation = computed({
+		get() {
+			return equipmentData.personLocation
+		},
+		set(val) {
+			equipmentData.updatePersonLocation(val)
 		},
 	})
 
@@ -133,6 +165,15 @@ const useEquipmentData = () => {
 	function equipTypeImgClass(type) {
 		return typeClassMap.get(type) ?? ''
 	}
+	// 设备巡检列表
+	const equipmentPathList = computed({
+		get() {
+			return equipmentData.equipmentPath
+		},
+		set(val) {
+			equipmentData.updateEquipmentPath(val)
+		},
+	})
 
 	return {
 		equipmentList,
@@ -148,6 +189,11 @@ const useEquipmentData = () => {
 		disasterPreventionRoute,
 		formatterEquipmentType,
 		equipTypeImgClass,
+		equipmentPathList,
+		personLocation,
+		disasterPosition,
+		disasterLocation,
+		personPosition,
 	}
 }
 

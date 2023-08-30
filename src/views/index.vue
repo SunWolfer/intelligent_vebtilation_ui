@@ -1,5 +1,5 @@
 <script setup>
-	import HomeMenu from '@/views/components/home/HomeMenu.vue'
+	import IHomeMenu from '@/views/components/home/HomeMenu.vue'
 	import HomeIcon from '@/views/components/home/HomeIcon.vue'
 	import { home } from '@/api/request/home'
 	import HomeThree from '@/views/components/home/HomeThree.vue'
@@ -46,7 +46,7 @@
 		<!--    首页右侧信息-->
 		<HomeRightMess @move-camera="moveCamera" />
 		<!--    首页底部菜单-->
-		<HomeMenu :style="dislodgeDomStyle" />
+		<IHomeMenu :style="dislodgeDomStyle" />
 		<!--  设备索引-->
 		<HomeIcon v-if="showEquipmentIndex" @move-camera="moveCamera" :style="dislodgeDomStyle" />
 		<!--    巡检漫游-->
@@ -54,7 +54,7 @@
 		<!--    风网解算-->
 		<HomeSolution
 			v-if="showWindNetworkCalculation"
-      :dom-left="900"
+			:dom-left="900"
 			@load-text="loadText"
 			@clean-text="cleanText"
 			:style="dislodgeDomStyle"
@@ -66,7 +66,7 @@
 		<!--    避灾路线模拟-->
 		<HomeDisPreRoute
 			v-if="showDisasterPreventionRoute"
-      :dom-left="1382"
+			:dom-left="1382"
 			@set-disaster="setDisaster"
 			@set-personnel="setPersonnel"
 			@imitate-route="imitateRoute"
@@ -75,7 +75,7 @@
 		<!--    灾害模拟-->
 		<home-disaster
 			v-if="showDisasterSimulation"
-      :dom-left="1550"
+			:dom-left="1550"
 			@set-disaster="setDisaster"
 			@change-disaster-type="changeDisasterType"
 			@generate-disaster="generateDisaster"
