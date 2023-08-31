@@ -90,7 +90,7 @@ const useList = <TData = any, Params = any>({
 }: commonList<TData, Params>): ListResult<TData, Params> => {
 	const { proxy } = useCurrentInstance()
 
-	const dataList = ref([])
+	const dataList: Ref<TData[]> = ref([])
 	const queryParams = ref<any>({ ...params })
 	const dateRange = ref(initDateRange)
 	const total = ref(0)
@@ -109,7 +109,7 @@ const useList = <TData = any, Params = any>({
 		if (typeof resetReadyListFun === 'function') {
 			resetReadyListFun(res)
 		} else {
-			dataList.value = Object.assign([...res.rows])
+			dataList.value = res.rows
 			total.value = res.total
 			if (typeof afterReadyListFun === 'function') afterReadyListFun(res)
 		}

@@ -3,15 +3,11 @@
 	// 查询风路分支图
 	import { branchDrawing } from '@/api/api/home'
 	import useResetCharts from '@/hooks/useResetCharts'
+	import { useGainList } from '@/hooks/useGainList'
 	// 风路分支图列表
-	const windPathList = ref([])
-	const getWindPath = async () => {
-		const res = await branchDrawing()
-		if (res && res.data) {
-			windPathList.value = res.data
-		}
-	}
-	useResetCharts(getWindPath)
+	const { dataList: windPathList } = useGainList({
+		apiFun: branchDrawing,
+	})
 </script>
 
 <template>

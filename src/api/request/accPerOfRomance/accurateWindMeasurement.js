@@ -1,45 +1,15 @@
 import useInterceptList from '@/hooks/useInterceptList'
 import useResetCharts from '@/hooks/useResetCharts'
 import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
+import { listView } from '@/api/api/accurateWindMeasurement'
+import { useGainList } from '@/hooks/useGainList'
 
 export const accurateWindMeasurement = () => {
 	//   精准测风列表
-	const windList = ref([
-		{
-			name: '10204上顺横据进面',
-			type: '1',
-			airVolume: '853.38',
-			windSpeed: '111',
-			temperature: '22',
-			diffPressure: '11',
-			crossSection: '11',
-			humidity: '11',
-			absolutePressure: '11',
-		},
-		{
-			name: '10204上顺横据进面',
-			type: '2',
-			warnReason: '风量超限',
-			airVolume: '853.38',
-			windSpeed: '111',
-			temperature: '22',
-			diffPressure: '11',
-			crossSection: '11',
-			humidity: '11',
-			absolutePressure: '11',
-		},
-		{
-			name: '10204上顺横据进面',
-			type: '1',
-			airVolume: '853.38',
-			windSpeed: '111',
-			temperature: '22',
-			diffPressure: '11',
-			crossSection: '11',
-			humidity: '11',
-			absolutePressure: '11',
-		},
-	])
+	const { dataList: windList } = useGainList({
+		apiFun: listView,
+	})
+
 	const { inShowList, toLast, showLast, toNext, showNext } = useInterceptList(windList.value, 6)
 
 	// 选中菜单

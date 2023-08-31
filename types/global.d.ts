@@ -20,13 +20,19 @@ declare interface ISelectOption {
 	elTagClass?: string
 }
 
-/** 所有 AjaxResult 接口的响应数据都应该准守该格式 */
+/** 所有 表单类 接口的响应数据都应该准守该格式 */
 declare interface IApiResponseData<T = any> {
 	code: number
 	data: T
 	mes: string
 }
-/** 所有列表查询接口的响应数据都应该准守该格式 */
+// 所有无条数列表
+declare interface IApiResponseDataList<T = any> {
+	code: number
+	data: T[]
+	mes: string
+}
+/** 所有普通列表查询接口的响应数据都应该准守该格式 */
 declare interface ITableApiResponseData<T = any> {
 	code: number
 	total: number

@@ -185,7 +185,7 @@ export type gainForm<TData, TParams> = {
 	apiFun: (param?: TParams) => Promise<IApiResponseData<TData>>
 	dataArgs?: { [key: string]: TData }
 	queryArgs?: { [key: string]: any }
-	afterReadyDataFun?: () => void
+	afterReadyDataFun?: (data: TData) => void
 }
 
 interface GainFormResult<TData> {
@@ -211,8 +211,12 @@ export function useGainForm<TData = any, TParams = any>({
 	const getDataForm = async () => {
 		const res = await apiFun(queryParams.value)
 		dataFrom.value = res.data
-		if (typeof afterReadyDataFun === 'function') afterReadyDataFun()
+		if (typeof afterReadyDataFun === 'function') afterReadyDataFun(res.data)
 	}
+
+	onMounted(() => {
+		getDataForm()
+	})
 
 	return {
 		dataFrom,

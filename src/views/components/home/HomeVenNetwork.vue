@@ -2,10 +2,11 @@
 <script setup>
 	// 查询通风网络图
 	import { netWorkDrawing } from '@/api/api/home'
-
+	const netWorkRef = ref(null)
+	const hlUrl = ref('')
 	const getNetworkPath = async () => {
 		const res = await netWorkDrawing()
-		console.log(res)
+		if (res && res.msg) hlUrl.value = res.msg
 	}
 	onMounted(() => {
 		getNetworkPath()
@@ -15,8 +16,8 @@
 <template>
 	<div class="fullDom ven_network_body">
 		<span class="other_title"> <border-box name="border2" title="通风网络图"></border-box></span>
-		<div class="fullDom">
-			<iframe src="http://localhost:8000/startfile/text1.html" style="width: 100%; height: 100%" />
+		<div ref="netWorkRef" class="fullDom">
+			<iframe v-if="hlUrl" :src="hlUrl" style="width: 100%; height: 100%" />
 		</div>
 	</div>
 </template>

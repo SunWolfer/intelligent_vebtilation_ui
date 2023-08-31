@@ -58,22 +58,23 @@ export const homeDisPreRoute = (emits) => {
 			disasterY: disasterPosition.value.y,
 			disasterZ: disasterPosition.value.z,
 		})
-		console.log(res)
+		if (res && res.data) {
+			// 补零
+			let rsDataList = res.data.path.map((i) => {
+				return (i + '').padStart(3, '0')
+			})
 
-		// emits('imitateRoute')
+			disasterPreventionRoute.value = [rsDataList]
+			disasterRouteText.value = res.data.pathLanguage
+			emits('imitateRoute')
+		}
 	}
 	// 退出
 	const quit = () => {
 		avoidDisaster.value = false
 	}
 	// 人员避灾路线
-	const disasterRouteText = ref([
-		{
-			startLabel: '沿',
-			specialLabel: '021306',
-			lastLabel: '运逆风流方向迅速进行回撤',
-		},
-	])
+	const disasterRouteText = ref([])
 
 	onBeforeUnmount(() => {
 		quit()

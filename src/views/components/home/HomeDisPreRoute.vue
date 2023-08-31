@@ -77,9 +77,7 @@
 				<template v-for="(i, index) in disasterRouteText">
 					<div class="home_reverse_wind_people_bottom_icon">{{ index + 1 }}</div>
 					<div class="home_reverse_wind_people_bottom_text">
-						{{ i.startLabel }}
-						<span>{{ i.specialLabel }}</span>
-						{{ i.lastLabel }}
+						{{ i }}
 					</div>
 					<div
 						v-if="index !== disasterRouteText.length - 1"

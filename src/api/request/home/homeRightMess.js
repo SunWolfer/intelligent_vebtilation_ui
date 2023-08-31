@@ -1,33 +1,26 @@
 import useEquipmentData from '@/hooks/useEquipmentData'
 import { roadAll, totalAirVolume } from '@/api/api/home'
 import { useThreeModelData } from '@/hooks/useThreeModelData'
+import { useGainList } from '@/hooks/useGainList'
+import { useGainForm } from '@/hooks/useForm'
 
 export const homeRightMess = () => {
 	// 矿井总风量
-	const airVolumeList = ref({})
+	const { dataList: airVolumeList } = useGainList({
+		apiFun: totalAirVolume,
+	})
 
-	const infoAirVolumeList = async () => {
-		const res = await totalAirVolume()
-		if (res && res.data) {
-			airVolumeList.value = res.data
-		}
-	}
 	//  区域风量列表
 	const regionalAirVolumeList = ref([])
 	const { roadAllList } = useThreeModelData()
 
 	// 查询巷道信息
-	const getRoadAll = async () => {
-		const res = await roadAll()
-		if (res && res.data) {
-			regionalAirVolumeList.value = res.data.roadAreaList
-			roadAllList.value = res.data.roadAllList
-		}
-	}
-
-	onMounted(() => {
-		infoAirVolumeList()
-		getRoadAll()
+	useGainForm({
+		apiFun: roadAll,
+		afterReadyDataFun: (data) => {
+			regionalAirVolumeList.value = data.roadAreaList
+			roadAllList.value = data.roadAllList
+		},
 	})
 
 	const { warnList } = useEquipmentData()

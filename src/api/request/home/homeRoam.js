@@ -2,16 +2,12 @@ import useEquipmentData from '@/hooks/useEquipmentData'
 import { deviceTypes, MenuTypes } from '@/api/request/menuType'
 import useHomeMenu from '@/hooks/useHomeMenu'
 import { infoPath, infoPathList } from '@/api/api/home'
+import { useGainList } from '@/hooks/useGainList'
 
 export const homeRoam = (emits) => {
 	// 设备巡检列表
-	const pathList = ref([])
-	const getPathList = async () => {
-		const res = await infoPathList()
-		if (res && res.data) pathList.value = res.data
-	}
-	onMounted(() => {
-		getPathList()
+	const { dataList: pathList } = useGainList({
+		apiFun: infoPathList,
 	})
 	//开始巡检序号
 	const roamIndex = ref(0)

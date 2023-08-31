@@ -1,8 +1,8 @@
 import { ClickEventTypes, DisasterTypes } from '@/api/request/menuType'
-import useCurrentInstance from '@/hooks/useCurrentInstance'
 import useHomeMenu from '@/hooks/useHomeMenu'
 import useEquipmentData from '@/hooks/useEquipmentData'
 import threeModel from '@/store/modules/threeModel'
+import { useThreeModelData } from '@/hooks/useThreeModelData'
 
 export const threeDisasterRoute = (operateModel, intersectedPosition, intersected) => {
 	const modelData = threeModel()
@@ -148,9 +148,9 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 		},
 	)
 
-	const { proxy } = useCurrentInstance()
 	// 创建避灾路线
 	const disasterRoute = () => {
+		const pointObj = personLocation.value.split('-')
 		avoidDisaster.value = true
 		clickType.value = ClickEventTypes.NORMAL
 		const startPoint = pointObj[1]
@@ -182,27 +182,22 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 			if (!value) cleanDisasterRoute()
 		},
 	)
-
+	// 查询下一节点位置
+	const { threeModelData } = useThreeModelData()
 	// 灾害模拟相关
 	//   创建灾害蔓延
 	const createdDisasterSpread = () => {
-		if (!disasterWarnList.value.length) {
-			proxy.$modal.msgWarning('请选择灾变地点')
-			return
-		}
-
 		let startPoint = disasterWarnList.value[0].point
-		let endPoint = {
-			x: -4902.90625,
-			y: 96500,
-			z: -14248.630859375,
-		}
+		const pointObj = disasterLocation.value.split('-')
+		let endPoint = threeModelData.value.find((i) => {
+			return i.nodeName === pointObj[1]
+		}).nodePosition
 		operateModel.value.myDisPreRoute.createdDisasterSpread(
 			[startPoint, endPoint],
 			80,
 			disasterType.value,
 		)
-		createdDisasterPreventionRoute()
+		// createdDisasterPreventionRoute()
 
 		isShowDisaster.value = false
 		disasterWarnList.value = []
