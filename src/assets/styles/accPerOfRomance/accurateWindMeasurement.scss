@@ -48,8 +48,11 @@
 	border-radius: vh(10);
 	padding: vh(5) vw(10) 0 vw(10);
 	display: grid;
-	grid-template-rows: vh(27) vh(38) auto;
+	grid-template-rows: vh(27) vh(38) 1fr;
 	grid-row-gap: vh(20);
+	.acc_body_bottom_chart{
+		grid-area: 3/1/4/2;
+	}
 }
 .acc_body_top_body {
 	width: 100%;

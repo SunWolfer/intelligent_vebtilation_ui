@@ -2,14 +2,14 @@ import useList from '@/hooks/useList'
 import { useGainForm } from '@/hooks/useForm'
 import { monitoring } from '@/api/request/venEqMonitoring/monitoring'
 import useEquipmentParams from '@/hooks/useEquipmentParams'
+import { doorHomeList, stateTotal } from '@/api/api/throttleMonitoring'
 
 export const throttleMonitoring = () => {
 	//   顶部预警表单
 	const { dataFrom, getDataForm } = useGainForm({
-		apiFun: () => {},
+		apiFun: stateTotal,
 		dataArgs: {
 			airWarn: 0,
-			encoderWarn: 0,
 			kglWarn: 0,
 			mnlWarn: 0,
 			offline: 0,
@@ -17,15 +17,7 @@ export const throttleMonitoring = () => {
 			windowTotal: 0,
 		},
 	})
-	const {
-		doorColors,
-		warnStatusMap,
-		chooseRow,
-		videoVisible,
-		showVideoVisible,
-		warnDetailsVisible,
-		showWarnDetailsVisible,
-	} = monitoring()
+	const { doorColors } = monitoring()
 
 	// 顶部默认列表
 	const defaultStatusList = computed(() => {
@@ -55,12 +47,6 @@ export const throttleMonitoring = () => {
 				pointColor: doorColors[3],
 			},
 			{
-				label: '编码器故障',
-				value: dataFrom.value.encoderWarn,
-				class: 'monitoring-status-red',
-				pointColor: doorColors[4],
-			},
-			{
 				label: '开关量报警',
 				value: dataFrom.value.kglWarn,
 				class: 'monitoring-status-pink',
@@ -76,11 +62,14 @@ export const throttleMonitoring = () => {
 	})
 
 	const { queryParams, dataList, total, getList } = useList({
-		apiFun: () => {},
+		apiFun: doorHomeList,
 		params: {
 			pageNum: 1,
 			pageSize: 10,
 		},
+	})
+	watchEffect(() => {
+		console.log(dataList.value)
 	})
 	// 跳转控制页面
 	const router = useRouter()
@@ -94,16 +83,10 @@ export const throttleMonitoring = () => {
 	return {
 		doorColors,
 		defaultStatusList,
-		warnStatusMap,
 		queryParams,
 		dataList,
 		total,
 		getList,
 		toControlPage,
-		chooseRow,
-		videoVisible,
-		showVideoVisible,
-		warnDetailsVisible,
-		showWarnDetailsVisible,
 	}
 }

@@ -2,10 +2,11 @@ import { useGainForm } from '@/hooks/useForm'
 import { monitoring } from '@/api/request/venEqMonitoring/monitoring'
 import useList from '@/hooks/useList'
 import useEquipmentParams from '@/hooks/useEquipmentParams'
+import { stateTotal, windowHomeList } from '@/api/api/windWindowMonitoring'
 export const windWindowMonitoring = () => {
 	//   顶部预警表单
 	const { dataFrom, getDataForm } = useGainForm({
-		apiFun: () => {},
+		apiFun: stateTotal,
 		dataArgs: {
 			airWarn: 0,
 			encoderWarn: 0,
@@ -16,15 +17,7 @@ export const windWindowMonitoring = () => {
 			windowTotal: 0,
 		},
 	})
-	const {
-		doorColors,
-		warnStatusMap,
-		chooseRow,
-		videoVisible,
-		showVideoVisible,
-		warnDetailsVisible,
-		showWarnDetailsVisible,
-	} = monitoring()
+	const { doorColors } = monitoring()
 	// 顶部默认列表
 	const defaultStatusList = computed(() => {
 		return [
@@ -74,7 +67,7 @@ export const windWindowMonitoring = () => {
 	})
 
 	const { queryParams, dataList, total, getList } = useList({
-		apiFun: () => {},
+		apiFun: windowHomeList,
 		params: {
 			pageNum: 1,
 			pageSize: 10,
@@ -90,16 +83,10 @@ export const windWindowMonitoring = () => {
 	}
 	return {
 		defaultStatusList,
-		warnStatusMap,
 		queryParams,
 		dataList,
 		total,
 		getList,
 		toControlPage,
-		chooseRow,
-		videoVisible,
-		showVideoVisible,
-		warnDetailsVisible,
-		showWarnDetailsVisible,
 	}
 }

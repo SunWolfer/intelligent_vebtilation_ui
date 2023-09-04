@@ -1,17 +1,19 @@
-const useInterceptList = (list: any[], maxIndex: number) => {
+import { Ref } from 'vue'
+
+const useInterceptList = (list: Ref<any[]>, maxIndex: number) => {
 	//   起始步数
 	const startStep = ref(0)
 
 	//   可显示列表
 	const inShowList = computed(() => {
-		return list.filter((i, index) => {
+		return list.value.filter((i, index) => {
 			return index >= startStep.value && index < maxIndex + startStep.value
 		})
 	})
 
 	// 数组长度
 	const listLength = computed(() => {
-		return list.length
+		return list.value.length
 	})
 
 	// 显示上一步DOM
@@ -32,7 +34,7 @@ const useInterceptList = (list: any[], maxIndex: number) => {
 		startStep.value = startStep.value + 1
 	}
 	watch(
-		() => list,
+		() => list.value,
 		() => {
 			startStep.value = 0
 		},

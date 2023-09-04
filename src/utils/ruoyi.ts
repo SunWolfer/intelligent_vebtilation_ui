@@ -340,3 +340,12 @@ export function getEmeImgUrl(name: string) {
 export function PrefixZero(num: number, n: number) {
 	return (Array(n).join('0') + num).slice(-n)
 }
+//随机颜色，十六进制方法；
+export function getRandomColor() {
+	const rand = Math.floor(Math.random() * 0xffffff).toString(16)
+	if (rand.length == 6) {
+		return rand
+	} else {
+		return getRandomColor()
+	}
+}

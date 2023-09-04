@@ -160,18 +160,16 @@
 .ven_body_center_item_body_line {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: repeat(auto-fill, vh(20));
+	grid-template-rows: repeat(auto-fill, vh(36));
 	grid-row-gap: vh(10);
-
 	font-size: vh(18);
 	font-family:
 		Adobe Heiti Std,
 		serif;
 	font-weight: normal;
 	color: #a2ccdb;
-	line-height: vh(36);
 	span {
-		padding-left: vw(55);
+		padding-left: vw(30);
 		span {
 			padding-left: 0;
 		}

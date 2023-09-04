@@ -366,6 +366,12 @@
 			background-image: url('@/assets/images/equipment/main_fan_close.png');
 			background-size: 100% 100%;
 		}
+		.main_fan_body_l5_body_l2_open{
+			width: vh(117);
+			height: vh(117);
+			background-image: url('@/assets/images/equipment/main_fan_opening.gif');
+			background-size: 100% 100%;
+		}
 		.normal_2_btn,
 		.normal_btn {
 			width: vw(140);
@@ -476,11 +482,12 @@
 	overflow-y: auto;
 	display: grid;
 	grid-template-columns: repeat(2, 50%);
+	grid-template-rows: repeat(auto-fill,vh(32));
+	grid-auto-rows: vh(32);
 	.customized_item {
 		display: grid;
 		grid-template-columns: calc(100% - #{vw(72)}) vw(72);
 		height: vh(32);
-
 		&:nth-child(2n) {
 			.customized_value {
 				border-right: none;
@@ -494,12 +501,12 @@
 		background: none;
 	}
 	.customized_label {
-		padding-left: vw(11);
+		padding-left: vw(5);
 		@include customizedLabel;
 		color: #b3b3b3;
 	}
 	.customized_value {
-		padding-left: vw(20);
+		padding-left: vw(5);
 		@include customizedLabel;
 		color: rgba(130, 182, 225, 1);
 		border-left: 1px solid #345497;

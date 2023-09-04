@@ -1,6 +1,7 @@
 import { addDateRange, oldDownload } from '@/utils/ruoyi'
 import type { FormInstance } from 'element-plus'
 import useCurrentInstance from '@/hooks/useCurrentInstance'
+import { Ref } from 'vue'
 
 export interface FullParams {
 	[key: string]: any

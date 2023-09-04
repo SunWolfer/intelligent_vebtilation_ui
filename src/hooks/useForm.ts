@@ -1,5 +1,6 @@
-import type { FormInstance } from 'element-plus'
 import useCurrentInstance from '@/hooks/useCurrentInstance'
+import { ElMessage } from 'element-plus'
+import type { FormInstance } from 'element-plus'
 import { Ref } from 'vue'
 
 export interface IForm<TData> {
@@ -221,5 +222,21 @@ export function useGainForm<TData = any, TParams = any>({
 	return {
 		dataFrom,
 		getDataForm,
+	}
+}
+interface comForm<TData> {
+	queryParams?: any
+	afterReadyDataFun?: (data: TData) => void
+}
+export async function useCommitForm<TData = any>(
+	apiFun: (param?: any) => Promise<IApiResponseData<TData>>,
+	{ queryParams = {}, afterReadyDataFun }: comForm<TData>,
+) {
+	const res = await apiFun(queryParams)
+	if (res.code === 200) {
+		ElMessage.success(res.msg)
+		if (typeof afterReadyDataFun === 'function') afterReadyDataFun(res.data)
+	} else {
+		ElMessage.error(res.msg)
 	}
 }

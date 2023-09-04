@@ -3,17 +3,33 @@
 	import { fullSecWindMeasurement } from '@/api/request/accPerOfRomance/fullSecWindMeasurement'
 	import ParameterSetting from '@/views/accPerOfRomance/fullSecWindMeasurement/parameterSetting.vue'
 	import { Vue3SeamlessScroll } from 'vue3-seamless-scroll'
+	import FullHisRecord from '@/views/accPerOfRomance/fullSecWindMeasurement/fullHisRecord.vue'
+	import WarnTableRecord from '@/views/components/warnTableRecord'
+	import LoadWindMeaStation from '@/views/components/loadModel/loadWindMeaStation.vue'
+	import MeasuringWind from '@/views/accPerOfRomance/fullSecWindMeasurement/measuringWind.vue'
 
 	const {
 		choose,
+		chooseItem,
 		fullSecWindList,
 		dateRange,
 		queryForm,
 		showCharts,
+		resetCharts,
 		paramSettingVisible,
 		chooseParamSetting,
 		aneTableData,
 		realWindDataList,
+		chooseData,
+		hisRecordVisible,
+		hisRecordHandle,
+		warnRecordVisible,
+		warnRecordHandle,
+		startMeasuringTheWind,
+		oButtToMeasureTheWind,
+		fullDataForm,
+		measuringWindVisible,
+		playMod,
 	} = fullSecWindMeasurement()
 </script>
 
@@ -23,7 +39,7 @@
 			<border-box name="border3">
 				<div class="full_body_l1_top">
 					<div class="full_body_l1_top_text">全矿井</div>
-					<div class="full_body_l1_top_btn">
+					<div class="full_body_l1_top_btn" @click="oButtToMeasureTheWind">
 						<span>一键测风</span>
 					</div>
 				</div>
@@ -42,16 +58,21 @@
 									<div class="full_body_l1_bottom_item_top_text">
 										<div class="c-center">
 											<div class="his_icon"></div>
-											<div class="icon_text">历史记录</div>
+											<div class="icon_text" @click="hisRecordHandle(i)">历史记录</div>
 										</div>
 										<div class="c-center">
 											<div class="warn_icon"></div>
-											<div class="icon_text">预警记录</div>
+											<div class="icon_text" @click="warnRecordHandle(i)">预警记录</div>
 										</div>
 									</div>
 								</div>
 								<div class="full_body_l1_bottom_item_left">
-									<div class="full_body_l1_bottom_item_left_center">{{ i.name }}</div>
+									<div
+										class="full_body_l1_bottom_item_left_center pointer"
+										@click="chooseItem(index)"
+									>
+										{{ i.name }}
+									</div>
 									<div class="full_body_l1_bottom_item_left_text">
 										<span class="text_label">[ 风量(m³/min) ] </span>
 										<span class="text_value">{{ i.airVolume }}</span>
@@ -62,13 +83,13 @@
 									</div>
 									<div class="full_body_l1_bottom_item_left_text">
 										<span class="text_label">[ 断面(㎡)] </span>
-										<span class="text_value">{{ i.crossSection }}</span>
+										<span class="text_value">{{ i.surface }}</span>
 									</div>
 								</div>
 								<div class="full_body_l1_bottom_item_right">
-									<div class="normal_btn" @click="chooseParamSetting(index)">参数设置</div>
+									<div class="normal_btn" @click="chooseParamSetting(i)">参数设置</div>
 									<div class="full_body_l1_bottom_item_btn">
-										<div class="normal_4_btn">开始测风</div>
+										<div class="normal_4_btn" @click="startMeasuringTheWind(i)">开始测风</div>
 									</div>
 								</div>
 							</div>
@@ -78,10 +99,11 @@
 			</div>
 		</div>
 		<div class="full_body_l2">
+			<LoadWindMeaStation :play-mod="playMod" />
 			<div class="full_body_l2_item">
-				<div class="full_body_l2_item_bg full_body_l2_item_text_left">
+				<div v-show="playMod" class="full_body_l2_item_bg full_body_l2_item_text_left">
 					<span>实时测风数据</span>
-					<span>1024上顺槽</span>
+					<span>{{ fullSecWindList[choose]?.name }}</span>
 					<div class="full_body_l2_item_text_body">
 						<vue3-seamless-scroll :list="realWindDataList" :step="0.5" :count="1">
 							<div v-for="i in realWindDataList">
@@ -91,7 +113,7 @@
 						</vue3-seamless-scroll>
 					</div>
 				</div>
-				<div class="full_body_l2_item_bg full_body_l2_item_text_right">
+				<div v-show="choose !== -1" class="full_body_l2_item_bg full_body_l2_item_text_right">
 					<span>自动测风站记录</span>
 					<span>11:25:11</span>
 					<div class="full_body_l2_item_text_table">
@@ -107,12 +129,14 @@
 		</div>
 		<div class="full_body_l3">
 			<border-box name="border1">
-				<div class="full_body_l3_top">
-					<div class="full_body_l3_top_title"><span>102040503上顺横掘进面</span></div>
+				<div class="full_body_l3_top" v-show="choose !== -1">
+					<div class="full_body_l3_top_title">
+						<span>{{ fullDataForm.name }}</span>
+					</div>
 					<div class="full_body_l3_top_btn">自动测风策略</div>
 					<div class="full_body_l3_top_text">
-						定时测风：每日
-						<span>16时20分</span>
+						{{ fullDataForm.label }}
+						<span>{{ fullDataForm.value }}</span>
 						自动测风
 					</div>
 				</div>
@@ -121,7 +145,7 @@
 		</div>
 		<div class="full_body_l4">
 			<border-box name="border2" title="风量趋势分析"></border-box>
-			<el-form :model="queryForm" inline style="margin-left: 50px">
+			<el-form v-show="choose !== -1" :model="queryForm" inline style="margin-left: 50px">
 				<el-form-item label="时间区间：">
 					<el-date-picker
 						v-model="dateRange"
@@ -135,13 +159,32 @@
 					></el-date-picker>
 				</el-form-item>
 				<el-form-item>
-					<div class="normal_btn">查询</div>
+					<div class="normal_btn" @click="resetCharts">查询</div>
 				</el-form-item>
 			</el-form>
-			<div v-if="showCharts" id="acc_chart_line" class="fullDom"></div>
+			<div v-if="showCharts" id="acc_chart_line" class="fullDom full_body_l4_chart"></div>
 		</div>
 		<!--    参数设置弹窗-->
-		<parameter-setting v-model="paramSettingVisible" />
+		<parameter-setting
+			v-if="paramSettingVisible"
+			v-model="paramSettingVisible"
+			:data-form="chooseData"
+		/>
+		<!--    历史记录-->
+		<full-his-record v-if="hisRecordVisible" v-model="hisRecordVisible" :data-form="chooseData" />
+		<!--    预警记录-->
+		<WarnTableRecord
+			v-if="warnRecordVisible"
+			v-model="warnRecordVisible"
+			:data-form="chooseData"
+			dev-type="fullwind"
+		/>
+		<!--    一键测风-->
+		<MeasuringWind
+			v-if="measuringWindVisible"
+			v-model="measuringWindVisible"
+			:data-list="fullSecWindList"
+		/>
 	</div>
 </template>
 

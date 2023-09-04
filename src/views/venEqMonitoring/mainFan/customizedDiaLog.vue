@@ -1,8 +1,17 @@
 <script setup>
+	import { fanParamAllList, fanParamCustom } from '@/api/api/mainFan'
+	import { useCommitForm } from '@/hooks/useForm'
+
 	const props = defineProps({
 		modelValue: {
 			type: Boolean,
 			default: false,
+		},
+		dataForm: {
+			type: Object,
+		},
+		type: {
+			type: String,
 		},
 	})
 
@@ -20,33 +29,53 @@
 		showDiaLog.value = false
 		emits('cancel')
 	}
-	function submitForms() {
-		emits('submit')
+	async function submitForms() {
+		await useCommitForm(fanParamCustom, {
+			queryParams: [...fanCustomizedTwoParams.value, ...fanCustomizedOneParams.value],
+			afterReadyDataFun: () => {
+				emits('submit', props.dataForm.id)
+				showDiaLog.value = false
+			},
+		})
+	}
+	// 风机一号电机参数(定制化)
+	const fanCustomizedOneParams = ref([])
+	// 风机二号电机参数(定制化)
+	const fanCustomizedTwoParams = ref([])
+
+	// 查询一号风机参数(定制化)
+	const getFanParamAllList = async () => {
+		const res = await fanParamAllList({
+			id: props.dataForm.id,
+			devAs: props.type,
+		})
+		if (res.code === 200 && res.data) {
+			fanCustomizedOneParams.value = res.data.oneAll
+			fanCustomizedTwoParams.value = res.data.twoAll
+		}
 	}
 
-	//   配置项列表
-	const deployList = ref([
-		{
-			label: 'Uab(V)',
-			isShow: true,
-			sort: 1,
-		},
-		{
-			label: 'la(V)',
-			isShow: true,
-			sort: 1,
-		},
-		{
-			label: 'Ubc(V)',
-			isShow: true,
-			sort: 1,
-		},
-		{
-			label: 'lb(V)',
-			isShow: true,
-			sort: 1,
-		},
-	])
+	// 复制一级电机参数
+	const copyOneCustoms = () => {
+		fanCustomizedTwoParams.value = fanCustomizedTwoParams.value.map((i, index) => {
+			return {
+				...i,
+				showFlag: fanCustomizedOneParams.value[index].showFlag,
+				orderNum: fanCustomizedOneParams.value[index].orderNum,
+			}
+		})
+	}
+	// 复制二级电机参数
+	const copyTwoCustoms = () => {
+		fanCustomizedOneParams.value = fanCustomizedOneParams.value.map((i, index) => {
+			return {
+				...i,
+				showFlag: fanCustomizedTwoParams.value[index].showFlag,
+				orderNum: fanCustomizedTwoParams.value[index].orderNum,
+			}
+		})
+	}
+	getFanParamAllList()
 </script>
 
 <template>
@@ -63,11 +92,11 @@
 			<div class="dia_body fullDom">
 				<div class="dia_body_header">
 					<div class="dia_title">一级电机</div>
-					<div class="dia_option_btn">
-						<border-box name="border7">
-							<div class="dia_option_btn_body">复制二级电机显示</div>
-						</border-box>
-					</div>
+					<!--					<div class="dia_option_btn">-->
+					<!--						<border-box name="border7">-->
+					<!--							<div class="dia_option_btn_body" @click="copyTwoCustoms">复制二级电机显示</div>-->
+					<!--						</border-box>-->
+					<!--					</div>-->
 				</div>
 				<div class="dia_body_body_table">
 					<div class="dia_body_body_table_header">
@@ -80,23 +109,21 @@
 					</div>
 					<div class="dia_body_body_table_body">
 						<div class="dia_body_body_table_body_item">
-							<template v-for="i in deployList">
-								<span>{{ i.label }}</span>
-								<el-checkbox v-model="i.isShow"></el-checkbox>
-								<el-select v-model="i.sort">
-									<el-option v-for="item in 15" :key="item" :value="item" :label="item"></el-option>
-								</el-select>
+							<template v-for="i in fanCustomizedOneParams">
+								<span>{{ i.propertyName }}</span>
+								<el-checkbox true-label="0" false-label="1" v-model="i.showFlag"></el-checkbox>
+								<el-input v-model="i.orderNum" />
 							</template>
 						</div>
 					</div>
 				</div>
 				<div class="dia_body_header">
 					<div class="dia_title">二级电机</div>
-					<div class="dia_option_btn">
-						<border-box name="border7">
-							<div class="dia_option_btn_body">复制一级电机显示</div>
-						</border-box>
-					</div>
+					<!--					<div class="dia_option_btn">-->
+					<!--						<border-box name="border7">-->
+					<!--							<div class="dia_option_btn_body" @click="copyOneCustoms">复制一级电机显示</div>-->
+					<!--						</border-box>-->
+					<!--					</div>-->
 				</div>
 				<div class="dia_body_body_table">
 					<div class="dia_body_body_table_header">
@@ -109,12 +136,10 @@
 					</div>
 					<div class="dia_body_body_table_body">
 						<div class="dia_body_body_table_body_item">
-							<template v-for="i in deployList">
-								<span>{{ i.label }}</span>
-								<el-checkbox v-model="i.isShow"></el-checkbox>
-								<el-select v-model="i.sort">
-									<el-option v-for="item in 15" :key="item" :value="item" :label="item"></el-option>
-								</el-select>
+							<template v-for="i in fanCustomizedTwoParams">
+								<span>{{ i.propertyName }}</span>
+								<el-checkbox true-label="0" false-label="1" v-model="i.showFlag"></el-checkbox>
+								<el-input v-model="i.orderNum" />
 							</template>
 						</div>
 					</div>

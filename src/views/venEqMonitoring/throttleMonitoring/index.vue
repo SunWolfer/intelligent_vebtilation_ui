@@ -1,21 +1,26 @@
 <script setup>
 	import { throttleMonitoring } from '@/api/request/venEqMonitoring/throttleMonitoring'
-	import WarnTable from '@/views/components/venEqMonitoring/warnTable.vue'
+	import WarnTableRecord from '@/views/components/warnTableRecord'
+	import useDict from '@/hooks/useDict'
+	import { selectDictLabel } from '@/utils/ruoyi'
+	import { monitoring } from '@/api/request/venEqMonitoring/monitoring'
 
+	const { defaultStatusList, queryParams, dataList, total, getList, toControlPage } =
+		throttleMonitoring()
 	const {
-		defaultStatusList,
 		warnStatusMap,
-		queryParams,
-		dataList,
-		total,
-		getList,
-		toControlPage,
 		chooseRow,
 		videoVisible,
 		showVideoVisible,
 		warnDetailsVisible,
 		showWarnDetailsVisible,
-	} = throttleMonitoring()
+	} = monitoring()
+
+	const { door_status, door_work_model, door_type } = useDict(
+		'door_status',
+		'door_work_model',
+		'door_type',
+	)
 </script>
 
 <template>
@@ -42,13 +47,13 @@
 					>
 						<div class="ven_body_center_item_body">
 							<div class="fullDom ven_body_center_item_body_line">
-								<span>名称：</span>
-								<span>位置：</span>
-								<span>IP地址：</span>
-								<span>风门类型：</span>
-								<span>A门：<span class="text-green">开启</span></span>
-								<span>B门：</span>
-								<span>当前模式：</span>
+								<span>名称：{{ item.name }}</span>
+								<span>位置：{{ item.location }}</span>
+								<span>IP地址：{{ item.ip }}</span>
+								<span>风门类型：{{ selectDictLabel(door_type, item.type) }}</span>
+								<span>A门：{{ selectDictLabel(door_status, item.doorStatusA) }}</span>
+								<span>B门：{{ selectDictLabel(door_status, item.doorStatusB) }}</span>
+								<span>当前模式：{{ selectDictLabel(door_work_model, item.workModel) }}</span>
 							</div>
 							<div class="fullDom ven_body_center_item_body_icon">
 								<div class="ven_icon_control"></div>
@@ -78,9 +83,16 @@
 			:width="910"
 			:height="663"
 			:title="chooseRow?.name"
-		></dia-log>
+		>
+			<m-video :video-path="chooseRow.videoUrl"></m-video>
+		</dia-log>
 		<!--    预警详情-->
-		<warn-table v-if="warnDetailsVisible" v-model="warnDetailsVisible" :choose-row="chooseRow" />
+		<WarnTableRecord
+			v-if="warnDetailsVisible"
+			v-model="warnDetailsVisible"
+			:data-form="chooseRow"
+			dev-type="door"
+		/>
 	</div>
 </template>
 

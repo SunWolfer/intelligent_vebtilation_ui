@@ -1,6 +1,12 @@
 <script setup>
 	import useThree from '@/hooks/useThree'
 
+	const props = defineProps({
+		fanThreeInfo: {
+			type: Object,
+		},
+	})
+
 	const {
 		homeModelVisible,
 		indoorFileUrl,
@@ -76,39 +82,65 @@
 	function onLoad() {
 		homeModelVisible.value?.cameraReset(removePosition, removeLookAt, 1)
 	}
-
+	// 模型相机到位
+	const hasCamera = ref(false)
 	function readyCamera() {
 		operateModel.value.initDefaultAnimation()
-		operateModel.value.defaultAnimation._playCartoon('fengye01', 0, false)
-		operateModel.value.defaultAnimation._playCartoon('fengye02', 0, false)
-		operateModel.value.defaultAnimation._playCartoon('dangban01', 1, false)
-		loadLabel()
-		loadWind()
+		hasCamera.value = true
 	}
-	//   显示标签
-	const labelList = ref([
+	// 初始化信息标签
+	const defaultLabelList = [
 		{
-			id: 'main_fan_2',
-			aperture: '50%',
-			rotationSpeed: '220',
-			rotationSpeed2: '220',
+			id: 'main_fan_msg_1',
 			point: {
-				x: 92.50774245352409,
-				y: 106.96808540049389,
-				z: -482.56102796882647,
+				x: 412.40803742285925,
+				y: 44.849545228117826,
+				z: -542.038753217439,
 			},
+			type: '1',
+			animations: [
+				{
+					name: 'fengye01',
+					isOnce: 0,
+				},
+				{
+					name: 'fengye02',
+					isOnce: 0,
+				},
+				{
+					name: 'dangban01',
+					isOnce: 1,
+				},
+			],
 		},
-	])
+		{
+			id: 'main_fan_msg_2',
+			point: {
+				x: 402.99138345708127,
+				y: 78.38347904005401,
+				z: 320.56152044226974,
+			},
+			type: '2',
+			animations: [
+				{
+					name: 'fengye03',
+					isOnce: 0,
+				},
+				{
+					name: 'fengye04',
+					isOnce: 0,
+				},
+				{
+					name: 'dangban02',
+					isOnce: 1,
+				},
+			],
+		},
+	]
+	//   显示标签
+	const labelList = ref([])
 	const isReady = ref(false)
-	watch(
-		() => labelList.value,
-		() => {
-			isReady.value = false
-			nextTick().then(() => {
-				loadLabel()
-			})
-		},
-	)
+
 	//   加载标签
 	function loadLabel() {
 		isReady.value = true
@@ -122,45 +154,76 @@
 		{
 			id: 'wind_fan_1',
 			point: {
+				x: 2060.2552644149055,
+				y: 120.44420584070323,
+				z: -317.726104194498,
+			},
+			type: '1',
+		},
+		{
+			id: 'wind_fan_2',
+			point: {
 				x: 2029.5590822002057,
 				y: 145.59708354335675,
 				z: 562.5021115191154,
 			},
-		},
-		{
-			id: 'wind_fan_2',
-			point: {
-				x: 2060.2552644149055,
-				y: 120.44420584070323,
-				z: -317.726104194498,
-			},
+			type: '2',
 		},
 	]
-	const windAnimationList = ref([
-		{
-			id: 'wind_fan_2',
-			point: {
-				x: 2060.2552644149055,
-				y: 120.44420584070323,
-				z: -317.726104194498,
-			},
-		},
-	])
+	// 风流动画
+	const windAnimationList = ref([])
 	function loadWind() {
 		isWindReady.value = true
 		nextTick(() => {
 			operateModel.value.addOtherLabelList(windAnimationList.value)
 		})
 	}
-	watch(
-		() => windAnimationList.value,
-		() => {
-			isWindReady.value = false
-			nextTick().then(() => {
-				loadWind()
-			})
-		},
-	)
+
+	//   相机加载完成初始化显示信息
+	const loadMessage = () => {
+		//   加载标签
+		const defaultData = defaultLabelList.find((i) => {
+			return i.type === props.fanThreeInfo.type
+		})
+		operateModel.value.defaultAnimation._disposeMod(-1)
+		for (let i = 0; i < defaultData.animations.length; i++) {
+			const animation = defaultData.animations[i]
+			operateModel.value.defaultAnimation._playCartoon(animation.name, animation.isOnce, false)
+		}
+		labelList.value = props.fanThreeInfo.showMsg
+			? [
+					{
+						...defaultData,
+						...props.fanThreeInfo,
+					},
+			  ]
+			: []
+		isReady.value = false
+		nextTick(() => {
+			loadLabel()
+		})
+		//   加载风流动画
+		const defaultWind = defaultWindAnimationList.find((i) => {
+			return i.type === props.fanThreeInfo.type
+		})
+		windAnimationList.value = props.fanThreeInfo.showMsg
+			? [
+					{
+						...defaultWind,
+					},
+			  ]
+			: []
+		isWindReady.value = false
+		nextTick(() => {
+			loadWind()
+		})
+	}
+
+	watchEffect(() => {
+		if (hasCamera.value && props.fanThreeInfo) {
+			loadMessage()
+		}
+	})
 </script>
 
 <template>

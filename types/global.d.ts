@@ -24,20 +24,20 @@ declare interface ISelectOption {
 declare interface IApiResponseData<T = any> {
 	code: number
 	data: T
-	mes: string
+	msg: string
 }
 // 所有无条数列表
 declare interface IApiResponseDataList<T = any> {
 	code: number
 	data: T[]
-	mes: string
+	msg: string
 }
 /** 所有普通列表查询接口的响应数据都应该准守该格式 */
 declare interface ITableApiResponseData<T = any> {
 	code: number
 	total: number
 	rows: T[]
-	mes: string
+	msg: string
 }
 //空间坐标格式
 declare interface ICoordinates {

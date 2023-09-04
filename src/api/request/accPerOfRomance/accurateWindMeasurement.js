@@ -1,8 +1,10 @@
 import useInterceptList from '@/hooks/useInterceptList'
 import useResetCharts from '@/hooks/useResetCharts'
 import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
-import { listView } from '@/api/api/accurateWindMeasurement'
+import { listView, windSensorLines } from '@/api/api/accurateWindMeasurement'
 import { useGainList } from '@/hooks/useGainList'
+import { addDateRange, getRandomColor } from '@/utils/ruoyi'
+import { useSocket } from '@/hooks/useSocket'
 
 export const accurateWindMeasurement = () => {
 	//   精准测风列表
@@ -10,27 +12,34 @@ export const accurateWindMeasurement = () => {
 		apiFun: listView,
 	})
 
-	const { inShowList, toLast, showLast, toNext, showNext } = useInterceptList(windList.value, 6)
+	const { inShowList, toLast, showLast, toNext, showNext } = useInterceptList(windList, 6)
 
 	// 选中菜单
 	const choose = ref(-1)
 	const chooseItem = (index) => {
+		if (choose.value === index) {
+			choose.value = -1
+			return
+		}
 		choose.value = index
 	}
+	watch(choose, () => {
+		resetCharts?.()
+	})
 
 	// 获取图标样式
 	const getStyle = (type) => {
-		if (type === '1') {
+		if (type === '0') {
 			return 'item_icon_normal'
-		} else if (type === '2') {
+		} else {
 			return 'acc_body_top_body_item_warn_icon'
 		}
 	}
 	// 获取文字样式
 	const getTextStyle = (type) => {
-		if (type === '1') {
+		if (type === '0') {
 			return 'green_text'
-		} else if (type === '2') {
+		} else {
 			return 'red_text'
 		}
 	}
@@ -48,32 +57,70 @@ export const accurateWindMeasurement = () => {
 	})
 
 	// 生成折线图
-	const initChart = () => {
-		let xData = []
-		let yData = [[], []]
-		for (let i = 0; i < 15; i++) {
-			xData.push('08:55:00')
-			yData[0].push(Math.random() * 1000)
-			yData[1].push(Math.random() * 1000)
-		}
+	const initChart = async () => {
+		let query =
+			choose.value === -1
+				? {}
+				: addDateRange(
+						{
+							id: inShowList.value[choose.value].id,
+							name: inShowList.value[choose.value].name,
+						},
+						dateRange.value,
+				  )
 
-		defaultLineChart({
-			domId: 'acc_chart_line',
-			xData: xData,
-			yDataList: yData,
-			legends: ['6102胶运顺槽', '6103胶运顺槽'],
-			legendPosition: 'center',
-			units: 'm³/s',
-			colors: [
-				['rgba(178, 0, 237, 1)', 'rgba(178, 0, 237, 1)'],
-				['rgba(49, 255, 111, 1)', 'rgba(49, 255, 111, 1)'],
-			],
-			smooth: false,
-			isArea: false,
+		const res = await windSensorLines(query)
+		if (res && res.data) {
+			let colors = []
+			for (let i = 0; i < res.data.names.length; i++) {
+				const color = '#' + getRandomColor()
+				colors.push([color, color])
+			}
+			defaultLineChart({
+				domId: 'acc_chart_line',
+				xData: res.data.lineX,
+				yDataList: res.data.value,
+				legends: res.data.names,
+				legendPosition: 'center',
+				units: 'm³/s',
+				colors: colors,
+				smooth: false,
+				isArea: false,
+			})
+		}
+	}
+
+	const { showCharts, resetCharts } = useResetCharts(initChart)
+
+	// 记录选中数据
+	const chooseData = ref({})
+	// 历史记录弹窗
+	const hisRecordVisible = ref(false)
+	const hisRecordHandle = (data) => {
+		chooseData.value = data
+		hisRecordVisible.value = true
+	}
+	// 预警记录弹窗
+	const warnRecordVisible = ref(false)
+	const warnRecordHandle = (data) => {
+		chooseData.value = data
+		warnRecordVisible.value = true
+	}
+
+	// 连接socket
+	const { clientSocket } = useSocket(`windsensor|adjustAll`, getSocketMsg)
+
+	function getSocketMsg(data) {
+		windList.value.forEach((i) => {
+			if (i.id === data.id) {
+				i = data
+			}
 		})
 	}
 
-	const { showCharts } = useResetCharts(initChart)
+	onMounted(() => {
+		clientSocket?.()
+	})
 
 	return {
 		inShowList,
@@ -90,5 +137,11 @@ export const accurateWindMeasurement = () => {
 		chooseItem,
 		default_color,
 		choose_color,
+		resetCharts,
+		hisRecordVisible,
+		hisRecordHandle,
+		warnRecordVisible,
+		warnRecordHandle,
+		chooseData,
 	}
 }

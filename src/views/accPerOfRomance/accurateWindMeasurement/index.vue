@@ -1,6 +1,8 @@
 <!--精准测风-->
 <script setup>
 	import { accurateWindMeasurement } from '@/api/request/accPerOfRomance/accurateWindMeasurement'
+	import HisRecord from '@/views/accPerOfRomance/accurateWindMeasurement/hisRecord.vue'
+	import WarnTableRecord from '@/views/components/warnTableRecord'
 
 	const {
 		inShowList,
@@ -17,6 +19,12 @@
 		chooseItem,
 		default_color,
 		choose_color,
+		resetCharts,
+		hisRecordVisible,
+		hisRecordHandle,
+		warnRecordVisible,
+		warnRecordHandle,
+		chooseData,
 	} = accurateWindMeasurement()
 </script>
 
@@ -35,13 +43,15 @@
 							class="acc_body_top_body_item"
 							:class="choose === index ? 'acc_body_top_body_item_warn' : ''"
 						>
-							<div class="acc_body_top_body_item_header">{{ i.name }}</div>
-							<div class="acc_body_top_body_item_l2_text" :class="getTextStyle(i.type)">
+							<div class="acc_body_top_body_item_header pointer" @click="chooseItem(index)">
+								{{ i.name }}
+							</div>
+							<div class="acc_body_top_body_item_l2_text" :class="getTextStyle(i.warnStatus)">
 								<span class="acc_body_top_body_item_l2_text_1"> 风量(m³/min)：</span>
 								<span class="acc_body_top_body_item_l2_text_2">{{ i.airVolume }}</span>
 							</div>
-							<div class="acc_body_top_body_item_icon" :class="getStyle(i.type)">
-								<span v-if="i.warnReason">{{ i.warnReason }}</span>
+							<div class="acc_body_top_body_item_icon" :class="getStyle(i.warnStatus)">
+								<span v-if="i.warnStatus !== '0'">{{ i.yjmc }}</span>
 							</div>
 							<div class="acc_body_top_body_item_l4">
 								<div>
@@ -50,21 +60,21 @@
 								</div>
 								<div>
 									<span class="l_title">[ 温度(℃) ] </span>
-									<span class="l_content">{{ i.temperature }}</span>
+									<span class="l_content">{{ i.pressureTemperature }}</span>
 								</div>
 								<div>
 									<span class="l_title">[ 差压(Pa) ] </span>
-									<span class="l_content">{{ i.diffPressure }}</span>
+									<span class="l_content">{{ i.pressure }}</span>
 								</div>
 							</div>
 							<div class="acc_body_top_body_item_l5">
 								<div>
 									<span class="l_title">[ 断面(㎡) ] </span>
-									<span class="l_content">{{ i.crossSection }}</span>
+									<span class="l_content">{{ i.surface }}</span>
 								</div>
 								<div>
 									<span class="l_title">[ 湿度(RH) ] </span>
-									<span class="l_content">{{ i.humidity }}</span>
+									<span class="l_content">{{ i.airHumidity }}</span>
 								</div>
 								<div>
 									<span class="l_title">[ 绝压(Pa) ] </span>
@@ -74,11 +84,11 @@
 							<div class="acc_body_top_body_item_l6">
 								<div class="c-center">
 									<div class="his_icon"></div>
-									<div class="icon_text">历史记录</div>
+									<div class="icon_text" @click="hisRecordHandle(i)">历史记录</div>
 								</div>
 								<div class="c-center">
 									<div class="warn_icon"></div>
-									<div class="icon_text">预警记录</div>
+									<div class="icon_text" @click="warnRecordHandle(i)">预警记录</div>
 								</div>
 							</div>
 						</div>
@@ -89,7 +99,7 @@
 		<div class="acc_body_icon_2" v-show="showNext" @click="toNext"></div>
 		<div class="acc_body_bottom">
 			<border-box name="border2" title="风量趋势分析"></border-box>
-			<el-form :model="queryForm" inline style="margin-left: 50px">
+			<el-form v-show="choose !== -1" :model="queryForm" inline style="margin-left: 50px">
 				<el-form-item label="时间区间：">
 					<el-date-picker
 						v-model="dateRange"
@@ -103,11 +113,20 @@
 					></el-date-picker>
 				</el-form-item>
 				<el-form-item>
-					<div class="normal_btn">查询</div>
+					<div class="normal_btn" @click="resetCharts">查询</div>
 				</el-form-item>
 			</el-form>
-			<div v-if="showCharts" id="acc_chart_line" class="fullDom"></div>
+			<div v-if="showCharts" id="acc_chart_line" class="fullDom acc_body_bottom_chart"></div>
 		</div>
+		<!--    历史记录-->
+		<his-record v-if="hisRecordVisible" v-model="hisRecordVisible" :data-form="chooseData" />
+		<!--    预警记录-->
+		<WarnTableRecord
+			v-if="warnRecordVisible"
+			v-model="warnRecordVisible"
+			:data-form="chooseData"
+			dev-type="windsensor"
+		/>
 	</div>
 </template>
 

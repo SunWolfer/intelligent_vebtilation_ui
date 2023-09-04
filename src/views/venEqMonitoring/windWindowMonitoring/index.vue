@@ -1,21 +1,25 @@
 <script setup>
-	import WarnTable from '@/views/components/venEqMonitoring/warnTable.vue'
+	import WarnTableRecord from '@/views/components/warnTableRecord'
 	import { windWindowMonitoring } from '@/api/request/venEqMonitoring/windWindowMonitoring'
+	import { monitoring } from '@/api/request/venEqMonitoring/monitoring'
+	import useDict from '@/hooks/useDict'
+	import { selectDictLabel } from '../../../utils/ruoyi'
 
+	const { defaultStatusList, queryParams, dataList, total, getList, toControlPage } =
+		windWindowMonitoring()
 	const {
-		defaultStatusList,
 		warnStatusMap,
-		queryParams,
-		dataList,
-		total,
-		getList,
-		toControlPage,
 		chooseRow,
 		videoVisible,
 		showVideoVisible,
 		warnDetailsVisible,
 		showWarnDetailsVisible,
-	} = windWindowMonitoring()
+	} = monitoring()
+	const { window_type, window_status, window_work_model } = useDict(
+		'window_type',
+		'window_status',
+		'window_work_model',
+	)
 </script>
 
 <template>
@@ -42,16 +46,16 @@
 					>
 						<div class="ven_body_center_item_body">
 							<div class="fullDom ven_body_center_item_body_line">
-								<span>名称：</span>
-								<span>开度：</span>
-								<span>位置：</span>
-								<span>风量：</span>
-								<span>IP地址：</span>
-								<span>面积：</span>
-								<span>A/B风窗：</span>
-								<span>状态：</span>
-								<span>当前模式：</span>
-								<span>类型：</span>
+								<span>名称：{{ item.name }}</span>
+								<span>开度：{{ item.areaPercent }}</span>
+								<span>位置：{{ item.location }}</span>
+								<span>风量：{{ item.volume }}</span>
+								<span>IP地址：{{ item.ip }}</span>
+								<span>面积：{{ item.areaAll }}</span>
+								<span>A/B风窗：{{ item.abTag }}</span>
+								<span>状态：{{ selectDictLabel(window_status, item.status) }}</span>
+								<span>当前模式：{{ selectDictLabel(window_work_model, item.workModel) }}</span>
+								<span>类型：{{ selectDictLabel(window_type, item.type) }}</span>
 							</div>
 							<div class="fullDom ven_body_center_item_body_icon">
 								<div class="ven_icon_control"></div>
@@ -81,9 +85,16 @@
 			:width="910"
 			:height="663"
 			:title="chooseRow?.name"
-		></dia-log>
+		>
+			<m-video :video-path="chooseRow.videoUrl"></m-video>
+		</dia-log>
 		<!--    预警详情-->
-		<warn-table v-if="warnDetailsVisible" v-model="warnDetailsVisible" :choose-row="chooseRow" />
+		<WarnTableRecord
+			v-if="warnDetailsVisible"
+			v-model="warnDetailsVisible"
+			:data-form="chooseRow"
+			dev-type="window"
+		/>
 	</div>
 </template>
 

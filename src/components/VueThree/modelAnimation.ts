@@ -41,7 +41,7 @@ export class ModelAnimation {
 	 * @param stopOther 是否关闭其他动画
 	 * @private
 	 */
-	_playCartoon(playName: string, isOnce = false, stopOther = true) {
+	_playCartoon(playName = '', isOnce = false, stopOther = true) {
 		// 播放动画
 		if (!playName) {
 			for (let argument of this.cartoonList) {

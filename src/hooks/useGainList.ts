@@ -21,7 +21,7 @@ export function useGainList<TData = any, TParams = any>({
 
 	const queryDataList = async () => {
 		const res = await apiFun(queryParams.value)
-		if (res && res.data) {
+		if (res.code === 200 && res.data) {
 			dataList.value = res.data
 			if (typeof afterReadyDataFun === 'function') afterReadyDataFun(res.data)
 		}
