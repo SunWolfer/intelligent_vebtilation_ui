@@ -38,118 +38,120 @@
 	background: rgba(95, 104, 149, 0.28);
 	display: grid;
 	grid-template-rows: vh(37) vh(45) vh(290) vh(21) vh(300) vh(60) auto;
-	.home_air_window_body_l2_item_1 {
-		padding: 0 vw(14);
-		position: relative;
-		width: 100%;
+}
+.home_air_window_body_l2_item_1 {
+	padding: 0 vw(14);
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+//	选择按钮
+.window_choose_icon {
+	position: absolute;
+	top: vh(10);
+	cursor: pointer;
+	:deep(.el-icon) {
+		font-size: vh(20);
+		color: #00eaff;
+	}
+}
+//	更多按钮
+.window_more_btn {
+	position: absolute;
+	top: vh(10);
+	right: 55px;
+	cursor: pointer;
+	font-size: vh(14);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #4bc8fc;
+}
+.home_air_window_body_l2_item_2 {
+	padding: 0 vw(10);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: rgba(21, 80, 149, 0.65);
+	@include ParamItemText;
+	color: #4bc8fc;
+}
+.home_air_window_body_l2_item_3 {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: repeat(2, vw(300));
+	grid-template-rows: 100%;
+	place-content: center center;
+	.home_air_window_body_l2_item_3_chart_title {
+		position: absolute;
 		height: 100%;
-		display: flex;
-		align-items: center;
-		//	选择按钮
-		.window_choose_icon {
-			position: absolute;
-			top: vh(10);
-			cursor: pointer;
-			:deep(.el-icon) {
-				font-size: vh(20);
-				color: #00eaff;
-			}
-		}
-		//	更多按钮
-		.window_more_btn {
-			position: absolute;
-			top: vh(10);
-			right: 55px;
-			cursor: pointer;
-			font-size: vh(14);
+		right: vw(50);
+		display: grid;
+		align-content: center;
+		grid-template-rows: repeat(2, vh(20) vh(55));
+		span {
+			font-size: vh(16);
 			font-family:
 				Adobe Heiti Std,
 				serif;
 			font-weight: normal;
-			color: #4bc8fc;
+			color: #d7d7d7;
+			&:nth-child(2n) {
+				font-size: vh(18);
+				color: #4bc8fc;
+			}
 		}
 	}
-	.home_air_window_body_l2_item_2 {
-		padding: 0 vw(10);
+}
+.home_air_window_body_l2_item_4 {
+	background-image: url('@/assets/images/equipment/window_decorate_1.png');
+	background-size: 100% 100%;
+}
+.home_air_window_body_l2_item_5 {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	display: grid;
+	grid-template-columns: repeat(2, vw(300));
+	grid-template-rows: repeat(auto-fill,100%);
+	grid-auto-rows: 100%;
+	justify-content: center;
+}
+.home_air_window_body_l2_item_6 {
+	background: rgba(22, 78, 145, 0.73);
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	place-content: center center;
+	justify-items: center;
+	@include ParamItemText;
+	font-size: vh(18);
+	color: #4bc8fc;
+	.home_air_window_body_l2_item_6_item {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		background-color: rgba(21, 80, 149, 0.65);
-		@include ParamItemText;
-		color: #4bc8fc;
-	}
-	.home_air_window_body_l2_item_3 {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		display: grid;
-		grid-template-columns: repeat(2, vw(300));
-		grid-template-rows: 100%;
-		place-content: center center;
-		.home_air_window_body_l2_item_3_chart_title {
-			position: absolute;
-			height: 100%;
-			right: vw(50);
-			display: grid;
-			align-content: center;
-			grid-template-rows: repeat(2, vh(20) vh(55));
-			span {
-				font-size: vh(16);
-				font-family:
-					Adobe Heiti Std,
-					serif;
-				font-weight: normal;
-				color: #d7d7d7;
-				&:nth-child(2n) {
-					font-size: vh(18);
-					color: #4bc8fc;
-				}
-			}
+		span {
+			margin: 0 vw(10);
 		}
 	}
-	.home_air_window_body_l2_item_4 {
-		background-image: url('@/assets/images/equipment/window_decorate_1.png');
-		background-size: 100% 100%;
-	}
-	.home_air_window_body_l2_item_5 {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		display: grid;
-		grid-template-columns: repeat(2, vw(300));
-		grid-template-rows: 100%;
-		place-content: center center;
-	}
-	.home_air_window_body_l2_item_6 {
-		background: rgba(22, 78, 145, 0.73);
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		place-content: center center;
-		justify-items: center;
-		@include ParamItemText;
-		font-size: vh(18);
-		color: #4bc8fc;
-		.home_air_window_body_l2_item_6_item {
-			display: flex;
-			align-items: center;
-			span {
-				margin: 0 vw(10);
-			}
-		}
-	}
-	.home_air_window_body_l2_item_7 {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		place-items: center center;
-		@include ParamItemText;
-		font-size: vh(18);
-		opacity: 0.8;
-		.home_air_window_body_l2_item_7_item {
-			display: flex;
-			align-items: center;
-			span {
-				margin: 0 vw(10);
-			}
+}
+.home_air_window_body_l2_item_7 {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	place-items: center center;
+	@include ParamItemText;
+	font-size: vh(18);
+	opacity: 0.8;
+	.home_air_window_body_l2_item_7_item {
+		display: flex;
+		align-items: center;
+		span {
+			margin: 0 vw(10);
 		}
 	}
 }
@@ -167,7 +169,7 @@
 	height: 100%;
 	padding: vh(15) vw(37);
 	display: grid;
-	grid-template-rows: vh(35) auto;
+	grid-template-rows: vh(35) 1fr;
 	grid-row-gap: vh(17);
 }
 .window_operation {
@@ -188,7 +190,7 @@
 .window_param_body {
 	position: relative;
 	display: grid;
-	grid-template-columns: auto vw(170);
+	grid-template-columns: 1fr vw(170);
 	grid-template-rows: repeat(3, vh(33));
 	grid-row-gap: vh(25);
 	place-items: center center;
@@ -211,4 +213,72 @@
 .door_icon_4 {
 	@include doorIcon;
 	background-image: url('@/assets/images/equipment/icon4.png');
+}
+
+
+//AB窗
+.a_b_window {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 0 vw(52) vh(29) vw(56);
+	display: grid;
+	grid-template-columns: vw(1564) vw(823);
+	justify-content: space-between;
+	grid-template-rows: repeat(2, 1fr);
+	grid-row-gap: vh(18);
+}
+// 监测状态
+.a_b_window_c2 {
+	grid-area: 1/2/3/3;
+	background-color: rgba(95, 104, 149, 0.28);
+
+	display: grid;
+	grid-template-rows: vh(40) vh(205) vh(50) vh(70) 1fr;
+}
+.a_b_window_c2_l1 {
+	padding: 0 vw(21) 0 vw(17);
+}
+
+
+@mixin VenBtn {
+	width: 100%;
+	height: 100%;
+	background-size: 100% 100%;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	span {
+		font-size: vh(17);
+		font-family: Adobe Heiti Std, serif;
+		font-weight: normal;
+		color: rgba(255, 255, 255, 0.78);
+		text-shadow: 0 2px 2px rgba(0,0,0,0.2);
+
+		background: linear-gradient(180deg, #B8D6FF 0%, #2BC9EA 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}
+//设备按钮
+.ven_btn {
+	@include VenBtn;
+	background-image: url("@/assets/images/venManagement/ven_icon_2.png");
+
+}
+//设备按钮选中
+.ven_btn_active{
+	@include VenBtn;
+	background-image: url("@/assets/images/venManagement/ven_icon_1.png");
+}
+
+.a_b_window_c2_l3{
+	padding: 0 vw(21) 0 vw(17);
+	display: grid;
+	align-items: center;
+	grid-template-columns: repeat(2,vw(146));
+	grid-column-gap: vw(10);
+	grid-template-rows: vh(47);
+	align-content: center;
 }

@@ -4,7 +4,7 @@
 	height: 100%;
 	padding: 0 0 vh(20) vw(20);
 	display: grid;
-	grid-template-rows: repeat(2, vh(26) vh(77));
+	grid-template-rows: vh(26) vh(77) vh(26) vh(98);
 	align-content: space-between;
 }
 .air_more_body_title {

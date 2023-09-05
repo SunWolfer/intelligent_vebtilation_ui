@@ -333,8 +333,8 @@
 		</div>
 
 		<!--    视频监控-->
-		<dia-log v-if="videoVisible" v-model="videoVisible" title="视频监控" :width="910" :height="663">
-			<m-video :video-path="dataForm.videoUrl"></m-video>
+		<dia-log v-model="videoVisible" title="视频监控" :width="910" :height="663">
+			<m-video type="js" :video-path="dataForm.videoUrl"></m-video>
 		</dia-log>
 		<customized-dia-log
 			v-if="customizedVisible"

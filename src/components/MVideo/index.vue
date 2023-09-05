@@ -13,6 +13,7 @@
 			<param name="fullscreen" value="false" />
 		</object>
 	</div>
+	<div v-else class="fullDom" :class="videoDefaultBg"></div>
 </template>
 
 <script setup>
@@ -26,10 +27,25 @@
 		videoPath: {
 			type: String,
 		},
+		type: {
+			type: String,
+			default: '',
+		},
 	})
 
 	const showVideoDialog = computed(() => {
 		return props.videoPath
+	})
+
+	const videoBgUrl = new Map([
+		['fm', 'default_fm_video'],
+		['fc', 'default_fc_video'],
+		['cfz', 'default_cfz_video'],
+		['fj', 'default_fj_video'],
+		['js', 'default_js_video'],
+	])
+	const videoDefaultBg = computed(() => {
+		return videoBgUrl.get(props.type) ?? ''
 	})
 </script>
 

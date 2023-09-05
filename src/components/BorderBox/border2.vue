@@ -22,7 +22,7 @@
 	})
 	//   文字位置
 	const textPosition = computed(() => {
-		return height.value - dynamicHeight(8)
+		return height.value - dynamicHeight(10)
 	})
 </script>
 

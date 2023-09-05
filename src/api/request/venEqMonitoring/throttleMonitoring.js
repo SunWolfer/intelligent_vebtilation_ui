@@ -68,9 +68,6 @@ export const throttleMonitoring = () => {
 			pageSize: 10,
 		},
 	})
-	watchEffect(() => {
-		console.log(dataList.value)
-	})
 	// 跳转控制页面
 	const router = useRouter()
 	const toControlPage = (data) => {

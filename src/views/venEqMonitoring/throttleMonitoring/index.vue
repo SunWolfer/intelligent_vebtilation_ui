@@ -16,10 +16,11 @@
 		showWarnDetailsVisible,
 	} = monitoring()
 
-	const { door_status, door_work_model, door_type } = useDict(
+	const { door_status, door_work_model, door_type, window_warn_status } = useDict(
 		'door_status',
 		'door_work_model',
 		'door_type',
+		'window_warn_status',
 	)
 </script>
 
@@ -43,7 +44,7 @@
 						name="border6"
 						:color="[warnStatusMap.get(item.warnStatus)]"
 						background-color="rgba(11,41,91,0.6)"
-						title="111"
+						:title="selectDictLabel(window_warn_status, item.warnStatus)"
 					>
 						<div class="ven_body_center_item_body">
 							<div class="fullDom ven_body_center_item_body_line">
@@ -57,7 +58,7 @@
 							</div>
 							<div class="fullDom ven_body_center_item_body_icon">
 								<div class="ven_icon_control"></div>
-								<span @click="toControlPage">控制</span>
+								<span @click="toControlPage(item)">控制</span>
 								<div class="ven_icon_monitor" />
 								<span @click="showVideoVisible(item)">监控</span>
 								<div class="ven_icon_warning" />
@@ -84,7 +85,7 @@
 			:height="663"
 			:title="chooseRow?.name"
 		>
-			<m-video :video-path="chooseRow.videoUrl"></m-video>
+			<m-video type="fm" :video-path="chooseRow.videoUrl"></m-video>
 		</dia-log>
 		<!--    预警详情-->
 		<WarnTableRecord

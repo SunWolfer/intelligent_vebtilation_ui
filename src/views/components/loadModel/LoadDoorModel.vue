@@ -1,4 +1,5 @@
 <script setup lang="ts">
+	import { DoorStatus } from '@/api/request/home/doorParams'
 	import { OperateModel } from '@/components/VueThree/IModelOperate'
 	import useThree from '@/hooks/useThree'
 	import { Object3D } from 'three'
@@ -93,8 +94,8 @@
 			}
 		})
 		if (!props.dataForm) return
-		setMod(props.dataForm.openDoorFlag1 === '1' ? 'men1kai' : 'men1guan')
-		setMod(props.dataForm.openDoorFlag2 === '1' ? 'men2kai' : 'men2guan')
+		setMod(props.dataForm.doorStatusA === DoorStatus.SIX ? 'men1kai' : 'men1guan')
+		setMod(props.dataForm.doorStatusB === DoorStatus.SIX ? 'men2kai' : 'men2guan')
 	}
 
 	function rotateStartOne() {

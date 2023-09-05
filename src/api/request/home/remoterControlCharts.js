@@ -700,7 +700,226 @@ export function getChart4(domId, value, title) {
 		],
 	}
 }
+//湿度温度
+export function getChart5(domId, type, value, title) {
+	let myChart = echarts.init(document.getElementById(domId))
+	const colors =
+		type === '1' ? ['#22baf8', '#173c5e', '#0a92f6'] : ['#fbc573', '#7f7177', '#fab777']
+	let option = {
+		title: {
+			text: '{a|' + value + '}',
+			x: 'center',
+			y: 'center',
+			textStyle: {
+				rich: {
+					a: {
+						fontSize: 20,
+						color: '#ffffff',
+						fontWeight: '400',
+					},
+				},
+			},
+		},
+		graphic: {
+			elements: [
+				{
+					type: 'image',
+					z: 4,
+					style: {
+						image: type === '1' ? chartsIcon1 : chartsIcon2,
+						width: 42,
+						height: 42,
+					},
+					left: 'center',
+					top: 'center',
+					silent: true,
+				},
+				{
+					type: 'text',
+					z: 4,
+					style: {
+						text: type === '1' ? '%RH' : '℃',
+						fill: 'rgba(46, 251, 255, 1)',
+						font: '13px "MicrosoftYaHei", sans-serif',
+					},
+					silent: true,
+					left: 'center',
+					bottom: '30%',
+				},
+				{
+					type: 'text',
+					z: 4,
+					style: {
+						text: title,
+						fill: 'rgba(255, 255, 255, 1)',
+						font: '18px "Adobe Heiti Std R", sans-serif',
+					},
+					silent: true,
+					left: 'center',
+					bottom: '1%',
+				},
+			],
+		},
+		series: [
+			{
+				type: 'gauge',
+				radius: '60%',
+				center: ['50%', '50%'],
+				clockwise: false,
+				startAngle: '90',
+				endAngle: '-270',
+				splitNumber: 40,
+				detail: {
+					offsetCenter: [0, 0],
+					formatter: ' ',
+				},
+				pointer: {
+					show: false,
+				},
+				axisLine: {
+					show: true,
+					lineStyle: {
+						color: [
+							[0, colors[1]],
+							[
+								38 / 100,
+								new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+									{
+										offset: 0,
+										color: colors[0],
+									},
+									{
+										offset: 0.3,
+										color: colors[0],
+									},
+									{
+										offset: 1,
+										color: colors[1],
+									},
+								]),
+							],
+							[1, colors[1]],
+						],
+						width: 8,
+						shadowColor: 'rgba(33, 174, 234, 0)',
+						shadowBlur: 0,
+					},
+				},
+				axisTick: {
+					show: false,
+				},
+				splitLine: {
+					show: true,
+					length: 8,
+					distance: -8,
+					lineStyle: {
+						shadowBlur: 10,
+						shadowColor: 'rgba(0, 255, 255, 0)',
+						shadowOffsetY: '0',
+						color: '#020f18',
+						width: 1,
+					},
+				},
+				axisLabel: {
+					show: false,
+				},
+			},
+			{
+				type: 'pie',
+				radius: ['44%', '48%'],
+				itemStyle: {
+					color: colors[1],
+				},
+				label: {
+					show: false,
+				},
+				data: _dashed(),
+			},
+			{
+				type: 'pie',
+				radius: ['70%', '71.5%'],
+				itemStyle: {
+					shadowBlur: 20,
+					shadowColor: colors[0],
+					color: colors[2],
+				},
+				label: {
+					show: false,
+				},
+				data: [100],
+			},
+			{
+				type: 'pie',
+				radius: ['61%', '61.5%'],
+				itemStyle: {
+					shadowBlur: 0,
+					shadowColor: colors[1],
+					color: colors[0],
+				},
+				label: {
+					show: false,
+				},
+				data: [100],
+			},
+			{
+				type: 'pie',
+				radius: ['68%', '69.5%'],
+				itemStyle: {
+					shadowBlur: 0,
+					shadowColor: colors[0],
+					color: colors[1],
+				},
+				label: {
+					show: false,
+				},
+				data: [100],
+			},
+		],
+	}
 
+	myChart.setOption(option)
+	// 自适应
+	window.addEventListener('resize', () => {
+		myChart.resize()
+	})
+
+	function _dashed() {
+		let dataArr = []
+		for (let i = 0; i < 100; i++) {
+			if (i % 2 === 0) {
+				dataArr.push({
+					name: (i + 1).toString(),
+					value: 10,
+					itemStyle: {
+						color: colors[1],
+					},
+				})
+			} else {
+				dataArr.push({
+					name: (i + 1).toString(),
+					value: 50,
+					itemStyle: {
+						color: 'rgb(0,0,0,0)',
+						borderWidth: 1,
+						borderColor: colors[2],
+					},
+				})
+			}
+		}
+		return dataArr
+	}
+
+	function doing() {
+		let option = myChart.getOption()
+		option.series[1].startAngle = option.series[1].startAngle - 1
+		myChart.setOption(option)
+	}
+	let timer
+	function startTimer() {
+		timer = setInterval(doing, 100)
+	}
+	setTimeout(startTimer, 1000)
+}
 // 监测曲线
 export function getLineChartOption(domId, names, lineX, value) {
 	const { option } = useCharts(domId)

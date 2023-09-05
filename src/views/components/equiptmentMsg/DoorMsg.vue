@@ -2,6 +2,7 @@
 	import useEquipmentData from '@/hooks/useEquipmentData'
 	import { homeMsg } from '@/api/request/home/homeMsg'
 	import { selectDictLabel } from '@/utils/ruoyi'
+	import { DoorStatus } from '@/api/request/home/doorParams'
 
 	const props = defineProps({
 		data: {
@@ -20,16 +21,20 @@
 	// 风门A状态样式
 	const doorStatusAClass = computed(() => {
 		let IClass = ''
-		if (['0'].includes(dataForm.value.doorStatusA)) {
+		if ([DoorStatus.ZERO].includes(dataForm.value.doorStatusA)) {
 			IClass = 'lamp_grey'
 		}
-		if (['1', '2', '5', '6'].includes(dataForm.value.doorStatusA)) {
+		if (
+			[DoorStatus.ONE, DoorStatus.TWO, DoorStatus.FIVE, DoorStatus.SIX].includes(
+				dataForm.value.doorStatusA,
+			)
+		) {
 			IClass = 'lamp_green'
 		}
-		if (['3', '7'].includes(dataForm.value.doorStatusA)) {
+		if ([DoorStatus.THREE, DoorStatus.SEVEN].includes(dataForm.value.doorStatusA)) {
 			IClass = 'lamp_orange'
 		}
-		if (['4', '8'].includes(dataForm.value.doorStatusA)) {
+		if ([DoorStatus.FOUR, DoorStatus.EIGHT].includes(dataForm.value.doorStatusA)) {
 			IClass = 'lamp_red'
 		}
 		return IClass
@@ -38,16 +43,20 @@
 
 	const doorStatusBClass = computed(() => {
 		let IClass = ''
-		if (['0'].includes(dataForm.value.doorStatusB)) {
+		if ([DoorStatus.ZERO].includes(dataForm.value.doorStatusB)) {
 			IClass = 'lamp_grey'
 		}
-		if (['1', '2', '5', '6'].includes(dataForm.value.doorStatusB)) {
+		if (
+			[DoorStatus.ONE, DoorStatus.TWO, DoorStatus.FIVE, DoorStatus.SIX].includes(
+				dataForm.value.doorStatusB,
+			)
+		) {
 			IClass = 'lamp_green'
 		}
-		if (['3', '7'].includes(dataForm.value.doorStatusB)) {
+		if ([DoorStatus.THREE, DoorStatus.SEVEN].includes(dataForm.value.doorStatusB)) {
 			IClass = 'lamp_orange'
 		}
-		if (['4', '8'].includes(dataForm.value.doorStatusB)) {
+		if ([DoorStatus.FOUR, DoorStatus.EIGHT].includes(dataForm.value.doorStatusB)) {
 			IClass = 'lamp_red'
 		}
 		return IClass
