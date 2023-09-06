@@ -1,60 +1,105 @@
+import {
+	addReportBase,
+	delReportBase,
+	listBasicReport,
+	reportInfo,
+	updateReportBase,
+} from '@/api/api/basicReport'
+import { parseTime } from '@/utils/ruoyi'
+import { useCommitForm } from '@/hooks/useForm'
+import { download } from '@/utils/request'
+
 export const basicReport = () => {
 	const chooseVersion = ref(0)
 
 	// 版本列表
-	const versionList = ref([
-		{
-			dateTime: '2023-07-01',
-		},
-		{
-			dateTime: '2023-06-01',
-		},
-		{
-			dateTime: '2023-05-01',
-		},
-		{
-			dateTime: '2023-04-01',
-		},
-	])
+	const versionList = ref([])
+
+	// 查询版本信息
+	const getList = async () => {
+		const res = await listBasicReport()
+		if (!res) return
+		versionList.value = res.data
+		chooseVersion.value = 0
+	}
+
 	// 选择版本
 	const setVersion = (index) => {
 		chooseVersion.value = index
+		addStatus.value = false
+		getFormInfo()
 	}
 
 	// 表单
-	const dataForm = ref({
-		value1: '111',
-		value2: '1',
-		value3: '1',
-		value4: '1',
-		value5: '1',
-		value6: '1',
-		value7: '1',
-		value8: '1',
-		value9: '1',
-		value10: '1',
-		value11: '1',
-		value12: '1',
-		value13: '1',
-		value14: '1',
-		value15: '1',
-		value16: '1',
-		value17: '1',
-		value18: '1',
-		value19: '1',
-		value20: '1',
-		value21: '1',
-		value22: '1',
-		value23: '1',
-		value24: '1',
-		value25: '1',
-		value26: '1',
-		value27: '1',
-		value28: '1',
-		value29: '1',
-		value30: '1',
-		value31: '1',
-	})
+	const dataForm = ref({})
+
+	// 查询表单信息
+	const getFormInfo = async () => {
+		const res = await reportInfo({
+			reportTime: versionList.value[chooseVersion.value].reportTime,
+		})
+		if (!res) return
+		dataForm.value = res.data
+	}
+
+	const initData = async () => {
+		resetForm?.()
+		await getList?.()
+		await getFormInfo?.()
+	}
+
+	// 判断是否新增
+	const addStatus = ref(false)
+	// 新增按钮
+	const addHandle = () => {
+		chooseVersion.value = -1
+		addStatus.value = true
+		resetForm?.()
+	}
+	// 新增表单
+	const addForm = async () => {
+		await useCommitForm(addReportBase, {
+			queryParams: dataForm.value,
+			afterReadyDataFun: () => {
+				initData()
+			},
+		})
+	}
+	// 修改表单
+	const updateForm = async () => {
+		await useCommitForm(updateReportBase, {
+			queryParams: dataForm.value,
+			afterReadyDataFun: () => {
+				initData()
+			},
+		})
+	}
+
+	// 保存按钮
+	const saveHandle = async () => {
+		if (addStatus.value) {
+			await addForm()
+		} else {
+			await updateForm()
+		}
+	}
+	// 删除表单
+	const deleteHandle = async () => {
+		await useCommitForm(delReportBase, {
+			queryParams: dataForm.value.reportTime,
+			afterReadyDataFun: () => {
+				initData()
+			},
+		})
+	}
+	// 导出表单
+	const exportHandle = async () => {
+		await download(
+			'/api/report/base/export',
+			{ reportTime: dataForm.value.reportTime },
+			`通风基础报表${new Date().getTime()}.xlsx`,
+		)
+	}
 
 	const halfTopDom1 = [
 		{
@@ -66,7 +111,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/1/3/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'kjcl',
 		},
 		{
 			gridArea: '1/2/2/3',
@@ -77,7 +122,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			isInput: true,
-			formKey: 'value2',
+			formKey: 'kjxfl',
 		},
 		{
 			gridArea: '1/3/2/4',
@@ -88,7 +133,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/3/3/4',
 			isInput: true,
-			formKey: 'value3',
+			formKey: 'zjzjfl',
 		},
 		{
 			gridArea: '3/1/4/2',
@@ -99,7 +144,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/1/5/2',
 			isInput: true,
-			formKey: 'value4',
+			formKey: 'jxgzrs',
 		},
 		{
 			gridArea: '3/2/4/3',
@@ -110,7 +155,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value5',
+			formKey: 'kjzjfl',
 		},
 		{
 			gridArea: '3/3/4/4',
@@ -121,7 +166,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/3/5/4',
 			isInput: true,
-			formKey: 'value6',
+			formKey: 'fjtfl',
 		},
 	]
 	const halfTopDom2Left = [
@@ -134,29 +179,29 @@ export const basicReport = () => {
 		{
 			gridArea: '2/1/3/3',
 			isInput: true,
-			formKey: 'value7',
+			formKey: 'kjzhfl',
 		},
 		{
 			gridArea: '3/1/4/2',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: '中央风井',
+			isInput: true,
+			formKey: 'fjmc1',
 		},
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value8',
+			formKey: 'fjfl1',
 		},
 		{
 			gridArea: '4/1/5/2',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: '西翼风井',
+			isInput: true,
+			formKey: 'fjmc2',
 		},
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value9',
+			formKey: 'fjfl2',
 		},
 	]
 	const halfTopDom2Right = [
@@ -181,7 +226,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			isInput: true,
-			formKey: 'value9',
+			formKey: 'cmpfqk',
 			bodyClass: 'table_border_bottom',
 		},
 		{
@@ -199,7 +244,7 @@ export const basicReport = () => {
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value10',
+			formKey: 'jjpfqk',
 			bodyClass: 'table_border_bottom',
 		},
 		{
@@ -217,7 +262,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value10',
+			formKey: 'dspfqk',
 			bodyClass: 'table_border_bottom',
 		},
 		{
@@ -235,7 +280,7 @@ export const basicReport = () => {
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value11',
+			formKey: 'qtpfqk',
 			bodyClass: 'table_border_bottom',
 		},
 		{
@@ -255,7 +300,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/1/3/2',
 			isInput: true,
-			formKey: 'value12',
+			formKey: 'kjyxfll',
 		},
 		{
 			gridArea: '1/2/2/3',
@@ -266,7 +311,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			isInput: true,
-			formKey: 'value13',
+			formKey: 'kjzhzl',
 		},
 		{
 			gridArea: '3/1/4/2',
@@ -277,7 +322,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/1/5/2',
 			isInput: true,
-			formKey: 'value14',
+			formKey: 'kjyxfl',
 		},
 		{
 			gridArea: '3/2/4/3',
@@ -288,7 +333,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value15',
+			formKey: 'kjzjk',
 		},
 	]
 	const halfTopDom4 = [
@@ -307,7 +352,7 @@ export const basicReport = () => {
 		{
 			gridArea: '1/3/2/6',
 			isInput: true,
-			formKey: 'value16',
+			formKey: 'tfryzc',
 		},
 		{
 			gridArea: '2/2/3/3',
@@ -318,7 +363,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/3/3/6',
 			isInput: true,
-			formKey: 'value17',
+			formKey: 'tfryqdgl',
 		},
 		{
 			gridArea: '3/2/4/3',
@@ -329,7 +374,7 @@ export const basicReport = () => {
 		{
 			gridArea: '3/3/4/6',
 			isInput: true,
-			formKey: 'value18',
+			formKey: 'tfrytfddy',
 		},
 		{
 			gridArea: '4/2/5/3',
@@ -340,7 +385,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/3/5/6',
 			isInput: true,
-			formKey: 'value19',
+			formKey: 'tfrycfccy',
 		},
 		{
 			gridArea: '5/2/6/3',
@@ -351,7 +396,7 @@ export const basicReport = () => {
 		{
 			gridArea: '5/3/6/6',
 			isInput: true,
-			formKey: 'value20',
+			formKey: 'tfryjcjk',
 		},
 		{
 			gridArea: '6/2/7/3',
@@ -362,7 +407,7 @@ export const basicReport = () => {
 		{
 			gridArea: '6/3/7/6',
 			isInput: true,
-			formKey: 'value21',
+			formKey: 'tfrywjy',
 		},
 		{
 			gridArea: '7/2/8/3',
@@ -373,7 +418,7 @@ export const basicReport = () => {
 		{
 			gridArea: '7/3/8/6',
 			isInput: true,
-			formKey: 'value22',
+			formKey: 'tfryjlcsj',
 		},
 		{
 			gridArea: '8/2/9/3',
@@ -384,7 +429,7 @@ export const basicReport = () => {
 		{
 			gridArea: '8/3/9/6',
 			isInput: true,
-			formKey: 'value23',
+			formKey: 'tfryzdjsj',
 		},
 		{
 			gridArea: '9/2/10/3',
@@ -395,7 +440,7 @@ export const basicReport = () => {
 		{
 			gridArea: '9/3/10/6',
 			isInput: true,
-			formKey: 'value24',
+			formKey: 'tfryyqybxwg',
 		},
 		{
 			gridArea: '10/2/11/3',
@@ -406,7 +451,7 @@ export const basicReport = () => {
 		{
 			gridArea: '10/3/11/6',
 			isInput: true,
-			formKey: 'value25',
+			formKey: 'tfrysgfxg',
 		},
 		{
 			gridArea: '11/2/12/3',
@@ -417,7 +462,7 @@ export const basicReport = () => {
 		{
 			gridArea: '11/3/12/6',
 			isInput: true,
-			formKey: 'value26',
+			formKey: 'tfryfmwhg',
 		},
 		{
 			gridArea: '12/2/13/3',
@@ -428,7 +473,7 @@ export const basicReport = () => {
 		{
 			gridArea: '12/3/13/6',
 			isInput: true,
-			formKey: 'value27',
+			formKey: 'tfrysdthg',
 		},
 		{
 			gridArea: '13/2/14/3',
@@ -439,7 +484,7 @@ export const basicReport = () => {
 		{
 			gridArea: '13/3/14/4',
 			isInput: true,
-			formKey: 'value28',
+			formKey: 'tfryfcg',
 		},
 		{
 			gridArea: '13/4/14/5',
@@ -450,7 +495,7 @@ export const basicReport = () => {
 		{
 			gridArea: '13/5/14/6',
 			isInput: true,
-			formKey: 'value29',
+			formKey: 'tfryzjg',
 		},
 		{
 			gridArea: '14/2/15/3',
@@ -461,7 +506,7 @@ export const basicReport = () => {
 		{
 			gridArea: '14/3/15/4',
 			isInput: true,
-			formKey: 'value30',
+			formKey: 'tfrysxs',
 		},
 		{
 			gridArea: '14/4/15/5',
@@ -472,7 +517,7 @@ export const basicReport = () => {
 		{
 			gridArea: '14/5/15/6',
 			isInput: true,
-			formKey: 'value31',
+			formKey: 'tfryqt',
 		},
 	]
 	const halfTopDom5 = [
@@ -485,7 +530,7 @@ export const basicReport = () => {
 		{
 			gridArea: '1/2/2/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'cmgzms',
 		},
 		{
 			gridArea: '2/1/3/2',
@@ -496,7 +541,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'bygzms',
 		},
 		{
 			gridArea: '3/1/4/2',
@@ -507,7 +552,7 @@ export const basicReport = () => {
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'hcgzms',
 		},
 		{
 			gridArea: '4/1/5/2',
@@ -518,7 +563,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'xxfm',
 		},
 		{
 			gridArea: '5/1/6/2',
@@ -529,7 +574,7 @@ export const basicReport = () => {
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'gzmflbz',
 		},
 		{
 			gridArea: '6/1/7/2',
@@ -540,7 +585,7 @@ export const basicReport = () => {
 		{
 			gridArea: '6/2/7/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'gzmwdcx',
 		},
 	]
 	const halfTopDom6 = [
@@ -553,7 +598,7 @@ export const basicReport = () => {
 		{
 			gridArea: '1/2/2/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jjgzms',
 		},
 		{
 			gridArea: '2/1/3/2',
@@ -564,18 +609,18 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'szlbs',
 		},
 		{
 			gridArea: '3/1/4/2',
 			bodyClass: 'table_title_text_left',
 			isHtml: true,
-			label: `采掘侯电分开 `,
+			label: `采掘供电分开 `,
 		},
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'cjgdfk',
 		},
 		{
 			gridArea: '4/1/5/2',
@@ -586,7 +631,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jjmflbz',
 		},
 		{
 			gridArea: '5/1/6/2',
@@ -597,7 +642,7 @@ export const basicReport = () => {
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jjmwdcx',
 		},
 		{
 			gridArea: '6/1/7/2',
@@ -608,7 +653,7 @@ export const basicReport = () => {
 		{
 			gridArea: '6/2/7/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jjmcltf',
 		},
 	]
 	const halfTopDom7 = [
@@ -627,38 +672,38 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: '2x11kw',
+			isInput: true,
+			formKey: 'jsxh1',
 		},
 		{
 			gridArea: '2/3/3/4',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: '2x15kw',
+			isInput: true,
+			formKey: 'jsxh2',
 		},
 		{
 			gridArea: '2/4/3/5',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: '2x22kw',
+			isInput: true,
+			formKey: 'jsxh3',
 		},
 		{
 			gridArea: '2/5/3/6',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: '2x30kw',
+			isInput: true,
+			formKey: 'jsxh4',
 		},
 		{
 			gridArea: '2/6/3/7',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: '2x45kw',
+			isInput: true,
+			formKey: 'jsxh5',
 		},
 		{
 			gridArea: '2/7/3/8',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: '',
+			isInput: true,
+			formKey: 'jsxh6',
 		},
 		{
 			gridArea: '3/1/4/2',
@@ -669,33 +714,33 @@ export const basicReport = () => {
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jszc1',
 		},
 		{
 			gridArea: '3/3/4/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jszc2',
 		},
 		{
 			gridArea: '3/4/4/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jszc3',
 		},
 		{
 			gridArea: '3/5/4/6',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jszc4',
 		},
 		{
 			gridArea: '3/6/4/7',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jszc5',
 		},
 		{
 			gridArea: '3/7/4/8',
 			bodyClass: 'table_item_body',
 			isHtml: true,
-			label: '',
+			label: 'jszc6',
 		},
 		{
 			gridArea: '4/1/5/2',
@@ -706,33 +751,33 @@ export const basicReport = () => {
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsyx1',
 		},
 		{
 			gridArea: '4/3/5/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsyx2',
 		},
 		{
 			gridArea: '4/4/5/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsyx3',
 		},
 		{
 			gridArea: '4/5/5/6',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsyx4',
 		},
 		{
 			gridArea: '4/6/5/7',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsyx5',
 		},
 		{
 			gridArea: '4/7/5/8',
 			bodyClass: 'table_item_body',
 			isHtml: true,
-			label: '',
+			label: 'jsyx6',
 		},
 		{
 			gridArea: '5/1/6/2',
@@ -743,33 +788,33 @@ export const basicReport = () => {
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsdx1',
 		},
 		{
 			gridArea: '5/3/6/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsdx2',
 		},
 		{
 			gridArea: '5/4/6/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsdx3',
 		},
 		{
 			gridArea: '5/5/6/6',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsdx4',
 		},
 		{
 			gridArea: '5/6/6/7',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsdx5',
 		},
 		{
 			gridArea: '5/7/6/8',
 			bodyClass: 'table_item_body',
 			isHtml: true,
-			label: '',
+			label: 'jsdx6',
 		},
 		{
 			gridArea: '6/1/7/2',
@@ -780,33 +825,33 @@ export const basicReport = () => {
 		{
 			gridArea: '6/2/7/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsby1',
 		},
 		{
 			gridArea: '6/3/7/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsby2',
 		},
 		{
 			gridArea: '6/4/7/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsby3',
 		},
 		{
 			gridArea: '6/5/7/6',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsby4',
 		},
 		{
 			gridArea: '6/6/7/7',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jsby5',
 		},
 		{
 			gridArea: '6/7/7/8',
 			bodyClass: 'table_item_body',
 			isHtml: true,
-			label: '',
+			label: 'jsby6',
 		},
 	]
 	const halfTopDom8 = [
@@ -825,26 +870,26 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: 'Φ600mm',
+			isInput: true,
+			formKey: 'ftgg1',
 		},
 		{
 			gridArea: '2/3/3/4',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: 'Φ800mm',
+			isInput: true,
+			formKey: 'ftgg2',
 		},
 		{
 			gridArea: '2/4/3/5',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: 'Φ1000mm',
+			isInput: true,
+			formKey: 'ftgg3',
 		},
 		{
 			gridArea: '2/5/3/6',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: 'Φ1600mm',
+			isInput: true,
+			formKey: 'ftgg4',
 		},
 		{
 			gridArea: '3/1/4/2',
@@ -855,22 +900,22 @@ export const basicReport = () => {
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftzc1',
 		},
 		{
 			gridArea: '3/3/4/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftzc2',
 		},
 		{
 			gridArea: '3/4/4/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftzc3',
 		},
 		{
 			gridArea: '3/5/4/6',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftzc4',
 		},
 		{
 			gridArea: '4/1/5/2',
@@ -881,22 +926,22 @@ export const basicReport = () => {
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftsy1',
 		},
 		{
 			gridArea: '4/3/5/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftsy2',
 		},
 		{
 			gridArea: '4/4/5/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftsy3',
 		},
 		{
 			gridArea: '4/5/5/6',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftsy4',
 		},
 		{
 			gridArea: '5/1/6/2',
@@ -907,22 +952,22 @@ export const basicReport = () => {
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftby1',
 		},
 		{
 			gridArea: '5/3/6/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftby2',
 		},
 		{
 			gridArea: '5/4/6/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftby3',
 		},
 		{
 			gridArea: '5/5/6/6',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftby4',
 		},
 		{
 			gridArea: '6/1/7/2',
@@ -931,9 +976,24 @@ export const basicReport = () => {
 			label: '厂家',
 		},
 		{
-			gridArea: '6/2/7/6',
+			gridArea: '6/2/7/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ftcj1',
+		},
+		{
+			gridArea: '6/3/7/4',
+			isInput: true,
+			formKey: 'ftcj2',
+		},
+		{
+			gridArea: '6/4/7/5',
+			isInput: true,
+			formKey: 'ftcj3',
+		},
+		{
+			gridArea: '6/5/7/6',
+			isInput: true,
+			formKey: 'ftcj4',
 		},
 	]
 
@@ -953,7 +1013,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'gxwszc',
 		},
 		{
 			gridArea: '3/1/4/2',
@@ -964,7 +1024,7 @@ export const basicReport = () => {
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'gxwssy',
 		},
 		{
 			gridArea: '4/1/5/2',
@@ -975,7 +1035,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'gxwsdx',
 		},
 		{
 			gridArea: '5/1/6/2',
@@ -986,7 +1046,7 @@ export const basicReport = () => {
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'gxwsby',
 		},
 	]
 	const halfBottomDom2 = [
@@ -1005,7 +1065,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ajxtxh',
 		},
 		{
 			gridArea: '3/1/4/2',
@@ -1016,7 +1076,7 @@ export const basicReport = () => {
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ajcgqzc',
 		},
 		{
 			gridArea: '4/1/5/2',
@@ -1027,7 +1087,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ajcgqsy',
 		},
 		{
 			gridArea: '5/1/6/2',
@@ -1038,7 +1098,7 @@ export const basicReport = () => {
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ajcgqsyl',
 		},
 	]
 	const halfBottomDom3 = [
@@ -1057,7 +1117,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ysyzc',
 		},
 		{
 			gridArea: '3/1/4/2',
@@ -1068,7 +1128,7 @@ export const basicReport = () => {
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ysysy',
 		},
 		{
 			gridArea: '4/1/5/2',
@@ -1079,7 +1139,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ysydx',
 		},
 		{
 			gridArea: '5/1/6/2',
@@ -1090,7 +1150,7 @@ export const basicReport = () => {
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ysyby',
 		},
 	]
 	const halfBottomDom4 = [
@@ -1098,7 +1158,7 @@ export const basicReport = () => {
 			gridArea: '1/1/2/3',
 			bodyClass: 'table_title_text',
 			isHtml: true,
-			label: '便携甲烷氛警仅(台)',
+			label: '便携甲烷报警仪(台)',
 		},
 		{
 			gridArea: '2/1/3/2',
@@ -1109,7 +1169,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jwbjyzc',
 		},
 		{
 			gridArea: '3/1/4/2',
@@ -1120,7 +1180,7 @@ export const basicReport = () => {
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jwbjysy',
 		},
 		{
 			gridArea: '4/1/5/2',
@@ -1131,7 +1191,7 @@ export const basicReport = () => {
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jwbjydx',
 		},
 		{
 			gridArea: '5/1/6/2',
@@ -1142,7 +1202,7 @@ export const basicReport = () => {
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'jwbjyby',
 		},
 	]
 	const halfBottomDom5 = [
@@ -1173,47 +1233,47 @@ export const basicReport = () => {
 		{
 			gridArea: '3/1/4/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wspfdd1',
 		},
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wspfnd1',
 		},
 		{
 			gridArea: '3/3/4/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wspftj1',
 		},
 		{
 			gridArea: '4/1/5/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wspfdd2',
 		},
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wspfnd2',
 		},
 		{
 			gridArea: '4/3/5/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wspftj2',
 		},
 		{
 			gridArea: '5/1/6/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wspfdd3',
 		},
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wspfnd3',
 		},
 		{
 			gridArea: '5/3/6/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wspftj3',
 		},
 	]
 	const halfBottomDom6 = [
@@ -1244,47 +1304,47 @@ export const basicReport = () => {
 		{
 			gridArea: '3/1/4/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wscxdd1',
 		},
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wscxcs1',
 		},
 		{
 			gridArea: '3/3/4/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wscxnd1',
 		},
 		{
 			gridArea: '4/1/5/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wscxdd2',
 		},
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wscxcs2',
 		},
 		{
 			gridArea: '4/3/5/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wscxnd2',
 		},
 		{
 			gridArea: '5/1/6/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wscxdd3',
 		},
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wscxcs3',
 		},
 		{
 			gridArea: '5/3/6/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wscxnd3',
 		},
 	]
 	const halfBottomDom7 = [
@@ -1309,32 +1369,32 @@ export const basicReport = () => {
 		{
 			gridArea: '3/1/4/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'fscxdd1',
 		},
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'fscxfs1',
 		},
 		{
 			gridArea: '4/1/5/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'fscxdd2',
 		},
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'fscxfs2',
 		},
 		{
 			gridArea: '5/1/6/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'fscxdd3',
 		},
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'fscxfs3',
 		},
 	]
 	const halfBottomDom8 = [
@@ -1365,45 +1425,44 @@ export const basicReport = () => {
 		{
 			gridArea: '7/1/9/2',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: '中央风井',
+			isInput: true,
+			formKey: 'fjmc1',
 		},
 		{
 			gridArea: '9/1/11/2',
 			bodyClass: 'table_title_text',
-			isHtml: true,
-			label: '西翼风井',
+			isInput: true,
+			formKey: 'fjmc2',
 		},
-
 		{
 			gridArea: '7/2/8/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'fjbgs1',
 		},
 		{
 			gridArea: '8/2/9/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'fjbgx1',
 		},
 		{
 			gridArea: '9/2/10/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'fjbgs2',
 		},
 		{
 			gridArea: '10/2/11/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'fjbgx2',
 		},
 		{
 			gridArea: '7/3/9/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'fjdmj1',
 		},
 		{
 			gridArea: '9/3/11/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'fjdmj2',
 		},
 	]
 	const halfBottomDom9 = [
@@ -1422,22 +1481,22 @@ export const basicReport = () => {
 		{
 			gridArea: '4/1/5/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjbh1',
 		},
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value2',
+			formKey: 'ztfjxh1',
 		},
 		{
 			gridArea: '5/1/6/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjbh2',
 		},
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjxh2',
 		},
 	]
 	const halfBottomDom10 = [
@@ -1504,92 +1563,92 @@ export const basicReport = () => {
 		{
 			gridArea: '4/1/5/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjzs1',
 		},
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjfyjd1',
 		},
 		{
 			gridArea: '4/3/5/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjfl1',
 		},
 		{
 			gridArea: '4/4/5/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjfy1',
 		},
 		{
 			gridArea: '4/5/5/6',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjdmlf1',
 		},
 		{
 			gridArea: '4/6/5/7',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjmpgl1',
 		},
 		{
 			gridArea: '4/7/5/8',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjscgl1',
 		},
 		{
 			gridArea: '4/8/5/9',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjzgl1',
 		},
 		{
 			gridArea: '4/9/5/10',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjxl1',
 		},
 		{
 			gridArea: '5/1/6/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjzs2',
 		},
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjfyjd2',
 		},
 		{
 			gridArea: '5/3/6/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjfl2',
 		},
 		{
 			gridArea: '5/4/6/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjfy2',
 		},
 		{
 			gridArea: '5/5/6/6',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjdmlf2',
 		},
 		{
 			gridArea: '5/6/6/7',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjmpgl2',
 		},
 		{
 			gridArea: '5/7/6/8',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjscgl2',
 		},
 		{
 			gridArea: '5/8/6/9',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjzgl2',
 		},
 		{
 			gridArea: '5/9/6/10',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'ztfjxl2',
 		},
 	]
 	const halfBottomDom11 = [
@@ -1626,62 +1685,62 @@ export const basicReport = () => {
 		{
 			gridArea: '3/1/4/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wsjcdd1',
 		},
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wsjccs1',
 		},
 		{
 			gridArea: '3/3/4/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wsjctj1',
 		},
 		{
 			gridArea: '3/4/4/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wsjcnd1',
 		},
 		{
 			gridArea: '4/1/5/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wsjcdd2',
 		},
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wsjccs2',
 		},
 		{
 			gridArea: '4/3/5/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wsjctj2',
 		},
 		{
 			gridArea: '4/4/5/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wsjcnd2',
 		},
 		{
 			gridArea: '5/1/6/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wsjcdd3',
 		},
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wsjccs3',
 		},
 		{
 			gridArea: '5/3/6/4',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wsjctj3',
 		},
 		{
 			gridArea: '5/4/6/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'wsjcnd3',
 		},
 	]
 	const halfBottomDom12 = [
@@ -1706,34 +1765,35 @@ export const basicReport = () => {
 		{
 			gridArea: '3/1/4/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'mhdd1',
 		},
 		{
 			gridArea: '3/2/4/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'mhcs1',
 		},
 		{
 			gridArea: '4/1/5/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'mhdd2',
 		},
 		{
 			gridArea: '4/2/5/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'mhcs2',
 		},
 		{
 			gridArea: '5/1/6/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'mhdd3',
 		},
 		{
 			gridArea: '5/2/6/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'mhcs3',
 		},
 	]
+
 	const halfBottomDom13 = [
 		{
 			gridArea: '1/1/2/7',
@@ -1750,7 +1810,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'yjssfm',
 		},
 		{
 			gridArea: '2/3/3/4',
@@ -1761,7 +1821,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/4/3/5',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'yjssmb',
 		},
 		{
 			gridArea: '2/5/3/6',
@@ -1772,7 +1832,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/6/3/7',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'yjssfq',
 		},
 	]
 	const halfBottomDom14 = [
@@ -1791,7 +1851,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/2/3/3',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'lsssfm',
 		},
 		{
 			gridArea: '2/3/3/4',
@@ -1802,7 +1862,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/4/3/6',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'lsssmb',
 		},
 		{
 			gridArea: '2/6/3/7',
@@ -1813,7 +1873,7 @@ export const basicReport = () => {
 		{
 			gridArea: '2/7/3/9',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'lsssfq',
 		},
 	]
 	const halfBottomDom15 = [
@@ -1826,14 +1886,220 @@ export const basicReport = () => {
 		{
 			gridArea: '2/1/3/2',
 			isInput: true,
-			formKey: 'value1',
+			formKey: 'qt',
 		},
 	]
+
+	// 重置表单
+	const resetForm = () => {
+		dataForm.value = {
+			reportTime: parseTime(new Date(), '{y}-{m}-{d}'),
+			kjcl: null,
+			jxgzrs: null,
+			kjxfl: null,
+			kjzjfl: null,
+			zjzjfl: null,
+			fjtfl: null,
+			kjzhfl: null,
+			fjmc1: null,
+			fjfl1: null,
+			fjbgs1: null,
+			fjbgx1: null,
+			fjdmj1: null,
+			fjmc2: null,
+			fjfl2: null,
+			fjbgs2: null,
+			fjbgx2: null,
+			fjdmj2: null,
+			cmpfqk: null,
+			jjpfqk: null,
+			dspfqk: null,
+			qtpfqk: null,
+			kjyxfll: null,
+			kjyxfl: null,
+			kjzhzl: null,
+			kjzjk: null,
+			tfryzc: null,
+			tfryqdgl: null,
+			tfrytfddy: null,
+			tfrycfccy: null,
+			tfryjcjk: null,
+			tfrywjy: null,
+			tfryjlcsj: null,
+			tfryzdjsj: null,
+			tfryyqybxwg: null,
+			tfrysgfxg: null,
+			tfryfmwhg: null,
+			tfrysdthg: null,
+			tfryfcg: null,
+			tfryzjg: null,
+			tfrysxs: null,
+			tfryqt: null,
+			cmgzms: null,
+			bygzms: null,
+			hcgzms: null,
+			xxfm: null,
+			gzmflbz: null,
+			gzmwdcx: null,
+			jjgzms: null,
+			szlbs: null,
+			cjgdfk: null,
+			jjmflbz: null,
+			jjmwdcx: null,
+			jjmcltf: null,
+			jsxh1: null,
+			jszc1: null,
+			jsyx1: null,
+			jsdx1: null,
+			jsby1: null,
+			jsxh2: null,
+			jszc2: null,
+			jsyx2: null,
+			jsdx2: null,
+			jsby2: null,
+			jsxh3: null,
+			jszc3: null,
+			jsyx3: null,
+			jsdx3: null,
+			jsby3: null,
+			jsxh4: null,
+			jszc4: null,
+			jsyx4: null,
+			jsdx4: null,
+			jsby4: null,
+			jsxh5: null,
+			jszc5: null,
+			jsyx5: null,
+			jsdx5: null,
+			jsby5: null,
+			jsxh6: null,
+			jszc6: null,
+			jsyx6: null,
+			jsdx6: null,
+			jsby6: null,
+			ftgg1: null,
+			ftzc1: null,
+			ftsy1: null,
+			ftby1: null,
+			ftcj1: null,
+			ftgg2: null,
+			ftzc2: null,
+			ftsy2: null,
+			ftby2: null,
+			ftcj2: null,
+			ftgg3: null,
+			ftzc3: null,
+			ftsy3: null,
+			ftby3: null,
+			ftcj3: null,
+			ftgg4: null,
+			ftzc4: null,
+			ftsy4: null,
+			ftby4: null,
+			ftcj4: null,
+			gxwszc: null,
+			gxwssy: null,
+			gxwsdx: null,
+			gxwsby: null,
+			ajxtxh: null,
+			ajcgqzc: null,
+			ajcgqsy: null,
+			ajcgqsyl: null,
+			ysyzc: null,
+			ysysy: null,
+			ysydx: null,
+			ysyby: null,
+			jwbjyzc: null,
+			jwbjysy: null,
+			jwbjydx: null,
+			jwbjyby: null,
+			wspfdd1: null,
+			wspfnd1: null,
+			wspftj1: null,
+			wspfdd2: null,
+			wspfnd2: null,
+			wspftj2: null,
+			wspfdd3: null,
+			wspfnd3: null,
+			wspftj3: null,
+			wscxdd1: null,
+			wscxcs1: null,
+			wscxnd1: null,
+			wscxdd2: null,
+			wscxcs2: null,
+			wscxnd2: null,
+			wscxdd3: null,
+			wscxcs3: null,
+			wscxnd3: null,
+			fscxdd1: null,
+			fscxfs1: null,
+			fscxdd2: null,
+			fscxfs2: null,
+			fscxdd3: null,
+			fscxfs3: null,
+			wsjcdd1: null,
+			wsjccs1: null,
+			wsjctj1: null,
+			wsjcnd1: null,
+			wsjcdd2: null,
+			wsjccs2: null,
+			wsjctj2: null,
+			wsjcnd2: null,
+			wsjcdd3: null,
+			wsjccs3: null,
+			wsjctj3: null,
+			wsjcnd3: null,
+			mhdd1: null,
+			mhcs1: null,
+			mhdd2: null,
+			mhcs2: null,
+			mhdd3: null,
+			mhcs3: null,
+			ztfjbh1: null,
+			ztfjxh1: null,
+			ztfjzs1: null,
+			ztfjfyjd1: null,
+			ztfjfl1: null,
+			ztfjfy1: null,
+			ztfjdmlf1: null,
+			ztfjmpgl1: null,
+			ztfjscgl1: null,
+			ztfjzgl1: null,
+			ztfjxl1: null,
+			ztfjbh2: null,
+			ztfjxh2: null,
+			ztfjzs2: null,
+			ztfjfyjd2: null,
+			ztfjfl2: null,
+			ztfjfy2: null,
+			ztfjdmlf2: null,
+			ztfjmpgl2: null,
+			ztfjscgl2: null,
+			ztfjzgl2: null,
+			ztfjxl2: null,
+			yjssfm: null,
+			yjssmb: null,
+			yjssfq: null,
+			lsssfm: null,
+			lsssmb: null,
+			lsssfq: null,
+			qt: null,
+		}
+	}
+
 	return {
+		initData,
+		getList,
 		chooseVersion,
 		versionList,
 		setVersion,
 		dataForm,
+		resetForm,
+		getFormInfo,
+		saveHandle,
+		deleteHandle,
+		addHandle,
+		exportHandle,
 		halfTopDom1,
 		halfTopDom2Left,
 		halfTopDom2Right,

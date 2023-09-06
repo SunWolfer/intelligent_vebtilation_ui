@@ -25,7 +25,7 @@ export const useWindNetCalculation = () => {
 				parent: wind.code,
 				text: text,
 				color: '#000',
-				size: 300,
+				size: 100,
 				height: 800,
 				planeColor: '#00ff00',
 			})
@@ -34,7 +34,7 @@ export const useWindNetCalculation = () => {
 				? `人工实测风量：${wind.personQ}m3/min   实际风量：${wind.airVolume}m3/min`
 				: ''
 			if (text2) {
-				fontList.push({
+				fontList.value.push({
 					parent: wind.code,
 					text: text2,
 					color: '#000',
@@ -46,7 +46,7 @@ export const useWindNetCalculation = () => {
 			//  人工测量时间
 			let text3 = wind.personQTime ? `人工测量时间：${wind.personQTime}` : ''
 			if (text3) {
-				fontList.push({
+				fontList.value.push({
 					parent: wind.code,
 					text: text3,
 					color: '#000',

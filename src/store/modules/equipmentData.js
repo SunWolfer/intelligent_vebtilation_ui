@@ -59,6 +59,8 @@ const useEquipment = defineStore('equipment-data', {
 		personLocation: undefined,
 		// 避灾路线
 		disasterPreventionRoute: [],
+		// 	预警列表
+		warnList: [],
 	}),
 	actions: {
 		// 更新设备列表数据
@@ -99,6 +101,10 @@ const useEquipment = defineStore('equipment-data', {
 		}, // 更新灾变人员位置名称
 		updatePersonLocation(data) {
 			this.personLocation = data
+		},
+		// 	更新预警列表
+		updateWarnList(data) {
+			this.warnList = data
 		},
 	},
 })

@@ -195,11 +195,11 @@ interface IRootFont {
 	planeColor: string
 }
 // 创建三维字体
-interface IFontType {
-	text: string
+interface IFontType extends IRootFont {
+	// 文字位置
 	position: any
-	size: number
-	color: string
+	// 文字方向
+	quaternion: any
 }
 //自定义平面
 interface IPlane {

@@ -286,3 +286,26 @@ aside {
 		rgba(0, 0, 0, 0) 100%
 	);
 }
+
+//3D解算文字
+.element_renderer {
+	position: absolute;
+	width: max-content;
+	padding: vh(10) vw(20);
+	height: max-content;
+	box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+	border: 1px solid rgba(127, 255, 255, 0.25);
+	font-family: Helvetica, sans-serif;
+	text-align: center;
+	line-height: normal;
+	cursor: default;
+}
+.element_text {
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #000000;
+	display: flex;
+	align-items: center;
+}

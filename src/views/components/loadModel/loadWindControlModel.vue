@@ -66,8 +66,9 @@
 			@onClick="onClick"
 			@onDblclick="dblclick"
 			@ready-camera="readyCamera"
-		></model-generation>
+		>
+		</model-generation>
 	</div>
 </template>
 
-<style scoped lang="scss"></style>
+<style lang="scss"></style>

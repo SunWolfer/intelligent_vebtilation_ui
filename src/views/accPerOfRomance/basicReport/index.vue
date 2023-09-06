@@ -4,10 +4,15 @@
 	import TabelItem from '@/views/accPerOfRomance/basicReport/tabelItem.vue'
 
 	const {
+		initData,
 		chooseVersion,
 		versionList,
 		setVersion,
 		dataForm,
+		addHandle,
+		saveHandle,
+		deleteHandle,
+		exportHandle,
 		halfTopDom1,
 		halfTopDom2Left,
 		halfTopDom2Right,
@@ -33,11 +38,15 @@
 		halfBottomDom14,
 		halfBottomDom15,
 	} = basicReport()
+
+	onMounted(async () => {
+		await initData?.()
+	})
 </script>
 
 <template>
 	<div class="bas_report_body">
-		<div class="bas_report_body_c1_l1">新增</div>
+		<div class="bas_report_body_c1_l1" @click="addHandle">新增</div>
 		<div class="bas_report_body_c1_l2">
 			<div class="bas_report_c1_l2_top">
 				<border-box name="border2" title="通风基础报表"></border-box>
@@ -60,16 +69,16 @@
 							chooseVersion === index ? 'dec_point_left_bg_active' : 'dec_point_left_bg_default'
 						"
 					>
-						{{ item.dateTime }}
+						{{ item?.reportTime }}
 					</div>
 				</template>
 			</div>
 		</div>
 		<div class="bas_report_body_c2_l1">
-			<div class="bas_c2_l1_icon">{{ versionList[chooseVersion].dateTime }}</div>
-			<div class="normal_btn">保存</div>
-			<div class="normal_3_btn">删除</div>
-			<div class="normal_4_btn">导出</div>
+			<div class="bas_c2_l1_icon">{{ dataForm?.reportTime }}</div>
+			<div class="normal_btn" @click="saveHandle">保存</div>
+			<div class="normal_3_btn" @click="deleteHandle">删除</div>
+			<div class="normal_4_btn" @click="exportHandle">导出</div>
 		</div>
 		<div class="bas_report_body_c2_l2">
 			<div class="bas_table_half_top">

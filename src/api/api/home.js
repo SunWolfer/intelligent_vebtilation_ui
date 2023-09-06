@@ -66,3 +66,10 @@ export function escapeRoadData(query) {
 		params: query,
 	})
 }
+//预警列表查询
+export function deviceWarnList() {
+	return request({
+		url: '/api/pageHome/deviceWarnList',
+		method: 'get',
+	})
+}

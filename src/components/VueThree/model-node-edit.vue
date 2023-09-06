@@ -161,7 +161,7 @@
 					if (connectModel) {
 						this.tunnelMesh.resetConnectNode()
 						//   返回连接完成
-						this.$emit('readyConnect')
+						this.$emit('readyConnect', connectModel.nodeName + '-' + connectModel.nextNode)
 					}
 				}
 				// 删除连接模型

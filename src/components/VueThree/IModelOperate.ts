@@ -3,7 +3,6 @@ import { IWindText } from '@/components/VueThree/effect/IWindText'
 import { ModelAnimation } from '@/components/VueThree/modelAnimation'
 import gsap from 'gsap'
 import {
-	AnimationMixer,
 	BufferAttribute,
 	BufferGeometry,
 	DoubleSide,
@@ -281,23 +280,20 @@ export class OperateModel {
 			const font = fontDataList[i]
 			if (font.text.length === 2) return
 			let fontData: IFontType = {
-				text: font.text,
-				size: font.size,
-				color: font.color,
+				...font,
 				position: new Vector3(0, 0, 0),
+				quaternion: new Vector3(0, 0, 0),
 			}
-			const length = font.text.length * font.size
-			let plane = createdTextBg(font.size * 2, length, font.planeColor)
 			this.object.traverse((child: any) => {
 				if (child.name === font.parent) {
 					let chooseChild = child.isGroup ? child.children[0] : child
-					const position = chooseChild.position
-					fontData.position = position
-					plane.position.set(position.x, position.y + font.height, position.z)
-					plane.quaternion.copy(chooseChild.quaternion)
+					fontData.position = chooseChild.position
+					fontData.quaternion = chooseChild.quaternion
 				}
 			})
-			this.myWindText.created3DFont(fontData, plane)
+			if (fontData.position.x || fontData.position.y || fontData.position.z) {
+				this.myWindText.created3DRenderer(fontData)
+			}
 		}
 	}
 	resetFrame() {

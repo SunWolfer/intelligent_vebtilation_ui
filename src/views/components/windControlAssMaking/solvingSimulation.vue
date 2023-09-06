@@ -1,6 +1,8 @@
 <!--解算模拟-->
 <script setup>
 	import AfterCalculation from '@/views/windControlAssMaking/naturalDisNetSolution/afterCalculation.vue'
+	import { useCommitForm } from '@/hooks/useForm'
+	import { naturedCalculateSimulate } from '@/api/api/naturalDisNetSolution'
 
 	const props = defineProps({
 		// 显示解算模拟弹窗
@@ -55,10 +57,31 @@
 	const afterCalVisible = ref(false)
 
 	//   开始模拟
-	function showAfterCalVisible() {
-		TImitateVisible.value = false
-		afterCalVisible.value = true
-		emits('showCalVisible')
+	async function showAfterCalVisible() {
+		let commitFormList = []
+		for (let i = 0; i < TOperationStepsList.value.length; i++) {
+			const operationStep = TOperationStepsList.value[i]
+			commitFormList.push({
+				typeName: operationStep.commitType,
+				children: [
+					{
+						code: operationStep.name,
+						ventR: operationStep.value,
+						startNode: operationStep?.startNode,
+						endNode: operationStep?.endNode,
+					},
+				],
+			})
+		}
+		console.log(commitFormList)
+		await useCommitForm(naturedCalculateSimulate, {
+			queryParams: commitFormList,
+			afterReadyDataFun: (data) => {
+				TImitateVisible.value = false
+				afterCalVisible.value = true
+				emits('showCalVisible')
+			},
+		})
 	}
 	//   关闭解算后界面
 	function cancelAfterCalVisible() {

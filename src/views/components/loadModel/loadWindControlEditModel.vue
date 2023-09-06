@@ -23,6 +23,11 @@
 			type: Boolean,
 			default: true,
 		},
+		//   确认添加巷道
+		confirmAddTunnel: {
+			type: Boolean,
+			default: true,
+		},
 	})
 
 	watch(
@@ -38,6 +43,23 @@
 		(val) => {
 			if (!val) {
 				temporaryLabelList.value.pop()
+			}
+		},
+	)
+	// 确认添加巷道
+	watch(
+		() => props.confirmAddTunnel,
+		(val) => {
+			if (!val) {
+				const tunnelList = homeModelVisible.value.tunnelMesh.newTunnel
+				const lastTunnel = tunnelList[tunnelList.length - 1]
+				const name = lastTunnel.nodeName + '-' + lastTunnel.nextNode
+				const Iintersected = {
+					object: {
+						name: name,
+					},
+				}
+				homeModelVisible.value.tunnelMesh.deleteTunnel(Iintersected)
 			}
 		},
 	)
@@ -68,7 +90,7 @@
 		//   添加图标
 		loadAllTypeList?.()
 	}
-	const emits = defineEmits(['addWindow'])
+	const emits = defineEmits(['addWindow', 'readyConnect'])
 	// 双击
 	function dblclick(event, CIntersected) {
 		if (!CIntersected) return
@@ -90,7 +112,7 @@
 				type: '2',
 				name: CIntersected.object.name ?? '',
 			}
-			emits('addWindow')
+			emits('addWindow', obj.name)
 			temporaryLabelList.value.push(obj)
 		}
 		//   添加密闭墙
@@ -103,6 +125,11 @@
 			}
 			temporaryLabelList.value.push(obj)
 		}
+	}
+
+	// 连接巷道完成
+	function readyConnect(name) {
+		emits('readyConnect', name)
 	}
 
 	// 删除设备
@@ -146,13 +173,14 @@
 			@onClick="onClick"
 			@onDblclick="dblclick"
 			@ready-camera="readyCamera"
+			@readyConnect="readyConnect"
 		>
 			<!--			显示全部设备图标-->
 			<template #label v-if="isReady">
-				<div v-for="i in allTypeList" :key="i.id" :id="i.id" class="wind_label_bg">
+				<div v-for="i in allTypeList" :key="i.uniqueCode" :id="i.uniqueCode" class="wind_label_bg">
 					<div class="wind_three_label">
 						<div class="three_label_header">
-							<div :class="'home_map_' + equipTypeImgClass(i.type)"></div>
+							<div :class="'home_map_' + equipTypeImgClass(i.devType)"></div>
 						</div>
 						<div class="three_label_footer"></div>
 					</div>

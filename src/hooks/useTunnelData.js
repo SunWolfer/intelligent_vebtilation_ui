@@ -1,29 +1,53 @@
 // 巷道参数
-import tunnelData from '@/store/modules/tunnelData'
+import { getRoadInfo } from '@/api/api/naturalDisNetSolution'
+import useDict from '@/hooks/useDict'
 
 export const useTunnelData = () => {
-	const tunnel = tunnelData()
-	//   所有巷道参数列表
-	const tunnelDataList = computed({
-		get() {
-			return tunnel.data
-		},
-		set(val) {
-			tunnel.updateData(val)
-		},
-	})
+	/**
+	 * 巷道信息字典
+	 * vent_shape 巷道形状
+	 * shore_type 巷道支护类型
+	 * vent_type 巷道类型
+	 * ven_air_direction 巷道好进回风类型
+	 * vent_source 风阻测定来源
+	 * need_cal_type 需风量计算类型
+	 */
+	const { vent_shape, shore_type, vent_type, ven_air_direction, vent_source, need_cal_type } =
+		useDict(
+			'vent_shape',
+			'shore_type',
+			'vent_type',
+			'ven_air_direction',
+			'vent_source',
+			'need_cal_type',
+		)
 	// 可显示巷道参数列表
 	const showTunnelData = ref(undefined)
 	// 显示某巷道参数
-	const showParam = (name) => {
-		showTunnelData.value =
-			tunnelDataList.value.find((i) => {
-				return i.name === name
-			}) ?? undefined
+	const showParam = async (name) => {
+		const res = await getRoadInfo({
+			code: name,
+		})
+		if (res.code === 200) {
+			showTunnelData.value = {
+				...res.data,
+				id: 'tunnel' + res.data.id,
+				point: {
+					x: res.data?.centerPointX,
+					y: res.data?.centerPointY,
+					z: res.data?.centerPointZ,
+				},
+			}
+		}
 	}
 
 	return {
-		tunnelDataList,
+		vent_shape,
+		shore_type,
+		vent_type,
+		ven_air_direction,
+		vent_source,
+		need_cal_type,
 		showTunnelData,
 		showParam,
 	}

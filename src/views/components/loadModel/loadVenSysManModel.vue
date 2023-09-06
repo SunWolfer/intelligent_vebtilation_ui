@@ -90,10 +90,10 @@
 		>
 			<!--			显示全部设备图标-->
 			<template #label v-if="isReady">
-				<div v-for="i in allTypeList" :key="i.id" :id="i.id" class="wind_label_bg">
+				<div v-for="i in allTypeList" :key="i.uniqueCode" :id="i.uniqueCode" class="wind_label_bg">
 					<div class="wind_three_label">
 						<div class="three_label_header">
-							<div :class="'home_map_' + equipTypeImgClass(i.type)"></div>
+							<div :class="'home_map_' + equipTypeImgClass(i.devType)"></div>
 						</div>
 						<div class="three_label_footer"></div>
 					</div>

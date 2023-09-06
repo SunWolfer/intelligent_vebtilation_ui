@@ -87,8 +87,13 @@ const useEquipmentData = () => {
 		return children
 	})
 	//   总预警列表
-	const warnList = computed(() => {
-		return allDataList.value.filter((i) => i.warnStatus && i.warnStatus !== '0')
+	const warnList = computed({
+		get() {
+			return equipmentData.warnList
+		},
+		set(val) {
+			equipmentData.updateWarnList(val)
+		},
 	})
 
 	//显示避灾路线

@@ -1,5 +1,5 @@
 import useEquipmentData from '@/hooks/useEquipmentData'
-import { roadAll, totalAirVolume } from '@/api/api/home'
+import { deviceWarnList, roadAll, totalAirVolume } from '@/api/api/home'
 import { useThreeModelData } from '@/hooks/useThreeModelData'
 import { useGainList } from '@/hooks/useGainList'
 import { useGainForm } from '@/hooks/useForm'
@@ -24,6 +24,22 @@ export const homeRightMess = () => {
 	})
 
 	const { warnList } = useEquipmentData()
+	// 整体预警等级
+	const maxWarnType = ref('0')
+
+	const getWarnListData = async () => {
+		const res = await deviceWarnList()
+		if (!res) return
+		warnList.value = res.data
+		const warnLevelList = warnList.value.map((i) => {
+			return i.warnLevel
+		})
+		maxWarnType.value = Math.min(...warnLevelList)
+	}
+	onMounted(() => {
+		getWarnListData()
+	})
+
 	// 是否显示预警
 	const isWarn = computed(() => {
 		return warnList.value.length > 0
@@ -45,7 +61,7 @@ export const homeRightMess = () => {
 		const result = []
 		const size = 3 //数组长度
 		const total = Math.ceil(warnList.value.length / size)
-		for (var i = 0; i < total; i++) {
+		for (let i = 0; i < total; i++) {
 			let start = i * size
 			let end = start + size
 			result.push(warnList.value.slice(start, end))
@@ -75,14 +91,16 @@ export const homeRightMess = () => {
 		return (
 			warnType.find((i) => {
 				return i.value === type
-			}).label ?? ''
+			})?.label ?? ''
 		)
 	}
 	const equipmentTypeList = useEquipmentData().equipmentTypeList
 	const formatterEquipmentTypeList = (type) => {
-		return equipmentTypeList.find((i) => {
-			return i.value === type
-		}).label
+		return (
+			equipmentTypeList.find((i) => {
+				return i.value === type
+			})?.label ?? ''
+		)
 	}
 	// 通风动力预警
 	const powerNum = computed(() => {
@@ -121,5 +139,6 @@ export const homeRightMess = () => {
 		isWarn,
 		manualControlWarnIcon,
 		closeWarnIcon,
+		maxWarnType,
 	}
 }

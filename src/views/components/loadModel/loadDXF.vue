@@ -5,7 +5,7 @@
 
 <template>
 	<div class="fullDom">
-		<model-dxf :src="indoorFileUrl" backgroundAlpha="#212830"></model-dxf>
+		<model-dxf :src="indoorFileUrl" :backgroundAlpha="0"></model-dxf>
 	</div>
 </template>
 

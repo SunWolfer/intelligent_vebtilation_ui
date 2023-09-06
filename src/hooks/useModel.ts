@@ -20,7 +20,7 @@ export const useModel = (operateModel: Ref<OperateModel>) => {
 	function loadAllTypeList() {
 		isReady.value = true
 		nextTick().then(() => {
-			operateModel.value.addWrapperLabels(allTypeList.value)
+			operateModel.value.addWrapperLabels(allTypeList.value, 'uniqueCode')
 		})
 	}
 

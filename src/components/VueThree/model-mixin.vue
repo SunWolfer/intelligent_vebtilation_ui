@@ -29,6 +29,7 @@
 	import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 
 	import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer'
+	import { CSS3DRenderer } from 'three/examples/jsm/renderers//CSS3DRenderer'
 
 	import { getSize, modelLine } from './utils'
 	import { defineComponent, PropType } from 'vue'
@@ -163,6 +164,7 @@
 				outlinePass: null as null | OutlinePass,
 				effectFXAA: null as null | ShaderPass,
 				labelRenderer: new CSS2DRenderer(),
+				tRenderer: new CSS3DRenderer(),
 				CartoonInterval: [] as Array<number>,
 				mixer: '',
 				domCenter: { x: 0, y: 0, z: 0 },
@@ -232,13 +234,20 @@
 			this.renderer = new WebGLRenderer(options)
 			// this.renderer.toneMapping = ACESFilmicToneMapping
 			// this.renderer.toneMappingExposure = 1
+
+			this.tRenderer.domElement.style.position = 'absolute'
+			this.tRenderer.domElement.style.top = '0'
+			this.tRenderer.domElement.style.left = '0'
+			this.tRenderer.domElement.style.pointerEvents = 'none'
+			this.tRenderer.setSize(this.size.width, this.size.height)
+
 			this.labelRenderer.domElement.style.position = 'absolute'
-			this.labelRenderer.domElement.style.zIndex = '0'
 			this.labelRenderer.domElement.style.top = '0'
+			this.labelRenderer.domElement.style.zIndex = '0'
 			this.labelRenderer.setSize(this.size.width, this.size.height)
 			this.labelRenderer.domElement.style.pointerEvents = 'none'
 
-			this.controls = new OrbitControls(this.camera, this.$refs.canvas as HTMLDivElement)
+			this.controls = new OrbitControls(this.camera, this.$refs.container as HTMLDivElement)
 
 			this.scene.add(this.wrapper)
 
@@ -250,7 +259,7 @@
 			this.update()
 
 			const element = this.$refs.container as HTMLElement
-
+			element.appendChild(this.tRenderer.domElement)
 			element.appendChild(this.labelRenderer.domElement)
 
 			element.addEventListener('mousedown', this.onMouseDown, false)
@@ -688,6 +697,7 @@
 					this.composer.render()
 				}
 				this.labelRenderer.render(this.scene, this.camera)
+				this.tRenderer.render(this.scene, this.camera)
 			},
 			//轨迹运动
 			cameraReset(position: any, lookAt: any, time = 1) {
@@ -784,6 +794,7 @@
 		<slot name="label"></slot>
 		<slot name="edit"></slot>
 		<slot name="warn"></slot>
+		<slot name="cssRenderer"></slot>
 		<slot></slot>
 	</div>
 </template>

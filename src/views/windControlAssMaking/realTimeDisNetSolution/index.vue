@@ -4,7 +4,7 @@
 	import LoadWindControlModel from '@/views/components/loadModel/loadWindControlModel.vue'
 	import { useWindNetCalculation } from '@/hooks/useWindNetCalculation'
 
-	const { frequency, dataList } = realTimeDisNetSolution()
+	const { frequency, dataList, chooseTabs, tabsHandle, setFrequency } = realTimeDisNetSolution()
 	const { fontList } = useWindNetCalculation()
 	const cellStyle = (data) => {
 		let cell = ''
@@ -35,7 +35,7 @@
 						<el-slider v-model="frequency" />
 						<el-input-number v-model="frequency" controls-position="right" :max="100" :min="1" />
 						<span>分钟</span>
-						<div class="normal_btn">确认</div>
+						<div class="normal_btn" @click="setFrequency">确认</div>
 					</div>
 				</border-box>
 			</div>
@@ -47,9 +47,24 @@
 				</div>
 				<div class="real_time_body_bottom_center">
 					<div class="real_time_body_bottom_center_left">
-						<div class="real_btn_1_active"><span>全部</span></div>
-						<div class="real_btn_1"><span>设备测风</span></div>
-						<div class="real_btn_1"><span>人工测风</span></div>
+						<div
+							:class="chooseTabs === '0' ? 'real_btn_1_active' : 'real_btn_1'"
+							@click="tabsHandle('0')"
+						>
+							<span>全部</span>
+						</div>
+						<div
+							:class="chooseTabs === '1' ? 'real_btn_1_active' : 'real_btn_1'"
+							@click="tabsHandle('1')"
+						>
+							<span>设备测风</span>
+						</div>
+						<div
+							:class="chooseTabs === '2' ? 'real_btn_1_active' : 'real_btn_1'"
+							@click="tabsHandle('2')"
+						>
+							<span>人工测风</span>
+						</div>
 					</div>
 					<div class="real_time_body_bottom_center_right">
 						<span>解算结果:</span>
@@ -67,59 +82,51 @@
 						<el-table-column
 							label="解算风量(m³/min)"
 							align="center"
-							prop="calTheAirVolume"
+							prop="airVolume"
 						></el-table-column>
-						<el-table-column label="实时风量(m³/min)" align="center" prop="realTimeAirVolume">
-							<template #default="scope">
-								<span class="full_table_cell_bg" :class="cellStyle(scope.row.equipmentErrorRate)">{{
-									scope.row.realTimeAirVolume
-								}}</span>
-							</template>
-						</el-table-column>
-						<el-table-column
-							label="人工实测风量(m³/min)"
-							align="center"
-							prop="artMeasuredAirVolume"
-						>
+						<el-table-column label="实时风量(m³/min)" align="center" prop="windSensorAirVolume">
 							<template #default="scope">
 								<span
 									class="full_table_cell_bg"
-									:class="cellStyle(scope.row.artificialErrorRate)"
-									>{{ scope.row.realTimeAirVolume }}</span
+									:class="cellStyle(scope.row.windSensorAirVolume)"
+									>{{ scope.row.windSensorAirVolume }}</span
 								>
 							</template>
 						</el-table-column>
-						<el-table-column
-							label="目标风量(m³/min)"
-							align="center"
-							prop="targetAirVolume"
-						></el-table-column>
+						<el-table-column label="人工实测风量(m³/min)" align="center" prop="personQ">
+							<template #default="scope">
+								<span class="full_table_cell_bg" :class="cellStyle(scope.row.personQ)">{{
+									scope.row.personQ
+								}}</span>
+							</template>
+						</el-table-column>
+						<el-table-column label="目标风量(m³/min)" align="center" prop="minQ"></el-table-column>
 						<el-table-column
 							label="解算/设备误差率(%)"
 							align="center"
-							prop="equipmentErrorRate"
+							prop="calSensorDeviation"
 						></el-table-column>
 						<el-table-column
 							label="解算/人工误差率(%)"
 							align="center"
-							prop="artificialErrorRate"
+							prop="calPersonDeviation"
 						></el-table-column>
 						<el-table-column
 							label="解算风速(m/s)"
 							align="center"
 							prop="windSpeed"
 						></el-table-column>
-						<el-table-column label="风阻" align="center" prop="windResistance"></el-table-column>
+						<el-table-column label="风阻" align="center" prop="ventR"></el-table-column>
 						<el-table-column
 							label="解算风压(Pa)"
 							align="center"
-							prop="windPressure"
+							prop="airPressure"
 						></el-table-column>
-						<el-table-column label="解算时间" align="center" prop="solvingTime"></el-table-column>
+						<el-table-column label="解算时间" align="center" prop="calculateTime"></el-table-column>
 						<el-table-column
 							label="人工实测时间"
 							align="center"
-							prop="measuredTime"
+							prop="personQTime"
 						></el-table-column>
 					</el-table>
 				</div>

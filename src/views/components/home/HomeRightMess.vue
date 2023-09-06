@@ -3,7 +3,7 @@
 	import useEquipmentData from '@/hooks/useEquipmentData'
 	import useHomeMenu from '@/hooks/useHomeMenu'
 	import useDict from '@/hooks/useDict'
-	import { dynamicHeight, selectDictLabel } from '../../../utils/ruoyi'
+	import { dynamicHeight, selectDictLabel } from '@/utils/ruoyi'
 
 	const emits = defineEmits(['moveCamera'])
 	const {
@@ -19,14 +19,21 @@
 		isWarn,
 		manualControlWarnIcon,
 		closeWarnIcon,
+		maxWarnType,
 	} = homeRightMess()
 	const { toPosition, equipTypeList } = useEquipmentData()
 	const { fan_work_status } = useDict('fan_work_status')
 	const setPosition = (item) => {
+		if (!item.pointX) return
 		// 判断是否存在
 		const hasIn = equipTypeList.value.indexOf(item.devType) !== -1
 		// 不存在则显示全部该类型数据
 		if (!hasIn) equipTypeList.value.push(item.devType)
+		item.point = {
+			x: item.pointX,
+			y: item.pointY,
+			z: item.pointZ,
+		}
 		const position = toPosition?.(item)
 		emits('moveCamera', position, item.point)
 	}
@@ -121,7 +128,9 @@
 					<div class="home_body4_item">
 						<template v-for="child in item">
 							<div class="home_body4_item_body">
-								<div class="home_body4_item_body_A">{{ child.warnName }}</div>
+								<div class="home_body4_item_body_A" :class="'warn_level_bg_' + child.warnLevel">
+									{{ child.warnName }}
+								</div>
 								<div class="home_body4_item_body_B">{{ formatterWarnType(child.mainType) }}</div>
 								<div class="home_body4_item_body_C">
 									设备类型：{{ formatterEquipmentTypeList(child.devType) }}
@@ -129,7 +138,7 @@
 								<div class="home_body4_item_body_D overText" :title="child.name">
 									{{ child.name }}
 								</div>
-								<div class="home_body4_item_body_E">{{ child.warnDateTime }}</div>
+								<div class="home_body4_item_body_E">{{ child.warnTime }}</div>
 								<div class="home_body4_item_body_F" @click="setPosition(child)">定位</div>
 								<div class="home_body4_item_body_G"></div>
 								<div class="home_body4_item_body_H" :class="'warn_level_' + child.warnLevel">
@@ -144,13 +153,19 @@
 	</div>
 	<!--  预警提示-->
 	<div class="warn_icon" v-if="isWarn && manualControlWarnIcon" :style="warnStyle">
-		<div class="warn_icon_top_left"></div>
-		<div class="warn_icon_top_right"></div>
-		<div class="warn_icon_bottom_left"></div>
-		<div class="warn_icon_bottom_right"></div>
+		<div class="warn_icon_top_left" :class="'warn_level_bg_' + maxWarnType"></div>
+		<div class="warn_icon_top_right" :class="'warn_level_bg_' + maxWarnType"></div>
+		<div class="warn_icon_bottom_left" :class="'warn_level_bg_' + maxWarnType"></div>
+		<div class="warn_icon_bottom_right" :class="'warn_level_bg_' + maxWarnType"></div>
 		<div class="warn_icon_dom">
-			<div class="warn_icon_bg"></div>
-			<div class="warn_icon_text" @click="closeWarnIcon">关闭预警提示</div>
+			<div class="warn_icon_bg" :class="'warn_level_bg_' + maxWarnType"></div>
+			<div
+				class="warn_icon_text"
+				:class="'warn_level_bg_before_' + maxWarnType"
+				@click="closeWarnIcon"
+			>
+				<span :class="'warn_level_' + maxWarnType">关闭预警提示</span>
+			</div>
 		</div>
 	</div>
 </template>

@@ -146,7 +146,7 @@ service.interceptors.response.use(
 )
 
 // 通用下载方法
-export function download(url: string, params: any, filename: string, config: any) {
+export function download(url: string, params: any, filename: string, config?: any) {
 	const downloadLoadingInstance = ElLoading.service({
 		text: '正在下载数据，请稍候',
 		background: 'rgba(0, 0, 0, 0.7)',

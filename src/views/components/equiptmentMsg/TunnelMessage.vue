@@ -58,26 +58,26 @@
 <template>
 	<div v-if="isTunnelReady" class="tunnel" :key="showTunnelData.id" :id="showTunnelData.id">
 		<div class="tunnel_bg">
-			<div class="tunnel_bg_title">{{ showTunnelData.label }}</div>
+			<div class="tunnel_bg_title">{{ showTunnelData.name }}</div>
 			<div class="tunnel_bg_line">
 				[巷道编号]
-				<span class="tunnel_bg_line_value overText">10124</span>
+				<span class="tunnel_bg_line_value overText">{{ showTunnelData.code }}</span>
 			</div>
 			<div class="tunnel_bg_line">
 				[ 巷道周长(m) ]
-				<span class="tunnel_bg_line_value">387.5</span>
+				<span class="tunnel_bg_line_value">{{ showTunnelData.circumference }}</span>
 			</div>
 			<div class="tunnel_bg_line">
 				[巷道断面积(㎡)]
-				<span class="tunnel_bg_line_value">125.31</span>
+				<span class="tunnel_bg_line_value">{{ showTunnelData.surface }}</span>
 			</div>
 			<div class="tunnel_bg_line">
 				[ 巷道长度(m) ]
-				<span class="tunnel_bg_line_value">151.31</span>
+				<span class="tunnel_bg_line_value">{{ showTunnelData.length }}</span>
 			</div>
 			<div class="tunnel_bg_line">
 				[巷道形状]
-				<span class="tunnel_bg_line_value">半拱型</span>
+				<span class="tunnel_bg_line_value">{{}}</span>
 			</div>
 			<div class="tunnel_bg_line">
 				[ 支护类型]

@@ -24,6 +24,12 @@
 		operationStepsList,
 		showAfterCalVisible,
 		cancelAirDisNetwork,
+		tunnelVisible,
+		tunnelHandle,
+		tunnelForm,
+		tunnelConfirm,
+		tunnelCancel,
+		confirmTunnel,
 	} = naturalDisNetSolution()
 </script>
 
@@ -34,7 +40,9 @@
 			:font-list="fontList"
 			:edit-type="chooseMenu"
 			:confirm-add-window="confirmWindow"
+			:confirm-add-tunnel="confirmTunnel"
 			@add-window="showWindowVisibleVisible"
+			@readyConnect="tunnelHandle"
 		/>
 		<!--    自然分风网络测算-->
 		<div class="natural_top" v-show="showAirDisNetwork">
@@ -109,6 +117,23 @@
 			<div class="window_form_body">
 				<div class="window_form_body_label">风阻</div>
 				<el-input-number v-model="windowForm.windage"></el-input-number>
+				<div class="window_form_body_unit">Mpa</div>
+			</div>
+		</dia-log>
+		<!--    连接巷道确认弹窗-->
+		<dia-log
+			v-if="tunnelVisible"
+			v-model="tunnelVisible"
+			title="连接巷道"
+			:width="800"
+			:height="420"
+			has-bottom-btn
+			@submit="tunnelConfirm"
+			@cancel="tunnelCancel"
+		>
+			<div class="window_form_body">
+				<div class="window_form_body_label">风阻</div>
+				<el-input-number v-model="tunnelForm.windage"></el-input-number>
 				<div class="window_form_body_unit">Mpa</div>
 			</div>
 		</dia-log>
