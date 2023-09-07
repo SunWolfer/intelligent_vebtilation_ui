@@ -82,22 +82,49 @@
   span {
     @include li-label-text;
   }
-}
-.fire-text-blue{
-  @include li-val-text;
-  color:#08C7F1 ;
-}
-.fire-text-yellow{
-  @include li-val-text;
-  color: #FFD725;
-}
-.fire-text-purple{
-  @include li-val-text;
-  color: #BD39E9;
-}
-.fire-text-green{
-  @include li-val-text;
-  color: #0DDE79;
+  .fire-text{
+    @include li-val-text;
+  }
+  &:nth-child(1){
+    .fire-text{
+      color:#08C7F1;
+    }
+  }
+  &:nth-child(2){
+    .fire-text{
+      color: #FFD725;
+    }
+  }
+  &:nth-child(3){
+    .fire-text{
+      color: #BD39E9;
+    }
+  }
+  &:nth-child(4){
+    .fire-text{
+      color: #0DDE79;
+    }
+  }
+  &:nth-child(5){
+    .fire-text{
+      color: #0DDE79;
+    }
+  }
+  &:nth-child(6){
+    .fire-text{
+      color: #BD39E9;
+    }
+  }
+  &:nth-child(7){
+    .fire-text{
+      color: #FFD725;
+    }
+  }
+  &:nth-child(8){
+    .fire-text{
+      color:#08C7F1;
+    }
+  }
 }
 
 //统计日期

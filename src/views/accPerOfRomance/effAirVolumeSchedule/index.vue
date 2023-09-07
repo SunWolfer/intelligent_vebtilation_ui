@@ -1,8 +1,23 @@
 <!--有效风量明细表-->
 <script setup>
-	import { effAirVolumeSchedule } from '@/api/request/accPerOfRomance/effAirVolumeSchedule'
+	import useList from '@/hooks/useList'
+	import { addDateRange } from '@/utils/ruoyi'
+	import { listEffAirVolumeSchedule } from '@/api/api/effAirVolumeSchedule'
 
-	const { dateRange, queryParams, dataList, getList, downLoadFire } = effAirVolumeSchedule()
+	const { dateRange, queryParams, dataList, getList, total, downLoadFire, handleQuery } = useList({
+		apiFun: listEffAirVolumeSchedule,
+		params: {
+			pageNum: 1,
+			pageSize: 10,
+		},
+		exportParams: {
+			api: '/api/report/exportValid',
+			params: () => {
+				return addDateRange(queryParams.value, dateRange.value)
+			},
+			title: `有效风量明细表${new Date().getTime()}.xlsx`,
+		},
+	})
 </script>
 
 <template>
@@ -21,7 +36,7 @@
 				></el-date-picker>
 			</el-form-item>
 			<el-form-item>
-				<div class="normal_btn" @click="getList">生成</div>
+				<div class="normal_btn" @click="handleQuery">生成</div>
 				<div class="normal_2_btn" @click="downLoadFire">导出</div>
 			</el-form-item>
 		</el-form>
@@ -41,6 +56,13 @@
 				</div>
 			</template>
 		</div>
+		<pagination
+			v-show="total > 0"
+			:total="total"
+			v-model:page="queryParams.pageNum"
+			v-model:limit="queryParams.pageSize"
+			@pagination="getList"
+		/>
 	</div>
 </template>
 

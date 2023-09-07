@@ -1,7 +1,22 @@
 <script setup>
-	import { windReport } from '@/api/request/accPerOfRomance/windReport'
+	import useList from '@/hooks/useList'
+	import { listWindReport } from '@/api/api/windReport'
+	import { addDateRange } from '@/utils/ruoyi'
 
-	const { dateRange, queryParams, dataList, getList, downLoadFire } = windReport()
+	const { dateRange, queryParams, dataList, getList, total, downLoadFire, handleQuery } = useList({
+		apiFun: listWindReport,
+		params: {
+			pageNum: 1,
+			pageSize: 10,
+		},
+		exportParams: {
+			api: '/api/report/export',
+			params: () => {
+				return addDateRange(queryParams.value, dateRange.value)
+			},
+			title: `测风报表${new Date().getTime()}.xlsx`,
+		},
+	})
 </script>
 
 <template>
@@ -20,7 +35,7 @@
 				></el-date-picker>
 			</el-form-item>
 			<el-form-item>
-				<div class="normal_btn" @click="getList">生成</div>
+				<div class="normal_btn" @click="handleQuery">生成</div>
 				<div class="normal_2_btn" @click="downLoadFire">导出</div>
 			</el-form-item>
 		</el-form>
@@ -57,37 +72,37 @@
 						<el-table-column
 							prop="personQ"
 							label="人工实测风量(m³/min)"
-							min-width="140"
+							min-width="120"
 							align="center"
 						></el-table-column>
 						<el-table-column
 							prop="calSensorDeviation"
 							label="解算/设备误差率 %"
-							min-width="120"
+							min-width="100"
 							align="center"
 						></el-table-column>
 						<el-table-column
 							prop="calPersonDeviation"
 							label="解算/人工误差率 %"
-							min-width="120"
+							min-width="100"
 							align="center"
 						></el-table-column>
 						<el-table-column
 							prop="windSensorTime"
 							label="最近测风时间"
-							min-width="100"
+							min-width="120"
 							align="center"
 						></el-table-column>
 						<el-table-column
 							prop="calculateTime"
 							label="最近解算时间"
-							min-width="100"
+							min-width="120"
 							align="center"
 						></el-table-column>
 						<el-table-column
 							prop="personQTime"
 							label="人工实测时间"
-							min-width="100"
+							min-width="120"
 							align="center"
 						></el-table-column>
 						<el-table-column
@@ -106,6 +121,13 @@
 				</div>
 			</template>
 		</div>
+		<pagination
+			v-show="total > 0"
+			:total="total"
+			v-model:page="queryParams.pageNum"
+			v-model:limit="queryParams.pageSize"
+			@pagination="getList"
+		/>
 	</div>
 </template>
 

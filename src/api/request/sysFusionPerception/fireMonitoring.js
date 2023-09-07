@@ -1,94 +1,109 @@
 import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
 import useResetCharts from '@/hooks/useResetCharts'
+import {
+	temperatureDict,
+	temperatureRealTime,
+	temperatureTrend,
+	tubeDict,
+	tubeRealTime,
+	tubeTrend,
+} from '@/api/api/fireMonitoring'
+import { useGainList } from '@/hooks/useGainList'
 
 export const fireMonitoring = () => {
 	//束管监测表单
 	const dataForm1 = ref({
-		areaData: '',
-		statisticalDate: '1',
+		code: '',
+		timeType: '1',
+	})
+	// 束管监测列表
+	const { dataList: tubeDataList } = useGainList({
+		apiFun: tubeDict,
+		afterReadyDataFun: (data) => {
+			if (!data.length) return
+			dataForm1.value.code = data[0].code
+		},
+	})
+
+	watch(
+		() => dataForm1.value.code,
+		() => {
+			getBeamTubeData()
+			resetLeftCharts?.()
+		},
+	)
+	watch(
+		() => dataForm1.value.timeType,
+		() => {
+			resetLeftCharts?.()
+		},
+	)
+	// 束管监测列表数据
+	const tubeRealTimeForm = ref({
+		C2H2: '0',
+		C2H4: '0',
+		C2H6: '0',
+		CH4: '0',
+		CO: '0',
+		CO2: '0',
+		N2: '0',
+		O2: '0',
 	})
 	// 束管监测列表数据
-	const beamTubeMonitoringData = ref([
-		{
-			label: 'CO2',
-			value: '0.0787 %',
-			text: 'fire-text-blue',
-		},
-		{
-			label: 'O2',
-			value: '20.5746 %',
-			text: 'fire-text-yellow',
-		},
-		{
-			label: 'N2',
-			value: '79.3467 %',
-			text: 'fire-text-purple',
-		},
-		{
-			label: 'CH4',
-			value: '0 %',
-			text: 'fire-text-green',
-		},
-		{
-			label: 'CO',
-			value: '0 ppm',
-			text: 'fire-text-green',
-		},
-		{
-			label: 'C2H2',
-			value: '0 ppm',
-			text: 'fire-text-purple',
-		},
-		{
-			label: 'C2H4',
-			value: '0 ppm',
-			text: 'fire-text-yellow',
-		},
-		{
-			label: 'C2H6',
-			value: '0 ppm',
-			text: 'fire-text-blue',
-		},
-	])
-	const chooseForm1Date = (type) => {
-		if (dataForm1.value.statisticalDate === type) return
-		dataForm1.value.statisticalDate = type
+	const beamTubeMonitoringData = computed(() => {
+		return [
+			{
+				label: 'CO2',
+				value: tubeRealTimeForm.value?.CO2 ?? 0 + ' %',
+			},
+			{
+				label: 'O2',
+				value: tubeRealTimeForm.value?.O2 ?? 0 + ' %',
+			},
+			{
+				label: 'N2',
+				value: tubeRealTimeForm.value?.N2 ?? 0 + ' %',
+			},
+			{
+				label: 'CH4',
+				value: tubeRealTimeForm.value?.CH4 ?? 0 + ' %',
+			},
+			{
+				label: 'CO',
+				value: tubeRealTimeForm.value?.CO ?? 0 + ' ppm',
+			},
+			{
+				label: 'C2H2',
+				value: tubeRealTimeForm.value?.C2H2 ?? 0 + ' ppm',
+			},
+			{
+				label: 'C2H4',
+				value: tubeRealTimeForm.value?.C2H4 ?? 0 + ' ppm',
+			},
+			{
+				label: 'C2H6',
+				value: tubeRealTimeForm.value?.C2H6 ?? 0 + ' ppm',
+			},
+		]
+	})
+	const getBeamTubeData = async () => {
+		const { data } = await tubeRealTime(dataForm1.value.code)
+		tubeRealTimeForm.value = data
 	}
 
-	const beamXData = ref([])
-	// 束管监测折线数据1
-	const beamYDataList1 = ref([])
-	// 束管监测折线数据2
-	const beamYDataList2 = ref([])
-	const initChartLeft = () => {
-		beamXData.value = [
-			'10:30',
-			'11:30',
-			'12:30',
-			'13:30',
-			'14:30',
-			'15:30',
-			'16:30',
-			'17:30',
-			'18:30',
-			'19:30',
-			'20:30',
-			'21:30',
-		]
-		beamYDataList1.value = [[], [], [], []]
-		beamYDataList2.value = [[], [], [], []]
-		for (let i = 0; i < 4; i++) {
-			for (let j = 0; j < 12; j++) {
-				beamYDataList1.value[i].push(Math.random() * 100)
-				beamYDataList2.value[i].push(Math.random() * 100)
-			}
-		}
+	const chooseForm1Date = (type) => {
+		if (dataForm1.value.timeType === type) return
+		dataForm1.value.timeType = type
+	}
 
+	const initChartLeft = async () => {
+		const { data } = await tubeTrend(dataForm1.value)
+		const { one, two } = data
 		defaultLineChart({
 			domId: 'fire-charts-1',
-			xData: beamXData.value,
-			yDataList: beamYDataList1.value,
-			legends: ['CO2', 'O2', 'N2', 'CH4'],
+			xData: one.lineX ?? [],
+			yDataList: one.value ?? [],
+			legends: one.names ?? [],
 			units: '%',
 			colors: [
 				['rgba(0, 255, 255, 1)', 'rgba(0, 255, 255, 0)'],
@@ -100,9 +115,9 @@ export const fireMonitoring = () => {
 		})
 		defaultLineChart({
 			domId: 'fire-charts-2',
-			xData: beamXData.value,
-			yDataList: beamYDataList2.value,
-			legends: ['CO', 'C2H2', 'C2H4', 'C2H6'],
+			xData: two.lineX ?? [],
+			yDataList: two.value ?? [],
+			legends: two.names ?? [],
 			units: '(ppm)',
 			colors: [
 				['rgba(0, 255, 0, 1)', 'rgba(0, 255, 0, 0)'],
@@ -116,82 +131,84 @@ export const fireMonitoring = () => {
 		})
 	}
 
-	const { showCharts: showLeftCharts } = useResetCharts(initChartLeft)
+	const { showCharts: showLeftCharts, resetCharts: resetLeftCharts } = useResetCharts(
+		initChartLeft,
+		false,
+	)
 
 	//   光纤测温表单
 	const dataForm2 = ref({
-		areaData: '',
-		statisticalDate: '1',
+		channel: '',
+		timeType: '1',
+		min: 0,
+		max: 0,
+		avg: 0,
 	})
+	// 光纤测温列表
+	const { dataList: optList } = useGainList({
+		apiFun: temperatureDict,
+		afterReadyDataFun: (data) => {
+			if (!data.length) return
+			dataForm2.value.channel = data[0].channel
+		},
+	})
+
 	// 光纤测温监测数据
-	const optFibTemMeaList = ref([
-		{
-			label: '最高温度',
-			value: '35.6 ℃',
-		},
-		{
-			label: '最低温度',
-			value: '25.6 ℃',
-		},
-		{
-			label: '平均温度',
-			value: '32.6 ℃',
-		},
-	])
+	const optFibTemMeaList = computed(() => {
+		return [
+			{
+				label: '最高温度',
+				value: `${dataForm2.value.max ?? 0} ℃`,
+			},
+			{
+				label: '最低温度',
+				value: `${dataForm2.value.min ?? 0} ℃`,
+			},
+			{
+				label: '平均温度',
+				value: `${dataForm2.value.avg ?? 0} ℃`,
+			},
+		]
+	})
 
 	const chooseForm2Date = (type) => {
-		if (dataForm2.value.statisticalDate === type) return
-		dataForm2.value.statisticalDate = type
+		if (dataForm2.value.timeType === type) return
+		dataForm2.value.timeType = type
 	}
+	// 光纤测温实时监测查询
+	const initChartRight = async () => {
+		const { data } = await temperatureRealTime(dataForm2.value.channel)
+		dataForm2.value.min = data.min
+		dataForm2.value.max = data.max
+		dataForm2.value.avg = data.avg
 
-	// 光纤测温折线数据1
-	const opticalXData1 = ref([])
-	const opticalYDataList1 = ref([])
-	const opticalXData2 = ref([])
-	// 光纤测温折线数据2
-	const opticalYDataList2 = ref([])
-	const initChartRight = () => {
-		opticalYDataList1.value = [[]]
-		for (let i = 0; i < 12; i++) {
-			opticalXData1.value.push(50 + i)
-			opticalYDataList1.value[0].push(Math.random() * 10)
-		}
 		defaultLineChart({
 			domId: 'fire-charts-3',
-			xData: opticalXData1.value,
-			yDataList: opticalYDataList1.value,
+			xData: data.lineX,
+			yDataList: [data.value],
 			legends: ['温度'],
 			units: '℃',
 			xUnits: 'm',
 			colors: [['rgba(255, 0, 0, 1)', 'rgba(255, 0, 0, 0)']],
 			showXSplitLine: true,
 		})
+	}
+	const { showCharts: showRightCharts, resetCharts: resetRightCharts } = useResetCharts(
+		initChartRight,
+		false,
+	)
 
-		opticalXData2.value = [
-			'10:30',
-			'11:30',
-			'12:30',
-			'13:30',
-			'14:30',
-			'15:30',
-			'16:30',
-			'17:30',
-			'18:30',
-			'19:30',
-			'20:30',
-			'21:30',
-		]
-		opticalYDataList2.value = [[], [], []]
-		for (let i = 0; i < 3; i++) {
-			for (let j = 0; j < 12; j++) {
-				opticalYDataList2.value[i].push(Math.random() * 10)
-			}
-		}
+	// 光纤测温趋势监测查询
+	const initChartRight2 = async () => {
+		const { data } = await temperatureTrend({
+			channel: dataForm2.value.channel,
+			timeType: dataForm2.value.timeType,
+		})
 		defaultLineChart({
 			domId: 'fire-charts-4',
-			xData: opticalXData2.value,
-			yDataList: opticalYDataList2.value,
-			legends: ['最高温度', '最低温度', '平均温度'],
+			xData: data.lineX,
+			yDataList: data.value,
+			legends: data.names,
 			units: '(℃)',
 			colors: [
 				['rgba(255, 155, 0, 1)', 'rgba(0, 255, 0, 0)'],
@@ -203,8 +220,27 @@ export const fireMonitoring = () => {
 			showXSplitLine: true,
 		})
 	}
-	const { showCharts: showRightCharts } = useResetCharts(initChartRight)
+	const { showCharts: showRightCharts2, resetCharts: resetRightCharts2 } = useResetCharts(
+		initChartRight2,
+		false,
+	)
+	watch(
+		() => dataForm2.value.channel,
+		() => {
+			resetRightCharts?.()
+			resetRightCharts2?.()
+		},
+	)
+	watch(
+		() => dataForm2.value.timeType,
+		() => {
+			resetRightCharts2?.()
+		},
+	)
+
 	return {
+		tubeDataList,
+		optList,
 		dataForm1,
 		dataForm2,
 		beamTubeMonitoringData,
@@ -213,5 +249,6 @@ export const fireMonitoring = () => {
 		optFibTemMeaList,
 		chooseForm2Date,
 		showRightCharts,
+		showRightCharts2,
 	}
 }

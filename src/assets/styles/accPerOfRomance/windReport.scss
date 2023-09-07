@@ -4,7 +4,7 @@
 	width: 100%;
 	height: 100%;
 	display: grid;
-	grid-template-rows: vh(55) auto;
+	grid-template-rows: vh(55) 1fr vh(50);
 	padding: vh(16) vw(74) vh(37) vw(123);
 }
 .wind_report_body_form {

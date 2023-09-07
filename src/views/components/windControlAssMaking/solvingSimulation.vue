@@ -77,6 +77,7 @@
 		await useCommitForm(naturedCalculateSimulate, {
 			queryParams: commitFormList,
 			afterReadyDataFun: (data) => {
+				console.log(data)
 				TImitateVisible.value = false
 				afterCalVisible.value = true
 				emits('showCalVisible')

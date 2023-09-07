@@ -1,3 +1,4 @@
+import { download } from '@/utils/request'
 import { addDateRange, oldDownload } from '@/utils/ruoyi'
 import type { FormInstance } from 'element-plus'
 import useCurrentInstance from '@/hooks/useCurrentInstance'
@@ -12,6 +13,11 @@ interface DeleteApiInstance {
 	deleteRowName?: string //自定义删除显示字段
 	deleteResetMes?: boolean //是否自定义删除显示
 	deleteMes?: string //删除显示文字
+}
+interface ExportParams {
+	api: string
+	params: () => any
+	title: string
 }
 
 export interface commonList<TData, Params> {
@@ -28,6 +34,7 @@ export interface commonList<TData, Params> {
 	resetDeleteParams?: (data: any) => any
 	beforeDeleteFun?: (data: any) => boolean
 	exportFun?: (param: any) => Promise<any>
+	exportParams?: ExportParams
 	resetExportParams?: (data: any) => any
 }
 
@@ -48,6 +55,7 @@ export interface ListResult<TData, Params> {
 	handleSelectionChange: (data?: TData[]) => void
 	handleDelete: (data?: any) => void
 	handleExport: (data?: any) => void
+	downLoadFire: () => Promise<void>
 }
 
 /**
@@ -65,6 +73,7 @@ export interface ListResult<TData, Params> {
  * @param resetDeleteParams 自定义传入接口参数
  * @param beforeDeleteFun 删除前调用
  * @param exportFun 导出接口
+ * @param exportParams 新导出方法参数
  * @param resetExportParams 自定义导出接口参数
  * @returns {{handleQuery: ((function(): Promise<void>)|*), handleSelectionChange: handleSelectionChange, handleExport: handleExport, queryParams: *, dateRange: *, multiple: *, loading: *, handleDelete: handleDelete, single: *, total: *, selections: *, getList: ((function(): Promise<void>)|*), resetQuery: ((function(): Promise<void>)|*), dataList: *, ids: *}}
  */
@@ -87,6 +96,7 @@ const useList = <TData = any, Params = any>({
 	resetDeleteParams,
 	beforeDeleteFun,
 	exportFun,
+	exportParams,
 	resetExportParams,
 }: commonList<TData, Params>): ListResult<TData, Params> => {
 	const { proxy } = useCurrentInstance()
@@ -191,7 +201,7 @@ const useList = <TData = any, Params = any>({
 				.catch(() => {})
 		}
 	}
-
+	// 原导出
 	const handleExport = (row: any) => {
 		if (typeof exportFun === 'function') {
 			proxy.$modal
@@ -208,6 +218,12 @@ const useList = <TData = any, Params = any>({
 					oldDownload(res.msg)
 				})
 		}
+	}
+	// 新导出
+	const downLoadFire = async () => {
+		if (!exportParams) return
+		const params = exportParams.params()
+		await download(exportParams.api, params, exportParams.title)
 	}
 
 	return {
@@ -227,6 +243,7 @@ const useList = <TData = any, Params = any>({
 		handleSelectionChange,
 		handleDelete,
 		handleExport,
+		downLoadFire,
 	}
 }
 

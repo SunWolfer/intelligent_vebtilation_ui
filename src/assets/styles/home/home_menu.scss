@@ -1,7 +1,8 @@
 .home_menu {
 	position: absolute;
 	bottom: vh(45);
-	width: 100%;
+	left: vw(600);
+	width: max-content;
 	height: vh(40);
 	display: grid;
 	grid-template-columns: repeat(5, vw(126)) vw(180) vw(126);
