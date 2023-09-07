@@ -3,10 +3,10 @@
   position: relative;
   width: 100%;
   height: 100%;
-  padding: vh(48) vw(60) vh(50) vw(104);
+  padding: vh(15) vw(60) vh(15) vw(104);
   display: grid;
   grid-template-columns: vw(612) vw(852) vw(651);
-  grid-template-rows: vh(462) vh(84) vh(308);
+  grid-template-rows: vh(462) vh(64) 1fr vh(50);
   justify-content: space-between;
 }
 
@@ -48,4 +48,7 @@
 }
 .fau_net_body_l3{
   grid-column: 1/4;
+}
+.pagination-container{
+  grid-area: 4/1/5/5;
 }

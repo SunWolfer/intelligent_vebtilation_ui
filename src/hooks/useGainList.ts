@@ -1,21 +1,24 @@
 import { Ref } from 'vue/dist/vue'
 
 export type gainList<TData, TParams> = {
+	automatic: boolean
 	apiFun: (param?: TParams) => Promise<IApiResponseDataList<TData>>
 	queryArgs?: { [key: string]: any }
 	afterReadyDataFun?: (data: TData[]) => void
 }
 
-interface gainListResult<TData> {
+interface gainListResult<TData, Params> {
 	dataList: Ref<TData[]>
+	queryParams: Ref<Params>
 	queryDataList: () => Promise<void>
 }
 
 export function useGainList<TData = any, TParams = any>({
+	automatic = true,
 	apiFun,
 	queryArgs = {},
 	afterReadyDataFun,
-}: gainList<TData, TParams>): gainListResult<TData> {
+}: gainList<TData, TParams>): gainListResult<TData, TParams> {
 	const dataList: Ref<TData[]> = ref([])
 	const queryParams = ref<any>({ ...queryArgs })
 
@@ -27,11 +30,14 @@ export function useGainList<TData = any, TParams = any>({
 		}
 	}
 
-	onMounted(() => {
-		queryDataList()
+	onMounted(async () => {
+		if (automatic) {
+			await queryDataList()
+		}
 	})
 
 	return {
+		queryParams,
 		dataList,
 		queryDataList,
 	}

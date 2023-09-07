@@ -4,93 +4,43 @@ import {
 	getType1PieChart,
 } from '@/api/request/intelFaultDiagnosis/chartsUtils'
 import { defaultBarChart } from '@/utils/echarts/defaultBarCharts'
-import useResetCharts from '@/hooks/useResetCharts'
 import { dynamicWidth } from '@/utils/ruoyi'
+import useList from '@/hooks/useList'
+import {
+	delWarn,
+	findYjdwTopFive,
+	findYjlxDict,
+	findYjlxPieChart,
+	monthTrend,
+	roadListView,
+} from '@/api/api/intelFaultDiagnosis'
+import { useGainList } from '@/hooks/useGainList'
+import useResetCharts from '@/hooks/useResetCharts'
 
 export const fauDiaOfVentNetwork = () => {
 	//   预警巷道列表
-	const warnTunnelList = ref([
-		{
-			name: '1302回风绕道',
-			value: '1',
-		},
-		{
-			name: '1002辅运大巷',
-			value: '1',
-		},
-		{
-			name: '10112采空区',
-			value: '2',
-		},
-		{
-			name: '1002辅运大巷',
-			value: '1',
-		},
-		{
-			name: '1003辅运大巷',
-			value: '1',
-		},
-	])
+	const warnTunnelList = ref([])
 
-	const initTunnelChart = () => {
+	const initTunnelChart = async () => {
+		const { data } = await findYjdwTopFive({
+			mainType: '3',
+		})
+		warnTunnelList.value = data.map((i) => {
+			return {
+				name: i.devName,
+				value: i.zs,
+			}
+		})
 		getCrosswiseBarChart('fan_net_chart_1', warnTunnelList.value)
 	}
-
+	const { showCharts: showTunnelChart } = useResetCharts(initTunnelChart)
 	// 预警趋势列表
-	const warnTrendList = ref([
-		{
-			label: '1月',
-			value: Math.random() * 100,
-		},
-		{
-			label: '2月',
-			value: Math.random() * 100,
-		},
-		{
-			label: '3月',
-			value: Math.random() * 100,
-		},
-		{
-			label: '4月',
-			value: Math.random() * 100,
-		},
-		{
-			label: '5月',
-			value: Math.random() * 100,
-		},
-		{
-			label: '6月',
-			value: Math.random() * 100,
-		},
-		{
-			label: '7月',
-			value: Math.random() * 100,
-		},
-		{
-			label: '8月',
-			value: Math.random() * 100,
-		},
-		{
-			label: '9月',
-			value: Math.random() * 100,
-		},
-		{
-			label: '10月',
-			value: Math.random() * 100,
-		},
-		{
-			label: '11月',
-			value: Math.random() * 100,
-		},
-		{
-			label: '12月',
-			value: Math.random() * 100,
-		},
-	])
-
-	const initTrendChart = () => {
-		const xData = warnTrendList.value.map((i) => i.label)
-		const yDataList = warnTrendList.value.map((i) => i.value)
+	const initTrendChart = async () => {
+		const { data } = await monthTrend({
+			mainType: '3',
+		})
+		const xData = data.lineX
+		const yDataList = data.value
 		defaultBarChart({
 			domId: 'fan_net_chart_2',
 			xData: xData,
@@ -100,71 +50,58 @@ export const fauDiaOfVentNetwork = () => {
 			showSplitArea: true,
 		})
 	}
+	const { showCharts: showTrendChart } = useResetCharts(initTrendChart)
 
 	// 预警类型
-	const warnTypeList = ref([
-		{
-			name: '风量不足',
-			value: '8',
-		},
-		{
-			name: '风量超限',
-			value: '7',
-		},
-		{
-			name: '微风',
-			value: '4',
-		},
-		{
-			name: '循环风',
-			value: '3',
-		},
-		{
-			name: '风流短路',
-			value: '2',
-		},
-		{
-			name: '反向风',
-			value: '1',
-		},
-	])
-	const initTypeChart = () => {
+	const warnTypeList = ref([])
+	const initTypeChart = async () => {
+		const { data } = await findYjlxPieChart({
+			mainType: '3',
+		})
+		warnTypeList.value = data
 		getType1PieChart('fan_net_chart_3', warnTypeList.value)
 	}
-	// 日期
-	const dateRange = ref([])
-	//   表单
-	const dataForm = ref({
-		warnType: '',
-		warnEquipment: '',
-		eqType: '',
-		dateTime: '',
-	})
-	//   预警列表
-	const dataList = ref([
-		{
-			warnType: '1',
-			warnTunnel: '',
-			warnLevel: '1',
-			dateTime: '',
-		},
-	])
+	const { showCharts: showTypeChart } = useResetCharts(initTypeChart)
 	const warnLevelList = new Map([
-		['1', [colors[0], '1级']],
-		['2', [colors[1], '2级']],
-		['3', [colors[2], '3级']],
-		['4', [colors[3], '4级']],
-		['5', [colors[4], '5级']],
+		[1, [colors[0], '1级']],
+		[2, [colors[1], '2级']],
+		[3, [colors[2], '3级']],
+		[4, [colors[3], '4级']],
+		[5, [colors[4], '5级']],
 	])
 
+	const { dateRange, dataList, queryParams, total, handleQuery, getList, handleDelete } = useList({
+		apiFun: roadListView,
+		params: {
+			yjlx: '',
+			devName: '',
+			pageNum: 1,
+			pageSize: 10,
+		},
+		deleteFun: delWarn,
+	})
+
+	// 预警类型
+	const { dataList: YJLXList } = useGainList({
+		apiFun: findYjlxDict,
+		queryArgs: {
+			devType: 'road',
+		},
+	})
+
 	return {
-		initTunnelChart,
-		initTrendChart,
-		initTypeChart,
+		showTunnelChart,
+		showTrendChart,
+		showTypeChart,
 		warnTunnelList,
-		dateRange,
-		dataForm,
-		dataList,
 		warnLevelList,
+		dateRange,
+		dataList,
+		queryParams,
+		total,
+		handleQuery,
+		getList,
+		handleDelete,
+		YJLXList,
 	}
 }
