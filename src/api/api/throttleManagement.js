@@ -36,9 +36,9 @@ export function updateThrottle(data) {
 }
 
 // 删除风门配置
-export function delThrottle(configId) {
+export function delThrottle(id) {
 	return request({
-		url: '/api/door/info/' + configId,
+		url: '/api/door/info/' + id,
 		method: 'delete',
 	})
 }

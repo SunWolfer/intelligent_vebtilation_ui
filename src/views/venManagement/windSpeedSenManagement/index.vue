@@ -3,6 +3,14 @@
 	import useList from '@/hooks/useList'
 	import { useForm } from '@/hooks/useForm'
 	import CorMultiParSensor from '@/views/venManagement/windSpeedSenManagement/corMultiParSensor.vue'
+	import {
+		addWindSpeed,
+		delWindSpeed,
+		getWindSpeed,
+		listWindSpeed,
+		updateWindSpeed,
+	} from '@/api/api/windSpeedSenManagement'
+	import WindSpeedConfig from '@/views/venManagement/windSpeedSenManagement/windSpeedConfig.vue'
 
 	const {
 		queryParams,
@@ -13,25 +21,24 @@
 		handleSelectionChange,
 		handleDelete,
 	} = useList({
-		apiFun: () => {},
+		apiFun: listWindSpeed,
 		params: {
 			pageNum: 1,
 			pageSize: 10,
-			position: undefined,
-			ip: undefined,
+			name: undefined,
+			code: undefined,
+			location: undefined,
+			ipAddr: undefined,
 		},
-		deleteFun: () => {},
-	})
-	onMounted(() => {
-		dataList.value.push({})
+		deleteFun: delWindSpeed,
 	})
 
 	const rules = ref({
 		name: [{ required: true, message: '传感器名称不能为空', trigger: 'blur' }],
-		position: [{ required: true, message: '安装位置不能为空', trigger: 'blur' }],
-		ip: [{ required: true, message: 'ip不能为空', trigger: 'blur' }],
-		tunnel: [{ required: true, message: '巷道不能为空', trigger: 'blur' }],
-		area: [{ required: true, message: '断面积不能为空', trigger: 'blur' }],
+		location: [{ required: true, message: '安装位置不能为空', trigger: 'blur' }],
+		ipAddr: [{ required: true, message: 'ip不能为空', trigger: 'blur' }],
+		windArea: [{ required: true, message: '巷道不能为空', trigger: 'blur' }],
+		surface: [{ required: true, message: '断面积不能为空', trigger: 'blur' }],
 		code: [{ required: true, message: '编码不能为空', trigger: 'blur' }],
 	})
 	// 新增修改操作
@@ -39,22 +46,23 @@
 		formParams: {
 			id: undefined,
 			name: undefined,
-			position: undefined,
-			ip: undefined,
+			location: undefined,
+			ipAddr: undefined,
 			port: undefined,
-			tunnel: undefined,
-			area: undefined,
+			windArea: undefined,
+			surface: undefined,
 			code: undefined,
-			upperLimit: undefined,
-			lowerLimit: undefined,
-			xPosition: undefined,
-			yPosition: undefined,
+			maxSpeed: undefined,
+			minSpeed: undefined,
+			pointX: undefined,
+			pointY: undefined,
+			pointZ: undefined,
 			videoUrl: undefined,
 		},
 		titleMes: '风速传感器',
-		initApi: () => {},
-		updateApi: () => {},
-		addApi: () => {},
+		initApi: getWindSpeed,
+		updateApi: updateWindSpeed,
+		addApi: addWindSpeed,
 		afterAddFun: handleQuery,
 		afterUpdateFun: handleQuery,
 	})
@@ -62,43 +70,57 @@
 	const {
 		formRef: examineFormRef,
 		form: examineForm,
-		examineTitle,
+		title: examineTitle,
 		examine,
 		handleExamine,
 	} = useForm({
 		formParams: {
 			id: undefined,
 			name: undefined,
-			position: undefined,
-			ip: undefined,
+			location: undefined,
+			ipAddr: undefined,
 			port: undefined,
-			tunnel: undefined,
-			area: undefined,
+			windArea: undefined,
+			surface: undefined,
 			code: undefined,
-			upperLimit: undefined,
-			lowerLimit: undefined,
-			xPosition: undefined,
-			yPosition: undefined,
+			maxSpeed: undefined,
+			minSpeed: undefined,
+			pointX: undefined,
+			pointY: undefined,
+			pointZ: undefined,
 			videoUrl: undefined,
 		},
 		titleMes: '风速传感器',
-		initApi: () => {},
+		initApi: getWindSpeed,
 	})
 	//   关联多参传感器
 	const corSensorVisible = ref(false)
 	const showCorSensorVisible = (row) => {
 		corSensorVisible.value = true
 	}
+	//   测风传感器配置
+	const configVisible = ref(false)
+	const chooseRow = ref({})
+	const configHandle = (row) => {
+		chooseRow.value = row
+		configVisible.value = true
+	}
 </script>
 
 <template>
 	<div class="table_page_default">
 		<el-form :model="queryParams" inline>
+			<el-form-item label="传感器名称">
+				<el-input v-model="queryParams.name"></el-input>
+			</el-form-item>
+			<el-form-item label="传感器编号">
+				<el-input v-model="queryParams.code"></el-input>
+			</el-form-item>
 			<el-form-item label="安装位置">
-				<el-input v-model="queryParams.position"></el-input>
+				<el-input v-model="queryParams.location"></el-input>
 			</el-form-item>
 			<el-form-item label="IP地址">
-				<el-input v-model="queryParams.ip"></el-input>
+				<el-input v-model="queryParams.ipAddr"></el-input>
 			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">查询</div>
@@ -112,15 +134,15 @@
 			<el-table-column type="selection" width="55" align="center" />
 			<el-table-column label="风速传感器编码" align="center" prop="code" />
 			<el-table-column label="风速传感器名称" align="center" prop="name" />
-			<el-table-column label="安装位置" align="center" prop="position" />
-			<el-table-column label="IP地址" align="center" prop="ip" />
-			<el-table-column label="监测巷道" align="center" prop="tunnel" />
-			<el-table-column label="断面积(㎡)" align="center" prop="area" />
-			<el-table-column label="风速上限" align="center" prop="upperLimit" />
-			<el-table-column label="风速下限" align="center" prop="lowerLimit" />
+			<el-table-column label="安装位置" align="center" prop="location" />
+			<el-table-column label="IP地址" align="center" prop="ipAddr" />
+			<el-table-column label="监测巷道" align="center" prop="windArea" />
+			<el-table-column label="断面积(㎡)" align="center" prop="surface" />
+			<el-table-column label="风速上限" align="center" prop="maxSpeed" />
+			<el-table-column label="风速下限" align="center" prop="minSpeed" />
 			<el-table-column label="操作" align="center" width="320">
 				<template #default="scope">
-					<el-button type="primary" link>配置</el-button>
+					<el-button type="primary" link @click="configHandle(scope.row)">配置</el-button>
 					<el-button type="primary" link @click="showCorSensorVisible(scope.row)"
 						>关联多参传感器</el-button
 					>
@@ -161,36 +183,39 @@
 				<el-form-item label="风速传感器名称" prop="name">
 					<el-input v-model="form.name"></el-input>
 				</el-form-item>
-				<el-form-item label="安装位置" prop="position">
-					<el-input v-model="form.position"></el-input>
+				<el-form-item label="安装位置" prop="location">
+					<el-input v-model="form.location"></el-input>
 				</el-form-item>
-				<el-form-item label="风速传感器IP" prop="ip">
-					<el-input v-model="form.ip"></el-input>
+				<el-form-item label="风速传感器IP" prop="ipAddr">
+					<el-input v-model="form.ipAddr"></el-input>
 				</el-form-item>
 				<el-form-item label="&ensp;端口" prop="port">
 					<el-input v-model="form.port"></el-input>
 				</el-form-item>
-				<el-form-item label="监测巷道" prop="tunnel">
-					<el-input v-model="form.tunnel"></el-input>
+				<el-form-item label="监测巷道" prop="windArea">
+					<el-input v-model="form.windArea"></el-input>
 				</el-form-item>
-				<el-form-item label="断面积" prop="area"
-					><el-input v-model="form.area"></el-input
+				<el-form-item label="断面积" prop="surface"
+					><el-input v-model="form.surface"></el-input
 				></el-form-item>
 				<el-form-item label="风速传感器编码" prop="code">
 					<el-input v-model="form.code"></el-input>
 				</el-form-item>
 				<el-form-item></el-form-item>
-				<el-form-item label="&ensp;风速上限" prop="upperLimit">
-					<el-input v-model="form.upperLimit"></el-input>
+				<el-form-item label="&ensp;风速上限" prop="maxSpeed">
+					<el-input v-model="form.maxSpeed"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;风速下限" prop="lowerLimit">
-					<el-input v-model="form.lowerLimit"></el-input>
+				<el-form-item label="&ensp;风速下限" prop="minSpeed">
+					<el-input v-model="form.minSpeed"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;X坐标" prop="xPosition">
-					<el-input v-model="form.xPosition"></el-input>
+				<el-form-item label="&ensp;X坐标" prop="pointX">
+					<el-input v-model="form.pointX"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;Y坐标" prop="yPosition">
-					<el-input v-model="form.yPosition"></el-input>
+				<el-form-item label="&ensp;Y坐标" prop="pointY">
+					<el-input v-model="form.pointY"></el-input>
+				</el-form-item>
+				<el-form-item label="&ensp;Z坐标" prop="pointZ">
+					<el-input v-model="form.pointZ"></el-input>
 				</el-form-item>
 				<el-form-item label="&ensp;视频地址" prop="videoUrl" class="table_page_form_row">
 					<el-input v-model="form.videoUrl"></el-input>
@@ -209,36 +234,39 @@
 				<el-form-item label="风速传感器名称" prop="name">
 					<el-input disabled v-model="examineForm.name"></el-input>
 				</el-form-item>
-				<el-form-item label="安装位置" prop="position">
-					<el-input disabled v-model="examineForm.position"></el-input>
+				<el-form-item label="安装位置" prop="location">
+					<el-input disabled v-model="examineForm.location"></el-input>
 				</el-form-item>
-				<el-form-item label="风速传感器IP" prop="ip">
-					<el-input disabled v-model="examineForm.ip"></el-input>
+				<el-form-item label="风速传感器IP" prop="ipAddr">
+					<el-input disabled v-model="examineForm.ipAddr"></el-input>
 				</el-form-item>
 				<el-form-item label="端口" prop="port">
 					<el-input disabled v-model="examineForm.port"></el-input>
 				</el-form-item>
-				<el-form-item label="监测巷道" prop="tunnel">
-					<el-input disabled v-model="examineForm.tunnel"></el-input>
+				<el-form-item label="监测巷道" prop="windArea">
+					<el-input disabled v-model="examineForm.windArea"></el-input>
 				</el-form-item>
-				<el-form-item label="断面积" prop="area"
-					><el-input disabled v-model="examineForm.area"></el-input
+				<el-form-item label="断面积" prop="surface"
+					><el-input disabled v-model="examineForm.surface"></el-input
 				></el-form-item>
 				<el-form-item label="风速传感器编码" prop="code">
 					<el-input disabled v-model="examineForm.code"></el-input>
 				</el-form-item>
 				<el-form-item></el-form-item>
-				<el-form-item label="风速上限" prop="upperLimit">
-					<el-input disabled v-model="examineForm.upperLimit"></el-input>
+				<el-form-item label="风速上限" prop="maxSpeed">
+					<el-input disabled v-model="examineForm.maxSpeed"></el-input>
 				</el-form-item>
-				<el-form-item label="风速下限" prop="lowerLimit">
-					<el-input disabled v-model="examineForm.lowerLimit"></el-input>
+				<el-form-item label="风速下限" prop="minSpeed">
+					<el-input disabled v-model="examineForm.minSpeed"></el-input>
 				</el-form-item>
-				<el-form-item label="X坐标" prop="xPosition">
-					<el-input disabled v-model="examineForm.xPosition"></el-input>
+				<el-form-item label="X坐标" prop="pointX">
+					<el-input disabled v-model="examineForm.pointX"></el-input>
 				</el-form-item>
-				<el-form-item label="Y坐标" prop="yPosition">
-					<el-input disabled v-model="examineForm.yPosition"></el-input>
+				<el-form-item label="Y坐标" prop="pointY">
+					<el-input disabled v-model="examineForm.pointY"></el-input>
+				</el-form-item>
+				<el-form-item label="Z坐标" prop="pointZ">
+					<el-input disabled v-model="examineForm.pointZ"></el-input>
 				</el-form-item>
 				<el-form-item label="视频地址" prop="videoUrl" class="table_page_form_row">
 					<el-input disabled v-model="examineForm.videoUrl"></el-input>
@@ -247,6 +275,13 @@
 		</dia-log>
 		<!--    关联多参传感器-->
 		<cor-multi-par-sensor v-if="corSensorVisible" v-model="corSensorVisible" />
+		<!--    传感器配置-->
+		<WindSpeedConfig
+			v-if="configVisible"
+			v-model="configVisible"
+			:choose-row="chooseRow"
+			title="测风传感器配置"
+		/>
 	</div>
 </template>
 

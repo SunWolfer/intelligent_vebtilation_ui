@@ -2,6 +2,15 @@
 <script setup>
 	import useList from '@/hooks/useList'
 	import { useForm } from '@/hooks/useForm'
+	import {
+		addWindMea,
+		delWindMea,
+		getWindMea,
+		listWindMea,
+		updateWindMea,
+	} from '@/api/api/windMeaStaManagement'
+	import WindMeaStaConfig from '@/views/venManagement/windMeaStaManagement/windMeaStaConfig.vue'
+	import WindMeaKanban from '@/views/venManagement/windMeaStaManagement/windMeaKanban.vue'
 
 	const {
 		queryParams,
@@ -12,22 +21,24 @@
 		handleSelectionChange,
 		handleDelete,
 	} = useList({
-		apiFun: () => {},
+		apiFun: listWindMea,
 		params: {
 			pageNum: 1,
 			pageSize: 10,
-			position: undefined,
-			ip: undefined,
+			name: '',
+			code: '',
+			location: undefined,
+			ipAddr: undefined,
 		},
-		deleteFun: () => {},
+		deleteFun: delWindMea,
 	})
 
 	const rules = ref({
 		name: [{ required: true, message: '测风站名称不能为空', trigger: 'blur' }],
-		position: [{ required: true, message: '安装位置不能为空', trigger: 'blur' }],
-		ip: [{ required: true, message: '测风站ip不能为空', trigger: 'blur' }],
-		monitoringArea: [{ required: true, message: '监测区域不能为空', trigger: 'blur' }],
-		sectionalArea: [{ required: true, message: '断面积不能为空', trigger: 'blur' }],
+		location: [{ required: true, message: '安装位置不能为空', trigger: 'blur' }],
+		ipAddr: [{ required: true, message: '测风站ip不能为空', trigger: 'blur' }],
+		windArea: [{ required: true, message: '监测区域不能为空', trigger: 'blur' }],
+		surface: [{ required: true, message: '断面积不能为空', trigger: 'blur' }],
 		code: [{ required: true, message: '编码不能为空', trigger: 'blur' }],
 	})
 	// 新增修改操作
@@ -35,22 +46,23 @@
 		formParams: {
 			id: undefined,
 			name: undefined,
-			position: undefined,
-			ip: undefined,
+			location: undefined,
+			ipAddr: undefined,
 			port: undefined,
-			monitoringArea: undefined,
-			sectionalArea: undefined,
+			windArea: undefined,
+			surface: undefined,
 			code: undefined,
-			upperLimit: undefined,
-			lowerLimit: undefined,
-			xPosition: undefined,
-			yPosition: undefined,
+			maxSpeed: undefined,
+			minSpeed: undefined,
+			pointX: undefined,
+			pointY: undefined,
+			pointZ: undefined,
 			videoUrl: undefined,
 		},
 		titleMes: '测风站',
-		initApi: () => {},
-		updateApi: () => {},
-		addApi: () => {},
+		initApi: getWindMea,
+		updateApi: updateWindMea,
+		addApi: addWindMea,
 		afterAddFun: handleQuery,
 		afterUpdateFun: handleQuery,
 	})
@@ -58,38 +70,59 @@
 	const {
 		formRef: examineFormRef,
 		form: examineForm,
-		examineTitle,
+		title: examineTitle,
 		examine,
 		handleExamine,
 	} = useForm({
 		formParams: {
 			id: undefined,
 			name: undefined,
-			position: undefined,
-			ip: undefined,
+			location: undefined,
+			ipAddr: undefined,
 			port: undefined,
-			monitoringArea: undefined,
-			sectionalArea: undefined,
+			windArea: undefined,
+			surface: undefined,
 			code: undefined,
-			upperLimit: undefined,
-			lowerLimit: undefined,
-			xPosition: undefined,
-			yPosition: undefined,
+			maxSpeed: undefined,
+			minSpeed: undefined,
+			pointX: undefined,
+			pointY: undefined,
+			pointZ: undefined,
 			videoUrl: undefined,
 		},
 		titleMes: '测风站',
-		initApi: () => {},
+		initApi: getWindMea,
 	})
+
+	//   测风站配置
+	const configVisible = ref(false)
+	const chooseRow = ref({})
+	const configHandle = (row) => {
+		chooseRow.value = row
+		configVisible.value = true
+	}
+	//   看板编辑
+	const kanbanVisible = ref(false)
+	const kanbanHandle = (row) => {
+		chooseRow.value = row
+		kanbanVisible.value = true
+	}
 </script>
 
 <template>
 	<div class="table_page_default">
 		<el-form :model="queryParams" inline>
+			<el-form-item label="测风站名称">
+				<el-input v-model="queryParams.name"></el-input>
+			</el-form-item>
+			<el-form-item label="测风站编号">
+				<el-input v-model="queryParams.code"></el-input>
+			</el-form-item>
 			<el-form-item label="安装位置">
-				<el-input v-model="queryParams.position"></el-input>
+				<el-input v-model="queryParams.location"></el-input>
 			</el-form-item>
 			<el-form-item label="IP地址">
-				<el-input v-model="queryParams.ip"></el-input>
+				<el-input v-model="queryParams.ipAddr"></el-input>
 			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">查询</div>
@@ -103,15 +136,16 @@
 			<el-table-column type="selection" width="55" align="center" />
 			<el-table-column label="测风站编码" align="center" prop="code" />
 			<el-table-column label="测风站名称" align="center" prop="name" />
-			<el-table-column label="测风站位置" align="center" prop="position" />
-			<el-table-column label="IP地址" align="center" prop="ip" />
-			<el-table-column label="监测区域" align="center" prop="monitoringArea" />
-			<el-table-column label="断面积(㎡)" align="center" prop="sectionalArea" />
-			<el-table-column label="风速上限" align="center" prop="upperLimit" />
-			<el-table-column label="风速下限" align="center" prop="lowerLimit" />
-			<el-table-column label="操作" align="center" width="150">
+			<el-table-column label="测风站位置" align="center" prop="location" />
+			<el-table-column label="IP地址" align="center" prop="ipAddr" />
+			<el-table-column label="监测区域" align="center" prop="windArea" />
+			<el-table-column label="断面积(㎡)" align="center" prop="surface" />
+			<el-table-column label="风速上限" align="center" prop="maxSpeed" />
+			<el-table-column label="风速下限" align="center" prop="minSpeed" />
+			<el-table-column label="操作" align="center" min-width="220">
 				<template #default="scope">
-					<el-button type="primary" link>配置</el-button>
+					<el-button type="primary" link @click="kanbanHandle(scope.row)">看板</el-button>
+					<el-button type="primary" link @click="configHandle(scope.row)">配置</el-button>
 					<el-button type="primary" link @click="handleExamine(scope.row)">查看</el-button>
 					<el-button type="primary" link @click="handleUpdate(scope.row)">修改</el-button>
 					<el-button type="primary" link @click="handleDelete(scope.row)">删除</el-button>
@@ -150,36 +184,39 @@
 				<el-form-item label="风速传感器名称" prop="name">
 					<el-input v-model="form.name"></el-input>
 				</el-form-item>
-				<el-form-item label="安装位置" prop="position">
-					<el-input v-model="form.position"></el-input>
+				<el-form-item label="安装位置" prop="location">
+					<el-input v-model="form.location"></el-input>
 				</el-form-item>
-				<el-form-item label="风速传感器IP" prop="ip">
-					<el-input v-model="form.ip"></el-input>
+				<el-form-item label="风速传感器IP" prop="ipAddr">
+					<el-input v-model="form.ipAddr"></el-input>
 				</el-form-item>
 				<el-form-item label="&ensp;端口" prop="port">
 					<el-input v-model="form.port"></el-input>
 				</el-form-item>
-				<el-form-item label="监测区域" prop="monitoringArea">
-					<el-input v-model="form.monitoringArea"></el-input>
+				<el-form-item label="监测区域" prop="windArea">
+					<el-input v-model="form.windArea"></el-input>
 				</el-form-item>
-				<el-form-item label="断面积(㎡)" prop="sectionalArea"
-					><el-input v-model="form.sectionalArea"></el-input
+				<el-form-item label="断面积(㎡)" prop="surface"
+					><el-input v-model="form.surface"></el-input
 				></el-form-item>
 				<el-form-item label="测风站编码" prop="code">
 					<el-input v-model="form.code"></el-input>
 				</el-form-item>
 				<el-form-item></el-form-item>
-				<el-form-item label="&ensp;风速上限" prop="upperLimit">
-					<el-input v-model="form.upperLimit"></el-input>
+				<el-form-item label="&ensp;风速上限" prop="maxSpeed">
+					<el-input v-model="form.maxSpeed"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;风速下限" prop="lowerLimit">
-					<el-input v-model="form.lowerLimit"></el-input>
+				<el-form-item label="&ensp;风速下限" prop="minSpeed">
+					<el-input v-model="form.minSpeed"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;X坐标" prop="xPosition">
-					<el-input v-model="form.xPosition"></el-input>
+				<el-form-item label="&ensp;X坐标" prop="pointX">
+					<el-input v-model="form.pointX"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;Y坐标" prop="yPosition">
-					<el-input v-model="form.yPosition"></el-input>
+				<el-form-item label="&ensp;Y坐标" prop="pointY">
+					<el-input v-model="form.pointY"></el-input>
+				</el-form-item>
+				<el-form-item label="&ensp;Z坐标" prop="pointZ">
+					<el-input v-model="form.pointZ"></el-input>
 				</el-form-item>
 				<el-form-item label="&ensp;视频地址" prop="videoUrl" class="table_page_form_row">
 					<el-input v-model="form.videoUrl"></el-input>
@@ -198,42 +235,48 @@
 				<el-form-item label="风速传感器名称" prop="name">
 					<el-input disabled v-model="examineForm.name"></el-input>
 				</el-form-item>
-				<el-form-item label="安装位置" prop="position">
-					<el-input disabled v-model="examineForm.position"></el-input>
+				<el-form-item label="安装位置" prop="location">
+					<el-input disabled v-model="examineForm.location"></el-input>
 				</el-form-item>
-				<el-form-item label="风速传感器IP" prop="ip">
-					<el-input disabled v-model="examineForm.ip"></el-input>
+				<el-form-item label="风速传感器IP" prop="ipAddr">
+					<el-input disabled v-model="examineForm.ipAddr"></el-input>
 				</el-form-item>
 				<el-form-item label="端口" prop="port">
 					<el-input disabled v-model="examineForm.port"></el-input>
 				</el-form-item>
-				<el-form-item label="监测区域" prop="monitoringArea">
-					<el-input v-model="form.monitoringArea"></el-input>
+				<el-form-item label="监测区域" prop="windArea">
+					<el-input v-model="form.windArea"></el-input>
 				</el-form-item>
-				<el-form-item label="断面积(㎡)" prop="sectionalArea"
-					><el-input v-model="form.sectionalArea"></el-input
+				<el-form-item label="断面积(㎡)" prop="surface"
+					><el-input v-model="form.surface"></el-input
 				></el-form-item>
 				<el-form-item label="测风站编码" prop="code">
 					<el-input disabled v-model="examineForm.code"></el-input>
 				</el-form-item>
 				<el-form-item></el-form-item>
-				<el-form-item label="风速上限" prop="upperLimit">
-					<el-input disabled v-model="examineForm.upperLimit"></el-input>
+				<el-form-item label="风速上限" prop="maxSpeed">
+					<el-input disabled v-model="examineForm.maxSpeed"></el-input>
 				</el-form-item>
-				<el-form-item label="风速下限" prop="lowerLimit">
-					<el-input disabled v-model="examineForm.lowerLimit"></el-input>
+				<el-form-item label="风速下限" prop="minSpeed">
+					<el-input disabled v-model="examineForm.minSpeed"></el-input>
 				</el-form-item>
-				<el-form-item label="X坐标" prop="xPosition">
-					<el-input disabled v-model="examineForm.xPosition"></el-input>
+				<el-form-item label="X坐标" prop="pointX">
+					<el-input disabled v-model="examineForm.pointX"></el-input>
 				</el-form-item>
-				<el-form-item label="Y坐标" prop="yPosition">
-					<el-input disabled v-model="examineForm.yPosition"></el-input>
+				<el-form-item label="Y坐标" prop="pointY">
+					<el-input disabled v-model="examineForm.pointY"></el-input> </el-form-item
+				><el-form-item label="Z坐标" prop="pointZ">
+					<el-input disabled v-model="examineForm.pointZ"></el-input>
 				</el-form-item>
 				<el-form-item label="视频地址" prop="videoUrl" class="table_page_form_row">
 					<el-input disabled v-model="examineForm.videoUrl"></el-input>
 				</el-form-item>
 			</el-form>
 		</dia-log>
+		<!--    测风站配置-->
+		<WindMeaStaConfig v-if="configVisible" v-model="configVisible" :choose-row="chooseRow" />
+		<!--    看板数据-->
+		<WindMeaKanban v-if="kanbanVisible" v-model="kanbanVisible" :choose-row="chooseRow" />
 	</div>
 </template>
 

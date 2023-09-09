@@ -26,6 +26,7 @@
   display: grid;
   padding: 0 vw(20);
   grid-template-columns: repeat(2,1fr);
+  grid-template-rows: repeat(auto-fill,vh(45));
   grid-column-gap: vw(20);
   align-items: center;
   overflow-y: auto;

@@ -10,9 +10,9 @@ export function listWindow(query) {
 }
 
 // 查询风窗详细
-export function getWindow(configId) {
+export function getWindow(id) {
 	return request({
-		url: '/api/window/info/' + configId,
+		url: '/api/window/info/' + id,
 		method: 'get',
 	})
 }
