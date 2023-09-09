@@ -12,6 +12,7 @@
 	import useHomeMenu from '@/hooks/useHomeMenu'
 	import HomeDisPreRoute from '@/views/components/home/HomeDisPreRoute.vue'
 	import HomeDisaster from '@/views/components/home/HomeDisaster.vue'
+	import { useThreeModelData } from '@/hooks/useThreeModelData'
 
 	const {
 		threeRef,

@@ -1,10 +1,10 @@
 export const homeSolution = () => {
 	// 显示风量
-	const checkedWind = ref(true)
+	const checkedWind = ref(false)
 	// 显示风阻
-	const checkedWindAge = ref(true)
+	const checkedWindAge = ref(false)
 	// 显示风压
-	const checkedWindPressure = ref(true)
+	const checkedWindPressure = ref(false)
 
 	return {
 		checkedWind,

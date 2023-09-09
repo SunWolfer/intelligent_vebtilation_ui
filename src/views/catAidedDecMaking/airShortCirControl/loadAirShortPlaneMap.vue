@@ -1,27 +1,23 @@
 <script setup>
-	import { initMap } from '@/utils/ol'
 	import mapImg from '@/assets/images/catAidedDecMaking/windBg2.png'
+	import { useOpenlayers } from '@/hooks/useOpenlayers'
 
-	const mapData = ref({})
-	const iconLayer = ref({})
-	const texTent = [0, 0, 1259, 673]
-
-	function initialize() {
-		let datalayerList = [
-			{
-				paramlayer: mapImg,
-				type: 'img',
-			},
-		]
-		initMap(texTent, 'coalmap', mapData, [iconLayer], datalayerList, 1)
-	}
+	const { mapRef, textExtent, zoom, datalayerList, initMap } = useOpenlayers()
+	zoom.value = 2.5
+	textExtent.value = [0, 0, 1259, 673]
+	datalayerList.value = [
+		{
+			paramlayer: mapImg,
+			type: 'img',
+		},
+	]
 	onMounted(() => {
-		initialize()
+		initMap?.()
 	})
 </script>
 
 <template>
-	<div class="fullDom" id="coalmap"></div>
+	<div class="fullDom" ref="mapRef"></div>
 </template>
 
 <style scoped lang="scss"></style>

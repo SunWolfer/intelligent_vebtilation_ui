@@ -1,6 +1,6 @@
 <!--图纸管理-->
 <script setup>
-	import LoadDXF from '@/views/components/loadModel/loadDXF.vue'
+	import LoadDrawingPlaneMap from '@/views/venManagement/drawingManagement/loadDrawingPlaneMap.vue'
 
 	const dataList = ref([
 		{
@@ -77,7 +77,7 @@
 			</div>
 		</div>
 		<div class="fullDom">
-			<load-d-x-f />
+			<LoadDrawingPlaneMap />
 		</div>
 	</div>
 </template>

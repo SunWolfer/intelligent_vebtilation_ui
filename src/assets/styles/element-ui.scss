@@ -15,23 +15,23 @@ $input-hover: 0 0 10px 0 rgba(14, 252, 255, 0.77);
 $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 //输入框
 .el-input{
-	--el-input-hover-border-color: $sdt-el-color4;
-	--el-input-icon-color: $sdt-el-color4;
-	--el-input-bg-color: $sdt-el-color3;
-	--el-disabled-bg-color: $sdt-el-color3;
+	--el-input-hover-border-color: #{$sdt-el-color4};
+	--el-input-icon-color: #{$sdt-el-color4};
+	--el-input-bg-color: #{$sdt-el-color3};
+	--el-disabled-bg-color: #{$sdt-el-color3};
 	--el-input-text-color: #ffffff;
 	--el-disabled-border-color: rgba(19, 133, 224, 0.77);
 	padding: 1px;
 	box-shadow: 0 0 10px 4px rgba(19, 133, 224, 0.77) inset;
 	height: vh(32);
-	font-size: $form-font-size;
+	font-size: #{$form-font-size};
 
 	.el-input__wrapper {
 		padding: 1px 8px;
 		box-shadow: none;
-		background-color: $sdt-el-color3;
+		background-color: #{$sdt-el-color3};
 		&:hover {
-			box-shadow: $input-hover;
+			box-shadow: #{$input-hover};
 		}
 	}
 	.el-input-group__append {
@@ -39,7 +39,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 		box-shadow: none;
 	}
 	.el-input__suffix,.el-input__prefix {
-		color: $sdt-el-color4;
+		color: #{$sdt-el-color4};
 	}
 }
 .el-form {
@@ -47,7 +47,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 		margin-bottom: 0;
 		.el-form-item__label {
 			color: #ffffff;
-			font-size: $form-font-size;
+			font-size: #{$form-font-size};
 		}
 		.el-form-item__content {
 			.el-form-item__error{
@@ -56,8 +56,8 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 			}
 			.el-input-number__decrease,
 			.el-input-number__increase {
-				background-color: $sdt-el-color3;
-				color: $sdt-el-color4;
+				background-color: #{$sdt-el-color3};
+				color: #{$sdt-el-color4};
 				--el-disabled-border-color: #00e9ff;
 				--el-border: #00e9ff;
 			}
@@ -65,8 +65,8 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 			.el-textarea__inner {
 				--el-input-hover-border-color: rgba(14, 252, 255, 0.77);
 				--el-input-border-color: rgba(14, 252, 255, 0.77);
-				--el-input-bg-color: $sdt-el-color3;
-				--el-fill-color-blank: $sdt-el-color3;
+				--el-input-bg-color: #{$sdt-el-color3};
+				--el-fill-color-blank: #{$sdt-el-color3};
 				--el-input-text-color: #fff;
 				--el-text-color-regular: #fff;
 			}
@@ -78,7 +78,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 	--el-input-bg-color: 'rgba(19, 133, 224, 1)';
 	box-shadow: 0 0 10px 0 rgba(19, 133, 224, 0.77) inset;
 	border-radius: 4px;
-	font-size: $form-font-size;
+	font-size: #{$form-font-size};
 	line-height: vh(32);
 	height: vh(32);
 	.el-range__icon,.el-input__icon {
@@ -100,19 +100,19 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 	border-radius: 4px;
 
 	&:hover {
-		box-shadow: $input-hover;
+		box-shadow: #{$input-hover};
 	}
 }
 
 .el-select {
-	--el-border-color-hover: $sdt-el-color4;
+	--el-border-color-hover: #{$sdt-el-color4};
 	--el-select-disabled-border:none;
-	--el-color-info-light-9: $sdt-el-color3;
-	--el-fill-color: $sdt-el-color3;
+	--el-color-info-light-9: #{$sdt-el-color3};
+	--el-fill-color: #{$sdt-el-color3};
 	--el-color-info-light-8: #00e9ff;
-	--el-color-info: $sdt-el-color4;
+	--el-color-info: #{$sdt-el-color4};
 	&:hover {
-		box-shadow: $input-hover;
+		box-shadow: #{$input-hover};
 	}
 }
 .diaForm {
@@ -300,7 +300,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 		}
 		.el-input__wrapper {
 			background: rgba(6, 48, 109, 0.6);
-			box-shadow: $input-hover-insert;
+			box-shadow: #{$input-hover-insert};
 			.el-input__inner {
 				--el-input-text-color: #fefefe;
 			}
@@ -309,7 +309,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 		.btn-prev {
 			--el-pagination-button-bg-color: #19325c;
 			--el-text-color-regular: #36e5ff;
-			box-shadow: $input-hover-insert;
+			box-shadow: #{$input-hover-insert};
 		}
 		.btn-next:disabled,
 		.btn-prev:disabled {
@@ -317,7 +317,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 			--el-text-color-regular: #36e5ff;
 			--el-text-color-placeholder: #36e5ff;
 			--el-disabled-bg-color: #19325c;
-			box-shadow: $input-hover-insert;
+			box-shadow: #{$input-hover-insert};
 		}
 		.el-pager {
 			li {
@@ -327,7 +327,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 			}
 			li:not(.is-disabled).is-active {
 				--el-color-primary: #36e5ff;
-				box-shadow: $input-hover-insert;
+				box-shadow: #{$input-hover-insert};
 				--el-color-white: #07174b;
 			}
 		}

@@ -19,14 +19,14 @@ export const useWindNetCalculation = () => {
 			const wind = roadAllList.value[i]
 			let airQuantity = `解算风量：${wind.airVolume}m³/min`
 			let windage = `风阻：${wind.ventR}m/s`
-			let windPressure = `风压：${wind.airPressure}Kpa`
-			let text = `${airQuantity} ${windage} ${windPressure}`
+			let windPressure = `风压：${wind.airPressure ?? 0}Kpa`
+			let text = `${airQuantity} ${windage}`
 			fontList.value.push({
 				parent: wind.code,
 				text: text,
 				color: '#000',
 				size: 100,
-				height: 800,
+				height: 600,
 				planeColor: '#00ff00',
 			})
 			//   添加人工实测风量
@@ -39,7 +39,7 @@ export const useWindNetCalculation = () => {
 					text: text2,
 					color: '#000',
 					size: 100,
-					height: 600,
+					height: 800,
 					planeColor: '#00ffff',
 				})
 			}
@@ -51,7 +51,7 @@ export const useWindNetCalculation = () => {
 					text: text3,
 					color: '#000',
 					size: 100,
-					height: 400,
+					height: 1000,
 					planeColor: '#005aff',
 				})
 			}

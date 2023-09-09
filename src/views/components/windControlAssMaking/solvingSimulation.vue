@@ -2,7 +2,8 @@
 <script setup>
 	import AfterCalculation from '@/views/windControlAssMaking/naturalDisNetSolution/afterCalculation.vue'
 	import { useCommitForm } from '@/hooks/useForm'
-	import { naturedCalculateSimulate } from '@/api/api/naturalDisNetSolution'
+	import { naturedCalculateSimulate, reloadDrawing } from '@/api/api/naturalDisNetSolution'
+	import { useLoading } from '@/hooks/useLoading'
 
 	const props = defineProps({
 		// 显示解算模拟弹窗
@@ -55,7 +56,14 @@
 
 	// 显示解算后界面
 	const afterCalVisible = ref(false)
-
+	// 解算后巷道列表
+	const afterCalDataList = ref([])
+	// 风路分支图列表
+	const windBranchList = ref([])
+	// 通风网络图默认生成
+	const defaultNetWork = ref(true)
+	// 通风网络图重新生成地址
+	const reloadNetWorkUrl = ref('')
 	//   开始模拟
 	async function showAfterCalVisible() {
 		let commitFormList = []
@@ -73,16 +81,46 @@
 				],
 			})
 		}
-		console.log(commitFormList)
+		const { loading } = useLoading()
+		// 判断是否重新生成通风网络图
+		if (showVentilationNetwork.value) {
+			const hasNewTunnelList = commitFormList.filter((i) => {
+				return i.typeName === 'new'
+			})
+			defaultNetWork.value = hasNewTunnelList.length === 0
+			if (!defaultNetWork.value) {
+				await reloadNetWorkMap(hasNewTunnelList)
+			}
+		}
+
 		await useCommitForm(naturedCalculateSimulate, {
 			queryParams: commitFormList,
 			afterReadyDataFun: (data) => {
-				console.log(data)
+				afterCalDataList.value = data.roads
+				windBranchList.value = data.windBranch
+				loading.close()
 				TImitateVisible.value = false
 				afterCalVisible.value = true
 				emits('showCalVisible')
 			},
+			catchFun: () => {
+				loading.close()
+			},
 		})
+	}
+	// 重新加载通风网络图
+	const reloadNetWorkMap = async (list) => {
+		let newTunnel = []
+		for (let i = 0; i < list.length; i++) {
+			const children = list[i].children
+			for (let j = 0; j < children.length; j++) {
+				newTunnel.push({ ...children[j] })
+			}
+		}
+		const res = await reloadDrawing({
+			children: newTunnel,
+		})
+		if (res && res.msg) reloadNetWorkUrl.value = res.msg
 	}
 	//   关闭解算后界面
 	function cancelAfterCalVisible() {
@@ -141,6 +179,10 @@
 		v-model="afterCalVisible"
 		:show-ventilation-network="showVentilationNetwork"
 		:show-wind-branch="showWindBranch"
+		:data-list="afterCalDataList"
+		:wind-branch-list="windBranchList"
+		:default-net-work="defaultNetWork"
+		:reload-net-work-url="reloadNetWorkUrl"
 		@cancel="cancelAfterCalVisible"
 	/>
 </template>

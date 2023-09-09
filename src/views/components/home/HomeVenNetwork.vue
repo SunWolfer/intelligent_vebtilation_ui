@@ -2,6 +2,18 @@
 <script setup>
 	// 查询通风网络图
 	import { netWorkDrawing } from '@/api/api/home'
+
+	const props = defineProps({
+		defaultNetWork: {
+			type: Boolean,
+			default: true,
+		},
+		reloadUrl: {
+			type: String,
+			default: '',
+		},
+	})
+
 	const netWorkRef = ref(null)
 	const hlUrl = ref('')
 	const getNetworkPath = async () => {
@@ -9,7 +21,13 @@
 		if (res && res.msg) hlUrl.value = res.msg
 	}
 	onMounted(() => {
-		getNetworkPath()
+		console.log(props.defaultNetWork)
+		if (props.defaultNetWork) {
+			getNetworkPath()
+		} else {
+			hlUrl.value = props.reloadUrl
+		}
+		console.log(hlUrl.value)
 	})
 </script>
 

@@ -151,7 +151,7 @@
 				object: null as null | Object3D,
 				rayCaster: new Raycaster(),
 				mouse: new Vector2(),
-				camera: new PerspectiveCamera(50, 1, this.cameraSize, 5000000),
+				camera: new PerspectiveCamera(60, 1, this.cameraSize, 10000000),
 				scene: new Scene(),
 				wrapper: new Object3D(),
 				renderer: null as null | WebGLRenderer,
@@ -238,6 +238,7 @@
 			this.tRenderer.domElement.style.position = 'absolute'
 			this.tRenderer.domElement.style.top = '0'
 			this.tRenderer.domElement.style.left = '0'
+			this.labelRenderer.domElement.style.zIndex = '1'
 			this.tRenderer.domElement.style.pointerEvents = 'none'
 			this.tRenderer.setSize(this.size.width, this.size.height)
 
@@ -350,7 +351,9 @@
 			},
 			loadOtherLen(val) {
 				if (val === this.otherThreeMod?.length + 1) {
-					this.$emit('load')
+					this.$nextTick(() => {
+						this.$emit('load')
+					})
 				} else {
 					let event = {
 						lengthComputable: false,

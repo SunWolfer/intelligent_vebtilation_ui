@@ -15,6 +15,8 @@
 </template>
 
 <script setup lang="ts">
+	import { getRoadwayModel } from '@/api/api/home'
+	import { useThreeModelData } from '@/hooks/useThreeModelData'
 	import Sidebar from './components/Sidebar/index.vue'
 	import { AppMain, Navbar } from './components'
 	import useSettingsStore from '@/store/modules/settings'
@@ -34,6 +36,19 @@
 		},
 	)
 	const { roam } = useHomeMenu()
+
+	//   查询模型信息
+	const { threeModelData, maxNodeNum } = useThreeModelData()
+
+	const initThreeData = async () => {
+		if (threeModelData.value.length) return
+		const res = await getRoadwayModel()
+		if (res.code === 200) {
+			threeModelData.value = res.data.model
+			maxNodeNum.value = res.data?.maxCode
+		}
+	}
+	initThreeData()
 </script>
 
 <style lang="scss" scoped>

@@ -2,11 +2,30 @@
 <script setup>
 	// 查询风路分支图
 	import { branchDrawing } from '@/api/api/home'
-	import useResetCharts from '@/hooks/useResetCharts'
 	import { useGainList } from '@/hooks/useGainList'
+
+	const props = defineProps({
+		// 默认查询
+		defaultList: {
+			type: Boolean,
+			default: true,
+		},
+		list: {
+			type: Array,
+			default: [],
+		},
+	})
+
 	// 风路分支图列表
 	const { dataList: windPathList } = useGainList({
+		automatic: props.defaultList,
 		apiFun: branchDrawing,
+	})
+
+	onMounted(() => {
+		if (!props.defaultList) {
+			windPathList.value = props.list
+		}
 	})
 </script>
 

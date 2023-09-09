@@ -50,11 +50,33 @@
 				if (!this.planeModel) return
 				this.planeModel.position.y = val ? val : 0
 			},
+			modelData(val) {
+				if (val) {
+					if (this.object) {
+						this.wrapper.remove(this.object)
+					}
+					this.object = new Object3D()
+					this.tunnelMesh.config(this.object)
+					this.reportProgress('start')
+
+					let models: IModelNode[] = this.modelData
+
+					this.tunnelMesh.add(...models)
+
+					this.addObject()
+					this.reportProgress('end')
+					this.loadOtherLen++
+				}
+			},
+		},
+		computed: {
+			modelData() {
+				return threeModel().data
+			},
 		},
 		data() {
 			const tunnelMesh = new ITunnelMesh()
 			const loader = new GLTFLoader()
-			const modelData = threeModel()
 			return {
 				tunnelMesh,
 				content: [] as unknown[][],
@@ -63,16 +85,17 @@
 				initCameraPosition: new Vector3(),
 				//   平面高度
 				planeHei: 0,
-				modelData,
 			}
 		},
 		methods: {
 			load() {
-				this.reportProgress('start')
-
 				this.object = new Object3D()
 				this.tunnelMesh.config(this.object)
-				let models: IModelNode[] = this.modelData.data
+				if (!this.modelData.length) return
+
+				this.reportProgress('start')
+
+				let models: IModelNode[] = this.modelData
 				this.tunnelMesh.initTunnel(...models)
 
 				this.addObject()
@@ -124,7 +147,7 @@
 			addWind(direction = false) {
 				if (!this.windObject) return
 				this.windObject.remove(...this.windMeshList)
-				let models: IModelNode[] = this.modelData.data
+				let models: IModelNode[] = this.modelData
 				let meshList = []
 				for (let i = 0; i < models.length; i++) {
 					let modelNode = models[i]

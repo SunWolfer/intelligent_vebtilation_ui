@@ -108,12 +108,12 @@ export class ITunnelMesh {
 		let nodeGeometry = nodeMesh.geometry
 		let geometry = new SphereGeometry(
 			nodeGeometry.radius,
-			nodeGeometry.widthSegments,
-			nodeGeometry.heightSegments,
-			nodeGeometry.phiStart,
-			nodeGeometry.phiLength,
-			nodeGeometry.thetaStart,
-			nodeGeometry.thetaLength,
+			nodeGeometry.widthSegments ?? undefined,
+			nodeGeometry.heightSegments ?? undefined,
+			nodeGeometry.phiStart ?? undefined,
+			nodeGeometry.phiLength ?? undefined,
+			nodeGeometry.thetaStart ?? undefined,
+			nodeGeometry.thetaLength ?? undefined,
 		)
 		let material = this.setMaterial(nodeMesh.material)
 		return new Mesh(geometry, material)
@@ -124,22 +124,22 @@ export class ITunnelMesh {
 		let geometry: BufferGeometry
 		if (meshGeometry.geometryType === 'Box') {
 			geometry = new BoxGeometry(
-				meshGeometry.radiusTop,
+				meshGeometry.radiusTop ?? undefined,
 				meshGeometry.height ?? 1,
-				meshGeometry.radiusBottom,
+				meshGeometry.radiusBottom ?? undefined,
 			)
 		} else if (meshGeometry.geometryType === 'Plane') {
 			geometry = new PlaneGeometry(meshGeometry.width, 1)
 		} else {
 			geometry = new CylinderGeometry(
-				meshGeometry.radiusTop,
-				meshGeometry.radiusBottom,
+				meshGeometry.radiusTop ?? undefined,
+				meshGeometry.radiusBottom ?? undefined,
 				meshGeometry.height ?? 1,
-				meshGeometry.radialSegments,
-				meshGeometry.heightSegments,
+				meshGeometry.radialSegments ?? undefined,
+				meshGeometry.heightSegments ?? undefined,
 				meshGeometry.openEnded ?? false,
-				meshGeometry.thetaStart,
-				meshGeometry.thetaLength,
+				meshGeometry.thetaStart ?? undefined,
+				meshGeometry.thetaLength ?? undefined,
 			)
 		}
 		geometry.rotateX(-Math.PI / 2)
@@ -160,7 +160,7 @@ export class ITunnelMesh {
 		// 标准网格材质(一种基于物理的标准材质，使用Metallic-Roughness工作流程。)
 		if (iMaterial.type === 'MeshStandardMaterial') {
 			material = new MeshStandardMaterial({
-				colorWrite: iMaterial.colorWrite ?? true,
+				colorWrite: true,
 				metalness: iMaterial.metalness ?? 0, // 金属度属性
 				roughness: iMaterial.roughness ?? 0, //粗糙度属性
 			})
@@ -298,7 +298,7 @@ export class ITunnelMesh {
 		if (!modelNode.windMesh) return []
 		let iMaterial: IMaterial = {
 			mapUrl:
-				modelNode.windMesh.windType === 1
+				modelNode.windMesh.windType === 2
 					? 'file/material/red_arrow.png'
 					: 'file/material/blue_arrow.png',
 			side: 2,

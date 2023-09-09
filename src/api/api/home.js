@@ -73,3 +73,11 @@ export function deviceWarnList() {
 		method: 'get',
 	})
 }
+
+//三维模型查询
+export function getRoadwayModel() {
+	return request({
+		url: '/api/model/getRoadwayModel',
+		method: 'get',
+	})
+}

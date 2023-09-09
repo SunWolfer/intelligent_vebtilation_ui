@@ -7,13 +7,35 @@
 			type: Boolean,
 			default: false,
 		},
+		// 解算列表
+		dataList: {
+			type: Array,
+			default: [],
+		},
+		// 显示风路分支图
 		showWindBranch: {
 			type: Boolean,
 			default: true,
 		},
+		// 风路分支图列表
+		windBranchList: {
+			type: Array,
+			default: [],
+		},
+		// 显示通风网络图
 		showVentilationNetwork: {
 			type: Boolean,
 			default: true,
+		},
+		//   通风网络图默认生成
+		defaultNetWork: {
+			type: Boolean,
+			default: true,
+		},
+		//   通风网络图新路径
+		reloadNetWorkUrl: {
+			type: String,
+			default: '',
 		},
 	})
 
@@ -30,37 +52,6 @@
 		showDiaLog.value = false
 		emits('cancel')
 	}
-	//解算列表
-	const dataList = ref([
-		{
-			name: '11202掘进面',
-			calTheAirVolume: '356.5',
-			realTimeAirVolume: '356.3',
-			artMeasuredAirVolume: '356.3',
-			targetAirVolume: '356.3',
-			equipmentErrorRate: '0.2',
-			artificialErrorRate: '0.25',
-			windSpeed: '25.5',
-			windResistance: '21',
-			windPressure: '1025',
-			solvingTime: '2023-6-28  15:15:20',
-			measuredTime: '2023-6-28  15:15:20',
-		},
-		{
-			name: '11202掘进面',
-			calTheAirVolume: '356.5',
-			realTimeAirVolume: '356.3',
-			artMeasuredAirVolume: '356.3',
-			targetAirVolume: '356.3',
-			equipmentErrorRate: '1',
-			artificialErrorRate: '10',
-			windSpeed: '25.5',
-			windResistance: '21',
-			windPressure: '1025',
-			solvingTime: '2023-6-28  15:15:20',
-			measuredTime: '2023-6-28  15:15:20',
-		},
-	])
 	const cellStyle = (data) => {
 		let cell = ''
 		let numData = parseFloat(data)
@@ -95,42 +86,34 @@
 							<el-table-column
 								label="解算风量(m³/min)"
 								align="center"
-								prop="calTheAirVolume"
+								prop="airVolume"
 							></el-table-column>
-							<el-table-column label="解算前风量(m³/min)" align="center" prop="realTimeAirVolume">
+							<el-table-column label="解算前风量(m³/min)" align="center" prop="oldAirVolume">
 								<template #default="scope">
-									<span
-										class="full_table_cell_bg"
-										:class="cellStyle(scope.row.equipmentErrorRate)"
-										>{{ scope.row.realTimeAirVolume }}</span
-									>
+									<span class="full_table_cell_bg" :class="cellStyle(scope.row.oldAirVolume)">{{
+										scope.row.oldAirVolume
+									}}</span>
 								</template>
 							</el-table-column>
-							<el-table-column label="实时风量(m³/min)" align="center" prop="realTimeAirVolume">
+							<el-table-column label="实时风量(m³/min)" align="center" prop="windSensorAirVolume">
 								<template #default="scope">
 									<span
 										class="full_table_cell_bg"
-										:class="cellStyle(scope.row.equipmentErrorRate)"
-										>{{ scope.row.realTimeAirVolume }}</span
+										:class="cellStyle(scope.row.windSensorAirVolume)"
+										>{{ scope.row.windSensorAirVolume }}</span
 									>
 								</template>
 							</el-table-column>
 							<el-table-column
 								label="目标风量(m³/min)"
 								align="center"
-								prop="targetAirVolume"
+								prop="minQ"
 							></el-table-column>
-							<el-table-column
-								label="人工实测风量(m³/min)"
-								align="center"
-								prop="artMeasuredAirVolume"
-							>
+							<el-table-column label="人工实测风量(m³/min)" align="center" prop="personQ">
 								<template #default="scope">
-									<span
-										class="full_table_cell_bg"
-										:class="cellStyle(scope.row.artificialErrorRate)"
-										>{{ scope.row.realTimeAirVolume }}</span
-									>
+									<span class="full_table_cell_bg" :class="cellStyle(scope.row.personQ)">{{
+										scope.row.personQ
+									}}</span>
 								</template>
 							</el-table-column>
 							<el-table-column
@@ -138,22 +121,24 @@
 								align="center"
 								prop="windSpeed"
 							></el-table-column>
-							<el-table-column label="风阻" align="center" prop="windResistance"></el-table-column>
+							<el-table-column label="风阻" align="center" prop="ventR"></el-table-column>
 							<el-table-column
 								label="解算风压(Pa)"
 								align="center"
-								prop="windPressure"
+								prop="airPressure"
 							></el-table-column>
 						</el-table>
 					</div>
 				</div>
 			</border-box>
 		</div>
+		<!--    风路分支图-->
 		<div class="after_cal_body_left" v-if="showWindBranch">
-			<home-wind-branch />
+			<home-wind-branch :default-list="false" :list="windBranchList" />
 		</div>
+		<!--    通风网络图-->
 		<div class="after_cal_body_right" v-if="showVentilationNetwork">
-			<home-ven-network />
+			<home-ven-network :default-net-work="defaultNetWork" :reload-url="reloadNetWorkUrl" />
 		</div>
 		<div class="after_quit_btn">
 			<div class="after_quit_btn_item" @click="closeDia"></div>

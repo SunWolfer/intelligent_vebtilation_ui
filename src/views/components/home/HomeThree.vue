@@ -154,7 +154,7 @@
 			:other-three-mod="otherThreeMod"
 			:cameraPosition="cameraPosition"
 			:lights="lights"
-			:camera-size="10"
+			:camera-size="1"
 			:backgroundAlpha="0"
 			:controlsOptions="controlsOptions"
 			:choose-group="true"

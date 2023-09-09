@@ -42,7 +42,7 @@
 				text: text,
 				color: '#000',
 				size: 100,
-				height: 800,
+				height: 600,
 				planeColor: '#00ff00',
 			})
 			//   添加人工实测风量
@@ -55,7 +55,7 @@
 					text: text2,
 					color: '#000',
 					size: 100,
-					height: 600,
+					height: 400,
 					planeColor: '#00ffff',
 				})
 			}
@@ -67,11 +67,12 @@
 					text: text3,
 					color: '#000',
 					size: 100,
-					height: 400,
+					height: 200,
 					planeColor: '#005aff',
 				})
 			}
 		}
+		console.log(fontList)
 		emits('loadText', fontList)
 	}
 	onBeforeUnmount(() => {
@@ -92,11 +93,11 @@
 			<span>风阻</span>
 			<el-checkbox v-model="checkedWindAge" />
 		</div>
-		<div class="home_title_solution_btn">
-			<div class="home_so_icon home_so_icon_3"></div>
-			<span>风压</span>
-			<el-checkbox v-model="checkedWindPressure" />
-		</div>
+		<!--		<div class="home_title_solution_btn">-->
+		<!--			<div class="home_so_icon home_so_icon_3"></div>-->
+		<!--			<span>风压</span>-->
+		<!--			<el-checkbox v-model="checkedWindPressure" />-->
+		<!--		</div>-->
 	</div>
 </template>
 

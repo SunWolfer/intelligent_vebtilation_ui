@@ -20,6 +20,10 @@ export const useThreeModelData = () => {
 			IThreeModel.updateMaxNode(val + '')
 		},
 	})
+	// 是否显示巷道
+	const readyData = computed(() => {
+		return threeModelData.value.length > 0
+	})
 
 	// 巷道详情
 	const roadAllList = computed({
@@ -32,6 +36,7 @@ export const useThreeModelData = () => {
 	})
 
 	return {
+		readyData,
 		threeModelData,
 		maxNodeNum,
 		roadAllList,

@@ -14,18 +14,19 @@ export class IWindText {
 	}
 	// 创建3DRenderer
 	created3DRenderer(fontData: IFontType) {
-		const element = document.createElement('div')
+		let element = document.createElement('div')
 		element.className = 'element_renderer'
 		element.style.backgroundColor = fontData.planeColor
 		element.style.bottom = fontData.height + 'px'
 
-		const number = document.createElement('div')
+		let number = document.createElement('div')
+
 		number.className = 'element_text'
-		number.style.fontSize = fontData.size + 'px'
+		number.style.fontSize = (fontData.size ?? 100) + 'px'
 		number.textContent = fontData.text
 		element.appendChild(number)
 
-		const objectCSS: any = new CSS3DObject(element)
+		let objectCSS: any = new CSS3DObject(element)
 		objectCSS.position.copy(fontData.position)
 		objectCSS.quaternion.copy(fontData.quaternion)
 		objectCSS.rotateY(Math.PI / 2)

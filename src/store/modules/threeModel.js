@@ -1,14 +1,17 @@
 import { defineStore } from 'pinia'
-import { IModels } from '@/components/VueThree/models'
 const threeModel = defineStore('three-model', {
 	state: () => ({
 		// 巷道信息
-		data: IModels,
+		data: [],
 		// 最大节点
-		maxNode: '192',
+		maxNode: '0',
 		// 巷道详情
 		roadAllList: [],
 	}),
+	// 开启数据缓存
+	persist: {
+		enabled: true,
+	},
 	actions: {
 		updateModel(data) {
 			this.data = data

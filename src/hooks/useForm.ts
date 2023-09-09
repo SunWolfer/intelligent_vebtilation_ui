@@ -227,16 +227,18 @@ export function useGainForm<TData = any, TParams = any>({
 interface comForm<TData> {
 	queryParams?: any
 	afterReadyDataFun?: (data: TData) => void
+	catchFun?: () => void
 }
 export async function useCommitForm<TData = any>(
 	apiFun: (param?: any) => Promise<IApiResponseData<TData>>,
-	{ queryParams = {}, afterReadyDataFun }: comForm<TData>,
+	{ queryParams = {}, afterReadyDataFun, catchFun }: comForm<TData>,
 ) {
-	const res = await apiFun(queryParams)
-	if (res.code === 200) {
-		ElMessage.success(res.msg)
-		if (typeof afterReadyDataFun === 'function') afterReadyDataFun(res.data)
-	} else {
-		ElMessage.error(res.msg)
-	}
+	apiFun(queryParams)
+		.then((res) => {
+			ElMessage.success(res.msg)
+			if (typeof afterReadyDataFun === 'function') afterReadyDataFun(res.data)
+		})
+		.catch(() => {
+			if (typeof catchFun === 'function') catchFun()
+		})
 }

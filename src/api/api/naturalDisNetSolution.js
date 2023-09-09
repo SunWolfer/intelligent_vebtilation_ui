@@ -16,3 +16,11 @@ export function naturedCalculateSimulate(data) {
 		data: data,
 	})
 }
+//自然分风解算模拟通风网络图
+export function reloadDrawing(data) {
+	return request({
+		url: '/api/calculate/ventilationroadway/network/drawing',
+		method: 'post',
+		data: data,
+	})
+}
