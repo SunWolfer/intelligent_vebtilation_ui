@@ -82,12 +82,20 @@
 					</div>
 					<div class="after_cal_body_table">
 						<el-table :data="dataList" height="100%" border>
-							<el-table-column label="巷道" align="center" prop="name"></el-table-column>
-							<el-table-column
-								label="解算风量(m³/min)"
-								align="center"
-								prop="airVolume"
-							></el-table-column>
+							<el-table-column label="巷道" align="center" prop="name">
+								<template #default="scope">
+									<div
+										class="fullDom"
+										:style="{ backgroundColor: scope.row?.isFixed ? '#87B827' : 'transparent' }"
+									>
+										<span style="color: #ffffff">
+											{{ scope.row.name }}
+										</span>
+									</div>
+								</template>
+							</el-table-column>
+							<el-table-column label="解算风量(m³/min)" align="center" prop="airVolume">
+							</el-table-column>
 							<el-table-column label="解算前风量(m³/min)" align="center" prop="oldAirVolume">
 								<template #default="scope">
 									<span class="full_table_cell_bg" :class="cellStyle(scope.row.oldAirVolume)">{{
@@ -169,6 +177,7 @@
 		height: 100%;
 	}
 	.after_cal_body_table {
+		position: relative;
 		width: 100%;
 		height: 100%;
 	}
@@ -179,7 +188,7 @@
 		height: 100%;
 		padding: vh(30) vw(62) vh(30) vw(62);
 		display: grid;
-		grid-template-rows: vh(42) auto;
+		grid-template-rows: vh(42) vh(194);
 	}
 	.after_cal_body_top_body_top {
 		display: flex;

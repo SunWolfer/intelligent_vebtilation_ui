@@ -1,4 +1,9 @@
+import { useTunnelData } from '@/hooks/useTunnelData'
+import { setFixedOk } from '@/api/api/onDemandAirDisNetSolution'
+import useCurrentInstance from '@/hooks/useCurrentInstance'
+
 export const onDemandAirDisNetSolution = () => {
+	const { proxy } = useCurrentInstance()
 	// 显示设备列表
 	const tunnelListVisible = ref(true)
 	// 巷道表单
@@ -6,27 +11,40 @@ export const onDemandAirDisNetSolution = () => {
 		name: '',
 		code: '',
 		label: '',
-		girth: '',
-		area: '',
+		circumference: '',
+		surface: '',
 		length: '',
-		shape: '',
-		supportType: '',
-		airSupplyVolume: '',
+		ventShape: '',
+		shoreType: '',
+		fixedQ: '',
 		hasSet: false,
 	}
 	//   巷道设置列表
 	const tunnelList = ref([])
+	// 查询巷道信息
+	const { showTunnelData, showParam } = useTunnelData()
 	// 选中巷道
-	const chooseTunnel = (val) => {
-		const dataIndex = tunnelList.value.findIndex((i) => i.label === val.name)
+	const chooseTunnel = async (val) => {
+		const dataIndex = tunnelList.value.findIndex((i) => i.code === val.name)
 		if (dataIndex === -1) {
-			tunnelList.value.push({ ...defaultData, code: val.name })
+			await showParam?.(val.name)
+			if (showTunnelData.value) {
+				tunnelList.value.push(showTunnelData.value)
+			}
 		}
 	}
 
 	// 确认添加
-	const controlTunnelData = (index) => {
-		tunnelList.value[index].hasSet = true
+	const controlTunnelData = async (index) => {
+		// 查询是否允许设置固定风量
+		const { data } = await setFixedOk({
+			code: tunnelList.value[index].code,
+		})
+		if (data) {
+			tunnelList.value[index].hasSet = true
+		} else {
+			proxy.$modal.msg('该巷道不允许设置固定风量')
+		}
 	}
 	// 删除
 	const controlDelete = (index) => {
@@ -55,7 +73,9 @@ export const onDemandAirDisNetSolution = () => {
 			const data = hasSetList.value[i]
 			operationStepsList.value.push({
 				name: data.name,
-				label: '供风量设置' + data.airSupplyVolume,
+				code: data.code,
+				label: '供风量设置' + data.fixedQ,
+				value: data.fixedQ,
 			})
 		}
 

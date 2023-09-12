@@ -1,4 +1,5 @@
 import useCurrentInstance from '@/hooks/useCurrentInstance'
+import { useLoading } from '@/hooks/useLoading'
 import { ElMessage } from 'element-plus'
 import type { FormInstance } from 'element-plus'
 import { Ref } from 'vue'
@@ -126,8 +127,6 @@ export function useForm<TData = any>({
 
 	// 提交
 	const submitForm = async () => {
-		console.log(111)
-		console.log(formRef.value)
 		await formRef.value?.validate(async (valid: boolean) => {
 			if (valid) {
 				if (form.value[formId] !== undefined) {
@@ -233,12 +232,15 @@ export async function useCommitForm<TData = any>(
 	apiFun: (param?: any) => Promise<IApiResponseData<TData>>,
 	{ queryParams = {}, afterReadyDataFun, catchFun }: comForm<TData>,
 ) {
+	const { loading } = useLoading()
 	apiFun(queryParams)
 		.then((res) => {
 			ElMessage.success(res.msg)
+			loading.close()
 			if (typeof afterReadyDataFun === 'function') afterReadyDataFun(res.data)
 		})
 		.catch(() => {
+			loading.close()
 			if (typeof catchFun === 'function') catchFun()
 		})
 }

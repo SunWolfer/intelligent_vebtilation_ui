@@ -21,7 +21,6 @@
 		if (res && res.msg) hlUrl.value = res.msg
 	}
 	onMounted(() => {
-		console.log(props.defaultNetWork)
 		if (props.defaultNetWork) {
 			getNetworkPath()
 		} else {

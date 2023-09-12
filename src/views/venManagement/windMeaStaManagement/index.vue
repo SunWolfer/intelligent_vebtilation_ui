@@ -274,9 +274,19 @@
 			</el-form>
 		</dia-log>
 		<!--    测风站配置-->
-		<WindMeaStaConfig v-if="configVisible" v-model="configVisible" :choose-row="chooseRow" />
+		<WindMeaStaConfig
+			v-if="configVisible"
+			v-model="configVisible"
+			:choose-row="chooseRow"
+			title="测风站配置"
+		/>
 		<!--    看板数据-->
-		<WindMeaKanban v-if="kanbanVisible" v-model="kanbanVisible" :choose-row="chooseRow" />
+		<WindMeaKanban
+			v-if="kanbanVisible"
+			v-model="kanbanVisible"
+			:choose-row="chooseRow"
+			title="看板数据"
+		/>
 	</div>
 </template>
 

@@ -3,6 +3,7 @@
 	import LoadWindControlModel from '@/views/components/loadModel/loadWindControlModel.vue'
 	import { onDemandAirDisNetSolution } from '@/api/request/windControlAssMaking/onDemandAirDisNetSolution'
 	import SolvingSimulation from '@/views/components/windControlAssMaking/solvingSimulation.vue'
+	import { useTunnelData } from '@/hooks/useTunnelData'
 
 	const { fontList } = useWindNetCalculation()
 
@@ -19,6 +20,8 @@
 		tunnelListVisible,
 		chooseTunnel,
 	} = onDemandAirDisNetSolution()
+
+	const { vent_shape, shore_type } = useTunnelData()
 </script>
 
 <template>
@@ -53,11 +56,11 @@
 									</div>
 									<div class="on_dem_item_left_item">
 										<div class="on_dem_item_left_label">[巷道周长]</div>
-										<el-input v-model="item.girth" placeholder="- - - -" />
+										<el-input v-model="item.circumference" placeholder="- - - -" />
 									</div>
 									<div class="on_dem_item_left_item">
 										<div class="on_dem_item_left_label">[巷道断面积(m2)]</div>
-										<el-input v-model="item.area" placeholder="- - - -" />
+										<el-input v-model="item.surface" placeholder="- - - -" />
 									</div>
 									<div class="on_dem_item_left_item">
 										<div class="on_dem_item_left_label">[巷道长度(m)]</div>
@@ -65,11 +68,23 @@
 									</div>
 									<div class="on_dem_item_left_item">
 										<div class="on_dem_item_left_label">[巷道形状]</div>
-										<el-input v-model="item.shape" placeholder="- - - -" />
+										<el-select v-model="item.ventShape" placeholder="_ _ _ _">
+											<el-option
+												v-for="i in vent_shape"
+												:label="i.label"
+												:value="i.value"
+											></el-option>
+										</el-select>
 									</div>
 									<div class="on_dem_item_left_item">
 										<div class="on_dem_item_left_label">[支护类型]</div>
-										<el-input v-model="item.supportType" placeholder="- - - -" />
+										<el-select v-model="item.shoreType" placeholder="_ _ _ _">
+											<el-option
+												v-for="i in shore_type"
+												:label="i.label"
+												:value="i.value"
+											></el-option>
+										</el-select>
 									</div>
 								</div>
 								<div class="dashLine"></div>
@@ -77,7 +92,7 @@
 									<div class="on_dem_item_body_title">通风数据</div>
 									<div class="on_dem_item_right_item">
 										<div class="on_dem_item_right_label">供风量(m3/min)</div>
-										<el-input v-model="item.airSupplyVolume" />
+										<el-input v-model="item.fixedQ" />
 									</div>
 									<div class="on_dem_item_right_btn">
 										<div class="normal_btn" @click="controlTunnelData(index)">确定</div>
@@ -98,6 +113,7 @@
 		<solving-simulation
 			v-model:imitate-visible="imitateVisible"
 			v-model:operation-steps-list="operationStepsList"
+			calculating-type="2"
 			@show-cal-visible="showAfterCalVisible"
 			@cancel-cal-visible="cancelAirDisNetwork"
 		/>

@@ -2,6 +2,18 @@
 <script setup>
 	import useList from '@/hooks/useList'
 	import { useForm } from '@/hooks/useForm'
+	import {
+		addMainFan,
+		delMainFan,
+		getMainFan,
+		listMainFan,
+		updateMainFan,
+	} from '@/api/api/mainFanManagement'
+	import useDict from '@/hooks/useDict'
+	import { selectDictLabel } from '@/utils/ruoyi'
+	import FanTagsConfig from '@/views/venManagement/mainFanManagement/fanTagsConfig.vue'
+
+	const { fan_work_status } = useDict('fan_work_status')
 
 	const {
 		queryParams,
@@ -12,34 +24,35 @@
 		handleSelectionChange,
 		handleDelete,
 	} = useList({
-		apiFun: () => {},
+		apiFun: listMainFan,
 		params: {
 			pageNum: 1,
 			pageSize: 10,
 			name: undefined,
 			code: undefined,
-			position: undefined,
+			location: undefined,
+			devType: 'mainfan',
 		},
-		deleteFun: () => {},
+		deleteFun: delMainFan,
 	})
 	const rules = ref({
 		code: [{ required: true, message: '风机编码不能为空', trigger: 'blur' }],
 		name: [{ required: true, message: '风机名称不能为空', trigger: 'blur' }],
-		position: [{ required: true, message: '安装位置不能为空', trigger: 'blur' }],
-		voltage: [{ required: true, message: '额定电压不能为空', trigger: 'blur' }],
-		electricCurrent: [{ required: true, message: '额定电流不能为空', trigger: 'blur' }],
-		power: [{ required: true, message: '额定功率不能为空', trigger: 'blur' }],
-		airVolume: [{ required: true, message: '风量不能为空', trigger: 'blur' }],
-		totalPressure: [{ required: true, message: '全压不能为空', trigger: 'blur' }],
-		staticPressure: [{ required: true, message: '静压不能为空', trigger: 'blur' }],
-		efficiency: [{ required: true, message: '效率不能为空', trigger: 'blur' }],
-		staMachineVoltage: [{ required: true, message: '备机电压不能为空', trigger: 'blur' }],
-		staMachineElectricCurrent: [{ required: true, message: '备机电流不能为空', trigger: 'blur' }],
-		staMachinePower: [{ required: true, message: '备机功率不能为空', trigger: 'blur' }],
-		staMachineAirVolume: [{ required: true, message: '备机风量不能为空', trigger: 'blur' }],
-		staMachineTotalPressure: [{ required: true, message: '备机全压不能为空', trigger: 'blur' }],
-		staMachineStaticPressure: [{ required: true, message: '备机静压不能为空', trigger: 'blur' }],
-		staMachineEfficiency: [{ required: true, message: '备机效率不能为空', trigger: 'blur' }],
+		location: [{ required: true, message: '安装位置不能为空', trigger: 'blur' }],
+		ratedVoltage1: [{ required: true, message: '额定电压不能为空', trigger: 'blur' }],
+		ratedCurrent1: [{ required: true, message: '额定电流不能为空', trigger: 'blur' }],
+		ratedPower1: [{ required: true, message: '额定功率不能为空', trigger: 'blur' }],
+		airVolume1: [{ required: true, message: '风量不能为空', trigger: 'blur' }],
+		fullPressure1: [{ required: true, message: '全压不能为空', trigger: 'blur' }],
+		negativePressure1: [{ required: true, message: '静压不能为空', trigger: 'blur' }],
+		efficiency1: [{ required: true, message: '效率不能为空', trigger: 'blur' }],
+		ratedVoltage2: [{ required: true, message: '备机电压不能为空', trigger: 'blur' }],
+		ratedCurrent2: [{ required: true, message: '备机电流不能为空', trigger: 'blur' }],
+		ratedPower2: [{ required: true, message: '备机功率不能为空', trigger: 'blur' }],
+		airVolume2: [{ required: true, message: '备机风量不能为空', trigger: 'blur' }],
+		fullPressure2: [{ required: true, message: '备机全压不能为空', trigger: 'blur' }],
+		negativePressure2: [{ required: true, message: '备机静压不能为空', trigger: 'blur' }],
+		efficiency2: [{ required: true, message: '备机效率不能为空', trigger: 'blur' }],
 	})
 	// 新增修改操作
 	const { formRef, form, title, open, submitForm, handleUpdate, handleAdd } = useForm({
@@ -47,30 +60,40 @@
 			id: undefined,
 			name: undefined,
 			code: undefined,
-			position: undefined,
-			voltage: undefined,
-			electricCurrent: undefined,
-			power: undefined,
-			airVolume: undefined,
-			totalPressure: undefined,
-			staticPressure: undefined,
-			efficiency: undefined,
-			staMachineVoltage: undefined,
-			staMachineElectricCurrent: undefined,
-			staMachinePower: undefined,
-			staMachineAirVolume: undefined,
-			staMachineTotalPressure: undefined,
-			staMachineStaticPressure: undefined,
-			staMachineEfficiency: undefined,
+			location: undefined,
+			ratedVoltage1: undefined,
+			ratedCurrent1: undefined,
+			ratedPower1: undefined,
+			airVolume1: undefined,
+			fullPressure1: undefined,
+			negativePressure1: undefined,
+			efficiency1: undefined,
+			ratedVoltage2: undefined,
+			ratedCurrent2: undefined,
+			ratedPower2: undefined,
+			airVolume2: undefined,
+			fullPressure2: undefined,
+			negativePressure2: undefined,
+			efficiency2: undefined,
 			remark: undefined,
+			videoUrl: undefined,
+			devType: 'mainfan',
 		},
 		titleMes: '主扇',
-		initApi: () => {},
-		updateApi: () => {},
-		addApi: () => {},
+		initApi: getMainFan,
+		updateApi: updateMainFan,
+		addApi: addMainFan,
 		afterAddFun: handleQuery,
 		afterUpdateFun: handleQuery,
 	})
+
+	//   标签查询
+	const tagsVisible = ref(false)
+	const chooseRow = ref({})
+	const tagsHandle = (row) => {
+		chooseRow.value = row
+		tagsVisible.value = true
+	}
 </script>
 
 <template>
@@ -83,7 +106,7 @@
 				<el-input v-model="queryParams.code"></el-input>
 			</el-form-item>
 			<el-form-item label="安装位置">
-				<el-input v-model="queryParams.position"></el-input>
+				<el-input v-model="queryParams.location"></el-input>
 			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">查询</div>
@@ -97,21 +120,59 @@
 			<el-table-column type="selection" width="55" align="center" />
 			<el-table-column label="风机名称" align="center" prop="name" />
 			<el-table-column label="风机编号" align="center" prop="code" />
-			<el-table-column label="风机位置" align="center" prop="position" />
-			<el-table-column label="额定电压" align="center" prop="voltage" />
-			<el-table-column label="额定电流" align="center" prop="electricCurrent" />
-			<el-table-column label="额定功率" align="center" prop="power" />
-			<el-table-column label="工作状态" align="center" prop="status" />
-			<el-table-column label="风量" align="center" prop="airVolume" />
-			<el-table-column label="全压" align="center" prop="totalPressure" />
-			<el-table-column label="静压" align="center" prop="staticPressure" />
-			<el-table-column label="效率" align="center" prop="efficiency" />
-			<el-table-column label="备机电压" align="center" prop="voltage" />
-			<el-table-column label="额定电流" align="center" prop="electricCurrent" />
-			<el-table-column label="额定功率" align="center" prop="power" />
-			<el-table-column label="工作状态" align="center" prop="status" />
+			<el-table-column label="风机位置" align="center" prop="location" />
+			<el-table-column label="额定电压" align="center" prop="ratedVoltage1">
+				<template #default="scope">
+					{{ scope.row.workStatus2 === '1' ? scope.row.ratedVoltage2 : scope.row.ratedVoltage1 }}
+				</template>
+			</el-table-column>
+			<el-table-column label="额定电流" align="center" prop="ratedCurrent1">
+				<template #default="scope">
+					{{ scope.row.workStatus2 === '1' ? scope.row.ratedCurrent2 : scope.row.ratedCurrent1 }}
+				</template>
+			</el-table-column>
+			<el-table-column label="额定功率" align="center" prop="ratedPower1">
+				<template #default="scope">
+					{{ scope.row.workStatus2 === '1' ? scope.row.ratedPower2 : scope.row.ratedPower1 }}
+				</template>
+			</el-table-column>
+			<el-table-column label="工作状态" align="center" prop="workStatus1">
+				<template #default="scope">
+					{{
+						selectDictLabel(
+							fan_work_status,
+							scope.row.workStatus2 === '1' ? scope.row.workStatus2 : scope.row.workStatus1,
+						)
+					}}
+				</template>
+			</el-table-column>
+			<el-table-column label="风量" align="center" prop="airVolume1">
+				<template #default="scope">
+					{{ scope.row.workStatus2 === '1' ? scope.row.airVolume2 : scope.row.airVolume1 }}
+				</template>
+			</el-table-column>
+			<el-table-column label="全压" align="center" prop="fullPressure1">
+				<template #default="scope">
+					{{ scope.row.workStatus2 === '1' ? scope.row.fullPressure2 : scope.row.fullPressure1 }}
+				</template>
+			</el-table-column>
+			<el-table-column label="静压" align="center" prop="negativePressure1">
+				<template #default="scope">
+					{{
+						scope.row.workStatus2 === '1'
+							? scope.row.negativePressure2
+							: scope.row.negativePressure1
+					}}
+				</template>
+			</el-table-column>
+			<el-table-column label="效率" align="center" prop="efficiency1">
+				<template #default="scope">
+					{{ scope.row.workStatus2 === '1' ? scope.row.efficiency2 : scope.row.efficiency1 }}
+				</template>
+			</el-table-column>
 			<el-table-column label="操作" align="center" width="150">
 				<template #default="scope">
+					<el-button type="primary" link @click="tagsHandle(scope.row)">编辑</el-button>
 					<el-button type="primary" link @click="handleUpdate(scope.row)">修改</el-button>
 					<el-button type="primary" link @click="handleDelete(scope.row)">删除</el-button>
 				</template>
@@ -132,7 +193,7 @@
 			:title="title"
 			@submit="submitForm"
 			:width="900"
-			:height="700"
+			:height="750"
 			has-bottom-btn
 			:btn-list="['保存', '取消']"
 		>
@@ -150,56 +211,66 @@
 				<el-form-item label="风机名称" prop="name">
 					<el-input v-model="form.name"></el-input>
 				</el-form-item>
-				<el-form-item label="风机位置" prop="position">
-					<el-input v-model="form.position"></el-input>
+				<el-form-item label="风机位置" prop="location">
+					<el-input v-model="form.location"></el-input>
 				</el-form-item>
-				<el-form-item label="额定电压(V)" prop="voltage">
-					<el-input v-model="form.voltage"></el-input>
+				<el-form-item label="额定电压(V)" prop="ratedVoltage1">
+					<el-input v-model="form.ratedVoltage1"></el-input>
 				</el-form-item>
-				<el-form-item label="额定电流(A)" prop="electricCurrent">
-					<el-input v-model="form.electricCurrent"></el-input>
+				<el-form-item label="额定电流(A)" prop="ratedCurrent1">
+					<el-input v-model="form.ratedCurrent1"></el-input>
 				</el-form-item>
-				<el-form-item label="额定功率(KW)" prop="power">
-					<el-input v-model="form.power"></el-input>
+				<el-form-item label="额定功率(KW)" prop="ratedPower1">
+					<el-input v-model="form.ratedPower1"></el-input>
 				</el-form-item>
-				<el-form-item label="风量" prop="airVolume">
-					<el-input v-model="form.airVolume"></el-input>
+				<el-form-item label="风量" prop="airVolume1">
+					<el-input v-model="form.airVolume1"></el-input>
 				</el-form-item>
-				<el-form-item label="全压" prop="totalPressure">
-					<el-input v-model="form.totalPressure"></el-input>
+				<el-form-item label="全压" prop="fullPressure1">
+					<el-input v-model="form.fullPressure1"></el-input>
 				</el-form-item>
-				<el-form-item label="静压" prop="staticPressure">
-					<el-input v-model="form.staticPressure"></el-input>
+				<el-form-item label="静压" prop="negativePressure1">
+					<el-input v-model="form.negativePressure1"></el-input>
 				</el-form-item>
-				<el-form-item label="效率" prop="efficiency">
-					<el-input v-model="form.efficiency"></el-input>
+				<el-form-item label="效率" prop="efficiency1">
+					<el-input v-model="form.efficiency1"></el-input>
 				</el-form-item>
-				<el-form-item label="备机电压" prop="staMachineVoltage">
-					<el-input v-model="form.staMachineVoltage"></el-input>
+				<el-form-item label="备机电压" prop="ratedVoltage2">
+					<el-input v-model="form.ratedVoltage2"></el-input>
 				</el-form-item>
-				<el-form-item label="备机电流" prop="staMachineElectricCurrent">
-					<el-input v-model="form.staMachineElectricCurrent"></el-input>
+				<el-form-item label="备机电流" prop="ratedCurrent2">
+					<el-input v-model="form.ratedCurrent2"></el-input>
 				</el-form-item>
-				<el-form-item label="备机功率" prop="staMachinePower">
-					<el-input v-model="form.staMachinePower"></el-input>
+				<el-form-item label="备机功率" prop="ratedPower2">
+					<el-input v-model="form.ratedPower2"></el-input>
 				</el-form-item>
-				<el-form-item label="备机风量" prop="staMachineAirVolume">
-					<el-input v-model="form.staMachineAirVolume"></el-input>
+				<el-form-item label="备机风量" prop="airVolume2">
+					<el-input v-model="form.airVolume2"></el-input>
 				</el-form-item>
-				<el-form-item label="备机全压" prop="staMachineTotalPressure">
-					<el-input v-model="form.staMachineTotalPressure"></el-input>
+				<el-form-item label="备机全压" prop="fullPressure2">
+					<el-input v-model="form.fullPressure2"></el-input>
 				</el-form-item>
-				<el-form-item label="备机静压" prop="staMachineStaticPressure">
-					<el-input v-model="form.staMachineStaticPressure"></el-input>
+				<el-form-item label="备机静压" prop="negativePressure2">
+					<el-input v-model="form.negativePressure2"></el-input>
 				</el-form-item>
-				<el-form-item label="备机效率" prop="staMachineEfficiency">
-					<el-input v-model="form.staMachineEfficiency"></el-input>
+				<el-form-item label="备机效率" prop="efficiency2">
+					<el-input v-model="form.efficiency2"></el-input>
+				</el-form-item>
+				<el-form-item label="&ensp;视频地址" prop="videoUrl" class="table_page_form_row">
+					<el-input v-model="form.videoUrl"></el-input>
 				</el-form-item>
 				<el-form-item label="&ensp;备注" prop="remark" class="table_page_form_row">
 					<el-input v-model="form.remark"></el-input>
 				</el-form-item>
 			</el-form>
 		</dia-log>
+		<!--    标签弹窗-->
+		<FanTagsConfig
+			v-if="tagsVisible"
+			v-model="tagsVisible"
+			:choose-row="chooseRow"
+			title="主扇标签"
+		/>
 	</div>
 </template>
 

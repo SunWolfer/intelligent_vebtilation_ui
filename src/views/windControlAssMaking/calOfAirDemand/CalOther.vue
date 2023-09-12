@@ -1,8 +1,63 @@
 <!--其他-->
 <script setup>
-	import { calOfAirDemand } from '@/api/request/windControlAssMaking/calOfAirDemand'
+	import { calOtherData } from '@/api/request/windControlAssMaking/calOfAirDemand/calOtherData'
+	import { useCommitForm } from '@/hooks/useForm'
+	import { addOtherRoad, editOtherRoad } from '@/api/api/calOfAirDemand'
 
-	const { dataForm, requiredAirVolume, dataForm3, dataForm8 } = calOfAirDemand()
+	const props = defineProps({
+		chooseRow: {
+			type: Object,
+			default: undefined,
+		},
+	})
+
+	const {
+		dataFormInfo,
+		dataList,
+		wind_predict_type,
+		dataForm,
+		resetForm,
+		checkPredictType,
+		windList,
+		gasList,
+		chooseWindList,
+		chooseGasList,
+		gasS,
+		changeRoad,
+	} = calOtherData()
+
+	watch(
+		() => props.chooseRow,
+		async (val) => {
+			if (!val || val.id === dataForm.value.roadCode) return
+			const data = await dataFormInfo?.(val.id)
+			if (data) {
+				dataForm.value = data
+			} else {
+				resetForm?.()
+			}
+		},
+	)
+	const emits = defineEmits(['changeTunnel'])
+
+	const submitForm = async () => {
+		// 修改
+		if (dataForm.value.mainId) {
+			await useCommitForm(editOtherRoad, {
+				queryParams: dataForm.value,
+				afterReadyDataFun: () => {
+					emits('changeTunnel')
+				},
+			})
+		} else {
+			await useCommitForm(addOtherRoad, {
+				queryParams: dataForm.value,
+				afterReadyDataFun: () => {
+					emits('changeTunnel')
+				},
+			})
+		}
+	}
 </script>
 
 <template>
@@ -10,8 +65,8 @@
 		<div class="cal_child_body">
 			<el-form :model="dataForm">
 				<el-form-item label="巷道名称">
-					<el-select v-model="dataForm.name">
-						<el-option label="111" value="111"></el-option>
+					<el-select v-model="dataForm.roadCode" @change="changeRoad">
+						<el-option v-for="i in dataList" :label="i.code + i.name" :value="i.code"></el-option>
 					</el-select>
 				</el-form-item>
 			</el-form>
@@ -24,41 +79,51 @@
 							</border-box>
 						</div>
 						<div class="child_body_item_t2">
-							<div class="child_body_item_t2_default">
-								<span>人工输入</span>
-							</div>
-							<div class="child_body_item_t2_active">
-								<span>智能实时</span>
+							<div
+								v-for="i in wind_predict_type"
+								:class="
+									dataForm.gasPredictType === i.value
+										? 'child_body_item_t2_active'
+										: 'child_body_item_t2_default'
+								"
+								@click="checkPredictType(i.value)"
+							>
+								<span>{{ i.label }}</span>
 							</div>
 						</div>
 						<div class="child_body_item_t3">
+							<template v-if="dataForm.gasPredictType === '1'">
+								<div class="child_body_item_t3_line">
+									<span>瓦斯传感器</span>
+									<el-select v-model="dataForm.gasSneosrCode" @change="chooseGasList">
+										<el-option v-for="i in gasList" :label="i.name" :value="i.code"></el-option>
+									</el-select>
+								</div>
+								<div class="child_body_item_t3_line">
+									<span>风速传感器 </span>
+									<el-select v-model="dataForm.gasWindSensor" @change="chooseWindList">
+										<el-option v-for="i in windList" :label="i.name" :value="i.code"></el-option>
+									</el-select>
+								</div>
+								<div class="child_body_item_t3_line">
+									<span>巷道截面积(㎡)</span>
+									<el-input v-model="gasS" />
+								</div>
+							</template>
 							<div class="child_body_item_t3_line">
-								<span>瓦斯传感器</span>
-								<el-input v-model="dataForm3.gasSensor" />
+								<span>其它用风巷道回风瓦斯涌出量(m³/min)</span>
+								<el-input
+									:disabled="dataForm.gasPredictType === '1'"
+									v-model="dataForm.gasEmission"
+								/>
 							</div>
 							<div class="child_body_item_t3_line">
-								<span>风速传感器 </span>
-								<el-input v-model="dataForm3.windSensor" />
-							</div>
-							<div class="child_body_item_t3_line">
-								<span>巷道截面积(㎡)</span>
-								<el-input v-model="dataForm3.sectionalArea" />
-							</div>
-							<div class="child_body_item_t3_line">
-								<span>月平均日产煤量(t/d)</span>
-								<el-input v-model="dataForm3.yield" />
-							</div>
-							<div class="child_body_item_t3_line">
-								<span>采煤工作面回风瓦斯涌出量(m³/min)</span>
-								<el-input v-model="dataForm3.gushingAmount" />
-							</div>
-							<div class="child_body_item_t3_line">
-								<span>采煤工作面瓦斯涌出备用风量系数</span>
-								<el-input v-model="dataForm3.airVolumeCoefficient" />
+								<span>其它用风巷道瓦斯涌出备用风量系数</span>
+								<el-input v-model="dataForm.gasAirCoe" />
 							</div>
 							<div class="child_body_item_t3_line">
 								<span>按照瓦斯涌出预测所需风量(m³/min)</span>
-								<el-input v-model="dataForm3.airVolume" />
+								<el-input disabled v-model="dataForm.gasQ" />
 							</div>
 						</div>
 					</div>
@@ -73,20 +138,20 @@
 						<div class="child_body_item_t2"></div>
 						<div class="child_body_item_t3">
 							<div class="child_body_item_t3_line">
-								<span>掘进工作面有效断面积(㎡)</span>
-								<el-input v-model="dataForm8.sectionalArea" />
+								<span>一般巷道有效断面积(㎡)</span>
+								<el-input v-model="dataForm.gasSurface" />
 							</div>
 							<div class="child_body_item_t3_line">
 								<span>按照风速预测所需风量(m³/min)</span>
-								<el-input v-model="dataForm8.airVolume" />
+								<el-input disabled v-model="dataForm.speedQ" />
 							</div>
 						</div>
 					</div>
 				</border-box>
 			</div>
 			<div class="cal_child_body_bottom">
-				预测工作面所需风量(m³/min)<el-input v-model="requiredAirVolume" />
-				<div class="normal_btn">确认</div>
+				预测工作面所需风量(m³/min)<el-input disabled v-model="dataForm.airVolume" />
+				<div class="normal_btn" v-if="dataForm.roadCode" @click="submitForm">确认</div>
 			</div>
 		</div>
 	</border-box>

@@ -5,16 +5,19 @@
 	height: 100%;
 	padding: 0 vw(60) vh(60) vw(70);
 	display: grid;
-	grid-template-rows: vh(590) vh(65) auto;
+	grid-template-rows: vh(590) vh(65) 1fr;
+	grid-template-columns: 1fr;
 }
 
 .cal_air_body_top {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	display: grid;
 	grid-template-columns: vw(167) 1fr;
 }
 .cal_air_body_top_left {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	padding-top: vh(55);
@@ -108,10 +111,12 @@
 
 //子组件
 .cal_child_body {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	display: grid;
 	padding: vh(24) vw(40) vh(23) vw(38);
+	grid-template-columns: 1fr;
 	grid-template-rows: vh(38) vh(450) vh(38);
 	align-content: space-between;
 	.el-select {
@@ -122,10 +127,16 @@
 	}
 }
 .cal_child_body_center {
+	position: relative;
 	width: 100%;
 	height: 100%;
+	display: grid;
+	grid-template-columns: vw(455) vw(425) 1fr;
+	grid-template-rows: 1fr;
+	grid-column-gap: vw(10);
 }
 .cal_child_body_bottom {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -143,6 +154,7 @@
 }
 //工作面详细内容
 .child_work_body {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	display: grid;
@@ -173,6 +185,7 @@
 }
 // 掘进面详细内容
 .child_head_body {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	display: grid;
@@ -181,10 +194,11 @@
 }
 //三行
 .child_body_item {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	display: grid;
-	padding: vh(25) vw(23);
+	padding: vh(25) vw(20);
 	grid-template-columns: 1fr;
 	grid-template-rows: vh(38) vh(44) 1fr;
 	place-content: center;
@@ -248,15 +262,18 @@
 }
 //两行
 .child_body_item_2 {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	display: grid;
-	padding: vh(25) 0;
+	padding: vh(25) vw(20);
 	grid-template-columns: 1fr;
 	grid-template-rows: vh(38) 1fr;
+	grid-row-gap: vh(10);
 	place-content: center;
 }
 .child_body_item_t3 {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	display: grid;
@@ -265,10 +282,11 @@
 }
 
 .child_body_item_t3_line {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	display: grid;
-	grid-template-columns: auto vw(102);
+	grid-template-columns: vw(290) 1fr;
 	grid-column-gap: vw(15);
 	align-items: center;
 	span {
@@ -281,7 +299,8 @@
 		color: #ffffff;
 	}
 	:deep(.el-input) {
-		width: vw(102);
+		--el-disabled-text-color:#ffffff;
+		width: 100%;
 		height: vh(38);
 	}
 }

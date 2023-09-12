@@ -1,6 +1,7 @@
 // 巷道参数
 import { getRoadInfo } from '@/api/api/naturalDisNetSolution'
 import useDict from '@/hooks/useDict'
+import { useLoading } from '@/hooks/useLoading'
 
 export const useTunnelData = () => {
 	/**
@@ -25,20 +26,27 @@ export const useTunnelData = () => {
 	const showTunnelData = ref(undefined)
 	// 显示某巷道参数
 	const showParam = async (name) => {
-		const res = await getRoadInfo({
+		const { loading } = useLoading('正在加载数据，请稍后')
+		await getRoadInfo({
 			code: name,
 		})
-		if (res.code === 200) {
-			showTunnelData.value = {
-				...res.data,
-				id: 'tunnel' + res.data.id,
-				point: {
-					x: res.data?.centerPointX,
-					y: res.data?.centerPointY,
-					z: res.data?.centerPointZ,
-				},
-			}
-		}
+			.then((res) => {
+				if (res.code === 200) {
+					showTunnelData.value = {
+						...res.data,
+						id: 'tunnel' + res.data.id,
+						point: {
+							x: res.data?.centerPointX,
+							y: res.data?.centerPointY,
+							z: res.data?.centerPointZ,
+						},
+					}
+				}
+				loading.close()
+			})
+			.catch(() => {
+				loading.close()
+			})
 	}
 
 	return {

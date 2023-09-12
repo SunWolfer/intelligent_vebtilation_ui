@@ -4,6 +4,7 @@
 	import { useCommitForm } from '@/hooks/useForm'
 	import { naturedCalculateSimulate, reloadDrawing } from '@/api/api/naturalDisNetSolution'
 	import { useLoading } from '@/hooks/useLoading'
+	import { fixedCalculateSimulate } from '@/api/api/onDemandAirDisNetSolution'
 
 	const props = defineProps({
 		// 显示解算模拟弹窗
@@ -17,6 +18,15 @@
 			default: () => {
 				return []
 			},
+		},
+		/**
+		 * 解算模拟类型
+		 * '1'自然分风
+		 * ’2’按需分风
+		 */
+		calculatingType: {
+			type: String,
+			default: '1',
 		},
 	})
 	const emits = defineEmits([
@@ -66,6 +76,15 @@
 	const reloadNetWorkUrl = ref('')
 	//   开始模拟
 	async function showAfterCalVisible() {
+		if (props.calculatingType === '1') {
+			await type1Calculating()
+		} else if (props.calculatingType === '2') {
+			await type2Calculating()
+		}
+	}
+
+	// 自然分风解算模拟
+	const type1Calculating = async () => {
 		let commitFormList = []
 		for (let i = 0; i < TOperationStepsList.value.length; i++) {
 			const operationStep = TOperationStepsList.value[i]
@@ -81,7 +100,6 @@
 				],
 			})
 		}
-		const { loading } = useLoading()
 		// 判断是否重新生成通风网络图
 		if (showVentilationNetwork.value) {
 			const hasNewTunnelList = commitFormList.filter((i) => {
@@ -98,13 +116,34 @@
 			afterReadyDataFun: (data) => {
 				afterCalDataList.value = data.roads
 				windBranchList.value = data.windBranch
-				loading.close()
 				TImitateVisible.value = false
 				afterCalVisible.value = true
 				emits('showCalVisible')
 			},
-			catchFun: () => {
-				loading.close()
+		})
+	}
+	// 按需分风解算模拟
+	const type2Calculating = async () => {
+		const commitFormList = TOperationStepsList.value.map((i) => {
+			return {
+				code: i.code,
+				fixedQ: i.value,
+			}
+		})
+		await useCommitForm(fixedCalculateSimulate, {
+			queryParams: commitFormList,
+			afterReadyDataFun: (data) => {
+				const fixedList = data.fixed.map((i) => {
+					return {
+						...i,
+						isFixed: true,
+					}
+				})
+				afterCalDataList.value = [...fixedList, ...data.calculate]
+				windBranchList.value = data.windBranch
+				TImitateVisible.value = false
+				afterCalVisible.value = true
+				emits('showCalVisible')
 			},
 		})
 	}

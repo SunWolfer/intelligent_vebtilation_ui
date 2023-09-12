@@ -72,7 +72,6 @@
 				})
 			}
 		}
-		console.log(fontList)
 		emits('loadText', fontList)
 	}
 	onBeforeUnmount(() => {
