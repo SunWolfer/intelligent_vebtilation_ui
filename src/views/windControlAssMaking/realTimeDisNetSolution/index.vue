@@ -119,14 +119,14 @@
 							<template #default="scope">
 								<span
 									class="full_table_cell_bg"
-									:class="cellStyle(scope.row.windSensorAirVolume)"
+									:class="cellStyle(scope.row.calSensorDeviation)"
 									>{{ scope.row.windSensorAirVolume }}</span
 								>
 							</template>
 						</el-table-column>
 						<el-table-column label="人工实测风量(m³/min)" align="center" prop="personQ">
 							<template #default="scope">
-								<span class="full_table_cell_bg" :class="cellStyle(scope.row.personQ)">{{
+								<span class="full_table_cell_bg" :class="cellStyle(scope.row.calPersonDeviation)">{{
 									scope.row.personQ
 								}}</span>
 							</template>

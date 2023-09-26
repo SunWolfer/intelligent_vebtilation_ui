@@ -135,19 +135,12 @@
 							</el-table-column>
 							<el-table-column label="解算前风量(m³/min)" align="center" prop="oldAirVolume">
 								<template #default="scope">
-									<span class="full_table_cell_bg" :class="cellStyle(scope.row.oldAirVolume)">{{
+									<span class="full_table_cell_bg" :class="cellStyle(scope.row.calBeforeDeviation)">{{
 										scope.row.oldAirVolume
 									}}</span>
 								</template>
 							</el-table-column>
 							<el-table-column label="实时风量(m³/min)" align="center" prop="windSensorAirVolume">
-								<template #default="scope">
-									<span
-										class="full_table_cell_bg"
-										:class="cellStyle(scope.row.windSensorAirVolume)"
-										>{{ scope.row.windSensorAirVolume }}</span
-									>
-								</template>
 							</el-table-column>
 							<el-table-column
 								label="目标风量(m³/min)"
