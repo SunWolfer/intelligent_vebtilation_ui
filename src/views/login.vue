@@ -89,7 +89,7 @@
 	.login-form-content_l1 {
 		justify-self: center;
 
-		font-size: vh(36);
+		font-size: vw(36);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -108,7 +108,7 @@
 		}
 		.el-input__prefix {
 			color: rgba(74, 171, 254, 1);
-			font-size: vh(24);
+			font-size: vw(24);
 		}
 		&:hover {
 			box-shadow: none;

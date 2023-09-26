@@ -1,3 +1,6 @@
+import useList from "@/hooks/useList";
+import {getVentList} from "@/api/api/windResAnaReport";
+
 export const windResAnaReport = () => {
 	//   通风阻力分析路线
 	const windageRoute = ref([
@@ -23,15 +26,9 @@ export const windResAnaReport = () => {
 		' 相对误差：11.30%；',
 		'矿井等级孔：6.43m2。 ',
 	])
-	// 通风阻力分析汇总表
-	const dataList = ref([
-		{
-			code: '',
-		},
-	])
+	
 	return {
 		windageRoute,
 		windResAnalysisList,
-		dataList,
 	}
 }

@@ -51,7 +51,7 @@
 								<span class="acc_body_top_body_item_l2_text_2">{{ i.airVolume }}</span>
 							</div>
 							<div class="acc_body_top_body_item_icon" :class="getStyle(i.warnStatus)">
-								<span v-if="i.warnStatus !== '0'">{{ i.yjmc }}</span>
+								<span v-if="i.warnStatus !== '0'">{{ i.warnName }}</span>
 							</div>
 							<div class="acc_body_top_body_item_l4">
 								<div>

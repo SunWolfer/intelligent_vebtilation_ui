@@ -39,7 +39,7 @@
 		width: 100%;
 		height: 100%;
 		display: grid;
-		grid-template-columns: repeat(8, 2px 1fr);
+		grid-template-columns: repeat(8, 10px 1fr);
 		place-items: center;
 	}
 	.local_fan_body_l1_t3 {
@@ -73,8 +73,8 @@
 		.local_fan_body_l1_item_c1 {
 			grid-area: c1;
 			justify-self: center;
-			width: vh(73);
-			height: vh(85);
+			width: vw(73);
+			height: vw(85);
 			background-size: 100% 100%;
 		}
 		.local_fan_body_l1_item_c1_normal {
@@ -86,7 +86,7 @@
 		.local_fan_body_l1_item_l1 {
 			grid-area: cl1;
 			width: 100%;
-			font-size: vh(18);
+			font-size: vw(18);
 			font-family:
 				Adobe Heiti Std,
 				serif;
@@ -94,7 +94,7 @@
 			color: #00bfff;
 		}
 		@mixin l1ItemText {
-			font-size: vh(14);
+			font-size: vw(14);
 			font-family:
 				Adobe Heiti Std,
 				serif;
@@ -155,14 +155,14 @@
 			align-items: center;
 			align-content: center;
 			.local_fan_body_l3_l2_item_value {
-				font-size: vh(22);
+				font-size: vw(22);
 				font-family: AdobeHeitiStd-Regular, 'Microsoft YaHei', sans-serif;
 				font-weight: 400;
 				color: #ffffff;
 				line-height: vh(26);
 			}
 			.local_fan_body_l3_l2_item_label {
-				font-size: vh(14);
+				font-size: vw(14);
 				font-family:
 					Adobe Heiti Std,
 					serif;
@@ -173,7 +173,7 @@
 		@for $i from 1 through 4 {
 			.local_fan_body_l3_l2_icon_#{$i} {
 				width: vw(77);
-				height: vh(77);
+				height: vw(77);
 				justify-self: end;
 				background-image: url('@/assets/images/venEqMonitoring/fans/local_icon#{$i}.png');
 				background-size: 100% 100%;
@@ -183,7 +183,7 @@
 	.local_fan_body_l3_l4 {
 		padding-right: vw(14);
 		justify-self: end;
-		font-size: vh(14);
+		font-size: vw(14);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -212,7 +212,7 @@
 				display: flex;
 				justify-content: space-around;
 				align-items: center;
-				font-size: vh(14);
+				font-size: vw(14);
 				font-family:
 					Adobe Heiti Std,
 					serif;
@@ -250,7 +250,7 @@
 			'l6_7 l6_7';
 	}
 	@mixin l6Title {
-		font-size: vh(22);
+		font-size: vw(22);
 		font-family: AdobeHeitiStd-Regular, 'Microsoft YaHei', sans-serif;
 		font-weight: 400;
 		color: #ffffff;
@@ -273,7 +273,7 @@
 		z-index: 0;
 		cursor: pointer;
 		span {
-			font-size: vh(22);
+			font-size: vw(22);
 			font-family: YouSheBiaoTiHei, serif;
 			font-weight: 400;
 			color: rgba(255, 255, 255, 0.78);
@@ -344,19 +344,19 @@
 		align-items: center;
 		.local_fan_body_l6_label {
 			justify-self: end;
-			font-size: vh(26);
+			font-size: vw(26);
 			font-family: YouSheBiaoTiHei, serif;
 			font-weight: 400;
 			color: rgba(255, 255, 255, 0.78);
 			text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
-			background: linear-gradient(0deg, #b8d6ff 0%, #2bc9ea 100%);
+			background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 		}
 		.local_fan_body_l6_icon {
 			width: vw(104);
-			height: vh(42);
+			height: vw(42);
 			background-size: 100% 100%;
 			cursor: pointer;
 		}

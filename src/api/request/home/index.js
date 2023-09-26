@@ -1,30 +1,6 @@
 import { ClickEventTypes } from '@/api/request/menuType'
-import useEquipment from '@/store/modules/equipmentData'
-import { deviceAll } from '@/api/api/home'
-import { useGainList } from '@/hooks/useGainList'
 
 export const home = () => {
-	const equipmentData = useEquipment()
-
-	useGainList({
-		apiFun: deviceAll,
-		afterReadyDataFun: (data) => {
-			for (let i = 0; i < data.length; i++) {
-				for (let j = 0; j < data[i].children.length; j++) {
-					data[i].children[j] = {
-						...data[i].children[j],
-						point: {
-							x: data[i].children[j].pointX,
-							y: data[i].children[j].pointY,
-							z: data[i].children[j].pointZ,
-						},
-					}
-				}
-			}
-			equipmentData.updateData(data)
-		},
-	})
-
 	// 3D图Dom
 	const threeRef = ref(null)
 	// 移动镜头

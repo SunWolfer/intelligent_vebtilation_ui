@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { deviceTypes } from '@/api/request/menuType'
 import { EditType } from '@/components/VueThree/types/editType'
+import { deviceAll } from '@/api/api/home'
 const useEquipment = defineStore('equipment-data', {
 	state: () => ({
 		// 设备信息
@@ -64,8 +65,22 @@ const useEquipment = defineStore('equipment-data', {
 	}),
 	actions: {
 		// 更新设备列表数据
-		updateData(views) {
-			this.data = views
+		updateData() {
+			deviceAll().then(({ data }) => {
+				for (let i = 0; i < data.length; i++) {
+					for (let j = 0; j < data[i].children.length; j++) {
+						data[i].children[j] = {
+							...data[i].children[j],
+							point: {
+								x: data[i].children[j].pointX,
+								y: data[i].children[j].pointY,
+								z: data[i].children[j].pointZ,
+							},
+						}
+					}
+				}
+				this.data = data
+			})
 		},
 		// 更新显示设备索引
 		updateTEquipmentIndex(data) {

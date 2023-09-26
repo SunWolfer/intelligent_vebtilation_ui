@@ -1,6 +1,7 @@
 <script setup>
 	import HomeWindBranch from '@/views/components/home/HomeWindBranch.vue'
 	import HomeVenNetwork from '@/views/components/home/HomeVenNetwork.vue'
+	import { useInteraction } from '@/hooks/useInteraction'
 
 	const props = defineProps({
 		modelValue: {
@@ -37,9 +38,14 @@
 			type: String,
 			default: '',
 		},
+		// 点击巷道code
+		selectCode: {
+			type: String,
+			default: '',
+		},
 	})
 
-	const emits = defineEmits(['update:modelValue', 'cancel'])
+	const emits = defineEmits(['update:modelValue', 'cancel', 'getSelectionRows'])
 	const showDiaLog = computed({
 		get() {
 			return props.modelValue
@@ -64,6 +70,30 @@
 		}
 		return cell
 	}
+	// 点击巷道code
+	const afTunnelCode = ref('')
+	//   表格点击
+	const getSelectionRows = (row) => {
+		afTunnelCode.value = row.code
+		emits('getSelectionRows', row)
+	}
+	const { tableRef, positionTableRow } = useInteraction()
+	//   巷道被点击
+	watch(
+		() => props.selectCode,
+		(val) => {
+			if (val) {
+				afTunnelCode.value = val
+				positionTableRow?.(props.dataList, val)
+			}
+		},
+	)
+
+	//   风路分支图被点击
+	const chooseFullData = (row) => {
+		positionTableRow?.(props.dataList, row.code)
+		emits('getSelectionRows', row)
+	}
 </script>
 
 <template>
@@ -81,7 +111,14 @@
 						<span>1%-5%</span>
 					</div>
 					<div class="after_cal_body_table">
-						<el-table :data="dataList" height="100%" border>
+						<el-table
+							ref="tableRef"
+							:data="dataList"
+							height="100%"
+							border
+							highlight-current-row
+							@row-click="getSelectionRows"
+						>
 							<el-table-column label="巷道" align="center" prop="name">
 								<template #default="scope">
 									<div
@@ -142,7 +179,12 @@
 		</div>
 		<!--    风路分支图-->
 		<div class="after_cal_body_left" v-if="showWindBranch">
-			<home-wind-branch :default-list="false" :list="windBranchList" />
+			<home-wind-branch
+				:default-list="false"
+				:list="windBranchList"
+				@choose-wind-full="chooseFullData"
+				:select-code="afTunnelCode"
+			/>
 		</div>
 		<!--    通风网络图-->
 		<div class="after_cal_body_right" v-if="showVentilationNetwork">
@@ -163,6 +205,7 @@
 		left: 0;
 		top: 0;
 		padding: 0 vw(71);
+		pointer-events: none;
 		display: grid;
 		grid-template-columns: vw(500) auto vw(974);
 		grid-template-rows: vh(300) vh(572);
@@ -175,6 +218,7 @@
 		grid-area: header;
 		width: 100%;
 		height: 100%;
+		pointer-events: auto;
 	}
 	.after_cal_body_table {
 		position: relative;
@@ -193,7 +237,7 @@
 	.after_cal_body_top_body_top {
 		display: flex;
 
-		font-size: vh(12);
+		font-size: vw(12);
 		font-family:
 			Microsoft YaHei,
 			serif;
@@ -203,6 +247,7 @@
 
 	.after_cal_body_left {
 		grid-area: left;
+		pointer-events: auto;
 	}
 	.after_cal_body_right {
 		grid-area: right;
@@ -225,7 +270,7 @@
 				width: 100%;
 				height: vh(45);
 				text-align: center;
-				font-size: vh(20);
+				font-size: vw(20);
 				font-family:
 					Adobe Heiti Std,
 					serif;

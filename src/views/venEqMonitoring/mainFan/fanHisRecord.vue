@@ -57,8 +57,9 @@
 				</el-form-item>
 			</el-form>
 			<el-table :data="dataList" border height="100%">
-				<el-table-column label="设备名称" align="center" prop="name" />
-				<el-table-column label="设备位置" align="center" prop="location" />
+				<el-table-column label="设备名称" align="center" prop="devName" />
+				<el-table-column label="设备位置" align="center" prop="devLocation" />
+				<el-table-column label="操作内容" align="center" prop="czmc" />
 				<el-table-column label="操作时间" align="center" prop="createTime" />
 			</el-table>
 			<pagination

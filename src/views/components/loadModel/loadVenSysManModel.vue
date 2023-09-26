@@ -4,6 +4,7 @@
 	import { useModel } from '@/hooks/useModel'
 	import useEquipmentData from '@/hooks/useEquipmentData'
 	import { EditType } from '@/components/VueThree/types/editType'
+	import HomeModelType from '@/views/components/home/HomeModelType.vue'
 
 	const props = defineProps({
 		//   编辑类型
@@ -11,14 +12,23 @@
 			type: Number,
 			default: 0,
 		},
+		//   自定义数据
+		customizeData: {
+			type: Array,
+			default: [],
+		},
+		//   自定义数据最大值
+		customizeMaxNodeNum: {
+			type: Number,
+			default: 0,
+		},
 	})
 
-	const emits = defineEmits(['tunnelHandle'])
+	const emits = defineEmits(['tunnelHandle', 'chooseTunnel'])
 
 	const {
 		homeModelVisible,
 		otherThreeMod,
-		cameraPosition,
 		controlsOptions,
 		lights,
 		onLoad,
@@ -26,6 +36,7 @@
 		onClick,
 		operateModel,
 		intersected,
+		intersectedPosition,
 	} = useThree()
 	// 显示全部设备图标
 	const { equipTypeImgClass } = useEquipmentData()
@@ -36,14 +47,19 @@
 	watch(
 		() => intersected.value,
 		(value) => {
-			if (EditType.DEFAULT === props.editType) {
-				//   判断是否是巷道
-				const name = value?.name
-				if (!name) return
-				const names = name.split('-')
-				if (names.length === 2) {
-					emits('tunnelHandle', value)
+			//   判断是否是巷道
+			const name = value?.name
+			if (!name) return
+			const names = name.split('-')
+			if (names.length === 2) {
+				if (EditType.DEFAULT === props.editType) {
+					emits('tunnelHandle', value, intersectedPosition.value)
+				} else {
+					emits('chooseTunnel', value, intersectedPosition.value)
 				}
+			} else {
+				// 清空选中巷道
+				emits('chooseTunnel', undefined, undefined)
 			}
 		},
 	)
@@ -54,6 +70,8 @@
 	const readyCamera = () => {
 		//   添加图标
 		loadAllTypeList?.()
+    // 添加巷道名字贴图
+    operateModel.value?.createdImgPlane()
 	}
 	//   获取改变巷道
 	const changeHandle = () => {
@@ -73,10 +91,12 @@
 	<div class="fullDom">
 		<model-node-edit
 			ref="homeModelVisible"
+			:customize="true"
+			:customize-data="customizeData"
+			:customize-max-node-num="customizeMaxNodeNum"
 			:other-three-mod="otherThreeMod"
-			:cameraPosition="cameraPosition"
 			:lights="lights"
-			:camera-size="1"
+			:camera-size="0.1"
 			:backgroundAlpha="0"
 			:controlsOptions="controlsOptions"
 			:choose-group="true"

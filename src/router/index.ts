@@ -155,8 +155,8 @@ export const dynamicRoutes: IRouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-	history: createWebHistory(),
-	// history: createWebHashHistory(), // hash模式：createWebHashHistory
+	// history: createWebHistory(),
+	history: createWebHashHistory(), // hash模式：createWebHashHistory
 	routes: constantRoutes,
 	scrollBehavior(to, from, savedPosition) {
 		if (savedPosition) {

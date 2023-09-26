@@ -9,7 +9,7 @@
 		hiddenGlimmer?: boolean
 	}
 	import { useAutoResize } from '@/components/BorderBox/borderUtils'
-	import { dynamicHeight } from '@/utils/ruoyi'
+	import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
 
 	const props = defineProps<ReqBorderBox>()
 	const { domRef, width, height } = useAutoResize()
@@ -18,7 +18,9 @@
 	const brokenLinePoints = computed(() => {
 		const w = width.value
 		const h = height.value
-		return `0,${h} ${w - 40},${h} ${w - 32},${h - 12} ${w},${h - 12}`
+		return `0,${h} ${w - dynamicWidth(40)},${h} ${w - dynamicWidth(30)},${
+			h - dynamicHeight(12)
+		} ${w},${h - dynamicHeight(12)}`
 	})
 	//   文字位置
 	const textPosition = computed(() => {
@@ -69,10 +71,10 @@
 			</rect>
 			<g v-if="!hiddenGlimmer">
 				<rect
-					width="8"
+					:width="dynamicWidth(8)"
 					height="4"
-					:x="width - 25"
-					:y="height - 12"
+					:x="width - dynamicWidth(30)"
+					:y="height - dynamicHeight(12)"
 					fill="rgba(0, 255, 255, 1)"
 					class="skewRect"
 					filter="url(#border-box-2-filterId)"
@@ -86,10 +88,10 @@
 					/>
 				</rect>
 				<rect
-					width="8"
+					:width="dynamicWidth(8)"
 					height="4"
-					:x="width - 35"
-					:y="height - 12"
+					:x="width - dynamicWidth(40)"
+					:y="height - dynamicHeight(12)"
 					fill="rgba(44, 201, 235, 1)"
 					class="skewRect"
 					filter="url(#border-box-2-filterId)"
@@ -103,10 +105,10 @@
 					/>
 				</rect>
 				<rect
-					width="8"
+					:width="dynamicWidth(8)"
 					height="4"
-					:x="width - 45"
-					:y="height - 12"
+					:x="width - dynamicWidth(50)"
+					:y="height - dynamicHeight(12)"
 					fill="rgba(44, 202, 235, 0.4)"
 					class="skewRect"
 					filter="url(#border-box-2-filterId)"
@@ -130,7 +132,7 @@
 <style scoped lang="scss">
 	@import '@/assets/styles/border-box';
 	.border-box-2-title {
-		font-size: vh(20);
+		font-size: vw(20);
 		font-family:
 			Adobe Heiti Std,
 			serif;

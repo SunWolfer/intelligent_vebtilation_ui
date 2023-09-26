@@ -59,12 +59,7 @@ export const homeDisPreRoute = (emits) => {
 			disasterZ: disasterPosition.value.z,
 		})
 		if (res && res.data) {
-			// 补零
-			let rsDataList = res.data.path.map((i) => {
-				return (i + '').padStart(3, '0')
-			})
-
-			disasterPreventionRoute.value = [rsDataList]
+			disasterPreventionRoute.value = [res.data.path]
 			disasterRouteText.value = res.data.pathLanguage
 			emits('imitateRoute')
 		}

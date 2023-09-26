@@ -17,7 +17,7 @@ export class IWindText {
 		let element = document.createElement('div')
 		element.className = 'element_renderer'
 		element.style.backgroundColor = fontData.planeColor
-		element.style.bottom = fontData.height + 'px'
+		element.style.top = fontData.height + 'px'
 
 		let number = document.createElement('div')
 
@@ -25,13 +25,13 @@ export class IWindText {
 		number.style.fontSize = (fontData.size ?? 100) + 'px'
 		number.textContent = fontData.text
 		element.appendChild(number)
-
 		let objectCSS: any = new CSS3DObject(element)
 		objectCSS.position.copy(fontData.position)
 		objectCSS.quaternion.copy(fontData.quaternion)
+
 		objectCSS.rotateY(Math.PI / 2)
-		objectCSS.scale.x = 1
-		objectCSS.scale.y = 1
+		objectCSS.scale.x = 0.3
+		objectCSS.scale.y = 0.3
 
 		this.extraTextObject.add(objectCSS)
 		this.meshList.push(objectCSS)

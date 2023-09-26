@@ -77,7 +77,9 @@
 					<el-input v-model="queryParams.name" />
 				</el-form-item>
 				<el-form-item label="点位类型">
-					<el-select v-model="queryParams.type"></el-select>
+					<el-select v-model="queryParams.type" clearable>
+						<el-option v-for="i in typeList" :label="i.typeName" :value="i.type"></el-option>
+					</el-select>
 				</el-form-item>
 				<el-form-item>
 					<div class="normal_btn" @click="handleQuery">查询</div>
@@ -96,7 +98,7 @@
 						></div>
 						<div class="safe_data_table_item_top">
 							<border-box name="border5">
-								<div class="safe_item_title">{{ item.boardName }}</div>
+								<div class="safe_item_title">{{ item.name }}</div>
 							</border-box>
 						</div>
 						<div class="safe_data_table_item_center c-center">

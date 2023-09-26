@@ -17,7 +17,12 @@
 	const netWorkRef = ref(null)
 	const hlUrl = ref('')
 	const getNetworkPath = async () => {
-		const res = await netWorkDrawing()
+    const w = netWorkRef.value?.offsetWidth
+    const h = netWorkRef.value?.offsetHeight
+		const res = await netWorkDrawing({
+      w: w,
+      h: h
+    })
 		if (res && res.msg) hlUrl.value = res.msg
 	}
 	onMounted(() => {
@@ -26,7 +31,6 @@
 		} else {
 			hlUrl.value = props.reloadUrl
 		}
-		console.log(hlUrl.value)
 	})
 </script>
 

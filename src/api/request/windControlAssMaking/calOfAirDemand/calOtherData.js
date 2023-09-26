@@ -3,6 +3,7 @@ import { calOfAirDemand } from '@/api/request/windControlAssMaking/calOfAirDeman
 export const calOtherData = () => {
 	const {
 		dataFormInfo,
+		dataFormInfoByCode,
 		dataList,
 		wind_predict_type,
 		windList,
@@ -45,6 +46,10 @@ export const calOtherData = () => {
 		gasSurface: '',
 		roadCode: '',
 		roadName: '',
+		// 	按瓦斯预测
+		gasFlag: '0',
+		// 	按风速预测
+		speedFlag: '0',
 	})
 	const resetForm = () => {
 		dataForm.value = {
@@ -58,6 +63,10 @@ export const calOtherData = () => {
 			gasSneosrCode: '',
 			gasWindSensor: '',
 			gasSurface: '',
+			// 	按瓦斯预测
+			gasFlag: '0',
+			// 	按风速预测
+			speedFlag: '0',
 		}
 	}
 
@@ -66,7 +75,7 @@ export const calOtherData = () => {
 			return i.code === dataForm.value.roadCode
 		})
 		dataForm.value.roadName = findData.name
-		const data = await dataFormInfo?.(findData.id)
+		const data = await dataFormInfoByCode?.(findData.code)
 		if (data) {
 			dataForm.value = data
 		} else {
@@ -94,6 +103,8 @@ export const calOtherData = () => {
 		}
 		dataForm.value.gasQ = gasQ.value
 		dataForm.value.speedQ = (60 * 0.15 * dataForm.value.gasSurface).toFixed(2)
+		dataForm.value.gasFlag = dataForm.value.gasQ > 0 ? '1' : '0'
+		dataForm.value.speedFlag = dataForm.value.speedQ > 0 ? '1' : '0'
 	})
 
 	// 工作面所需风量

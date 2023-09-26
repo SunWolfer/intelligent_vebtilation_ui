@@ -8,16 +8,15 @@
 		<breadcrumb class="breadcrumb-container" v-show="!showBreadcrumb" />
 
 		<!--内容-->
-		<div :class="showBreadcrumb ? 'sys_content' : 'sys_content_default'">
+		<div :class="showBreadcrumb ? 'sys_content' : 'sys_content_default'" @contextmenu.prevent>
 			<app-main />
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-	import { getRoadwayModel } from '@/api/api/home'
-	import { useThreeModelData } from '@/hooks/useThreeModelData'
-	import Sidebar from './components/Sidebar/index.vue'
+	import {useUpdateMainData} from "@/hooks/useUpdateMainData";
+  import Sidebar from './components/Sidebar/index.vue'
 	import { AppMain, Navbar } from './components'
 	import useSettingsStore from '@/store/modules/settings'
 	import useHomeMenu from '@/hooks/useHomeMenu'
@@ -36,19 +35,8 @@
 		},
 	)
 	const { roam } = useHomeMenu()
-
-	//   查询模型信息
-	const { threeModelData, maxNodeNum } = useThreeModelData()
-
-	const initThreeData = async () => {
-		if (threeModelData.value.length) return
-		const res = await getRoadwayModel()
-		if (res.code === 200) {
-			threeModelData.value = res.data.model
-			maxNodeNum.value = res.data?.maxCode
-		}
-	}
-	initThreeData()
+	const {loadPubData} = useUpdateMainData()
+  loadPubData()
 </script>
 
 <style lang="scss" scoped>

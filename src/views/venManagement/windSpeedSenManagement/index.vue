@@ -113,7 +113,7 @@
 			<el-form-item label="传感器名称">
 				<el-input v-model="queryParams.name"></el-input>
 			</el-form-item>
-			<el-form-item label="传感器编号">
+			<el-form-item label="传感器编码">
 				<el-input v-model="queryParams.code"></el-input>
 			</el-form-item>
 			<el-form-item label="安装位置">

@@ -62,7 +62,7 @@
 		</div>
 	</div>
 	<div class="drive_bg" v-if="roam">
-		<span @click="changeBtn(0)">结束漫游</span>
+		<div class="drive_title pointer" @click="changeBtn(0)"></div>
 		<video :src="videoUrl" class="video_bg" autoplay loop />
 		<div class="video_bg_border"></div>
 	</div>

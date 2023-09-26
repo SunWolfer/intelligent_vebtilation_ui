@@ -1,5 +1,16 @@
 <!--巡检路线新增修改-->
 <script setup>
+	import { useGainList } from '@/hooks/useGainList'
+	import {
+		addPath,
+		getDeviceByType,
+		getDeviceType,
+		getPath,
+		updatePath,
+	} from '@/api/api/patrolRouteManagement'
+	import { isNull } from '@/utils/ruoyi'
+	import { useCommitForm } from '@/hooks/useForm'
+
 	const props = defineProps({
 		chooseRow: {
 			type: Object,
@@ -24,39 +35,51 @@
 	})
 
 	//   标题
-	const title = computed(() => {
-		return props.chooseRow.id ? '修改' : '新增'
-	})
+	const title = ref('')
 
 	const dataForm = ref({
 		name: '',
-		index: '',
+		orderNum: '',
 	})
 
-	const selectOptions = ref([
-		{
-			label: '1',
-			value: '1',
-		},
-		{
-			label: '2',
-			value: '2',
-		},
-		{
-			label: '3',
-			value: '3',
-		},
-		{
-			label: '4',
-			value: '5',
-		},
-	])
+	// 设备类型
+	const { dataList: devTypeList } = useGainList({
+		apiFun: getDeviceType,
+	})
+	// 改变设备类型
+	const changeDevType = async (row) => {
+		row.devId = ''
+		row.devChildren = await getDevChildren(row.devType)
+	}
+	// 根据设备类型查询设备
+	const getDevChildren = async (devType) => {
+		const { data } = await getDeviceByType({
+			devType: devType,
+		})
+		return data
+	}
+	// 选择设备
+	const chooseDevData = (row) => {
+		const chooseData = row.devChildren.find((i) => {
+			return i.id === row.devId
+		})
+		row.devLocation = chooseData?.location
+		row.devName = chooseData?.name
+	}
 
 	const dataList = ref([])
 
 	//   新增列表行
 	const addTableRow = () => {
-		dataList.value.push({})
+		dataList.value.push({
+			orderNum: dataList.value.length + 1,
+			devId: '',
+			devType: '',
+			devName: '',
+			devLocation: '',
+			// 设备列表
+			devChildren: [],
+		})
 	}
 	//   删除行
 	const minusTableRow = (index) => {
@@ -66,26 +89,80 @@
 	const downRow = (index) => {
 		if (index === dataList.value.length - 1) return
 		let temp = dataList.value[index]
-		dataList.value[index] = dataList.value[index + 1]
+		dataList.value[index] = {
+			...dataList.value[index + 1],
+			orderNum: temp.orderNum++,
+		}
 		dataList.value[index + 1] = temp
 	}
 	//   上移
 	const upRow = (index) => {
 		if (index === 0) return
 		let temp = dataList.value[index]
-		dataList.value[index] = dataList.value[index - 1]
+		dataList.value[index] = {
+			...dataList.value[index - 1],
+			orderNum: temp.orderNum--,
+		}
 		dataList.value[index - 1] = temp
 	}
+
+	const initData = async () => {
+		if (props.chooseRow.id) {
+			title.value = '修改'
+			const res = await getPath(props.chooseRow.id)
+			dataForm.value = props.chooseRow
+			dataList.value = res.data
+		} else {
+			title.value = '新增'
+		}
+	}
+
+	//   提交
+	const submitForm = async () => {
+		if (
+			isNull(dataForm.value.name) ||
+			isNull(dataForm.value.orderNum) ||
+			dataList.value.length === 0
+		)
+			return
+		if (props.chooseRow.id) {
+			await useCommitForm(updatePath, {
+				queryParams: {
+					...dataForm.value,
+					children: dataList.value,
+				},
+				afterReadyDataFun: () => {
+					emits('submit')
+					showDiaLog.value = false
+				},
+			})
+		} else {
+			await useCommitForm(addPath, {
+				queryParams: {
+					...dataForm.value,
+					children: dataList.value,
+				},
+				afterReadyDataFun: () => {
+					emits('submit')
+					showDiaLog.value = false
+				},
+			})
+		}
+	}
+
+	initData()
 </script>
 
 <template>
 	<dia-log
+		v-if="showDiaLog"
 		v-model="showDiaLog"
 		:title="title"
 		:width="900"
 		:height="520"
 		has-bottom-btn
 		:btn-list="['保存', '取消']"
+		@submit="submitForm"
 	>
 		<div class="fullDom route_body">
 			<div class="fullDom c-center">
@@ -94,7 +171,7 @@
 						<el-input class="route_body_input" v-model="dataForm.name"></el-input>
 					</el-form-item>
 					<el-form-item label="排序">
-						<el-input class="route_body_input" v-model="dataForm.index"></el-input>
+						<el-input class="route_body_input" v-model="dataForm.orderNum"></el-input>
 					</el-form-item>
 				</el-form>
 			</div>
@@ -102,23 +179,30 @@
 				<div class="icon_add" @click="addTableRow"></div>
 			</div>
 			<el-table :data="dataList" height="100%" border>
-				<el-table-column label="序号" align="center" type="index" />
-				<el-table-column label="设备类型" align="center" prop="type">
+				<el-table-column label="序号" align="center" prop="orderNum" />
+				<el-table-column label="设备类型" align="center" prop="devType">
 					<template #default="scoped">
-						<el-select v-model="scoped.row.type">
+						<el-select v-model="scoped.row.devType" @change="changeDevType(scoped.row)" clearable>
 							<el-option
-								v-for="item in selectOptions"
-								:label="item.label"
-								:value="item.value"
+								v-for="item in devTypeList"
+								:label="item.dictLabel"
+								:value="item.dictValue"
 							></el-option>
 						</el-select>
 					</template>
 				</el-table-column>
-				<el-table-column label="设备名称" align="center" prop="name">
+				<el-table-column label="设备名称" align="center" prop="devName">
 					<template #default="scoped">
-						<el-select v-model="scoped.row.name"></el-select>
+						<el-select v-model="scoped.row.devId" @change="chooseDevData(scoped.row)" clearable>
+							<el-option
+								v-for="i in scoped.row.devChildren"
+								:label="i.name"
+								:value="i.id"
+							></el-option>
+						</el-select>
 					</template>
 				</el-table-column>
+				<el-table-column label="设备位置" align="center" prop="devLocation" />
 				<el-table-column label="操作" align="center">
 					<template #default="scoped">
 						<div class="icon_line">

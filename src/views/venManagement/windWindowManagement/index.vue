@@ -106,6 +106,17 @@
 		titleMes: '风窗',
 		initApi: getWindow,
 	})
+	// AB风窗选择
+	const windowTypeList = ref([
+		{
+			label: 'A',
+			value: 'A',
+		},
+		{
+			label: 'B',
+			value: 'B',
+		},
+	])
 
 	//   编辑弹窗
 	const chooseData = ref(undefined)
@@ -123,7 +134,7 @@
 				<el-input v-model="queryParams.name"></el-input>
 			</el-form-item>
 			<el-form-item label="风窗类型">
-				<el-select v-model="queryParams.type">
+				<el-select v-model="queryParams.type" clearable>
 					<el-option v-for="i in window_type" :label="i.label" :value="i.value"></el-option>
 				</el-select>
 			</el-form-item>
@@ -156,7 +167,7 @@
 			/>
 			<el-table-column label="风窗长度" align="center" prop="length" />
 			<el-table-column label="风窗宽度" align="center" prop="width" />
-			<el-table-column label="操作" align="center" width="150">
+			<el-table-column label="操作" align="center" width="180">
 				<template #default="scope">
 					<el-button
 						type="primary"
@@ -209,7 +220,9 @@
 					<el-input v-model="form.ip"></el-input>
 				</el-form-item>
 				<el-form-item label="&ensp;A/B风窗" prop="abTag">
-					<el-input v-model="form.abTag"></el-input>
+					<el-select v-model="form.abTag" clearable>
+						<el-option v-for="i in windowTypeList" :label="i.label" :value="i.value"></el-option>
+					</el-select>
 				</el-form-item>
 				<el-form-item label="风窗长度" prop="length">
 					<el-input v-model="form.length"></el-input>
@@ -221,12 +234,12 @@
 					<el-input v-model="form.code"></el-input>
 				</el-form-item>
 				<el-form-item label="风窗类型" prop="type">
-					<el-select v-model="form.type">
+					<el-select v-model="form.type" clearable>
 						<el-option v-for="i in window_type" :label="i.label" :value="i.value"></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="风窗版本" prop="devVersion">
-					<el-select v-model="form.devVersion">
+					<el-select v-model="form.devVersion" clearable>
 						<el-option v-for="i in window_version" :label="i.label" :value="i.value"></el-option>
 					</el-select>
 				</el-form-item>
@@ -282,12 +295,12 @@
 					<el-input disabled v-model="examineForm.code"></el-input>
 				</el-form-item>
 				<el-form-item label="风窗类型" prop="type">
-					<el-select disabled v-model="examineForm.type">
+					<el-select disabled v-model="examineForm.type" clearable>
 						<el-option v-for="i in window_type" :label="i.label" :value="i.value"></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="风窗版本" prop="devVersion">
-					<el-select disabled v-model="examineForm.devVersion">
+					<el-select disabled v-model="examineForm.devVersion" clearable>
 						<el-option v-for="i in window_version" :label="i.label" :value="i.value"></el-option>
 					</el-select>
 				</el-form-item>

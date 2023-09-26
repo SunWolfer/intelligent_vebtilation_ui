@@ -76,12 +76,12 @@
 		<div class="fullDom fan_curve">
 			<el-form :model="queryParams" inline>
 				<el-form-item label="转速(r/min)">
-					<el-select v-model="queryParams.rotationalSpeed" @change="changeAngle">
+					<el-select v-model="queryParams.rotationalSpeed" @change="changeAngle" clearable>
 						<el-option v-for="i in dataList" :label="i.zhuansu" :value="i.zhuansu"></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="叶片角度">
-					<el-select v-model="queryParams.angle">
+					<el-select v-model="queryParams.angle" clearable>
 						<el-option v-for="i in angleList" :label="i" :value="i"></el-option>
 					</el-select>
 				</el-form-item>

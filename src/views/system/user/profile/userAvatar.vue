@@ -99,7 +99,7 @@
 		bottom: 0;
 		color: #eee;
 		background: rgba(0, 0, 0, 0.5);
-		font-size: 24px;
+		font-size: vw(24);
 		font-style: normal;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;

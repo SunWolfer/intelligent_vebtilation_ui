@@ -116,18 +116,18 @@
 		align-items: center;
 		justify-content: center;
 		span {
-			font-size: vh(18);
+			font-size: vw(18);
 			font-family:
 				Source Han Sans CN,
 				serif;
 			font-weight: bold;
 			color: #f50b0c;
 			&:nth-child(1) {
-				font-size: vh(30);
+				font-size: vw(30);
 				justify-self: center;
 			}
 			&:nth-child(2) {
-				font-size: vh(14);
+				font-size: vw(14);
 				justify-self: center;
 			}
 		}
@@ -136,7 +136,7 @@
 		width: 100%;
 		height: 100%;
 		overflow: hidden;
-		font-size: vh(18);
+		font-size: vw(18);
 		font-family:
 			Source Han Sans CN,
 			serif;

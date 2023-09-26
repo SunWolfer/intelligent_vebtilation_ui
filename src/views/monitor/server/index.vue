@@ -159,7 +159,7 @@
 					height: vh(32);
 					color: #000000;
 					background: #00afff;
-					font-size: vh(14);
+					font-size: vw(14);
 					font-family:
 						PingFang SC,
 						serif;
@@ -174,7 +174,7 @@
 					position: relative;
 					width: 100%;
 					height: vh(34);
-					font-size: vh(14);
+					font-size: vw(14);
 					font-family:
 						PingFang SC,
 						serif;

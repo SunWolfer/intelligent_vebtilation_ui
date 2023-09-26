@@ -3,8 +3,10 @@
 
 	const props = defineProps({
 		color: {
-			type: Array,
-			default: () => ['#1089ff', 'rgba(0,0,255,0.8)'],
+			type: Array as any[3],
+			default: () => {
+				return ['#1089ff', 'rgba(0,0,255,0.8)', 'none']
+			},
 		},
 		backgroundColor: {
 			type: String,

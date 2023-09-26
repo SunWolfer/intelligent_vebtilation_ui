@@ -3,7 +3,7 @@
 	import { windWindowMonitoring } from '@/api/request/venEqMonitoring/windWindowMonitoring'
 	import { monitoring } from '@/api/request/venEqMonitoring/monitoring'
 	import useDict from '@/hooks/useDict'
-	import { selectDictLabel } from '../../../utils/ruoyi'
+	import { selectDictLabel } from '@/utils/ruoyi'
 
 	const { defaultStatusList, queryParams, dataList, total, getList, toControlPage } =
 		windWindowMonitoring()
@@ -48,7 +48,7 @@
 						<div class="ven_body_center_item_body">
 							<div class="fullDom ven_body_center_item_body_line">
 								<span>名称：{{ item.name }}</span>
-								<span>开度：{{ item.areaPercent }}</span>
+								<span>开度：{{ item.openDegreeNow }}</span>
 								<span>位置：{{ item.location }}</span>
 								<span>风量：{{ item.volume }}</span>
 								<span>IP地址：{{ item.ip }}</span>

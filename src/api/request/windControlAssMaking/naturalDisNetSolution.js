@@ -1,4 +1,5 @@
 import { EditType } from '@/components/VueThree/types/editType'
+import { useWindNetCalculation } from '@/hooks/useWindNetCalculation'
 
 export const naturalDisNetSolution = () => {
 	// 3D模型
@@ -128,9 +129,11 @@ export const naturalDisNetSolution = () => {
 	const cancelImitateVisible = () => {
 		operationStepsList.value = []
 	}
-
-	const showAfterCalVisible = () => {
+	const { fontList, splitText } = useWindNetCalculation()
+	// 显示解算后界面
+	const showAfterCalVisible = (dataList) => {
 		showAirDisNetwork.value = false
+		splitText?.(dataList)
 	}
 	// 取消解算后界面
 	const cancelAirDisNetwork = () => {
@@ -177,5 +180,6 @@ export const naturalDisNetSolution = () => {
 		tunnelConfirm,
 		tunnelCancel,
 		confirmTunnel,
+		fontList,
 	}
 }

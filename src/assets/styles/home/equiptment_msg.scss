@@ -27,7 +27,7 @@
 	color: #01ffff;
 	grid-column-start: 1;
 	grid-column-end: 3;
-	font-size: vh(20);
+	font-size: vw(20);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -64,7 +64,7 @@
 	align-items: center;
 	.equipment_msg_top_item_1_text {
 		align-self: center;
-		font-size: vh(14);
+		font-size: vw(14);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -79,13 +79,13 @@
 	justify-self: center;
 	align-self: center;
 	display: grid;
-	font-size: vh(22);
+	font-size: vw(22);
 	font-family: YouSheBiaoTiHei, serif;
 	font-weight: 400;
 	color: rgba(255, 255, 255, 0.78);
 	text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
-	background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
+	background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
@@ -208,9 +208,10 @@
 }
 //底部文字
 .equipment_msg_top_item_4_door {
-	grid-template-columns: auto auto;
+	grid-template-columns: max-content 1fr;
+	grid-column-gap: vw(10);
 	grid-template-rows: repeat(2, 1fr);
-	font-size: vh(13);
+	font-size: vw(13);
 	font-family:
 		Adobe Heiti Std,
 		serif;

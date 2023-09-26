@@ -58,12 +58,17 @@
 }
 //首页图标
 .navigate_home{
-  width: vh(60);
-  height: vh(60);
-  background-image: url("@/assets/images/layout/home.png");
+  position: relative;
+  width: vh(32);
+  height: vh(32);
+  background-image: url("@/assets/images/layout/home.gif");
   background-size: 100% 100%;
   float: right;
   margin-right: vw(20);
+  &:hover{
+    background-image: url("@/assets/images/layout/home_hover.png");
+    background-size: 100% 100%;
+  }
 }
 
 //导航栏标签背景
@@ -71,7 +76,7 @@
   width: vh(169);
   height: vh(36);
   text-align: center;
-  font-size: vh(18);
+  font-size: vw(18);
   font-family: Adobe Heiti Std, serif;
   font-weight: normal;
   line-height: vh(36);
@@ -126,7 +131,7 @@
 
 //  系统标题
 @mixin sysTitle{
-  font-size: vh(47);
+  font-size: vw(47);
   font-family: Adobe Heiti Std, serif;
   font-weight: normal;
   line-height: vh(46);

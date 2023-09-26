@@ -14,13 +14,56 @@
 			type: Array,
 			default: [],
 		},
+		//   选中巷道code
+		selectCode: {
+			type: String,
+			default: '',
+		},
 	})
+	const emits = defineEmits(['chooseWindFull'])
 
 	// 风路分支图列表
 	const { dataList: windPathList } = useGainList({
 		automatic: props.defaultList,
 		apiFun: branchDrawing,
 	})
+	// 当前选中风路分支图
+	const selectWindFullData = ref('')
+	// 选中风路分支图
+	const chooseFullData = (row) => {
+		selectWindFullData.value = row.code
+		emits('chooseWindFull', row)
+	}
+
+	// 总dom
+	const otherPathRef = ref(null)
+	watch(
+		() => props.selectCode,
+		(val) => {
+			let lineIndex = -1
+			let rowIndex = -1
+			for (let i = 0; i < windPathList.value.length; i++) {
+				const child = windPathList.value[i]
+				for (let j = 0; j < child.roadList.length; j++) {
+					const data = child.roadList[j]
+					if (data.code === val) {
+						lineIndex = i
+						rowIndex = j
+						selectWindFullData.value = data.code
+					}
+				}
+			}
+			if (lineIndex !== -1) {
+				const dom = otherPathRef.value?.getElementsByClassName('other_wind_path_body_item')[
+					lineIndex
+				]
+				otherPathRef.value.scrollTop = dom.offsetTop
+				const childDom = dom.getElementsByClassName('other_wind_path_body_item_4_body')[rowIndex]
+				const fatherDom = dom.getElementsByClassName('other_wind_path_body_item_4')[0]
+				fatherDom.scrollLeft = childDom.offsetLeft
+			}
+		},
+	)
 
 	onMounted(() => {
 		if (!props.defaultList) {
@@ -32,7 +75,7 @@
 <template>
 	<div class="fullDom wind_full">
 		<span class="other_title"><border-box name="border2" title="风路分支图"></border-box></span>
-		<div class="other_wind_path_body">
+		<div ref="otherPathRef" class="other_wind_path_body">
 			<template v-for="item in windPathList">
 				<div class="other_wind_path_body_item">
 					<div class="other_wind_path_body_item_1">{{ item.regionName }}</div>
@@ -43,12 +86,19 @@
 									class="other_wind_path_body_item_4_bar"
 									:style="{ height: (child.airVolume / item.maxValue) * 100 + '%' }"
 								></div>
-								<div class="other_item_4_text">{{ child.airVolume }}</div>
+								<div class="other_item_4_text">{{ child.airVolume.toFixed(2) }}</div>
 								<div
-									:class="
-										child.venAirDirection === '1' ? 'other_item_4_icon_1' : 'other_item_4_icon_2'
-									"
-								></div>
+									class="fullDom c-center"
+									:class="selectWindFullData === child.code ? 'wind_full_select' : ''"
+								>
+									<div
+										class="pointer"
+										:class="
+											child.venAirDirection === '1' ? 'other_item_4_icon_1' : 'other_item_4_icon_2'
+										"
+										@click="chooseFullData(child)"
+									></div>
+								</div>
 								<div class="other_item_4_text">
 									<span>{{ child.code }}</span>
 								</div>
@@ -73,6 +123,7 @@
 		align-self: center;
 	}
 	.other_wind_path_body {
+		position: relative;
 		width: 100%;
 		height: 100%;
 		overflow-y: auto;
@@ -91,7 +142,7 @@
 		place-content: space-between center;
 	}
 	.other_wind_path_body_item_1 {
-		font-size: vh(16);
+		font-size: vw(16);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -124,12 +175,12 @@
 		background-color: #01f4f4;
 	}
 	@mixin itemIcon {
-		width: vh(35);
-		height: vh(35);
+		width: vw(35);
+		height: vw(35);
 		background-size: 100% 100%;
 		line-height: vh(35);
 		text-align: center;
-		font-size: vh(13);
+		font-size: vw(13);
 		font-family: YouSheBiaoTiHei, serif;
 		font-weight: 400;
 		color: #ffffff;
@@ -144,7 +195,7 @@
 	}
 	.other_item_4_text {
 		height: 100%;
-		font-size: vh(12);
+		font-size: vw(12);
 		font-family: SimSun, serif;
 		font-weight: 400;
 		color: #ffffff;
@@ -155,5 +206,9 @@
 			position: absolute;
 			width: max-content;
 		}
+	}
+	.wind_full_select {
+		border: 2px solid #ffff00;
+		box-shadow: 0 0 6px 2px #ff9b00;
 	}
 </style>

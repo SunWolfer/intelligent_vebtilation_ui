@@ -71,7 +71,7 @@
 			Adobe Heiti Std,
 			serif;
 		line-height: vh(30);
-		font-size: vh(14);
+		font-size: vw(14);
 		font-weight: normal;
 		color: #709de1;
 	}

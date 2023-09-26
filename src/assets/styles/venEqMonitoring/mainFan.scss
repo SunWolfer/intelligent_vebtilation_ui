@@ -33,7 +33,7 @@
 }
 .top_icon {
 	width: vw(46);
-	height: vh(45);
+	height: vw(45);
 	background-image: url('@/assets/images/venEqMonitoring/fans/icon6.png');
 	background-size: 100% 100%;
 	margin-left: vw(10);
@@ -43,7 +43,7 @@
 	height: vh(48);
 	background-image: url('@/assets/images/venEqMonitoring/fans/border_3.png');
 	background-size: 100% 100%;
-	font-size: vh(16);
+	font-size: vw(16);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -55,13 +55,13 @@
 }
 .top_warn_icon {
 	width: vw(63);
-	height: vh(63);
+	height: vw(63);
 	background-image: url('@/assets/images/venEqMonitoring/fans/warn_icon.png');
 	background-size: 100% 100%;
 	margin-left: vw(14);
 }
 .top_text {
-	font-size: vh(16);
+	font-size: vw(16);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -86,15 +86,16 @@
 	display: grid;
 	grid-template-rows: repeat(auto-fill, vh(60));
 	grid-row-gap: vh(5);
+	align-items: center;
 	.main_fan_body_l1_btn_item {
 		width: vw(178);
-		height: vh(60);
+		height: vw(60);
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		position: relative;
 		z-index: 0;
-		font-size: vh(17);
+		font-size: vw(17);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -102,7 +103,7 @@
 		color: rgba(255, 255, 255, 0.78);
 		text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
-		background: linear-gradient(0deg, #b8d6ff 0%, #2bc9ea 100%);
+		background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		cursor: pointer;
@@ -152,7 +153,7 @@
 		}
 		.main_fan_body_l2_l2_item_label {
 			grid-area: l3;
-			font-size: vh(14);
+			font-size: vw(14);
 			font-family:
 				Adobe Heiti Std,
 				serif;
@@ -163,7 +164,7 @@
 		}
 		.main_fan_body_l2_l2_item_value {
 			grid-area: l2;
-			font-size: vh(22);
+			font-size: vw(22);
 			font-family: AdobeHeitiStd-Regular, 'Microsoft YaHei', sans-serif;
 			font-weight: 400;
 			color: #ffffff;
@@ -179,7 +180,7 @@
 		align-content: center;
 		align-items: center;
 		span {
-			font-size: vh(22);
+			font-size: vw(22);
 			font-family: YouSheBiaoTiHei, serif;
 			font-weight: 400;
 			color: rgba(255, 255, 255, 0.78);
@@ -200,7 +201,7 @@
 		background-image: url('@/assets/images/venEqMonitoring/fans/border_1.svg');
 		background-size: 100% 100%;
 		span {
-			font-size: vh(20);
+			font-size: vw(20);
 			font-family: YouSheBiaoTiHei, serif;
 			font-weight: 400;
 			color: rgba(255, 255, 255, 0.78);
@@ -210,24 +211,24 @@
 			-webkit-text-fill-color: transparent;
 		}
 		.main_fan_body_l2_l5_title_1 {
-			font-size: vh(22);
+			font-size: vw(22);
 			font-family: AdobeHeitiStd-Regular, 'Microsoft YaHei', sans-serif;
 			font-weight: 400;
 			color: #ffffff;
 			text-shadow: 0 1px 2px rgba(4, 0, 0, 0.64);
 
-			background: linear-gradient(0deg, #16d1d9 0%, #dffff8 100%);
+			background: linear-gradient(180deg, #80e9e9 30%, #2bd6dc 100%);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 		}
 		.main_fan_body_l2_l5_title_2 {
-			font-size: vh(22);
+			font-size: vw(22);
 			font-family: AdobeHeitiStd-Regular, 'Microsoft YaHei', sans-serif;
 			font-weight: 400;
 			color: #ffffff;
 			text-shadow: 0 1px 2px rgba(4, 0, 0, 0.84);
 
-			background: linear-gradient(0deg, #16b1fc 0%, #dffff8 100%);
+			background: linear-gradient(180deg, #80dafa 30%, #2bb9fc 100%);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 		}
@@ -261,15 +262,15 @@
 			.normal_btn {
 				grid-area: l6;
 				width: vw(90);
-				height: vh(32);
-				font-size: vh(14);
+				height: vw(40);
+				font-size: vw(14);
 				font-family:
 					Adobe Heiti Std,
 					serif;
 				font-weight: normal;
 				font-style: italic;
 				color: #ffffff;
-				line-height: vh(32);
+				line-height: vw(40);
 			}
 		}
 		.main_fan_body_l2_l7_body_title {
@@ -277,7 +278,7 @@
 			background-color: rgba(27, 68, 138, 0.51);
 		}
 		.main_fan_body_l2_l7_label {
-			font-size: vh(14);
+			font-size: vw(14);
 			font-family:
 				Adobe Heiti Std,
 				serif;
@@ -291,8 +292,8 @@
 @mixin MainFanIcon {
 	grid-area: l1;
 	justify-self: center;
-	width: vh(59);
-	height: vh(59);
+	width: vw(59);
+	height: vw(59);
 	background-size: 100% 100%;
 }
 @for $i from 1 through 5 {
@@ -304,7 +305,7 @@
 
 @mixin mainFanBodyL2Btn {
 	width: vw(176);
-	height: vh(68);
+	height: vw(68);
 	background-size: 100% 100%;
 	display: flex;
 	align-items: center;
@@ -319,19 +320,19 @@
 	}
 }
 .btn_text_1 {
-	background: linear-gradient(180deg, #d9ffe5 42.236328125%, #058003 100%);
+	background: linear-gradient(180deg, #d9ffe5 42.236328125%, #299529 100%);
 }
 .btn_text_2 {
-	background: linear-gradient(180deg, #feecea 29.6875%, #b44f50 100%);
+	background: linear-gradient(180deg, #feecea 30%, #b04445 100%);
 }
 .btn_text_3 {
-	background: linear-gradient(180deg, #ffffff 0%, #17a9c7 100%);
+	background: linear-gradient(180deg, #f5fbfd 30%, #21acc9 100%);
 }
 .btn_text_4 {
-	background: linear-gradient(180deg, #ffffff 0%, #dd8c00 100%);
+	background: linear-gradient(180deg, #fefbf6 30%, #e09615 100%);
 }
 .btn_text_5 {
-	background: linear-gradient(180deg, #ffffff 0%, #f4e10a 100%);
+	background: linear-gradient(180deg, #f4e215 30%, #e09615 100%);
 }
 
 .main_fan_body_l3 {
@@ -350,7 +351,7 @@
 		place-content: center;
 		place-items: center;
 		.main_fan_body_l5_body_l1 {
-			font-size: vh(26);
+			font-size: vw(26);
 			font-family: YouSheBiaoTiHei, serif;
 			font-weight: 400;
 			color: rgba(255, 255, 255, 0.78);
@@ -380,7 +381,7 @@
 			align-items: center;
 			span {
 				width: 100%;
-				font-size: vh(19);
+				font-size: vw(19);
 				font-family: YouSheBiaoTiHei, serif;
 				font-weight: 400;
 				color: #fefdfc;
@@ -448,14 +449,14 @@
 		height: 100%;
 		background: #1c5da7;
 		span {
-			font-size: vh(16);
+			font-size: vw(16);
 			font-family:
 				Adobe Heiti Std,
 				serif;
 			font-weight: normal;
 			color: rgba(255, 255, 255, 0.78);
 			text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-			background: linear-gradient(0deg, #b8d6ff 0%, #2bc9ea 100%);
+			background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 			display: flex;
@@ -471,7 +472,7 @@
 	width: 100%;
 	height: 100%;
 	display: flex;
-	font-size: vh(14);
+	font-size: vw(14);
 	font-family: Arial, serif;
 	font-weight: 400;
 	align-items: center;

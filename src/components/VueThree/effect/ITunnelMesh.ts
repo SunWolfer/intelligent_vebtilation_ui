@@ -1,5 +1,4 @@
 import usePoint from '@/components/VueThree/ModelEdit/IPoint'
-import { useThreeModelData } from '@/hooks/useThreeModelData'
 import {
 	BoxGeometry,
 	CylinderGeometry,
@@ -48,15 +47,14 @@ interface IOverEdit {
 	deleteTunnel: IModelNode[]
 }
 
-// 获取最大节点
-const { threeModelData, maxNodeNum } = useThreeModelData()
-
 export class ITunnelMesh {
 	object: Object3D | undefined
 	iTexture: ITexture[]
+	// 全部巷道数据
+	threeModelData: IModelNode[] | undefined
+	// 巷道节点最大值
+	maxNodeNum: number
 	connectNode: IModelNode
-	// 初始化巷道
-	defaultModel: IModelNode[]
 	// 新增巷道
 	newTunnel: IModelNode[]
 	// 改变巷道/删除巷道
@@ -67,9 +65,9 @@ export class ITunnelMesh {
 	cylinder: Mesh | undefined
 	constructor() {
 		this.iTexture = []
-		this.defaultModel = []
 		this.newTunnel = []
 		this.changeTunnel = []
+		this.maxNodeNum = 0
 		this.connectNode = {
 			meshes: defaultMesh,
 			nextNode: '',
@@ -83,13 +81,11 @@ export class ITunnelMesh {
 		this.newNodes = []
 	}
 
-	config(obj: Object3D) {
+	config(obj: Object3D, threeModelData: IModelNode[], maxNodeNum: number) {
 		this.object = obj
-	}
-	// 初始化巷道
-	initTunnel(...model: IModelNode[]) {
-		this.defaultModel = [...model]
-		this.add(...model)
+		this.threeModelData = threeModelData
+		this.maxNodeNum = maxNodeNum
+		this.add(...this.threeModelData)
 	}
 	// 添加
 	add(...model: IModelNode[]) {
@@ -161,8 +157,10 @@ export class ITunnelMesh {
 		if (iMaterial.type === 'MeshStandardMaterial') {
 			material = new MeshStandardMaterial({
 				colorWrite: true,
-				metalness: iMaterial.metalness ?? 0, // 金属度属性
-				roughness: iMaterial.roughness ?? 0, //粗糙度属性
+				metalness: iMaterial.metalness ?? 0.7, // 金属度属性
+				roughness: iMaterial.roughness ?? 1, //粗糙度属性
+				depthWrite: iMaterial.depthWrite ?? true,
+				depthTest: iMaterial.depthTest ?? true,
 			})
 		}
 		// Phong网格材质(一种用于具有镜面高光的光泽表面的材质。)
@@ -185,11 +183,10 @@ export class ITunnelMesh {
 		if (texture) {
 			material.map = texture
 		}
+		material.color.set(iMaterial.color)
 		material.transparent = iMaterial.transparent ?? false
 		material.opacity = iMaterial.opacity ?? 1
-		material.depthWrite = iMaterial.depthWrite ?? true
-		material.depthTest = iMaterial.depthTest ?? true
-		if (iMaterial.color) material.color = iMaterial.color
+
 		material.side = side
 		return material
 	}
@@ -326,11 +323,7 @@ export class ITunnelMesh {
 			modelNode.nextNodePosition.z,
 		)
 
-		mesh.position.set(
-			p1.x + (p2.x - p1.x) / 2,
-			p1.y + (p2.y - p1.y) / 2 + (modelNode.windMesh.windPosition ?? 0),
-			p1.z + (p2.z - p1.z) / 2,
-		)
+		mesh.position.set(p1.x, p1.y, p1.z)
 		let mtx = new Matrix4() //创建一个4维矩阵
 		if (!modelNode.windMesh.direction) {
 			mtx.lookAt(p2, p1, mesh.up) //设置朝向
@@ -417,7 +410,7 @@ export class ITunnelMesh {
 	}
 	// 	新增操作
 	newOperation(intersected: any) {
-		if (!intersected) return
+		if (!intersected || !this.threeModelData) return
 		const name = intersected.object.name
 		if (!name) return
 		const names = name.split('-')
@@ -425,8 +418,8 @@ export class ITunnelMesh {
 		let readyModel = false
 		// 	判断点击模型类型
 		if (names.length === 2) {
-			maxNodeNum.value++
-			let cThreeModel = threeModelData.value.find((i) => {
+			this.maxNodeNum++
+			let cThreeModel = this.threeModelData.find((i) => {
 				return i.nodeName === names[0] && i.nextNode === names[1]
 			})
 			if (!cThreeModel) return
@@ -439,7 +432,7 @@ export class ITunnelMesh {
 			if (!retVal) return
 			const nodeObj: NewNode = {
 				fixed: false,
-				name: maxNodeNum.value + '',
+				name: this.maxNodeNum + '',
 				position: retVal,
 				splitTunnel: cThreeModel,
 			}
@@ -449,10 +442,10 @@ export class ITunnelMesh {
 		} else {
 			// 	点击到平面
 			if (name === 'planeModel') {
-				maxNodeNum.value++
+				this.maxNodeNum++
 				const nodeObj: NewNode = {
 					fixed: false,
-					name: maxNodeNum.value + '',
+					name: this.maxNodeNum + '',
 					position: intersected.point,
 				}
 				this.newNodes.push(nodeObj)
@@ -544,8 +537,9 @@ export class ITunnelMesh {
 	}
 	// 	保存并重绘巷道
 	redrawModel(redrawList: IOverEdit) {
+		if (!this.threeModelData) return
 		// 	当前模型列表取差集
-		threeModelData.value = threeModelData.value.filter((item) => {
+		this.threeModelData = this.threeModelData.filter((item) => {
 			return (
 				redrawList.deleteTunnel.findIndex((i) => {
 					return i.nodeName === item.nodeName && i.nextNode === item.nextNode
@@ -553,9 +547,9 @@ export class ITunnelMesh {
 			)
 		})
 		// 	当前模型列表取并集
-		threeModelData.value = threeModelData.value.concat(
+		this.threeModelData = this.threeModelData.concat(
 			redrawList.newTunnel.filter((v) => {
-				return !(threeModelData.value.indexOf(v) > -1)
+				return !(this.threeModelData!.indexOf(v) > -1)
 			}),
 		)
 		// 	更新object
@@ -567,7 +561,7 @@ export class ITunnelMesh {
 	}
 	// 创建初始模型
 	createdUnitCylinder(position: ICoordinates) {
-		let geometry = new CylinderGeometry(200, 200, 1, 4)
+		let geometry = new CylinderGeometry(2, 2, 1, 4)
 		geometry.rotateX(Math.PI * 0.5)
 		let material = this.setMaterial(defaultMesh[1].material)
 		let cylinder = new Mesh(geometry, material)
@@ -605,16 +599,16 @@ export class ITunnelMesh {
 	}
 	// 	删除全部类型巷道
 	deleteAllTunnel(intersected: any) {
-		if (!intersected) return
+		if (!intersected || !this.threeModelData) return
 		const name = intersected.object.name
 		const names = name.split('-')
 		if (names.length === 2) {
 			// 判断已有巷道
-			const deleteIndex = threeModelData.value.findIndex((i) => {
+			const deleteIndex = this.threeModelData.findIndex((i: IModelNode) => {
 				return i.nodeName === names[0] && i.nextNode === names[1]
 			})
 			if (deleteIndex !== -1) {
-				this.changeTunnel.push(threeModelData.value[deleteIndex])
+				this.changeTunnel.push(this.threeModelData[deleteIndex])
 				this.deleteTunnelByName(name)
 			}
 			// 	判断新增巷道

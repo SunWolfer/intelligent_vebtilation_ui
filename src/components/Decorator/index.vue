@@ -16,7 +16,6 @@
 <script>
 	import decorator1 from './decorator1'
 	import decorator2 from './decorator2'
-
 	export default {
 		name: 'Decorator',
 		components: {

@@ -80,7 +80,7 @@
 				display: inline-block;
 
 				height: 100%;
-				font-size: vh(18);
+				font-size: vw(18);
 				color: #5a5e66;
 				vertical-align: text-bottom;
 
@@ -113,7 +113,7 @@
 						margin: 0 vw(10);
 						cursor: pointer;
 						position: relative;
-						font-size: vh(20);
+						font-size: vw(20);
 						line-height: vh(40);
 						height: vh(40);
 						display: inline-block;
@@ -129,7 +129,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		font-size: vh(26);
+		font-size: vw(26);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -138,7 +138,7 @@
 		line-height: 44px;
 
 		.el-icon {
-			font-size: vh(26);
+			font-size: vw(26);
 			line-height: 44px;
 			color: rgba(255, 186, 0, 1);
 		}

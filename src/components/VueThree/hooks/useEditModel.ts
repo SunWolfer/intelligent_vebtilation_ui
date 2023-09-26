@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { CatmullRomCurve3, Euler, Matrix4, Mesh, Object3D, Quaternion, Vector3 } from 'three'
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
-import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
+import {CatmullRomCurve3, Euler, Matrix4, Quaternion, Vector3} from 'three'
+import {FBXLoader} from 'three/examples/jsm/loaders/FBXLoader'
+import {CSS2DObject} from 'three/examples/jsm/renderers/CSS2DRenderer'
 import * as XLSX from 'xlsx'
 
 export interface IMoveTexture {
@@ -36,16 +36,7 @@ const useEditModel = () => {
 
 			if (point && pointBox) {
 				data.obj.position.copy(point)
-
-				let targetPos = pointBox //目标位置点
-				let offsetAngle = 0 //目标移动时的朝向偏移
-
-				//以下代码在多段路径时可重复执行
-				let mtx = new Matrix4() //创建一个4维矩阵
-				// .lookAt ( eye : Vector3, target : Vector3, up : Vector3 ) : this,构造一个旋转矩阵，从eye 指向 target，由向量 up 定向。
-				mtx.lookAt(data.obj.position, targetPos, data.obj.up) //设置朝向
-				mtx.multiply(new Matrix4().makeRotationFromEuler(new Euler(0, offsetAngle, 0)))
-				let toRot = new Quaternion().setFromRotationMatrix(mtx) //计算出需要进行旋转的四元数值
+				let toRot = getQuaternion(data.obj.position,pointBox,data.obj.up)
 				data.obj.quaternion.slerp(toRot, 0.2)
 			}
 
@@ -53,6 +44,17 @@ const useEditModel = () => {
 		} else {
 			data.counter = data.isCirculate ? 0 : 1
 		}
+	}
+	// 计算朝向
+	function getQuaternion(startPosition:Vector3,endPosition:Vector3,Tup?:Vector3){
+		const up = Tup ?? new Vector3(0,1,0)
+		let offsetAngle = 0 //目标移动时的朝向偏移
+		//以下代码在多段路径时可重复执行
+		let mtx = new Matrix4() //创建一个4维矩阵
+		mtx.lookAt(startPosition, endPosition, up) //设置朝向
+		mtx.multiply(new Matrix4().makeRotationFromEuler(new Euler(0, offsetAngle, 0)))
+		 //计算出需要进行旋转的四元数值
+		return new Quaternion().setFromRotationMatrix(mtx)
 	}
 
 	// 创建运动轨迹(三维样条曲线)
@@ -106,7 +108,7 @@ const useEditModel = () => {
 
 		let nodes = {
 			geometry: {
-				radius: 600,
+				radius: 6,
 			},
 			material: {
 				mapUrl: 'file/material/80.png',
@@ -117,8 +119,8 @@ const useEditModel = () => {
 		let tunnel: IMesh[] = [
 			{
 				geometry: {
-					radiusTop: 600,
-					radiusBottom: 600,
+					radiusTop: 6,
+					radiusBottom: 6,
 					height: 1,
 					radialSegments: 4,
 					openEnded: true,
@@ -131,8 +133,8 @@ const useEditModel = () => {
 			},
 			{
 				geometry: {
-					radiusTop: 300,
-					radiusBottom: 300,
+					radiusTop: 3,
+					radiusBottom: 3,
 					height: 1,
 					radialSegments: 4,
 					openEnded: true,
@@ -146,8 +148,8 @@ const useEditModel = () => {
 			},
 			{
 				geometry: {
-					radiusTop: 250,
-					radiusBottom: 250,
+					radiusTop: 2,
+					radiusBottom: 2,
 					height: 1,
 					radialSegments: 4,
 					openEnded: false,
@@ -209,6 +211,10 @@ const useEditModel = () => {
 		}
 		return Css2DomList
 	}
+	// 计算两点中点
+	const getCenterPoint = (p1: ICoordinates | Vector3,p2:ICoordinates|Vector3) => {
+		return new Vector3((p1.x + p2.x)/2,(p1.y + p2.y)/2,(p1.z+p2.z) / 2)
+	}
 
 	return {
 		customAnimation,
@@ -216,6 +222,8 @@ const useEditModel = () => {
 		createMotionTrack,
 		loadModel,
 		addCss2DomList,
+		getQuaternion,
+		getCenterPoint
 	}
 }
 

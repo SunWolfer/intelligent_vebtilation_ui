@@ -29,6 +29,14 @@ export const calOfAirDemand = (needCalType) => {
 		})
 		return data
 	}
+	// 根据code查询
+	const dataFormInfoByCode = async (code) => {
+		const { data } = await getRoadPredictInfo({
+			needCalType: needCalType,
+			roadCode: code,
+		})
+		return data
+	}
 	// 预测类型
 	const { wind_predict_type } = useDict('wind_predict_type')
 
@@ -110,6 +118,7 @@ export const calOfAirDemand = (needCalType) => {
 	return {
 		dataList,
 		dataFormInfo,
+		dataFormInfoByCode,
 		wind_predict_type,
 		windList,
 		queryWindDataList,

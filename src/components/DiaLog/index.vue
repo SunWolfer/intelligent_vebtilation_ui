@@ -59,8 +59,8 @@
 		<transition
 			mode="out-in"
 			appear
-			enter-active-class="animate__animated animate__faster animate__bounceIn"
-			leave-active-class="animate__animated animate__faster animate__bounceOut"
+			enter-active-class="animate__animated animate__faster animate__zoomInDown"
+			leave-active-class="animate__animated animate__faster animate__zoomOutDown"
 		>
 			<div class="os-dialog-content">
 				<border-box name="border8" :title="title">

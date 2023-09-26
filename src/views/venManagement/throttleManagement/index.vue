@@ -202,7 +202,7 @@
 					<el-input v-model="form.code"></el-input>
 				</el-form-item>
 				<el-form-item label="风门类型" prop="type">
-					<el-select v-model="form.type">
+					<el-select v-model="form.type" clearable>
 						<el-option v-for="i in door_type" :label="i.label" :value="i.value"></el-option>
 					</el-select>
 				</el-form-item>
@@ -216,7 +216,7 @@
 					<el-input v-model="form.pointZ"></el-input>
 				</el-form-item>
 				<el-form-item label="风门版本" prop="devVersion">
-					<el-select v-model="form.devVersion">
+					<el-select v-model="form.devVersion" clearable>
 						<el-option v-for="i in door_version" :label="i.label" :value="i.value"></el-option>
 					</el-select>
 				</el-form-item>
@@ -256,7 +256,7 @@
 					<el-input disabled v-model="examineForm.code"></el-input>
 				</el-form-item>
 				<el-form-item label="风门类型" prop="type">
-					<el-select disabled v-model="examineForm.type">
+					<el-select disabled v-model="examineForm.type" clearable>
 						<el-option v-for="i in door_type" :label="i.label" :value="i.value"></el-option>
 					</el-select>
 				</el-form-item>
@@ -270,7 +270,7 @@
 					<el-input v-model="examineForm.pointZ"></el-input>
 				</el-form-item>
 				<el-form-item label="风门版本" prop="version">
-					<el-select disabled v-model="examineForm.devVersion">
+					<el-select disabled v-model="examineForm.devVersion" clearable>
 						<el-option v-for="i in door_version" :label="i.label" :value="i.value"></el-option>
 					</el-select>
 				</el-form-item>

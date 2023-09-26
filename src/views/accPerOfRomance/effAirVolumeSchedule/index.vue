@@ -1,7 +1,7 @@
 <!--有效风量明细表-->
 <script setup>
 	import useList from '@/hooks/useList'
-	import { addDateRange } from '@/utils/ruoyi'
+	import { addDateRange, getMonthStartEnd } from '@/utils/ruoyi'
 	import { listEffAirVolumeSchedule } from '@/api/api/effAirVolumeSchedule'
 
 	const { dateRange, queryParams, dataList, getList, total, downLoadFire, handleQuery } = useList({
@@ -10,6 +10,7 @@
 			pageNum: 1,
 			pageSize: 10,
 		},
+		initDateRange: getMonthStartEnd(),
 		exportParams: {
 			api: '/api/report/exportValid',
 			params: () => {

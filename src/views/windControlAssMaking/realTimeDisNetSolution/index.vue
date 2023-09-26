@@ -3,9 +3,20 @@
 	import { realTimeDisNetSolution } from '@/api/request/windControlAssMaking/realTimeDisNetSolution'
 	import LoadWindControlModel from '@/views/components/loadModel/loadWindControlModel.vue'
 	import { useWindNetCalculation } from '@/hooks/useWindNetCalculation'
+	import { useThreeModelData } from '@/hooks/useThreeModelData'
+	import { useInteraction } from '@/hooks/useInteraction'
+
+	// 巷道详情
+	const { roadAllList } = useThreeModelData()
+	const { fontList, splitText } = useWindNetCalculation()
+	watch(
+		() => roadAllList.value,
+		(value) => {
+			splitText?.(value)
+		},
+	)
 
 	const { frequency, dataList, chooseTabs, tabsHandle, setFrequency } = realTimeDisNetSolution()
-	const { fontList } = useWindNetCalculation()
 	const cellStyle = (data) => {
 		let cell = ''
 		let numData = parseFloat(data)
@@ -18,13 +29,26 @@
 		}
 		return cell
 	}
+
+	const { refreshModel } = useThreeModelData()
+
+	const { threeModelRef, tableRef, getSelectionRows, getSelectionTunnel, watchCode } =
+		useInteraction()
+
+	watchCode?.(dataList)
+	splitText?.(roadAllList.value)
 </script>
 
 <template>
 	<div class="real_time_body">
 		<!--    3D模型-->
 		<div class="fullDom">
-			<load-wind-control-model :font-list="fontList" />
+			<load-wind-control-model
+				v-if="refreshModel"
+				ref="threeModelRef"
+				:font-list="fontList"
+				@choose-tunnel="getSelectionTunnel"
+			/>
 		</div>
 		<!--    实时解算频率-->
 		<div class="real_time_body_top">
@@ -77,7 +101,14 @@
 					</div>
 				</div>
 				<div class="real_time_body_bottom_table">
-					<el-table :data="dataList" height="100%" border>
+					<el-table
+						ref="tableRef"
+						:data="dataList"
+						height="100%"
+						border
+						highlight-current-row
+						@row-click="getSelectionRows"
+					>
 						<el-table-column label="巷道" align="center" prop="name"></el-table-column>
 						<el-table-column
 							label="解算风量(m³/min)"

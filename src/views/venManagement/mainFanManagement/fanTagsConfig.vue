@@ -2,6 +2,7 @@
 	import useCurrentInstance from '@/hooks/useCurrentInstance'
 	import { paramAll, setParam } from '@/api/api/mainFanManagement'
 	import { useCommitForm } from '@/hooks/useForm'
+	import useDict from '@/hooks/useDict'
 
 	const { proxy } = useCurrentInstance()
 	const props = defineProps({
@@ -31,6 +32,8 @@
 			emits('update:modelValue', false)
 		},
 	})
+
+	const { dev_as_type, electric_machine_type } = useDict('dev_as_type', 'electric_machine_type')
 
 	const dataForm = ref({
 		id: 0,
@@ -107,7 +110,7 @@
 						<el-option
 							v-for="item in dataList"
 							:key="item.id"
-							:label="'风机' + item.devAs + ' ' + item.propertyName"
+							:label="item.propertyName"
 							:value="item.propertyCode + item.devAs + item.electricMachine"
 						/>
 					</el-select>
@@ -120,13 +123,30 @@
 					min-width="100"
 					:show-overflow-tooltip="true"
 					label="风机"
-				/><el-table-column
+				>
+					<template #default="scope">
+						<el-select disabled v-model="scope.row.devAs" clearable>
+							<el-option v-for="i in dev_as_type" :label="i.label" :value="i.value"></el-option>
+						</el-select>
+					</template>
+				</el-table-column>
+				<el-table-column
 					prop="electricMachine"
 					align="center"
 					min-width="100"
 					:show-overflow-tooltip="true"
 					label="电机"
-				/>
+				>
+					<template #default="scope">
+						<el-select disabled v-model="scope.row.electricMachine" clearable>
+							<el-option
+								v-for="i in electric_machine_type"
+								:label="i.label"
+								:value="i.value"
+							></el-option>
+						</el-select>
+					</template>
+				</el-table-column>
 				<el-table-column
 					prop="propertyName"
 					align="center"

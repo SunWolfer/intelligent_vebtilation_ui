@@ -60,12 +60,12 @@
   place-content: space-between;
 }
 @mixin li-val-text {
-  font-size: vh(36);
+  font-size: vw(36);
   font-family: Adobe Heiti Std, serif;
   font-weight: normal;
 }
 @mixin li-label-text {
-  font-size: vh(18);
+  font-size: vw(18);
   font-family: Adobe Heiti Std, serif;
   font-weight: normal;
   color: #ffffff;
@@ -132,7 +132,7 @@
   display: grid;
   grid-template-columns: repeat(3,vw(65));
   grid-column-gap: vw(10);
-  font-size: vh(15);
+  font-size: vw(15);
   font-family: Adobe Heiti Std, serif;
   font-weight: normal;
   color: #FFFFFF;
@@ -176,13 +176,13 @@
   place-content: space-between center;
   place-items: center;
   .fire_right_l2_item_label{
-    font-size: vh(16);
+    font-size: vw(16);
     font-family: Microsoft YaHei, serif;
     font-weight: 400;
     color: #FFFFFF;
   }
   .fire_right_l2_item_value{
-    font-size: vh(33);
+    font-size: vw(33);
     font-family: Microsoft YaHei, serif;
     font-weight: 400;
   }

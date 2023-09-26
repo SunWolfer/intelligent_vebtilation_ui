@@ -83,6 +83,12 @@ interface IModelNode {
 	showWind?: boolean
 	// 	风流参数
 	windMesh?: windMesh
+// 	巷道名字图片
+	imgUrl?:string
+// 	巷道图片文字数量
+	imgSize?:number
+// 	风速
+	speed?:number
 }
 // 风流参数配置
 interface windMesh {

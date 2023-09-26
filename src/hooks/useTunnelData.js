@@ -26,15 +26,17 @@ export const useTunnelData = () => {
 	const showTunnelData = ref(undefined)
 	// 显示某巷道参数
 	const showParam = async (name) => {
+		const names = name.split('-')
+		if (names.length <= 1) return
 		const { loading } = useLoading('正在加载数据，请稍后')
 		await getRoadInfo({
 			code: name,
 		})
 			.then((res) => {
-				if (res.code === 200) {
+				if (res.code === 200 && res.data) {
 					showTunnelData.value = {
 						...res.data,
-						id: 'tunnel' + res.data.id,
+						id: 'tunnel' + res.id,
 						point: {
 							x: res.data?.centerPointX,
 							y: res.data?.centerPointY,

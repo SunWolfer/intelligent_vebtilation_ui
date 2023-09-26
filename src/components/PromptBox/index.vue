@@ -119,7 +119,7 @@
 				'. l2 .';
 			.sd-closeTitle {
 				grid-area: l1;
-				font-size: vh(26);
+				font-size: vw(26);
 				font-family:
 					Adobe Heiti Std,
 					serif;
@@ -127,7 +127,7 @@
 				color: #fffffd;
 				width: 100%;
 				.el-icon {
-					font-size: vh(26);
+					font-size: vw(26);
 					line-height: 44px;
 					color: rgba(255, 186, 0, 1);
 				}

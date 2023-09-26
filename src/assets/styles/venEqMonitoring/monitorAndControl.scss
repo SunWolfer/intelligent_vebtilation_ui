@@ -40,7 +40,7 @@
 		height: 100%;
 		z-index: 0;
 		text-align: center;
-		font-size: vh(26);
+		font-size: vw(26);
 		font-family:
 			Source Han Sans CN,
 			serif;
@@ -60,7 +60,7 @@
 		}
 	}
 	.status_value {
-		font-size: vh(40);
+		font-size: vw(40);
 		font-family:
 			Source Han Sans CN,
 			serif;
@@ -161,8 +161,8 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: repeat(auto-fill, vh(36));
-	grid-row-gap: vh(10);
-	font-size: vh(18);
+	grid-row-gap: vh(5);
+	font-size: vw(18);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -183,7 +183,7 @@
 	justify-content: end;
 	span {
 		cursor: pointer;
-		font-size: vh(20);
+		font-size: vw(20);
 		font-family:
 			Adobe Heiti Std,
 			serif;

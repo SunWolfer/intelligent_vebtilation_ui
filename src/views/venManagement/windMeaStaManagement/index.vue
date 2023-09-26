@@ -115,7 +115,7 @@
 			<el-form-item label="测风站名称">
 				<el-input v-model="queryParams.name"></el-input>
 			</el-form-item>
-			<el-form-item label="测风站编号">
+			<el-form-item label="测风站编码">
 				<el-input v-model="queryParams.code"></el-input>
 			</el-form-item>
 			<el-form-item label="安装位置">
@@ -181,13 +181,13 @@
 				label-width="auto"
 				label-position="left"
 			>
-				<el-form-item label="风速传感器名称" prop="name">
+				<el-form-item label="测风站名称" prop="name">
 					<el-input v-model="form.name"></el-input>
 				</el-form-item>
 				<el-form-item label="安装位置" prop="location">
 					<el-input v-model="form.location"></el-input>
 				</el-form-item>
-				<el-form-item label="风速传感器IP" prop="ipAddr">
+				<el-form-item label="测风站IP" prop="ipAddr">
 					<el-input v-model="form.ipAddr"></el-input>
 				</el-form-item>
 				<el-form-item label="&ensp;端口" prop="port">
@@ -232,13 +232,13 @@
 				label-width="auto"
 				label-position="left"
 			>
-				<el-form-item label="风速传感器名称" prop="name">
+				<el-form-item label="测风站名称" prop="name">
 					<el-input disabled v-model="examineForm.name"></el-input>
 				</el-form-item>
 				<el-form-item label="安装位置" prop="location">
 					<el-input disabled v-model="examineForm.location"></el-input>
 				</el-form-item>
-				<el-form-item label="风速传感器IP" prop="ipAddr">
+				<el-form-item label="测风站IP" prop="ipAddr">
 					<el-input disabled v-model="examineForm.ipAddr"></el-input>
 				</el-form-item>
 				<el-form-item label="端口" prop="port">

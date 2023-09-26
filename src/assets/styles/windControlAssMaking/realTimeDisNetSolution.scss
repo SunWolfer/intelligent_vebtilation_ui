@@ -14,13 +14,13 @@
 	justify-content: center;
 	align-items: center;
 	.real_time_body_top_body {
-		width: vw(668.2);
+		width: vw(680);
 		height: vh(128);
 		:deep(.border-box-content) {
 			padding: vh(10) vw(25) 0 vw(25);
 		}
 		.real_time_body_top_body_title {
-			font-size: vh(26);
+			font-size: vw(26);
 			font-family: YouSheBiaoTiHei, serif;
 			font-weight: 400;
 			color: rgba(255, 255, 255, 0.78);
@@ -34,10 +34,10 @@
 			width: 100%;
 			display: grid;
 			justify-content: center;
-			grid-template-columns: vw(150) vw(80) vw(32) vw(130);
+			grid-template-columns: vw(150) vw(80) vh(32) vw(130);
 			grid-column-gap: vw(20);
 			align-items: center;
-			font-size: vh(14);
+			font-size: vw(14);
 			font-family:
 				Adobe Heiti Std,
 				serif;
@@ -96,7 +96,7 @@
 				justify-self: end;
 				display: flex;
 
-				font-size: vh(12);
+				font-size: vw(12);
 				font-family:
 					Microsoft YaHei,
 					serif;
@@ -148,35 +148,3 @@
 	background: #ff7f00;
 }
 
-@mixin btnText {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	cursor: pointer;
-	background-size: 100% 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	span {
-		font-size: vh(17);
-		font-family:
-			Adobe Heiti Std,
-			serif;
-		font-weight: normal;
-		color: rgba(255, 255, 255, 0.78);
-		text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-
-		background: linear-gradient(0deg, #b8d6ff 0%, #2bc9ea 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-	}
-}
-
-.real_btn_1 {
-	background-image: url('@/assets/images/windControlAssMaking/btn_1.png');
-	@include btnText;
-}
-.real_btn_1_active {
-	background-image: url('@/assets/images/windControlAssMaking/btn_1_active.png');
-	@include btnText;
-}

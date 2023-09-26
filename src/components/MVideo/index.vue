@@ -13,7 +13,9 @@
 			<param name="fullscreen" value="false" />
 		</object>
 	</div>
-	<div v-else class="fullDom" :class="videoDefaultBg"></div>
+	<div v-else class="fullDom">
+		<div class="fullDom" :class="videoDefaultBg"></div>
+	</div>
 </template>
 
 <script setup>
@@ -49,10 +51,13 @@
 	})
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 	.videoFull {
 		position: absolute;
 		width: 100%;
 		height: 100%;
+	}
+	.fullDom {
+		padding: 12px;
 	}
 </style>

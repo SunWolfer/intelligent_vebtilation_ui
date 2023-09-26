@@ -13,6 +13,10 @@
     domBottom: {
       type: Number,
       default: 90
+    },
+    selectCode: {
+      type: String,
+      default: ''
     }
   })
 
@@ -20,6 +24,12 @@
 
 	const { checkedWindPath, checkedVenNetwork } = homeVisualAngle()
 	const { dislodgeDomStyle } = useHomeMenu()
+
+  const emits = defineEmits(['chooseWindFull'])
+  // 选中风路分支图
+  const chooseFullData = (row) => {
+    emits('chooseWindFull',row)
+  }
 </script>
 
 <template>
@@ -37,7 +47,7 @@
 	</div>
 	<!--  风路分支图-->
 	<div v-if="checkedWindPath" class="other_wind_path">
-		<home-wind-branch />
+		<home-wind-branch @choose-wind-full="chooseFullData" :select-code="selectCode" />
 	</div>
 	<!--  通风网络图-->
 	<div v-if="checkedVenNetwork" class="other_wind_net">

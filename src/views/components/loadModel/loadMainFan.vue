@@ -11,7 +11,6 @@
 		homeModelVisible,
 		indoorFileUrl,
 		otherThreeMod,
-		cameraPosition,
 		removePosition,
 		removeLookAt,
 		lights,
@@ -49,13 +48,9 @@
 		},
 	]
 
-	cameraPosition.x = -39.770026669286786
-	cameraPosition.y = 1189.1986313555587
-	cameraPosition.z = -1795.8690888926885
-
-	removePosition.x = -21.200001563245657
-	removePosition.y = 1386.4079619393492
-	removePosition.z = -2094.100714425375
+	removePosition.x = -18.47218781442094
+	removePosition.y = 932.2284216506748
+	removePosition.z = 2320.8286780011254
 
 	removeLookAt.x = -0.000629
 	removeLookAt.y = 3.695738
@@ -93,11 +88,11 @@
 		{
 			id: 'main_fan_msg_1',
 			point: {
-				x: 412.40803742285925,
-				y: 44.849545228117826,
-				z: -542.038753217439,
+				x: 377.6987584836212,
+				y: 119.43110728628159,
+				z: -362.51853621374977,
 			},
-			type: '1',
+			type: '2',
 			animations: [
 				{
 					name: 'fengye01',
@@ -116,11 +111,11 @@
 		{
 			id: 'main_fan_msg_2',
 			point: {
-				x: 402.99138345708127,
-				y: 78.38347904005401,
-				z: 320.56152044226974,
+				x: 460.9828127600347,
+				y: 113.8452563163835,
+				z: 469.47872615399854,
 			},
-			type: '2',
+			type: '1',
 			animations: [
 				{
 					name: 'fengye03',
@@ -154,20 +149,20 @@
 		{
 			id: 'wind_fan_1',
 			point: {
-				x: 2060.2552644149055,
-				y: 120.44420584070323,
-				z: -317.726104194498,
+				x: 2040.1814870625774,
+				y: 164.83654355213656,
+				z: -562.5019697277836,
 			},
-			type: '1',
+			type: '2',
 		},
 		{
 			id: 'wind_fan_2',
 			point: {
-				x: 2029.5590822002057,
-				y: 145.59708354335675,
-				z: 562.5021115191154,
+				x: 2065.586912083174,
+				y: 145.6074241736644,
+				z: 291.2745161658929,
 			},
-			type: '2',
+			type: '1',
 		},
 	]
 	// 风流动画
@@ -232,10 +227,9 @@
 			ref="homeModelVisible"
 			:src="indoorFileUrl"
 			:other-three-mod="otherThreeMod"
-			:cameraPosition="cameraPosition"
 			:controls-options="controlsOptions"
 			:lights="lights"
-			:camera-size="1"
+			:camera-size="0.1"
 			:backgroundAlpha="0"
 			@load="onLoad"
 			@onClick="onClick"
@@ -245,7 +239,7 @@
 			<template #label v-if="isReady">
 				<div v-for="i in labelList" :id="i.id" class="model_label_1">
 					<div class="model_label_1_body">
-						<span>蝶阀开度：{{ i.aperture }}</span>
+						<span>{{ i.type }}#蝶阀开度：{{ i.aperture }}</span>
 						<div class="label_text_value">
 							<span>转速rpm：{{ i.rotationSpeed }}</span>
 							<span>转速rpm：{{ i.rotationSpeed2 }}</span>
@@ -278,7 +272,7 @@
 		padding: vh(40) vw(50);
 		display: grid;
 		grid-template-rows: repeat(2, 1fr);
-		font-size: vh(20);
+		font-size: vw(20);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -288,7 +282,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			font-size: vh(16);
+			font-size: vw(16);
 		}
 	}
 	.model_wind_1 {

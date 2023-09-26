@@ -76,6 +76,7 @@
 								if (object.material.map?.colorSpace) object.material.map.colorSpace = SRGBColorSpace
 							}
 						})
+            data.scene.animations = data.animations
 						this.addObject(data.scene)
 						this.loadOtherLen++
 					},

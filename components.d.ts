@@ -26,6 +26,7 @@ declare module 'vue' {
     DiaLog: typeof import('./src/components/DiaLog/index.vue')['default']
     DictTag: typeof import('./src/components/DictTag/index.vue')['default']
     EditArea: typeof import('./src/components/VueThree/ModelEdit/editArea.vue')['default']
+    FileUpload: typeof import('./src/components/FileUpload/index.vue')['default']
     HKVideo: typeof import('./src/components/MVideo/HKVideo.vue')['default']
     IFrame: typeof import('./src/components/iFrame/index.vue')['default']
     ImagePreview: typeof import('./src/components/ImagePreview/index.vue')['default']
@@ -45,7 +46,5 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
-    TablePage: typeof import('./src/components/TablePage/index.vue')['default']
-    UniversalBody: typeof import('./src/components/UniversalBody/index.vue')['default']
   }
 }

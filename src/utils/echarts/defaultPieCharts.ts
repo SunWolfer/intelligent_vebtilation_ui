@@ -1,5 +1,5 @@
 import useCharts from '@/hooks/useCharts'
-import { dynamicHeight } from '@/utils/ruoyi'
+import { dynamicWidth } from '@/utils/ruoyi'
 
 export interface PieChartData {
 	domId: string
@@ -31,11 +31,11 @@ export function defaultPieChart({
 				rich: {
 					a: {
 						color: '#ffffff',
-						fontSize: dynamicHeight(21),
+						fontSize: dynamicWidth(21),
 					},
 					b: {
 						color: '#ffffff',
-						fontSize: dynamicHeight(28),
+						fontSize: dynamicWidth(28),
 					},
 				},
 			},
@@ -49,15 +49,15 @@ export function defaultPieChart({
 			textStyle: {
 				rich: {
 					a: {
-						fontSize: dynamicHeight(16),
+						fontSize: dynamicWidth(16),
 						color: '#fff',
 					},
 					b: {
-						fontSize: dynamicHeight(16),
+						fontSize: dynamicWidth(16),
 						color: '#40E6FF',
 					},
 					c: {
-						fontSize: dynamicHeight(16),
+						fontSize: dynamicWidth(16),
 						color: '#40E6FF',
 					},
 				},

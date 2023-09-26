@@ -349,3 +349,11 @@ export function getRandomColor() {
 		return getRandomColor()
 	}
 }
+export function getMonthStartEnd() {
+	const date = new Date()
+	const monthStartDate = new Date(date.getFullYear(), date.getMonth(), 1) // 获取本月第一天的日期时间
+	const monthEndDate = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59)
+	const monthStart = parseTime(monthStartDate)
+	const monthEnd = parseTime(monthEndDate)
+	return [monthStart, monthEnd]
+}

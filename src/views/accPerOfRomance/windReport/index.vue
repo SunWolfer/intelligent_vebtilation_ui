@@ -1,7 +1,7 @@
 <script setup>
 	import useList from '@/hooks/useList'
 	import { listWindReport } from '@/api/api/windReport'
-	import { addDateRange } from '@/utils/ruoyi'
+	import { addDateRange, getMonthStartEnd } from '@/utils/ruoyi'
 
 	const { dateRange, queryParams, dataList, getList, total, downLoadFire, handleQuery } = useList({
 		apiFun: listWindReport,
@@ -9,6 +9,7 @@
 			pageNum: 1,
 			pageSize: 10,
 		},
+		initDateRange: getMonthStartEnd(),
 		exportParams: {
 			api: '/api/report/export',
 			params: () => {
@@ -72,19 +73,19 @@
 						<el-table-column
 							prop="personQ"
 							label="人工实测风量(m³/min)"
-							min-width="120"
+							min-width="130"
 							align="center"
 						></el-table-column>
 						<el-table-column
 							prop="calSensorDeviation"
 							label="解算/设备误差率 %"
-							min-width="100"
+							min-width="110"
 							align="center"
 						></el-table-column>
 						<el-table-column
 							prop="calPersonDeviation"
 							label="解算/人工误差率 %"
-							min-width="100"
+							min-width="110"
 							align="center"
 						></el-table-column>
 						<el-table-column
@@ -116,7 +117,10 @@
 							prop="absolutePressure"
 							label="绝压(Pa)"
 							align="center"
-						></el-table-column>
+						></el-table-column
+						><el-table-column prop="ch4" label="CH4(%)" align="center"></el-table-column
+						><el-table-column prop="co2" label="CO2(%)" align="center"></el-table-column
+						><el-table-column prop="co" label="CO(ppm)" align="center"></el-table-column>
 					</el-table>
 				</div>
 			</template>

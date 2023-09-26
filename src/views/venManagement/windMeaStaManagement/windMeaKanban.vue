@@ -100,6 +100,7 @@
 						v-model="isSelectList"
 						style="width: 300px"
 						multiple
+						clearable
 						collapse-tags
 						placeholder="请选择"
 					>

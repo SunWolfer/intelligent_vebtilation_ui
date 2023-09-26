@@ -1,0 +1,40 @@
+.home_model_type {
+  position: absolute;
+  width: vh(110);
+  height: vh(70);
+  z-index: 1;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  align-items: center;
+  span {
+    font-size: vw(16);
+    font-family:
+      Adobe Heiti Std,
+      serif;
+    font-weight: normal;
+  }
+}
+.home_model_type_item {
+  display: grid;
+  grid-template-columns: 1fr vh(32);
+  align-items: center;
+}
+@mixin homeModelIcon {
+  width: vw(32);
+  height: vw(32);
+  background-size: 100% 100%;
+}
+.home_model_type_item_icon1 {
+  @include homeModelIcon;
+  background-image: url('@/assets/images/home/home_model_type/type1.png');
+}
+.home_model_type_item_icon2 {
+  @include homeModelIcon;
+  background-image: url('@/assets/images/home/home_model_type/type2.png');
+}
+.text_active {
+  color: #4bc8fc;
+}
+.text_default {
+  color: #ffffff;
+}

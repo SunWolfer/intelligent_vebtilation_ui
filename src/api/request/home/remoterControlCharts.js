@@ -449,7 +449,7 @@ export function getChart3(domId, value, title, title2) {
 				textStyle: {
 					rich: {
 						title: {
-							fontSize: dynamicHeight(16),
+							fontSize: dynamicHeight(14),
 							fontFamily: 'Adobe Heiti Std',
 							color: '#FFFFFF',
 							lineHeight: dynamicHeight(25),
@@ -481,7 +481,7 @@ export function getChart3(domId, value, title, title2) {
 				top: '85%',
 				textStyle: {
 					color: '#FFFFFF',
-					fontSize: dynamicHeight(18),
+					fontSize: dynamicHeight(14),
 					fontFamily: 'Adobe Heiti Std',
 					fontWeight: 'normal',
 				},
@@ -634,7 +634,7 @@ export function getChart4(domId, value, title) {
 				top: '85%',
 				textStyle: {
 					color: '#FFFFFF',
-					fontSize: dynamicHeight(18),
+					fontSize: dynamicHeight(16),
 					fontFamily: 'Adobe Heiti Std',
 					fontWeight: 'normal',
 				},
@@ -685,7 +685,7 @@ export function getChart4(domId, value, title) {
 					fontSize: dynamicHeight(12),
 				},
 				detail: {
-					fontSize: dynamicHeight(17),
+					fontSize: dynamicHeight(16),
 					offsetCenter: [0, '70%'],
 					valueAnimation: true,
 					formatter: '{value} km/h',

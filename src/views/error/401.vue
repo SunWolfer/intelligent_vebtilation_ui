@@ -56,12 +56,12 @@
 			width: 100%;
 		}
 		.text-jumbo {
-			font-size: 60px;
+			font-size: vw(60);
 			font-weight: 700;
 			color: #484848;
 		}
 		.list-unstyled {
-			font-size: 14px;
+			font-size: vw(14);
 			li {
 				padding-bottom: 5px;
 			}

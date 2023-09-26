@@ -32,13 +32,13 @@
   background-size: 100% 100%;
   cursor: pointer;
   span {
-    font-size: vh(14);
+    font-size: vw(14);
     font-family: Adobe Heiti Std, serif;
     font-weight: normal;
     color: rgba(255, 255, 255, 0.78);
     text-shadow: 0 2px 2px rgba(0,0,0,0.2);
 
-    background: linear-gradient(180deg, #B8D6FF 0%, #2BC9EA 100%);
+    background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -71,14 +71,14 @@
   position: absolute;
   left: vw(64);
   top: vh(73);
-  width: vw(1100);
-  height: vh(365);
+  width: vw(1200);
+  height: vh(460);
 }
 .ven_sys_tunnel_body{
   padding: vh(13) vw(40) vh(30) vw(25);
   display: grid;
-  grid-template-columns: vw(455) 1fr vw(530);
-  grid-template-rows: vh(76) vh(192) 1fr;
+  grid-template-columns: vw(505) 1fr vw(580);
+  grid-template-rows: vh(76) vh(310) 1fr;
   justify-content: center;
   align-items: center;
 }
@@ -89,7 +89,7 @@
   :deep(.el-form-item){
     margin-right: 0;
     .el-form-item__label{
-      font-size: vh(14);
+      font-size: vw(14);
     }
     --font-size:vh(14);
   }
@@ -121,4 +121,24 @@
   display: grid;
   grid-template-columns: repeat(2,1fr);
   place-items: center;
+}
+//当前系统版本
+.sys_version{
+  position: absolute;
+  top: 0;
+  right: vw(15);
+  width: vh(240);
+  height: vh(70);
+  z-index: 1;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  align-items: center;
+
+  font-size: vw(14);
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+  color: #4BC8FC;
+  span {
+    color: #ffffff;
+  }
 }

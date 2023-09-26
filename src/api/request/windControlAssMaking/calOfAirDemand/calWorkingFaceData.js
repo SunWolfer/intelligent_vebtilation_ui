@@ -3,6 +3,7 @@ import { calOfAirDemand } from '@/api/request/windControlAssMaking/calOfAirDeman
 export const calWorkingFaceData = () => {
 	const {
 		dataFormInfo,
+		dataFormInfoByCode,
 		dataList,
 		wind_predict_type,
 		windList,
@@ -101,6 +102,18 @@ export const calWorkingFaceData = () => {
 		powderQ: '',
 		// 采煤工作面一次爆破最大炸药量
 		powderTotal: '',
+		// 气象预测
+		weatherFlag: '0',
+		// 	风速预测
+		speedFlag: '0',
+		// 	瓦斯预测
+		gasFlag: '0',
+		// 	co2预测
+		co2Flag: '0',
+		// 	工作人员预测
+		personFlag: '0',
+		// 	炸药量预测
+		powderFlag: '0',
 	})
 	const resetForm = () => {
 		dataForm.value = {
@@ -153,6 +166,18 @@ export const calWorkingFaceData = () => {
 			personAre: '',
 			// 采煤工作面一次爆破最大炸药量
 			powderTotal: '',
+			// 气象预测
+			weatherFlag: '0',
+			// 	风速预测
+			speedFlag: '0',
+			// 	瓦斯预测
+			gasFlag: '0',
+			// 	co2预测
+			co2Flag: '0',
+			// 	工作人员预测
+			personFlag: '0',
+			// 	炸药量预测
+			powderFlag: '0',
 		}
 	}
 
@@ -161,7 +186,7 @@ export const calWorkingFaceData = () => {
 			return i.code === dataForm.value.roadCode
 		})
 		dataForm.value.roadName = findData.name
-		const data = await dataFormInfo?.(findData.id)
+		const data = await dataFormInfoByCode?.(findData.code)
 		if (data) {
 			dataForm.value = data
 		} else {
@@ -192,8 +217,12 @@ export const calWorkingFaceData = () => {
 		let Vcf = dataForm.value.weatherWindSpeed ?? 0
 		return (60 * 0.7 * Scf * Kch * Kcl * Vcf).toFixed(2)
 	})
+	// 气象条件预测风量
 	watchEffect(() => {
+		// 预测风量
 		dataForm.value.weatherQ = weatherQ.value
+		// 是否已预测风量
+		dataForm.value.weatherFlag = dataForm.value.weatherQ > 0 ? '1' : '0'
 	})
 
 	// 按照风速进行验算
@@ -213,10 +242,14 @@ export const calWorkingFaceData = () => {
 	const minBlow = computed(() => {
 		return (60 * 0.25 * speedMinArea.value).toFixed(2)
 	})
+	// 按照风速预测风量
 	watchEffect(() => {
 		dataForm.value.speedMinArea = speedMinArea.value
 		dataForm.value.speedMaxArea = speedMaxArea.value
+		// 预测风量
 		dataForm.value.speedQ = minBlow.value
+		// 	是否已预测风量
+		dataForm.value.speedFlag = dataForm.value.speedQ > 0 ? '1' : '0'
 	})
 
 	//按瓦斯
@@ -238,6 +271,7 @@ export const calWorkingFaceData = () => {
 			dataForm.value.gasEmission = gasQs.value
 		}
 		dataForm.value.gasQ = gasQ.value
+		dataForm.value.gasFlag = dataForm.value.gasQ > 0 ? '1' : '0'
 	})
 	// 按二氧化碳
 	const checkCo2PredictType = (data) => {
@@ -258,6 +292,7 @@ export const calWorkingFaceData = () => {
 			dataForm.value.co2Emission = co2Qs.value
 		}
 		dataForm.value.co2Q = co2Q.value
+		dataForm.value.co2Flag = dataForm.value.co2Q > 0 ? '1' : '0'
 	})
 
 	// 按照人员
@@ -271,10 +306,12 @@ export const calWorkingFaceData = () => {
 			dataForm.value.personTotal = personNum.value
 		}
 		dataForm.value.personQ = (dataForm.value.personTotal * 4).toFixed(2)
+		dataForm.value.personFlag = dataForm.value.personQ > 0 ? '1' : '0'
 	})
 	// 按照炸药量
 	watchEffect(() => {
 		dataForm.value.powderQ = (dataForm.value.powderTotal * 10).toFixed(2)
+		dataForm.value.powderFlag = dataForm.value.powderQ > 0 ? '1' : '0'
 	})
 	// 工作面所需风量
 	const airVolume = computed(() => {

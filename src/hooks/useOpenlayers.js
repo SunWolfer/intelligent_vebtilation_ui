@@ -58,13 +58,13 @@ export const useOpenlayers = () => {
 			let tData = datalayerList.value[i]
 			if (tData.type === 'img') {
 				let projection = new ol.proj.Projection({
-					code: 'xkcd-image',
+					code: 'static-image',
 					units: 'pixels',
 					extent: textExtent.value,
 				})
 				let temLayer = new ol.layer.Image({
 					source: new ol.source.ImageStatic({
-						url: `${tData.paramlayer}`,
+						url: tData.paramlayer,
 						projection: projection,
 						imageExtent: textExtent.value,
 					}),

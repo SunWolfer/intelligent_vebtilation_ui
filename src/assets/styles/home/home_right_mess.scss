@@ -29,16 +29,16 @@
 }
 .home_right_message_body1_left {
 	width: vh(108);
-	height: vh(108);
+	height: vw(108);
 	background: url('@/assets/images/home/home_right/mes_airBlower.gif');
 	background-size: 100% 100%;
 }
 .home_right_message_body1_right {
 	width: vw(274);
-	height: vh(136);
+	height: vw(136);
 	background-image: url('@/assets/images/home/home_right/mes_decoration1.png');
 	background-size: 100% 100%;
-	transform: translateX(vh(-8));
+	transform: translateX(vw(-8));
 	display: grid;
 	align-content: center;
 	padding-left: vw(53);
@@ -48,8 +48,9 @@
 		display: grid;
 		grid-template-rows: repeat(3, vh(33));
 		grid-template-columns: auto;
-		grid-row-gap: vh(7);
+		grid-row-gap: vw(7);
 		align-content: center;
+		align-items: center;
 	}
 }
 
@@ -58,7 +59,9 @@
 		Adobe Heiti Std,
 		serif;
 	font-weight: normal;
-	font-size: vh(14);
+	font-size: vw(14);
+	display: flex;
+	align-items: center;
 }
 
 .home_right_normal_text {
@@ -67,7 +70,7 @@
 }
 .home_right_blue_text {
 	@include rightText;
-	font-size: vh(18);
+	font-size: vw(18);
 	color: rgba(0, 255, 255, 1);
 }
 .home_right_green_text {
@@ -80,15 +83,18 @@
 }
 //区域风量
 .home_right_message_body2 {
+	width: 100%;
 	height: vh(228);
-	display: grid;
-	grid-template-columns: vw(365);
-	grid-template-rows: repeat(auto-fill, vh(30));
-	justify-items: center;
-	grid-row-gap: vh(20);
-	overflow-y: auto;
-	align-content: center;
-	padding: vh(23) 0 vh(23) vw(30);
+	padding: vh(20) 0 vh(23) vw(30);
+	.fullDom{
+		display: grid;
+		grid-template-columns: vw(365);
+		grid-template-rows: repeat(auto-fill, vh(30));
+		justify-items: center;
+		grid-row-gap: vh(20);
+		overflow-y: auto;
+		align-content: center;
+	}
 }
 .home_right_message_body2_bg {
 	position: relative;
@@ -125,12 +131,13 @@
 .home_body2_index {
 	@include rightText;
 	color: #ffffff;
-	width: vh(32);
-	height: vh(32);
+	width: vw(32);
+	height: vw(32);
 	background-image: url('@/assets/images/home/home_right/mes_ser_num.png');
 	background-size: 100% 100%;
 	text-align: center;
-	transform: translateY(vh(-4));
+	transform: translateY(vw(-2));
+	justify-content: center;
 }
 //文字
 .home_body2_text {
@@ -141,7 +148,7 @@
 //按钮
 .home_body2_button {
 	@include rightText;
-	font-size: vh(12);
+	font-size: vw(12);
 	color: #ffffff;
 	text-align: center;
 	width: 100%;
@@ -156,6 +163,7 @@
 	grid-template-columns: vw(118) vh(138) vw(118);
 	grid-template-rows: vh(110) vh(100);
 	justify-items: start;
+	justify-content: center;
 	align-items: center;
 	grid-template-areas:
 		'topLeft center topRight'
@@ -179,10 +187,11 @@
 }
 .home_body3_center {
 	grid-area: center;
-	width: vh(137);
-	height: vh(137);
+	width: vw(137);
+	height: vw(137);
 	background-image: url('@/assets/images/home/home_right/mes_warn.gif');
 	background-size: 100% 100%;
+	justify-self: center;
 }
 .home_body3_warn_right {
 	display: grid;
@@ -193,7 +202,7 @@
 	justify-items: start;
 }
 .home_body3_warn_text {
-	font-size: vh(22);
+	font-size: vw(22);
 	font-family: YouSheBiaoTiHei, serif;
 	font-weight: 400;
 	font-style: italic;
@@ -252,7 +261,7 @@
 	height: vh(30);
 	-webkit-mask-image: url('@/assets/images/home/home_right/warn_list_label.png');
 	-webkit-mask-size: 100% 100%;
-	font-size: vh(15);
+	font-size: vw(15);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -263,7 +272,7 @@
 	justify-self: center;
 }
 @mixin itemText {
-	font-size: vh(16);
+	font-size: vw(16);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -278,18 +287,18 @@
 .home_body4_item_body_C {
 	grid-area: C;
 	@include itemText;
-	font-size: vh(14);
+	font-size: vw(14);
 	color: #ffffff;
 }
 .home_body4_item_body_D {
 	grid-area: D;
 	@include itemText;
-	font-size: vh(14);
+	font-size: vw(14);
 	color: #ffffff;
 }
 .home_body4_item_body_E {
 	grid-area: E;
-	font-size: vh(13);
+	font-size: vw(13);
 	font-family: YouSheBiaoTiHei, serif;
 	font-weight: 400;
 	color: #ffffff;
@@ -297,7 +306,7 @@
 }
 .home_body4_item_body_F {
 	grid-area: F;
-	font-size: vh(13);
+	font-size: vw(13);
 	font-family:
 		Microsoft YaHei,
 		serif;
@@ -331,7 +340,7 @@
 .home_body4_item_body_H {
 	grid-area: H;
 	@include itemText;
-	font-size: vh(14);
+	font-size: vw(14);
 	justify-self: center;
 }
 //预警图标
@@ -366,7 +375,7 @@
 		height: 100%;
 		text-align: center;
 		cursor: pointer;
-		font-size: vh(18);
+		font-size: vw(18);
 		font-family: SimHei, serif;
 		font-weight: 400;
 		line-height: vh(70);

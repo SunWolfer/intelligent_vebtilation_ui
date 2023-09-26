@@ -29,20 +29,28 @@ const useThree = () => {
 
 	// 相机移动固定参数
 	const cameraExcursion = ref({
-		x: 5000,
-		y: 10078,
-		z: 5000,
+		x: 100,
+		y: 200,
+		z: 100,
 	})
 
 	// 控制器默认参数
-	const controlsOptions = reactive({})
+	const controlsOptions = reactive({
+		zoomSpeed: 5,
+	})
 	// 默认灯光
 	const lights = ref<any>([
+		// {
+		// 	type: 'pointlight',
+		// 	position: { x: 130, y: 300000, z: -80 },
+		// 	color: 0xffffff,
+		// 	intensity: 0.2,
+		// },
 		{
-			type: 'pointlight',
-			position: { x: 6671, y: 300000, z: -23831 },
+			type: 'DirectionalLight',
+			position: { x: 1, y: 1, z: 1 },
 			color: 0xffffff,
-			intensity: 0.2,
+			intensity: 1.2,
 		},
 		{
 			type: 'ambientlight',
@@ -84,7 +92,7 @@ const useThree = () => {
 
 	// 全部模型加载完毕后执行
 	function onLoad() {
-		homeModelVisible.value?.cameraReset(removePosition, removeLookAt, 3)
+		// homeModelVisible.value?.cameraReset(removePosition, removeLookAt, 3)
 	}
 	// 模型编辑类
 	const operateModel = ref<OperateModel>()
@@ -94,7 +102,9 @@ const useThree = () => {
 	}
 
 	// 相机移动完成
-	function readyCamera() {}
+	function readyCamera() {
+		operateModel.value?.createdImgPlane()
+	}
 
 	//重置控制器
 	function resetControls() {

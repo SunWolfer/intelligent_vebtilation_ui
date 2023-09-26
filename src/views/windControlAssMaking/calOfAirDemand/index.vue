@@ -44,6 +44,7 @@
 		chooseDom.value = type
 		changeTunnel()
 	}
+	const tableRef = ref(null)
 	// 配风巷道
 	const airDisList = ref([])
 	const { wind_predict_type } = useDict('wind_predict_type')
@@ -64,6 +65,14 @@
 		if (isDelete.value) return
 		chooseRow.value = val
 	}
+	// 清除选中巷道
+	const clearRow = (val) => {
+		if (val !== chooseRow.value?.id) {
+			if (chooseRow.value?.id) {
+				tableRef.value?.toggleRowSelection(chooseRow.value, false)
+			}
+		}
+	}
 	//   删除配风巷道
 	const deleteDataList = async (row) => {
 		isDelete.value = true
@@ -81,6 +90,7 @@
 			},
 		})
 	}
+	changeTunnel()
 </script>
 
 <template>
@@ -97,17 +107,23 @@
 				</template>
 			</div>
 			<div class="fullDom">
-				<component :is="loadDom" :chooseRow="chooseRow" @changeTunnel="changeTunnel"></component>
+				<component
+					:is="loadDom"
+					:chooseRow="chooseRow"
+					@changeTunnel="changeTunnel"
+					@clearRow="clearRow"
+				></component>
 			</div>
 		</div>
 		<div class="cal_air_body_center">配风巷道</div>
 		<div class="cal_air_body_end">
 			<el-table
+				ref="tableRef"
 				:data="airDisList"
 				height="100%"
 				border
 				highlight-current-row
-				@current-change="handleCurrentChange"
+				@cell-click="handleCurrentChange"
 			>
 				<el-table-column label="配风巷道" align="center" prop="roadName" />
 				<el-table-column label="配风巷道编号" align="center" prop="roadCode" />

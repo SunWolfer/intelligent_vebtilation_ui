@@ -728,7 +728,7 @@
 			padding: 1px;
 			box-shadow: 0 0 0 1px rgba(14, 252, 255, 0.77) inset;
 			height: vh(32);
-			font-size: vh(14);
+			font-size: vw(14);
 			.el-input__wrapper {
 				padding: 1px 8px;
 				background: rgba(26, 47, 86, 0.6);

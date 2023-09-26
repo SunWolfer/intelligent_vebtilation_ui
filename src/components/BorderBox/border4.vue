@@ -240,7 +240,7 @@
 <style scoped lang="scss">
 	@import '@/assets/styles/border-box';
 	.border-4-text {
-		font-size: vh(29);
+		font-size: vw(29);
 		font-family: YouSheBiaoTiHei, serif;
 		font-weight: 400;
 		text-anchor: middle;

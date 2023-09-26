@@ -26,9 +26,17 @@
 		},
 	)
 
-	const emits = defineEmits(['changeTunnel'])
+	const emits = defineEmits(['changeTunnel', 'clearRow'])
+
+	watch(
+		() => dataForm.value.roadCode,
+		(val) => {
+			emits('clearRow', val)
+		},
+	)
 
 	const submitForm = async () => {
+		if (dataForm.value.airVolume === '0.00') return
 		// 修改
 		if (dataForm.value.mainId) {
 			await useCommitForm(editChamber, {
@@ -41,6 +49,7 @@
 			await useCommitForm(addChamber, {
 				queryParams: dataForm.value,
 				afterReadyDataFun: () => {
+					changeRoad?.()
 					emits('changeTunnel')
 				},
 			})
@@ -53,8 +62,12 @@
 		<div class="cal_child_body">
 			<el-form :model="dataForm">
 				<el-form-item label="巷道名称">
-					<el-select v-model="dataForm.roadCode" @change="changeRoad">
-						<el-option v-for="i in dataList" :label="i.code + i.name" :value="i.code"></el-option>
+					<el-select v-model="dataForm.roadCode" @change="changeRoad" clearable>
+						<el-option
+							v-for="i in dataList"
+							:label="i.name + '  ' + i.code"
+							:value="i.code"
+						></el-option>
 					</el-select>
 				</el-form-item>
 			</el-form>

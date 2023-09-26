@@ -1,6 +1,5 @@
 import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
 import { onClickOutside } from '@vueuse/core'
-import useThree from '@/hooks/useThree'
 import useEquipmentData from '@/hooks/useEquipmentData'
 import { deviceTypes } from '@/api/request/menuType'
 
@@ -20,10 +19,6 @@ export const homeIcon = (emits) => {
 		[deviceTypes.LOCALFAN, 'home_icon_7'],
 		[deviceTypes.All, 'home_icon_8'],
 	])
-	// 菜单移动起点
-	const firstMenuStartingPoint = ref(0)
-	// 菜单默认显示数量
-	const defaultRouteNum = ref(8)
 	//   设备样式
 	const getEquipmentClass = (item) => {
 		const IClass = equipmentIconMap.get(item.type)
@@ -62,6 +57,11 @@ export const homeIcon = (emits) => {
 
 	// 选中子类
 	const setChooseEquipment = (item) => {
+		if (!item.pointX) return
+		// 判断是否存在
+		const hasIn = equipTypeList.value.indexOf(item.devType) !== -1
+		// 不存在则显示全部该类型数据
+		if (!hasIn) equipTypeList.value.push(item.devType)
 		chooseEquipment.value = item
 		showSecondMenu.value = false
 		const position = toPosition?.(item)

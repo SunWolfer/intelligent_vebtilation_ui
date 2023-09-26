@@ -7,17 +7,17 @@
   grid-row-gap: vh(14);
 }
 
-.draw_manage_c1_l1{
+:deep(.draw_manage_c1_l1){
   position: relative;
   width: vw(170);
-  height: vh(40);
+  height: vw(40);
   background-image: url('@/assets/images/home/home_menu_btn.png');
   background-size: 100% 100%;
   cursor: pointer;
   display: flex;
   align-items: center;
   padding-left: vw(65);
-  font-size: vh(20);
+  font-size: vw(20);
   font-family: Adobe Heiti Std, serif;
   font-weight: normal;
   color: #FFFFFF;
@@ -26,7 +26,7 @@
     left: vw(31);
     content: '';
     width: vw(20);
-    height: vh(20);
+    height: vw(20);
     background-image: url("@/assets/images/venManagement/draw_icon_1.png");
     background-size: 100% 100%;
   }
@@ -34,9 +34,11 @@
 .draw_manage_c2_l1{
   align-self: end;
   display: grid;
-  grid-template-columns: vw(90) vw(90) vh(160) vh(190) vh(32);
-  grid-column-gap: vw(30);
+  grid-template-columns: repeat(3,vh(150)) repeat(2,vh(80)) vh(115) vh(118) vh(180);
+  grid-template-rows: 1fr;
+  grid-column-gap: vw(10);
   justify-content: end;
+  align-content: center;
 }
 
 .draw_manage_c2_l1_btn{
@@ -45,7 +47,7 @@
   height: 100%;
   cursor: pointer;
   span{
-    font-size: vh(19);
+    font-size: vw(19);
     font-family: YouSheBiaoTiHei, serif;
     font-weight: 400;
     color: #FEFDFC;
@@ -66,7 +68,7 @@
   }
 }
 .draw_manage_c2_l1_text{
-  font-size: vh(16);
+  font-size: vw(16);
   font-family: Adobe Heiti Std, serif;
   font-weight: normal;
   color: #FFFFFF;
@@ -75,7 +77,7 @@
 
 .draw_manage_c1_l2{
   background-color: rgba(39, 48, 91, 0.5);
-  padding: vh(10) vw(30) vh(20) vw(45);
+  padding: vh(10) vw(10) vh(20) vw(20);
   display: grid;
   grid-template-rows: vh(38) 1fr;
   grid-row-gap: vh(30);
@@ -83,6 +85,7 @@
 .draw_manage_c1_l2_body{
   overflow-y: auto;
   display: grid;
+  grid-template-columns: 1fr;
   grid-template-rows: repeat(auto-fill,vh(160));
   grid-auto-rows: vh(160);
 }
@@ -103,7 +106,7 @@
   grid-row-gap: vh(10);
   align-content: center;
   align-items: center;
-  font-size: vh(14);
+  font-size: vw(14);
   font-family: Adobe Heiti Std, serif;
   font-weight: normal;
   color: #A9B8D8;
@@ -112,7 +115,7 @@
 @mixin DecPointIcon {
   position: relative;
   width: vw(15);
-  height: vh(14);
+  height: vw(14);
   background-size: 100% 100%;
   display: flex;
   justify-content: center;
@@ -138,7 +141,8 @@
 
 @mixin DecPointBg {
   position: relative;
-  width: vw(183);
+  width: max-content;
+  min-width: vw(183);
   height: vh(26);
   background-size: 100% 100%;
   transform: translateY(-10%);
@@ -149,7 +153,7 @@
   @include DecPointBg;
   background-image: url('@/assets/images/home/home_dis_pre_route/route_text_bg_1.png');
 
-  font-size: vh(16);
+  font-size: vw(16);
   font-family:
     Adobe Heiti Std,
     serif;
@@ -160,10 +164,25 @@
   @include DecPointBg;
   background-image: url('@/assets/images/windControlAssMaking/dec_icon_2.png');
 
-  font-size: vh(16);
+  font-size: vw(16);
   font-family:
     Adobe Heiti Std,
     serif;
   font-weight: normal;
   color: #ffff00;
+}
+
+//无地图显示
+.none_map {
+  width: vh(730);
+  height: vh(144);
+  background-image: url("@/assets/images/venManagement/buffer.gif");
+  background-size: 100% 100%;
+  top: 25%;
+  position: absolute;
+}
+:deep(.el-upload) {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }

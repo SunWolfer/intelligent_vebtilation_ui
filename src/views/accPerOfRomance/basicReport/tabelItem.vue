@@ -42,7 +42,7 @@
 		border-bottom: 1px solid #9eb7d4;
 	}
 	@mixin default_title_text {
-		font-size: vh(14);
+		font-size: vw(14);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -67,7 +67,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		font-size: vh(14);
+		font-size: vw(14);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -77,7 +77,7 @@
 		@include tableBorder;
 	}
 	.table_border_bottom {
-		font-size: vh(14);
+		font-size: vw(14);
 		font-family:
 			Adobe Heiti Std,
 			serif;

@@ -1,0 +1,97 @@
+.dis_route_title{
+  position: absolute;
+  left: vw(60);
+  top: 0;
+  z-index: 1;
+  padding-left: vh(47);
+  font-size: vw(22);
+  font-family: YouSheBiaoTiHei, serif;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.78);
+
+  background: linear-gradient(0deg, #F9FE89 29.6875%, #FEFEFF 79.5654296875%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: vh(46);
+  &:before {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    width: vh(46);
+    height: vh(46);
+    background-image: url("@/assets/images/venManagement/dis1.png");
+    background-size: 100% 100%;
+  }
+}
+.dis_route_item{
+  position: absolute;
+  width: vw(630);
+  height: vh(900);
+  overflow-y: auto;
+  top: vh(50);
+  left: vw(60);
+  margin-bottom: vh(20);
+  z-index: 1;
+}
+//安全出口
+.dis_route_item_1{
+  width: vw(630);
+  height: vh(140);
+}
+.dis_route_item_1_content{
+  padding: vh(7) vw(18) vh(10) vw(45);
+  display: grid;
+  grid-template-rows: vh(58) vh(24) vh(38);
+  align-content: space-between;
+  align-items: center;
+}
+.dis_route_item_text {
+  font-size: vw(23);
+  font-family: YouSheBiaoTiHei, serif;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.78);
+  text-shadow: 0 2px 2px rgba(0,0,0,0.2);
+
+  background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.dis_route_item_label {
+  font-size: vw(14);
+  font-family: Adobe Heiti Std, serif;
+  font-weight: normal;
+  color: #4BC8FC;
+  span {
+    color: #ffffff;
+  }
+}
+.dis_route_item_btn {
+  justify-self: end;
+}
+//避灾路线
+.dis_route_item_2{
+  width: vw(630);
+  height: vh(190);
+}
+.dis_route_item_2_content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: vh(7) vw(18) vh(10) vw(45);
+  display: grid;
+  grid-template-rows: vh(58) vh(24) 1fr;
+  align-content: space-between;
+  align-items: center;
+}
+.dis_route_item_2_content_l3{
+  display: grid;
+  grid-template-columns: vh(55) 1fr vw(130) vw(130);
+  span {
+    font-size: vw(14);
+    font-family: Adobe Heiti Std, serif;
+    font-weight: normal;
+    color: #FFFFFF;
+    line-height: 24px;
+  }
+}

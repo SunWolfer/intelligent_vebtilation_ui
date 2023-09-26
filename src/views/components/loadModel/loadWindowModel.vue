@@ -155,7 +155,7 @@
 			:src="indoorFileUrl"
 			:cameraPosition="cameraPosition"
 			:lights="lights"
-			:camera-size="1"
+			:camera-size="0.1"
 			:backgroundAlpha="0"
 			@load="onLoad"
 			@onClick="onClick"

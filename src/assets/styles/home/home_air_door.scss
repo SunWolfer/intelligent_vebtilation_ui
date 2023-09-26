@@ -45,7 +45,7 @@
 			top: vh(10);
 			cursor: pointer;
 			:deep(.el-icon) {
-				font-size: vh(20);
+				font-size: vw(20);
 				color: #00eaff;
 			}
 		}
@@ -55,7 +55,7 @@
 			top: vh(10);
 			right: 55px;
 			cursor: pointer;
-			font-size: vh(14);
+			font-size: vw(14);
 			font-family:
 				Adobe Heiti Std,
 				serif;
@@ -66,7 +66,7 @@
 	.home_air_door_body_c2_item2 {
 		margin: vh(21) vw(14) 0 vw(14);
 		background: rgba(21, 80, 149, 0.65);
-		font-size: vh(14);
+		font-size: vw(14);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -90,7 +90,7 @@
 			'. . c3 . .'
 			'. . c3 . .'
 			'. . c3 . .';
-		font-size: vh(18);
+		font-size: vw(16);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -113,7 +113,7 @@
 		grid-template-columns: 1fr 1fr;
 		align-items: center;
 		justify-items: center;
-		font-size: vh(18);
+		font-size: vw(18);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -169,7 +169,7 @@
 				padding-top: vw(86);
 				cursor: pointer;
 				span {
-					font-size: vh(14);
+					font-size: vw(14);
 					font-family:
 						Adobe Heiti Std,
 						serif;
@@ -183,7 +183,7 @@
 			.home_air_door_body_c2_item6_l5_title {
 				width: 100%;
 				text-align: center;
-				font-size: vh(16);
+				font-size: vw(16);
 				font-family:
 					Adobe Heiti Std,
 					serif;
@@ -233,7 +233,7 @@
 
 //风门参数设置
 @mixin ParamItemText {
-	font-size: vh(14);
+	font-size: vw(14);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -344,7 +344,7 @@
 		height: 100%;
 		padding: 0 10px;
 		display: flex;
-		font-size: vh(16);
+		font-size: vw(16);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -365,7 +365,7 @@
 
 @mixin smallLight {
 	width: vw(26);
-	height: vh(26);
+	height: vw(26);
 	background-size: 100% 100%;
 }
 .small_light_1 {
@@ -393,7 +393,7 @@
 
 @mixin doorIcon {
 	width: vw(23);
-	height: vh(24);
+	height: vw(24);
 	background-size: 100% 100%;
 }
 //通信状态图标
@@ -409,7 +409,7 @@
 //操作记录图标
 .door_icon_3 {
 	width: vw(14);
-	height: vh(14);
+	height: vw(14);
 	background-image: url('@/assets/images/equipment/icon3.png');
 	background-size: 100% 100%;
 	box-shadow: 0 0 5px 4px #395ac7;

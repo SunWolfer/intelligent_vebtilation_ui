@@ -38,9 +38,17 @@
 			}
 		},
 	)
-	const emits = defineEmits(['changeTunnel'])
+	const emits = defineEmits(['changeTunnel', 'clearRow'])
+
+	watch(
+		() => dataForm.value.roadCode,
+		(val) => {
+			emits('clearRow', val)
+		},
+	)
 
 	const submitForm = async () => {
+		if (dataForm.value.airVolume === '0.00') return
 		// 修改
 		if (dataForm.value.mainId) {
 			await useCommitForm(editOtherRoad, {
@@ -53,6 +61,7 @@
 			await useCommitForm(addOtherRoad, {
 				queryParams: dataForm.value,
 				afterReadyDataFun: () => {
+					changeRoad?.()
 					emits('changeTunnel')
 				},
 			})
@@ -65,8 +74,12 @@
 		<div class="cal_child_body">
 			<el-form :model="dataForm">
 				<el-form-item label="巷道名称">
-					<el-select v-model="dataForm.roadCode" @change="changeRoad">
-						<el-option v-for="i in dataList" :label="i.code + i.name" :value="i.code"></el-option>
+					<el-select v-model="dataForm.roadCode" @change="changeRoad" clearable>
+						<el-option
+							v-for="i in dataList"
+							:label="i.name + '  ' + i.code"
+							:value="i.code"
+						></el-option>
 					</el-select>
 				</el-form-item>
 			</el-form>
@@ -95,13 +108,13 @@
 							<template v-if="dataForm.gasPredictType === '1'">
 								<div class="child_body_item_t3_line">
 									<span>瓦斯传感器</span>
-									<el-select v-model="dataForm.gasSneosrCode" @change="chooseGasList">
+									<el-select v-model="dataForm.gasSneosrCode" @change="chooseGasList" clearable>
 										<el-option v-for="i in gasList" :label="i.name" :value="i.code"></el-option>
 									</el-select>
 								</div>
 								<div class="child_body_item_t3_line">
 									<span>风速传感器 </span>
-									<el-select v-model="dataForm.gasWindSensor" @change="chooseWindList">
+									<el-select v-model="dataForm.gasWindSensor" @change="chooseWindList" clearable>
 										<el-option v-for="i in windList" :label="i.name" :value="i.code"></el-option>
 									</el-select>
 								</div>

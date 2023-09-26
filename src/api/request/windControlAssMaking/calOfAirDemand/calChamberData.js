@@ -1,7 +1,7 @@
 import { calOfAirDemand } from '@/api/request/windControlAssMaking/calOfAirDemand/calOfAirDemand'
 
 export const calChamberData = () => {
-	const { dataFormInfo, dataList } = calOfAirDemand('3')
+	const { dataFormInfo, dataFormInfoByCode, dataList } = calOfAirDemand('3')
 
 	const dataForm = ref({
 		id: undefined,
@@ -29,6 +29,12 @@ export const calChamberData = () => {
 		electrAireHeat: '',
 		// 机电硐室进、回风流的温度差
 		electrTempDiff: '',
+		// 	按爆破材料
+		powderFlag: '0',
+		// 	充电硐室
+		chargingFlag: '0',
+		// 	机电硐室
+		electrFlag: '0',
 	})
 
 	const resetForm = () => {
@@ -50,6 +56,12 @@ export const calChamberData = () => {
 			electrAireHeat: '',
 			// 机电硐室进、回风流的温度差
 			electrTempDiff: '',
+			// 	按爆破材料
+			powderFlag: '0',
+			// 	充电硐室
+			chargingFlag: '0',
+			// 	机电硐室
+			electrFlag: '0',
 		}
 	}
 
@@ -58,7 +70,7 @@ export const calChamberData = () => {
 			return i.code === dataForm.value.roadCode
 		})
 		dataForm.value.roadName = findData.name
-		const data = await dataFormInfo?.(findData.id)
+		const data = await dataFormInfoByCode?.(findData.code)
 		if (data) {
 			dataForm.value = data
 		} else {
@@ -80,10 +92,13 @@ export const calChamberData = () => {
 	watchEffect(() => {
 		// 爆破材料库预测风量
 		dataForm.value.powderQ = ((dataForm.value.powderVolume * 4) / 60).toFixed(2)
+		dataForm.value.powderFlag = dataForm.value.powderQ > 0 ? '1' : '0'
 		// 充电硐室预测风量
 		dataForm.value.chargingQ = (dataForm.value.powderVolume * 200).toFixed(2)
+		dataForm.value.chargingFlag = dataForm.value.chargingQ > 0 ? '1' : '0'
 		// 机电硐室预测风量
 		dataForm.value.electrQ = electrQ.value
+		dataForm.value.electrFlag = dataForm.value.electrQ > 0 ? '1' : '0'
 	})
 
 	// 工作面所需风量

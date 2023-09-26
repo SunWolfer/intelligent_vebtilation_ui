@@ -1,6 +1,7 @@
 <!--大弹窗-->
 <script setup lang="ts">
 	import { getPoints, useAutoResize } from '@/components/BorderBox/borderUtils'
+	import { getInputSize } from '@/utils/ruoyi'
 
 	interface ReqBorderBox {
 		// 动画时间
@@ -23,7 +24,9 @@
 		return outHei.value ? minHeight : height.value - 260
 	})
 	//   弹窗标题一半长度
-	const titleLength = ref(109)
+	const titleLength = computed(() => {
+		return getInputSize(props.title) * 24
+	})
 	//  标题背景
 	const titleBgPoints = computed(() => {
 		const w = width.value
@@ -160,7 +163,7 @@
 				</filter>
 			</defs>
 			<polyline :points="titleBgPoints" fill="url(#border4-grad1)" style="opacity: 0.61"></polyline>
-			<text class="border-4-text" :x="width / 2" y="28" fill="url(#border4-grad2)">
+			<text class="border-4-text" :x="width / 2" y="25" fill="url(#border4-grad2)">
 				{{ title }}
 			</text>
 			<polyline
@@ -260,7 +263,7 @@
 <style scoped lang="scss">
 	@import '@/assets/styles/border-box';
 	.border-4-text {
-		font-size: vh(29);
+		font-size: vw(30);
 		font-family: YouSheBiaoTiHei, serif;
 		font-weight: 400;
 		text-anchor: middle;

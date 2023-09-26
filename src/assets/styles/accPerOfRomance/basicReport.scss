@@ -15,7 +15,7 @@
   height: vh(40);
   padding-left: vw(20);
   text-align: center;
-  font-size: vh(20);
+  font-size: vw(20);
   font-family: Adobe Heiti Std, serif;
   font-weight: normal;
   color: #FFFFFF;
@@ -71,7 +71,7 @@
 
   @mixin DecPointIcon {
     width: vw(15);
-    height: vh(14);
+    height: vw(14);
     background-size: 100% 100%;
     display: flex;
     justify-content: center;
@@ -97,7 +97,7 @@
     @include DecPointBg;
     background-image: url('@/assets/images/home/home_dis_pre_route/route_text_bg_1.png');
 
-    font-size: vh(16);
+    font-size: vw(16);
     font-family:
       Adobe Heiti Std,
       serif;
@@ -108,7 +108,7 @@
     @include DecPointBg;
     background-image: url('@/assets/images/windControlAssMaking/dec_icon_2.png');
 
-    font-size: vh(16);
+    font-size: vw(16);
     font-family:
       Adobe Heiti Std,
       serif;
@@ -120,11 +120,25 @@
 .bas_report_body_c2_l1{
   grid-column: 2/3;
   grid-row: 1/2;
-  display: grid;
+  display: flex;
   grid-column-gap: vw(10);
-  grid-template-columns: vw(255) repeat(3,vw(130));
   .bas_c2_l1_icon{
     @include defaultMinix1(255,56);
+    margin-right: vw(50);
+  }
+  .bas_c2_l1_select{
+    grid-column-gap: vw(10);
+    span {
+      font-size: vw(26);
+      font-family: YouSheBiaoTiHei, serif;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 45px;
+
+      background: linear-gradient(180deg, #4691F7 0%, #2BC9EA 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
 }
 .bas_report_body_c2_l2{

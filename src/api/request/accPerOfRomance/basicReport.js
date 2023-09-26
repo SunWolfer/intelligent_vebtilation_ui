@@ -738,8 +738,7 @@ export const basicReport = () => {
 		},
 		{
 			gridArea: '3/7/4/8',
-			bodyClass: 'table_item_body',
-			isHtml: true,
+			isInput: true,
 			label: 'jszc6',
 		},
 		{
@@ -775,8 +774,7 @@ export const basicReport = () => {
 		},
 		{
 			gridArea: '4/7/5/8',
-			bodyClass: 'table_item_body',
-			isHtml: true,
+			isInput: true,
 			label: 'jsyx6',
 		},
 		{
@@ -812,8 +810,7 @@ export const basicReport = () => {
 		},
 		{
 			gridArea: '5/7/6/8',
-			bodyClass: 'table_item_body',
-			isHtml: true,
+			isInput: true,
 			label: 'jsdx6',
 		},
 		{
@@ -849,8 +846,7 @@ export const basicReport = () => {
 		},
 		{
 			gridArea: '6/7/7/8',
-			bodyClass: 'table_item_body',
-			isHtml: true,
+			isInput: true,
 			label: 'jsby6',
 		},
 	]
@@ -2089,6 +2085,7 @@ export const basicReport = () => {
 
 	return {
 		initData,
+		addStatus,
 		getList,
 		chooseVersion,
 		versionList,

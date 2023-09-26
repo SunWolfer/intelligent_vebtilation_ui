@@ -187,7 +187,7 @@
 					<m-video :video-path="videoUrl1" domid="windowPlayer1" type="fc" />
 				</border-box>
 			</div>
-			<div class="home_air_window_body_l1_v2">
+			<div class="home_air_window_body_l1_v2" v-if="videoUrl2">
 				<border-box name="border1" background-color="rgba(24, 25, 49, 0.71)">
 					<m-video :video-path="videoUrl2" domid="windowPlayer2" type="fc" />
 				</border-box>

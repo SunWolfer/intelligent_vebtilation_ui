@@ -5,6 +5,7 @@
 	import { naturedCalculateSimulate, reloadDrawing } from '@/api/api/naturalDisNetSolution'
 	import { useLoading } from '@/hooks/useLoading'
 	import { fixedCalculateSimulate } from '@/api/api/onDemandAirDisNetSolution'
+	import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
 
 	const props = defineProps({
 		// 显示解算模拟弹窗
@@ -28,12 +29,18 @@
 			type: String,
 			default: '1',
 		},
+		// 点击巷道code
+		selectCode: {
+			type: String,
+			default: '',
+		},
 	})
 	const emits = defineEmits([
 		'update:imitateVisible',
 		'update:operationStepsList',
 		'showCalVisible',
 		'cancelCalVisible',
+		'getSelectionRows',
 	])
 
 	const TImitateVisible = computed({
@@ -118,7 +125,7 @@
 				windBranchList.value = data.windBranch
 				TImitateVisible.value = false
 				afterCalVisible.value = true
-				emits('showCalVisible')
+				emits('showCalVisible', afterCalDataList.value)
 			},
 		})
 	}
@@ -143,7 +150,7 @@
 				windBranchList.value = data.windBranch
 				TImitateVisible.value = false
 				afterCalVisible.value = true
-				emits('showCalVisible')
+				emits('showCalVisible', afterCalDataList.value)
 			},
 		})
 	}
@@ -158,6 +165,8 @@
 		}
 		const res = await reloadDrawing({
 			children: newTunnel,
+			w: dynamicWidth(900),
+			h: dynamicHeight(527),
 		})
 		if (res && res.msg) reloadNetWorkUrl.value = res.msg
 	}
@@ -166,6 +175,10 @@
 		afterCalVisible.value = false
 		TOperationStepsList.value = []
 		emits('cancelCalVisible')
+	}
+	//   表格行被点击
+	const getSelectionRows = (row) => {
+		emits('getSelectionRows', row)
 	}
 </script>
 
@@ -222,7 +235,9 @@
 		:wind-branch-list="windBranchList"
 		:default-net-work="defaultNetWork"
 		:reload-net-work-url="reloadNetWorkUrl"
+		:select-code="selectCode"
 		@cancel="cancelAfterCalVisible"
+		@getSelectionRows="getSelectionRows"
 	/>
 </template>
 

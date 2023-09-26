@@ -20,7 +20,7 @@
 	const emits = defineEmits(['loadText', 'cleanText'])
 	const { checkedWind, checkedWindAge, checkedWindPressure } = homeSolution()
 
-	const { roadAllList } = useThreeModelData()
+	const { roadAllList, modelSize } = useThreeModelData()
 
 	watch(
 		() => [checkedWind.value, checkedWindPressure.value, checkedWindAge.value],
@@ -32,30 +32,31 @@
 		let fontList = []
 		for (let i = 0; i < roadAllList.value.length; i++) {
 			const wind = roadAllList.value[i]
-			let airQuantity = checkedWind.value ? `解算风量：${wind.airVolume}m3/min` : ''
-			let windage = checkedWindAge.value ? `风阻：${wind.ventR}m/s` : ''
-			let windPressure = checkedWindPressure.value ? `风压：${wind.airPressure}Kpa` : ''
+			if (wind.modelWindShow === '0') continue
+			let airQuantity = checkedWind.value ? `解算风量：${wind.airVolume ?? '-'}m3/min` : ''
+			let windage = checkedWindAge.value ? `风阻：${wind.ventR ?? '-'}m/s` : ''
+			let windPressure = checkedWindPressure.value ? `风压：${wind.airPressure ?? '-'}Kpa` : ''
 			let text = `${airQuantity} ${windage} ${windPressure}`
 			// 添加解算数据
 			fontList.push({
 				parent: wind.code,
 				text: text,
 				color: '#000',
-				size: 100,
-				height: 600,
+				size: 1 * modelSize.value,
+				height: 7 * modelSize.value,
 				planeColor: '#00ff00',
 			})
 			//   添加人工实测风量
 			let text2 = wind.personQ
-				? `人工实测风量：${wind.personQ}m3/min   实际风量：${wind.airVolume}m3/min`
+				? `人工实测风量：${wind.personQ}m3/min  实时风量：${wind.airVolume}m3/min`
 				: ''
 			if (text2) {
 				fontList.push({
 					parent: wind.code,
 					text: text2,
 					color: '#000',
-					size: 100,
-					height: 400,
+					size: 1 * modelSize.value,
+					height: 4 * modelSize.value,
 					planeColor: '#00ffff',
 				})
 			}
@@ -66,12 +67,13 @@
 					parent: wind.code,
 					text: text3,
 					color: '#000',
-					size: 100,
-					height: 200,
+					size: 1 * modelSize.value,
+					height: 1 * modelSize.value,
 					planeColor: '#005aff',
 				})
 			}
 		}
+		console.log(fontList)
 		emits('loadText', fontList)
 	}
 	onBeforeUnmount(() => {
@@ -92,11 +94,11 @@
 			<span>风阻</span>
 			<el-checkbox v-model="checkedWindAge" />
 		</div>
-		<!--		<div class="home_title_solution_btn">-->
-		<!--			<div class="home_so_icon home_so_icon_3"></div>-->
-		<!--			<span>风压</span>-->
-		<!--			<el-checkbox v-model="checkedWindPressure" />-->
-		<!--		</div>-->
+		<div class="home_title_solution_btn">
+			<div class="home_so_icon home_so_icon_3"></div>
+			<span>风压</span>
+			<el-checkbox v-model="checkedWindPressure" />
+		</div>
 	</div>
 </template>
 

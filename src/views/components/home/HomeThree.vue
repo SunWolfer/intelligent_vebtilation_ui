@@ -12,6 +12,10 @@
 	import WindSpeedMsg from '@/views/components/equiptmentMsg/WindSpeedMsg.vue'
 	import { threeDisasterRoute } from '@/api/request/home/homeThree/threeDisasterRoute'
 	import { deviceTypes } from '@/api/request/menuType'
+  import {EditType} from "@/components/VueThree/types/editType";
+  import TunnelMessage
+    from "@/views/components/equiptmentMsg/TunnelMessage.vue";
+  import {homeMenu} from "@/api/request/home/homeMenu";
 
 	const tabs = reactive([
 		{
@@ -103,19 +107,30 @@
 	const {
 		homeModelVisible,
 		otherThreeMod,
-		cameraPosition,
 		controlsOptions,
 		lights,
 		onLoad,
 		onModel,
 		onClick,
 		dblclick,
-		readyCamera,
 		createdLabelList,
 		operateModel,
 		intersected,
 		intersectedPosition,
 	} = useThree()
+
+  const readyCamera = () => {
+    operateModel.value?.createdImgPlane()
+    if (showTypeList.value) {
+      nextFun?.(showTypeList.value)
+    }
+  }
+
+  const emits = defineEmits(['chooseTunnel'])
+
+  watch(() => intersected.value, (val) => {
+    val && emits('chooseTunnel', val)
+  })
 
 	const { reverseWind } = useHomeMenu()
 	// 监听反风，重绘风流
@@ -138,13 +153,20 @@
 		createdDisasterSpread,
 	} = threeDisasterRoute(operateModel, intersectedPosition, intersected)
 
+	// 设置选中
+	function setSelectModel(name) {
+		homeModelVisible.value?.setSelectObject(name)
+	}
+
 	defineExpose({
 		operateModel,
+		setSelectModel,
 		changeClickType,
 		changeDisasterType,
 		disasterRoute,
 		createdDisasterSpread,
 	})
+  const {showTunnelMesVisible} = homeMenu()
 </script>
 
 <template>
@@ -152,9 +174,8 @@
 		<model-generation
 			ref="homeModelVisible"
 			:other-three-mod="otherThreeMod"
-			:cameraPosition="cameraPosition"
 			:lights="lights"
-			:camera-size="1"
+			:camera-size="0.1"
 			:backgroundAlpha="0"
 			:controlsOptions="controlsOptions"
 			:choose-group="true"
@@ -198,6 +219,13 @@
 					<div v-for="i in disasterPeopleList" :key="i.id" :id="i.id" class="disaster_start"></div>
 				</template>
 			</template>
+      <template #default>
+        <tunnel-message
+          v-if="!showTunnelMesVisible"
+          :intersected="intersected"
+          :operate-model="operateModel"
+        />
+      </template>
 		</model-generation>
 	</div>
 </template>

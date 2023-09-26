@@ -1,13 +1,13 @@
 //图标背景
 .home_icon_bg {
 	position: absolute;
-	top: 0;
+	top: vh(20);
 	width: vw(301);
 	height: vh(954);
 	left: vw(35);
 	display: grid;
 	grid-template-columns: 100%;
-	grid-template-rows: vh(50) repeat(8, vh(110));
+	grid-template-rows: repeat(8, vh(110));
 	background-image: url('@/assets/images/home/home_icons/curve-01.png');
 	background-size: 100% 100%;
 }
@@ -22,7 +22,7 @@
 		--el-input-hover-border: rgba(105, 210, 249, 1);
 		--el-input-focus-border: rgba(105, 210, 249, 1);
 		--el-input-hover-border-color: rgba(105, 210, 249, 1);
-		--el-font-size-base: #{vh(12)};
+		--el-font-size-base: #{vw(12)};
 		--el-input-height: #{vh(22)};
 		--el-input-text-color: rgba(105, 210, 249, 1);
 		.el-input__wrapper {
@@ -45,8 +45,8 @@
 	position: relative;
 }
 @mixin homeIcon {
-	width: vh(82);
-	height: vh(70);
+	width: vw(82);
+	height: vw(70);
 	background-size: 100% 100%;
 	cursor: pointer;
 }
@@ -63,15 +63,15 @@
 
 //图标文字
 .home_icon_text {
+	align-self: center;
 	position: relative;
-	margin-top: vh(38);
 	margin-left: vw(4);
 	padding-left: vh(9);
 	cursor: pointer;
 	width: max-content;
 	height: vh(25);
 	z-index: 0;
-	font-size: vh(16);
+	font-size: vw(16);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -102,7 +102,7 @@
 	margin: vh(5) 0;
 	border-radius: 6px;
 	padding: 0 vw(10);
-	font-size: vh(14);
+	font-size: vw(14);
 	font-family:
 		Adobe Heiti Std,
 		serif;

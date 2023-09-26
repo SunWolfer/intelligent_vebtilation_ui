@@ -1,5 +1,5 @@
 import useEquipmentData from '@/hooks/useEquipmentData'
-import { deviceTypes, MenuTypes } from '@/api/request/menuType'
+import { MenuTypes } from '@/api/request/menuType'
 import useHomeMenu from '@/hooks/useHomeMenu'
 import { infoPath, infoPathList } from '@/api/api/home'
 import { useGainList } from '@/hooks/useGainList'

@@ -27,13 +27,13 @@
 		place-content: center;
 		place-items: center;
 		.full_body_l1_top_text {
-			font-size: vh(26);
+			font-size: vw(26);
 			font-family: YouSheBiaoTiHei, serif;
 			font-weight: 400;
 			color: rgba(255, 255, 255, 0.78);
 			text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
-			background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
+			background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 		}
@@ -46,7 +46,7 @@
 			display: grid;
 			place-items: center;
 			span {
-				font-size: vh(22);
+				font-size: vw(22);
 				font-family: YouSheBiaoTiHei, serif;
 				font-weight: 400;
 				color: rgba(255, 255, 255, 0.78);
@@ -72,10 +72,11 @@
 		.full_body_top_body_item {
 			width: 100%;
 			height: 100%;
-			padding: vh(5) 0 vh(15) vw(26);
+			padding: vh(5) 0 vh(10) vw(26);
 			display: grid;
-			grid-template-columns: auto vw(135);
-			grid-template-rows: vh(52) 1fr;
+			grid-template-columns: 1fr vw(135);
+			grid-template-rows: vw(52) 1fr;
+			grid-row-gap: vh(5);
 		}
 		.full_body_top_body_item_warn {
 			box-shadow: inset 0 0 30px #c08c0d;
@@ -86,7 +87,7 @@
 			grid-template-columns: vw(52) vw(70) 1fr;
 			grid-column-gap: vw(7);
 			align-items: center;
-			font-size: vh(16);
+			font-size: vw(16);
 			font-family:
 				Microsoft YaHei,
 				serif;
@@ -107,6 +108,7 @@
 			}
 			.full_text_warn {
 				color: #ff007e;
+				font-size: vw(15);
 			}
 			.full_body_l1_bottom_item_top_text{
 				align-self: start;
@@ -115,12 +117,12 @@
 			}
 		//	历史记录、预警记录
 			@mixin accIcon{
-				width: vh(14);
-				height: vh(14);
+				width: vw(14);
+				height: vw(14);
 				background-size: 100% 100%;
 			}
 			.icon_text{
-				font-size: vh(14);
+				font-size: vw(14);
 				font-family:
 					Adobe Heiti Std,
 					serif;
@@ -147,19 +149,19 @@
 			grid-template-rows: vh(17) repeat(3, vh(23));
 			place-content: space-between;
 			.full_body_l1_bottom_item_left_center {
-				font-size: vh(23);
+				font-size: vw(23);
 				font-family: YouSheBiaoTiHei, serif;
 				font-weight: 400;
 				color: rgba(255, 255, 255, 0.78);
 				line-height: vh(17);
 				text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
-				background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
+				background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
 				-webkit-background-clip: text;
 				-webkit-text-fill-color: transparent;
 			}
 			.full_body_l1_bottom_item_left_text {
-				font-size: vh(14);
+				font-size: vw(14);
 				font-family:
 					Adobe Heiti Std,
 					serif;
@@ -211,18 +213,18 @@
 			align-items: center;
 			justify-content: center;
 			span {
-				font-size: vh(18);
+				font-size: vw(18);
 				font-family:
 					Source Han Sans CN,
 					serif;
 				font-weight: bold;
 				color: #f50b0c;
 				&:nth-child(1) {
-					font-size: vh(30);
+					font-size: vw(30);
 					justify-self: center;
 				}
 				&:nth-child(2) {
-					font-size: vh(14);
+					font-size: vw(14);
 					justify-self: center;
 				}
 			}
@@ -231,7 +233,7 @@
 			width: 100%;
 			height: 100%;
 			overflow: hidden;
-			font-size: vh(18);
+			font-size: vw(18);
 			font-family:
 				Source Han Sans CN,
 				serif;
@@ -250,11 +252,11 @@
 				font-weight: bold;
 				color: #ffffff;
 				&:nth-child(1) {
-					font-size: vh(30);
+					font-size: vw(30);
 					justify-self: center;
 				}
 				&:nth-child(2) {
-					font-size: vh(14);
+					font-size: vw(14);
 					justify-self: end;
 				}
 			}
@@ -269,7 +271,7 @@
 			.full_body_l2_item_text_table_item {
 				span {
 					color: #ffff00;
-					font-size: vh(14);
+					font-size: vw(14);
 					font-family:
 						Source Han Sans CN,
 						serif;
@@ -322,14 +324,14 @@
 			background-size: 100% 100%;
 
 			span {
-				font-size: vh(18);
+				font-size: vw(18);
 				font-family:
 					Adobe Heiti Std,
 					serif;
 				font-weight: normal;
 				color: rgba(255, 255, 255, 0.78);
 				text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-				background: linear-gradient(0deg, #b8d6ff 0%, #2bc9ea 100%);
+				background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
 				-webkit-background-clip: text;
 				-webkit-text-fill-color: transparent;
 			}
@@ -340,7 +342,7 @@
 			background-image: url('@/assets/images/home/home_menu_btn.png');
 			background-size: 100% 100%;
 			cursor: pointer;
-			font-size: vh(20);
+			font-size: vw(20);
 			font-family:
 				Adobe Heiti Std,
 				serif;
@@ -350,13 +352,13 @@
 			line-height: vh(40);
 		}
 		.full_body_l3_top_text {
-			font-size: vh(26);
+			font-size: vw(26);
 			font-family: YouSheBiaoTiHei, serif;
 			font-weight: 400;
 			color: rgba(255, 255, 255, 0.78);
 			text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
-			background: linear-gradient(180deg, #b8d6ff 0%, #2bc9ea 100%);
+			background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 			span {
@@ -375,8 +377,8 @@
 	border-radius: 10px;
 	padding: vh(5) vw(10) 0 vw(10);
 	display: grid;
-	grid-template-rows: vh(27) vh(38) 1fr;
-	grid-row-gap: vh(20);
+	grid-template-rows: vh(27) auto 1fr;
+	grid-row-gap: vh(10);
 	.full_body_l4_chart{
 		grid-area: 3/1/4/2;
 	}

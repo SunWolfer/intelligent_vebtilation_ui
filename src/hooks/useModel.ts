@@ -20,7 +20,7 @@ export const useModel = (operateModel: Ref<OperateModel>) => {
 	function loadAllTypeList() {
 		isReady.value = true
 		nextTick().then(() => {
-			operateModel.value.addWrapperLabels(allTypeList.value, 'uniqueCode')
+			operateModel.value?.addWrapperLabels(allTypeList.value, 'uniqueCode')
 		})
 	}
 
@@ -40,7 +40,7 @@ export const useModel = (operateModel: Ref<OperateModel>) => {
 	const loadTemLabelList = () => {
 		temReady.value = true
 		nextTick().then(() => {
-			operateModel.value.addTemporaryLabelList(temporaryLabelList.value)
+			operateModel.value?.addTemporaryLabelList(temporaryLabelList.value)
 		})
 	}
 

@@ -164,7 +164,7 @@
 		height: 100%;
 		text-align: center;
 		.dia_title {
-			font-size: vh(26);
+			font-size: vw(26);
 			font-family: YouSheBiaoTiHei, serif;
 			font-weight: 400;
 			color: rgba(255, 255, 255, 0.78);
@@ -188,7 +188,7 @@
 				display: flex;
 				align-items: center;
 				padding-left: vw(30);
-				font-size: vh(16);
+				font-size: vw(16);
 				font-family:
 					Adobe Heiti Std,
 					serif;
@@ -224,7 +224,7 @@
 		width: 100%;
 		height: 100%;
 		background: #155095;
-		font-size: vh(14);
+		font-size: vw(14);
 		font-family:
 			Microsoft YaHei,
 			serif;
@@ -242,7 +242,7 @@
 			@include TableItem;
 			grid-template-rows: repeat(auto-fill, vh(24));
 			grid-row-gap: vh(8);
-			font-size: vh(14);
+			font-size: vw(14);
 			font-family:
 				Adobe Heiti Std,
 				serif;

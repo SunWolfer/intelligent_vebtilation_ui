@@ -79,6 +79,10 @@ export const homeMenu = () => {
 	const showDisasterSimulation = computed(() => {
 		return hasType(MenuTypes.SEVEN)
 	})
+	// 隐藏巷道信息
+	const showTunnelMesVisible = computed(() => {
+		return showInspectionRoaming.value || showWindNetworkCalculation.value || showMultiplePerspectives.value || showReverseWindSimulation.value ||showDisasterPreventionRoute.value||showDisasterSimulation.value
+	})
 
 	const hasType = (type) => {
 		return showMenus.value.indexOf(type) !== -1
@@ -94,5 +98,6 @@ export const homeMenu = () => {
 		showReverseWindSimulation,
 		showDisasterPreventionRoute,
 		showDisasterSimulation,
+		showTunnelMesVisible
 	}
 }

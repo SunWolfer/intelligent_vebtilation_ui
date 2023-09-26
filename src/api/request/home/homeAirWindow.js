@@ -69,8 +69,8 @@ export const homeAirWindow = () => {
 	// 页面传参查询
 	const equipmentParams = useEquipmentParams()
 	onMounted(async () => {
-		const { id } = equipmentParams.dataParams
-		await changeWindow(id)
+		const params = equipmentParams?.dataParams
+		await changeWindow(params?.id)
 		clientSocket?.()
 	})
 	onBeforeUnmount(() => {
@@ -79,6 +79,7 @@ export const homeAirWindow = () => {
 
 	// 改变选中风窗
 	const changeWindow = async (id) => {
+		if (!id) return
 		await getAbTag(id)
 		await getDataForm(id)
 		await getDataFormB(abTagId.value)

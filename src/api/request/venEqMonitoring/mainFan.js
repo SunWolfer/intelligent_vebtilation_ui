@@ -15,15 +15,19 @@ import {
 import { useGainList } from '@/hooks/useGainList'
 import { useCommitForm } from '@/hooks/useForm'
 import { fanMsgInfo } from '@/api/request/venEqMonitoring/fanMsgInfo'
+import useEquipmentParams from '@/hooks/useEquipmentParams'
 
 export const mainFan = () => {
+	// 页面传参查询
+	const equipmentParams = useEquipmentParams()
 	// 选中主扇id
 	const mainFanId = ref('')
 	// 主扇列表
 	const { dataList, queryDataList } = useGainList({
 		apiFun: manFanList,
 		afterReadyDataFun: (data) => {
-			mainFanId.value = data[0].id
+			const params = equipmentParams?.dataParams
+			mainFanId.value = params?.id ? params?.id : data[0].id
 			getMainFanInfo?.(mainFanId.value)
 		},
 	})

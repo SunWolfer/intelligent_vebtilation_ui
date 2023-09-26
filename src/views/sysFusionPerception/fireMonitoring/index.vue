@@ -24,7 +24,7 @@
 			<div class="fire_select">
 				<el-form :model="dataForm1">
 					<el-form-item label="区域">
-						<el-select v-model="dataForm1.code">
+						<el-select v-model="dataForm1.code" clearable>
 							<el-option v-for="i in tubeDataList" :label="i.name" :value="i.code"></el-option>
 						</el-select>
 					</el-form-item>
@@ -69,7 +69,7 @@
 			<div class="fire_select">
 				<el-form :model="dataForm2">
 					<el-form-item label="通道">
-						<el-select v-model="dataForm2.channel">
+						<el-select v-model="dataForm2.channel" clearable>
 							<el-option v-for="i in optList" :label="i.channel" :value="i.channel"></el-option>
 						</el-select>
 					</el-form-item>

@@ -14,17 +14,22 @@ import {
 } from '@/api/api/mainFan'
 import { useGainList } from '@/hooks/useGainList'
 import { useCommitForm } from '@/hooks/useForm'
+import useEquipmentParams from '@/hooks/useEquipmentParams'
 
 export const localFan = () => {
+	// 页面传参查询
+	const equipmentParams = useEquipmentParams()
 	// 选中局扇id
 	const mainFanId = ref('')
 	const { dataList: localFan } = useGainList({
 		apiFun: localFanList,
 		afterReadyDataFun: (data) => {
-			mainFanId.value = data[0].id
+			const params = equipmentParams?.dataParams
+			mainFanId.value = params?.id ? params?.id : data[0].id
 			getMainFanInfo?.(mainFanId.value)
 		},
 	})
+
 	const { inShowList, toLast, showLast, toNext, showNext } = useInterceptList(localFan, 8)
 
 	const changeItem = (data) => {

@@ -1,11 +1,4 @@
-import {
-	Box3,
-	Vector3,
-	Vector2,
-	BufferAttribute,
-	Object3D,
-	BufferGeometry,
-} from 'three'
+import { Box3, Vector3, Vector2, BufferAttribute, Object3D, BufferGeometry } from 'three'
 
 const box = new Box3()
 
@@ -159,9 +152,17 @@ function toIndexed(bufferGeometry: BufferGeometry) {
 	}
 }
 
+// 确定相机移动后点
+function setMovePosition(p1: Vector3, p2: Vector3) {
+	const x = (p2.x + p1.x) / 2
+	const y = (p2.y + p1.y) / 2
+	const z = (p2.z + p1.z) / 2
+	return new Vector3(x, y, z)
+}
+
 export interface modelLine {
 	src: string
 	isDealLine: boolean
 }
 
-export { getSize, getCenter, toIndexed }
+export { getSize, getCenter, toIndexed, setMovePosition }

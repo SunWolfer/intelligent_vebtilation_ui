@@ -20,6 +20,9 @@
 		manualControlWarnIcon,
 		closeWarnIcon,
 		maxWarnType,
+    getWarnListData,
+    queryAirVolumeList,
+    queryRoadAllList
 	} = homeRightMess()
 	const { toPosition, equipTypeList } = useEquipmentData()
 	const { fan_work_status } = useDict('fan_work_status')
@@ -38,6 +41,12 @@
 		emits('moveCamera', position, item.point)
 	}
 	const { dislodgeDomStyle, warnStyle } = useHomeMenu()
+
+  onActivated(() =>{
+    queryAirVolumeList?.()
+    getWarnListData?.()
+    queryRoadAllList?.()
+  })
 </script>
 
 <template>
@@ -80,14 +89,16 @@
 			<border-box name="border2" title="区域风量"></border-box>
 		</div>
 		<div class="home_right_message_body2">
-			<template v-for="(item, index) in regionalAirVolumeList">
-				<div class="home_right_message_body2_bg">
-					<div class="home_body2_index">{{ index + 1 }}</div>
-					<div class="home_body2_text">{{ item.name }}</div>
-					<div class="home_body2_button">{{ item.airVolume + 'm³/min' }}</div>
-					<div class="home_body2_text_bg"></div>
-				</div>
-			</template>
+			<div class="fullDom">
+				<template v-for="(item, index) in regionalAirVolumeList">
+					<div class="home_right_message_body2_bg">
+						<div class="home_body2_index">{{ index + 1 }}</div>
+						<div class="home_body2_text">{{ item.name }}</div>
+						<div class="home_body2_button">{{ item.airVolume + 'm³/min' }}</div>
+						<div class="home_body2_text_bg"></div>
+					</div>
+				</template>
+			</div>
 		</div>
 		<!--    预警总览-->
 		<div class="home_right_message_title">

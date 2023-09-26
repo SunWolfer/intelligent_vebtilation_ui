@@ -1,4 +1,27 @@
 @import 'utils';
+// cover some element-ui styles
+$sdt-el-color3: rgba(26, 47, 86, 0.6);
+$sdt-el-color4: rgba(14, 252, 255, 0.77);
+$form-font-size: vw(16);
+$form-input-height: vw(32);
+$input-hover: 0 0 10px 0 rgba(14, 252, 255, 0.77);
+$input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
+
+:root{
+	--el-font-size-extra-large: #{vw(22)};
+	--el-font-size-large: #{vw(20)};
+	--el-font-size-medium: #{vw(18)};
+	--el-font-size-base: #{vw(16)};
+	--el-font-size-small: #{vw(14)};
+	--el-font-size-extra-small: #{vw(12)};
+	--el-font-line-height-primary: #{vw(24)};
+	--el-component-size-large: #{vw(40)};
+	--el-component-size: #{vw(32)};
+	--el-component-size-small: #{vw(24)};
+	--el-menu-icon-width: #{vw(24)};
+	--el-menu-level-padding: #{vw(20)};
+	--el-menu-base-level-padding: #{vw(20)};
+}
 .el-checkbox {
 	height: 100%;
 	--el-checkbox-checked-bg-color: #0b1c48;
@@ -6,13 +29,6 @@
 	--el-checkbox-bg-color: #0b1c48;
 	--el-checkbox-input-border: 1px solid #2bc3e7;
 }
-
-// cover some element-ui styles
-$sdt-el-color3: rgba(26, 47, 86, 0.6);
-$sdt-el-color4: rgba(14, 252, 255, 0.77);
-$form-font-size: vh(16);
-$input-hover: 0 0 10px 0 rgba(14, 252, 255, 0.77);
-$input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 //输入框
 .el-input{
 	--el-input-hover-border-color: #{$sdt-el-color4};
@@ -21,10 +37,11 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 	--el-disabled-bg-color: #{$sdt-el-color3};
 	--el-input-text-color: #ffffff;
 	--el-disabled-border-color: rgba(19, 133, 224, 0.77);
+
 	padding: 1px;
 	box-shadow: 0 0 10px 4px rgba(19, 133, 224, 0.77) inset;
-	height: vh(32);
 	font-size: #{$form-font-size};
+	--el-input-height: #{$form-input-height};
 
 	.el-input__wrapper {
 		padding: 1px 8px;
@@ -42,16 +59,30 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 		color: #{$sdt-el-color4};
 	}
 }
+.el-textarea{
+	--el-input-hover-border-color: #{$sdt-el-color4};
+	--el-input-text-color: #ffffff;
+	--el-input-bg-color:#{$sdt-el-color3};
+	--el-input-border: none;
+	--el-border-color-hover: #{$input-hover};
+	.el-textarea__inner{
+		box-shadow: 0 0 10px 4px rgba(19, 133, 224, 0.77) inset;
+	}
+}
 .el-form {
 	.el-form-item {
-		margin-bottom: 0;
+		margin-bottom: vh(3);
+		align-items: center;
 		.el-form-item__label {
 			color: #ffffff;
 			font-size: #{$form-font-size};
+			height: #{$form-input-height};
+			line-height: #{$form-input-height};
 		}
 		.el-form-item__content {
+			line-height: #{$form-input-height};
 			.el-form-item__error{
-				font-size: vh(14);
+				font-size: vw(14);
 				padding-top: 0;
 			}
 			.el-input-number__decrease,
@@ -76,11 +107,9 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 //时间选择器
 .el-date-editor {
 	--el-input-bg-color: 'rgba(19, 133, 224, 1)';
-	box-shadow: 0 0 10px 0 rgba(19, 133, 224, 0.77) inset;
 	border-radius: 4px;
-	font-size: #{$form-font-size};
-	line-height: vh(32);
-	height: vh(32);
+	line-height: #{$form-input-height};
+	height: #{$form-input-height};
 	.el-range__icon,.el-input__icon {
 		color: #00e9ff;
 	}
@@ -96,8 +125,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 }
 .el-date-editor.el-input__wrapper {
 	background: rgba(26, 47, 86, 0.6);
-	box-shadow: 0 0 10px 0 rgba(19, 133, 224, 0.77) inset;
-	border-radius: 4px;
+	box-shadow: 0 0 0 1px rgba(19, 133, 224, 0.77) inset;
 
 	&:hover {
 		box-shadow: #{$input-hover};
@@ -111,6 +139,10 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 	--el-fill-color: #{$sdt-el-color3};
 	--el-color-info-light-8: #00e9ff;
 	--el-color-info: #{$sdt-el-color4};
+	--el-select-input-font-size: #{$form-font-size};
+	--el-select-font-size:#{$form-font-size};
+	line-height: #{$form-input-height};
+	width: 100%;
 	&:hover {
 		box-shadow: #{$input-hover};
 	}
@@ -133,7 +165,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 	button:nth-child(1) {
 		background: rgba(0, 255, 255, 0);
 		border: 1px solid #00ffff;
-		font-size: vh(12);
+		font-size: vw(12);
 		font-family:
 			PingFang SC,
 			serif;
@@ -154,6 +186,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 	--el-popover-padding: 0;
 }
 .el-date-table {
+	font-size: vw(14);
 	td.disabled {
 		.el-date-table-cell {
 			--el-fill-color-light: none;
@@ -195,7 +228,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 			@include popBtn;
 			.el-time-panel__btn {
 				line-height: vh(18);
-				font-size: vh(12);
+				font-size: vw(12);
 				padding: 0 vw(8);
 			}
 		}
@@ -262,14 +295,13 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 	--el-table-header-bg-color: rgba(21, 80, 149, 1);
 	--el-table-header-text-color: rgba(95, 209, 254, 1);
 	--el-table-text-color: rgba(162, 204, 219, 1);
-	--el-table-border-color: rgba(158, 183, 212, 0.5);
+	--el-table-border-color: #5c73a0;
 	--el-table-row-hover-bg-color: #3c60bc;
 	--el-table-current-row-bg-color: #3c60bc;
-	--el-font-size-base: #{vh(14)};
 
 	--el-fill-color-light: rgba(21, 80, 149, 1);
 
-	font-size: vh(14);
+	font-size: vw(14);
 	background: url('@/assets/images/table_bg.png');
 	background-size: 100% 100%;
 	width: 100%;
@@ -280,7 +312,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 		line-height: vh(34);
 	}
 	.el-button {
-		--el-button-text-color: rgba(162, 204, 219, 1);
+		--el-button-text-color: #4be8fc;
 	}
 }
 
@@ -436,16 +468,15 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 	grid-column-gap: vw(17);
 	--el-transfer-panel-width: 100%;
 	--el-transfer-panel-body-height: calc(100% - #{vh(33)});
-	--el-font-size-base:#{vh(14)};
 	--el-transfer-border-color: rgba(19, 130, 235, 1);
 	--el-transfer-panel-header-height: #{vh(33)};
 	--el-transfer-panel-header-bg-color:rgba(10, 42, 167, 1);
-	--el-transfer-filter-height: #{vh(32)};
+	--el-transfer-filter-height: #{$form-input-height};
 	.el-transfer-panel{
 		background: transparent;
 		.el-transfer-panel__header{
 			.el-checkbox__label{
-				font-size: vh(14);
+				font-size: vw(14);
 				color: #ffffff;
 			}
 		}
@@ -461,7 +492,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 				top: vh(5);
 			}
 			.el-checkbox__label{
-				font-size: vh(14);
+				font-size: vw(14);
 				color: #ffffff;
 			}
 		}
@@ -478,7 +509,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 			height: vh(27);
 			background: transparent;
 			box-shadow: 0 0 1px 2px rgba(19, 133, 224, 0.77),0 0 1px 2px rgba(19, 133, 224, 0.77) inset;
-			font-size: vh(14);
+			font-size: vw(14);
 			font-family: Adobe Heiti Std, serif;
 			font-weight: normal;
 			color: #69D2F9;
@@ -488,4 +519,10 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 	.el-transfer__button:nth-child(2){
 		margin: 0;
 	}
+}
+.el-switch{
+	--el-text-color-primary: #ffffff;
+}
+.el-breadcrumb{
+	font-size: #{$form-font-size};
 }

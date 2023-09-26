@@ -6,7 +6,8 @@ import { useGainForm } from '@/hooks/useForm'
 
 export const homeRightMess = () => {
 	// 矿井总风量
-	const { dataList: airVolumeList } = useGainList({
+	const { dataList: airVolumeList,queryDataList:queryAirVolumeList } = useGainList({
+		automatic: false,
 		apiFun: totalAirVolume,
 	})
 
@@ -15,18 +16,16 @@ export const homeRightMess = () => {
 	const { roadAllList } = useThreeModelData()
 
 	// 查询巷道信息
-	useGainForm({
-		apiFun: roadAll,
-		afterReadyDataFun: (data) => {
-			regionalAirVolumeList.value = data.roadAreaList
-			roadAllList.value = data.roadAllList
-		},
-	})
+	const queryRoadAllList = async () => {
+		const {data} = await roadAll()
+		regionalAirVolumeList.value = data.roadAreaList
+		roadAllList.value = data.roadAllList
+	}
 
 	const { warnList } = useEquipmentData()
 	// 整体预警等级
 	const maxWarnType = ref('0')
-
+	// 查询预警列表
 	const getWarnListData = async () => {
 		const res = await deviceWarnList()
 		if (!res) return
@@ -36,9 +35,6 @@ export const homeRightMess = () => {
 		})
 		maxWarnType.value = Math.min(...warnLevelList)
 	}
-	onMounted(() => {
-		getWarnListData()
-	})
 
 	// 是否显示预警
 	const isWarn = computed(() => {
@@ -140,5 +136,8 @@ export const homeRightMess = () => {
 		manualControlWarnIcon,
 		closeWarnIcon,
 		maxWarnType,
+		getWarnListData,
+		queryAirVolumeList,
+		queryRoadAllList
 	}
 }

@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { ITunnelMesh } from '@/components/VueThree/effect/ITunnelMesh'
+  import useEditModel, {
+    IMoveTexture
+  } from "@/components/VueThree/hooks/useEditModel";
 	import { OperateModel } from '@/components/VueThree/IModelOperate'
 	import mixin from '@/components/VueThree/model-mixin.vue'
 	import { EditType } from '@/components/VueThree/types/editType'
+	import { getCenter, setMovePosition } from '@/components/VueThree/utils'
 	import threeModel from '@/store/modules/threeModel'
 	import {
 		Box3,
@@ -16,7 +20,7 @@
 	} from 'three'
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-	import { defineComponent } from 'vue'
+	import { defineComponent, PropType } from 'vue'
 
 	export default defineComponent({
 		name: 'model-node-edit',
@@ -50,28 +54,13 @@
 				if (!this.planeModel) return
 				this.planeModel.position.y = val ? val : 0
 			},
-			modelData(val) {
-				if (val) {
-					if (this.object) {
-						this.wrapper.remove(this.object)
-					}
-					this.object = new Object3D()
-					this.tunnelMesh.config(this.object)
-					this.reportProgress('start')
-
-					let models: IModelNode[] = this.modelData
-
-					this.tunnelMesh.add(...models)
-
-					this.addObject()
-					this.reportProgress('end')
-					this.loadOtherLen++
-				}
-			},
 		},
 		computed: {
 			modelData() {
-				return threeModel().data
+				return this.customize ? this.customizeData : threeModel().data
+			},
+			maxNodeNum() {
+				return this.customize ? this.customizeMaxNodeNum : threeModel().maxNode
 			},
 		},
 		data() {
@@ -90,13 +79,10 @@
 		methods: {
 			load() {
 				this.object = new Object3D()
-				this.tunnelMesh.config(this.object)
 				if (!this.modelData.length) return
-
 				this.reportProgress('start')
 
-				let models: IModelNode[] = this.modelData
-				this.tunnelMesh.initTunnel(...models)
+				this.tunnelMesh.config(this.object, this.modelData, this.maxNodeNum)
 
 				this.addObject()
 				this.reportProgress('end')
@@ -119,6 +105,17 @@
 					this.scene,
 				)
 				this.$emit('on-model', this.operateModel)
+
+				const center = getCenter(this.object)
+
+				this.cameraAniPosition.removeLookAt = center
+				this.cameraAniPosition.removePosition = setMovePosition(this.camera.position, center)
+				this.cameraReset(
+					this.cameraAniPosition.removePosition,
+					this.cameraAniPosition.removeLookAt,
+					3,
+				)
+
 				this.addWind()
 				if (this.planeVisible) this.setNewPlane()
 			},
@@ -145,19 +142,50 @@
 			},
 			//   添加风流
 			addWind(direction = false) {
-				if (!this.windObject) return
-				this.windObject.remove(...this.windMeshList)
-				let models: IModelNode[] = this.modelData
-				let meshList = []
-				for (let i = 0; i < models.length; i++) {
-					let modelNode = models[i]
-					if (modelNode.showWind && modelNode.windMesh) {
-						modelNode.windMesh.direction = direction
-						meshList.push(this.tunnelMesh.addWindMesh(modelNode))
-					}
-				}
-				this.windMeshList = meshList
-				this.windObject.add(...this.windMeshList)
+        if (!this.windObject) return
+        this.windObject.remove(...this.windMeshList)
+        let models: IModelNode[] = this.modelData
+        let meshList = []
+        for (let i = 0; i < models.length; i++) {
+          let modelNode = models[i]
+          if (modelNode.showWind && modelNode.windMesh) {
+            modelNode.windMesh.direction = direction
+            if (!modelNode.nodePosition && !modelNode.nextNodePosition) return;
+            const moveModel = this.tunnelMesh.addWindMesh(modelNode)
+            const startNode = {
+              ...modelNode.nodePosition,
+              y: modelNode.nodePosition!.y + (modelNode.windMesh.windPosition ?? 0)
+            }
+            const endNode = {
+              ...modelNode.nextNodePosition,
+              y: modelNode.nextNodePosition!.y + (modelNode.windMesh.windPosition ?? 0)
+            }
+            const coordinates: any[] = [startNode,endNode]
+            let { curve } = useEditModel().createMotionTrack(coordinates)
+            const speed = modelNode.speed ? (modelNode.speed>0?modelNode.speed:0):0.01
+            let moveTexture: IMoveTexture = {
+              obj: moveModel,
+              curve: curve,
+              counter: 0,
+              speed: speed,
+              isCirculate: true,
+            }
+            let time = this.windClock.getDelta()
+            if (this.windMixer) {
+              this.windMixer.update(time)
+            }
+            this.windMeshAnimation.push(() => {
+              this.windMixer?.update(this.windClock.getDelta())
+              useEditModel().texturesUpdate(moveTexture)
+            })
+
+            meshList.push(moveModel)
+          }
+        }
+        this.windMeshList = meshList
+        if (this.windMeshList && this.windMeshList.length > 0) {
+          this.windObject?.add(...this.windMeshList)
+        }
 			},
 			// 双击
 			onDblclick(event: MouseEvent) {

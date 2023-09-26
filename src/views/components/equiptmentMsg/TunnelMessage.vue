@@ -18,13 +18,17 @@
 	watch(
 		() => props.intersected,
 		(val) => {
-			val && showParam?.(val?.name)
+			if (val) {
+				showParam?.(val?.name)
+			} else {
+				cleanLabelList?.()
+			}
 		},
 	)
 	watch(
 		() => showTunnelData.value,
 		(val) => {
-			if (val) {
+			if (val && val?.id) {
 				val && reloadTunnel()
 			} else {
 				cleanLabelList()
@@ -58,7 +62,7 @@
 <template>
 	<div v-if="isTunnelReady" class="tunnel" :key="showTunnelData.id" :id="showTunnelData.id">
 		<div class="tunnel_bg">
-			<div class="tunnel_bg_title">{{ showTunnelData.name }}</div>
+			<div class="tunnel_bg_title c-center">{{ showTunnelData.name }}</div>
 			<div class="tunnel_bg_line">
 				[巷道编号]
 				<span class="tunnel_bg_line_value overText">{{ showTunnelData.code }}</span>
@@ -106,7 +110,11 @@
 		align-items: center;
 	}
 	.tunnel_bg_title {
-		font-size: vh(16);
+		grid-area: 1/1/2/3;
+		position: relative;
+		width: 100%;
+		text-align: center;
+		font-size: vw(16);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -116,7 +124,7 @@
 	}
 	.tunnel_bg_line {
 		width: 100%;
-		font-size: vh(14);
+		font-size: vw(14);
 		font-family:
 			Adobe Heiti Std,
 			serif;

@@ -120,7 +120,7 @@
 				</div>
 			</div>
 			<div class="main_fan_body_l1_model">
-				<load-local-fan />
+				<load-local-fan :fan-three-info="fanThreeInfo" />
 			</div>
 			<div class="main_fan_body_l1_btn">
 				<div class="main_fan_body_l1_btn_item" @click="showFanCharCurveVisible">风机特性曲线</div>
@@ -333,7 +333,7 @@
 		</div>
 
 		<!--    视频监控-->
-		<dia-log v-model="videoVisible" title="视频监控" :width="910" :height="663">
+		<dia-log v-model="videoVisible" title="视频监控" :width="1280" :height="720">
 			<m-video type="js" :video-path="dataForm.videoUrl"></m-video>
 		</dia-log>
 		<customized-dia-log

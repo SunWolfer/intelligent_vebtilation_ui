@@ -13,6 +13,9 @@ const useEquipmentParams = () => {
 	const setParams = (data) => {
 		equipmentParams.updateEquipmentParams(data)
 	}
+	onBeforeUnmount(() => {
+		cleanParams()
+	})
 
 	return {
 		dataParams,

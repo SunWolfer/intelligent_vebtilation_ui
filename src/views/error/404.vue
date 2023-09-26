@@ -157,7 +157,7 @@
 			padding: 30px 0;
 			overflow: hidden;
 			&__oops {
-				font-size: 32px;
+				font-size: vw(32);
 				font-weight: bold;
 				line-height: 40px;
 				color: #1482f0;
@@ -168,7 +168,7 @@
 				animation-fill-mode: forwards;
 			}
 			&__headline {
-				font-size: 20px;
+				font-size: vw(20);
 				line-height: 24px;
 				color: #222;
 				font-weight: bold;
@@ -180,7 +180,7 @@
 				animation-fill-mode: forwards;
 			}
 			&__info {
-				font-size: 13px;
+				font-size: vw(13);
 				line-height: 21px;
 				color: grey;
 				opacity: 0;
@@ -200,7 +200,7 @@
 				text-align: center;
 				color: #ffffff;
 				opacity: 0;
-				font-size: 14px;
+				font-size: vw(14);
 				line-height: 36px;
 				cursor: pointer;
 				animation-name: slideUp;

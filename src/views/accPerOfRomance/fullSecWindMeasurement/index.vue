@@ -7,6 +7,7 @@
 	import WarnTableRecord from '@/views/components/warnTableRecord'
 	import LoadWindMeaStation from '@/views/components/loadModel/loadWindMeaStation.vue'
 	import MeasuringWind from '@/views/accPerOfRomance/fullSecWindMeasurement/measuringWind.vue'
+	import { parseTime } from '@/utils/ruoyi'
 
 	const {
 		choose,
@@ -30,7 +31,19 @@
 		fullDataForm,
 		measuringWindVisible,
 		playMod,
+		videoPath,
+		videoVisible,
 	} = fullSecWindMeasurement()
+
+	const dateTime = ref('')
+	const timeInterval = ref(-1)
+	timeInterval.value = setInterval(() => {
+		dateTime.value = parseTime(new Date())
+	}, 1000)
+
+	onBeforeUnmount(() => {
+		clearInterval(timeInterval.value)
+	})
 </script>
 
 <template>
@@ -38,7 +51,7 @@
 		<div class="full_body_l1">
 			<border-box name="border3">
 				<div class="full_body_l1_top">
-					<div class="full_body_l1_top_text">全矿井</div>
+					<div class="full_body_l1_top_text pointer" @click="chooseItem(-1)">全矿井</div>
 					<div class="full_body_l1_top_btn" @click="oButtToMeasureTheWind">
 						<span>一键测风</span>
 					</div>
@@ -53,8 +66,13 @@
 								:class="index === choose ? 'full_body_top_body_item_warn' : ''"
 							>
 								<div class="ull_body_l1_bottom_item_top">
-									<div class="full_body_l1_bottom_item_top_icon full_normal_icon"></div>
-									<div class="full_text_normal">正常</div>
+									<div
+										class="full_body_l1_bottom_item_top_icon"
+										:class="i.warnStatus === '0' ? 'full_normal_icon' : 'full_warn_icon'"
+									></div>
+									<div :class="i.warnStatus === '0' ? 'full_text_normal' : 'full_text_warn'">
+										{{ i.warnStatus === '0' ? '正常' : i.warnName }}
+									</div>
 									<div class="full_body_l1_bottom_item_top_text">
 										<div class="c-center">
 											<div class="his_icon"></div>
@@ -115,11 +133,11 @@
 				</div>
 				<div v-show="choose !== -1" class="full_body_l2_item_bg full_body_l2_item_text_right">
 					<span>自动测风站记录</span>
-					<span>11:25:11</span>
+					<span>{{ dateTime }}</span>
 					<div class="full_body_l2_item_text_table">
 						<template v-for="item in aneTableData">
 							<div class="full_body_l2_item_text_table_item">
-								<span>{{ item.label + item.value }}</span>
+								<span>{{ item.label + '  ' + item.value }}</span>
 								<span>{{ item.unit }}</span>
 							</div>
 						</template>
@@ -141,7 +159,11 @@
 					</div>
 				</div>
 			</border-box>
-			<border-box name="border1"></border-box>
+			<border-box name="border1">
+				<template v-if="videoVisible">
+					<m-video :video-path="videoPath" type="cfz"></m-video>
+				</template>
+			</border-box>
 		</div>
 		<div class="full_body_l4">
 			<border-box name="border2" title="风量趋势分析"></border-box>

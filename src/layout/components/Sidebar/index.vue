@@ -37,7 +37,7 @@
 							:class="getMenuChoose(item) ? 'navigate_left_bg_active' : 'navigate_left_bg'"
 							@click="clickTheFirstLevelMenu(item, $event)"
 						>
-							{{ item.meta?.title }}
+              {{ item.meta?.title }}
 						</div>
 					</template>
 				</template>

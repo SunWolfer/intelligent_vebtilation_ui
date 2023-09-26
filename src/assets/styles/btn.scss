@@ -38,7 +38,7 @@
 }
 
 .pan-btn {
-	font-size: 14px;
+	font-size: vw(14);
 	color: #fff;
 	padding: 14px 36px;
 	border-radius: 8px;
@@ -90,7 +90,7 @@
 	outline: 0;
 	margin: 0;
 	padding: 10px 15px;
-	font-size: 14px;
+	font-size: vw(14);
 	border-radius: 4px;
 }
 
@@ -106,7 +106,7 @@
 ) {
 	//width: vw(102);
 	height: vh(40);
-	font-size: vh(18);
+	font-size: vw(18);
 	background: $backgroundColor;
 	border: 1px solid $borderColor;
 	box-shadow: 0 0 vh(15) 0 $boxShadow inset;

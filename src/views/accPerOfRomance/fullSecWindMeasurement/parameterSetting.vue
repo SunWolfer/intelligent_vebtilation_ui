@@ -38,16 +38,14 @@
 	}
 
 	onMounted(() => {
-		radio1.value = props.dataForm.autoCollectFlag
 		cycleForm.value = props.dataForm
 	})
-
-	const radio1 = ref('1')
 	//   周期测风
 	const cycleForm = ref({
 		collectPeriod: '',
 		collectUnit: '',
 		collectTime: '',
+		autoCollectFlag: '1',
 	})
 	//   周期测风单位
 	const cycleUnits = ref([
@@ -78,20 +76,21 @@
 		:btn-list="['保存', '取消']"
 	>
 		<div class="setting_body">
-			<el-radio-group v-model="radio1" class="setting_radio">
+			<el-radio-group v-model="cycleForm.autoCollectFlag" class="setting_radio">
 				<el-radio label="1" size="large">周期测风</el-radio>
 				<el-radio label="2" size="large">定时测风</el-radio>
 			</el-radio-group>
-			<div v-show="radio1 === '2'" class="setting_input_type_1">
+			<div v-show="cycleForm.autoCollectFlag === '2'" class="setting_input_type_1">
 				<div class="setting_input_label">每日定时测风</div>
 				<el-time-picker
 					style="width: 140px"
 					v-model="cycleForm.collectTime"
 					placeholder="选择测风时间"
 					value-format="hh:mm"
+					format="hh:mm"
 				/>
 			</div>
-			<div v-show="radio1 === '1'" class="setting_input_type_2">
+			<div v-show="cycleForm.autoCollectFlag === '1'" class="setting_input_type_2">
 				<div class="setting_input_label">测风周期</div>
 				<el-input v-model="cycleForm.collectPeriod"></el-input>
 				<el-select v-model="cycleForm.collectUnit" placeholder="周期单位" clearable>
@@ -109,7 +108,7 @@
 
 <style scoped lang="scss">
 	@mixin SettingSpan {
-		font-size: vh(26);
+		font-size: vw(26);
 		font-family: YouSheBiaoTiHei, serif;
 		font-weight: 400;
 		color: rgba(255, 255, 255, 0.78);

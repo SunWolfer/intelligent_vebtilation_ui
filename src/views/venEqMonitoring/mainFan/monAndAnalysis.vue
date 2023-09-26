@@ -126,7 +126,7 @@
 			<div class="mon_sis_form">
 				<el-form v-model="queryParams" inline>
 					<el-form-item label="传感器：">
-						<el-select v-model="queryParams.sensor"></el-select>
+						<el-select v-model="queryParams.sensor" clearable></el-select>
 					</el-form-item>
 					<el-form-item label="时间">
 						<el-date-picker

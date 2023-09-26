@@ -5,6 +5,7 @@
 	import TunnelMessage from '@/views/components/equiptmentMsg/TunnelMessage.vue'
 	import { EditType } from '@/components/VueThree/types/editType'
 	import { useModel } from '@/hooks/useModel'
+	import HomeModelType from '@/views/components/home/HomeModelType.vue'
 
 	const props = defineProps({
 		fontList: {
@@ -67,7 +68,6 @@
 	const {
 		homeModelVisible,
 		otherThreeMod,
-		cameraPosition,
 		controlsOptions,
 		lights,
 		onLoad,
@@ -89,8 +89,10 @@
 		operateModel.value.created3DFont(props.fontList)
 		//   添加图标
 		loadAllTypeList?.()
+    // 添加巷道名字贴图
+    operateModel.value?.createdImgPlane()
 	}
-	const emits = defineEmits(['addWindow', 'readyConnect'])
+	const emits = defineEmits(['addWindow', 'readyConnect', 'chooseTunnel'])
 	// 双击
 	function dblclick(event, CIntersected) {
 		if (!CIntersected) return
@@ -148,9 +150,18 @@
 		temporaryLabelList.value = []
 		homeModelVisible.value.tunnelMesh.emptyNewTunnel()
 	}
+	// 监听巷道被点击
+	watch(() => intersected.value, (val) => {
+		val && emits('chooseTunnel', val)
+	})
+	// 设置选中
+	function setSelectModel(name) {
+		homeModelVisible.value?.setSelectObject(name)
+	}
 
 	defineExpose({
 		operateModel,
+		setSelectModel,
 		getOperating,
 		resetTunnel,
 	})
@@ -161,9 +172,8 @@
 		<model-node-edit
 			ref="homeModelVisible"
 			:other-three-mod="otherThreeMod"
-			:cameraPosition="cameraPosition"
 			:lights="lights"
-			:camera-size="10"
+			:camera-size="0.1"
 			:backgroundAlpha="0"
 			:controlsOptions="controlsOptions"
 			:choose-group="true"
@@ -209,6 +219,8 @@
 				</template>
 			</template>
 		</model-node-edit>
+		<!--    模式切换-->
+		<HomeModelType :top="40" :right="40" />
 	</div>
 </template>
 

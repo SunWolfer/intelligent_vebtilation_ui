@@ -13,6 +13,8 @@
 	import HomeDisPreRoute from '@/views/components/home/HomeDisPreRoute.vue'
 	import HomeDisaster from '@/views/components/home/HomeDisaster.vue'
 	import { useThreeModelData } from '@/hooks/useThreeModelData'
+	import HomeModelType from '@/views/components/home/HomeModelType.vue'
+  import {useInteraction} from "@/hooks/useInteraction";
 
 	const {
 		threeRef,
@@ -36,12 +38,21 @@
 		showDisasterSimulation,
 	} = homeMenu()
 	const { dislodgeDomStyle } = useHomeMenu()
+	const { refreshModel,refreshModelFun } = useThreeModelData()
+
+  const {getSelectionRows,watchDomRef,selectCode, getSelectionTunnel} = useInteraction()
+  watchDomRef?.(threeRef)
+
+  onActivated(() => {
+    refreshModelFun?.()
+  })
+
 </script>
 
 <template>
 	<div class="app-container">
 		<!--    首页3D图-->
-		<HomeThree ref="threeRef" />
+		<HomeThree v-if="refreshModel" ref="threeRef" @choose-tunnel="getSelectionTunnel" />
 		<!--  首页左侧装饰  -->
 		<div class="home_left_decorate" :style="dislodgeDomStyle"></div>
 		<!--    首页右侧信息-->
@@ -61,7 +72,7 @@
 			:style="dislodgeDomStyle"
 		/>
 		<!--    多视角-->
-		<HomeVisualAngle v-if="showMultiplePerspectives" :dom-left="1100" />
+		<HomeVisualAngle v-if="showMultiplePerspectives" :dom-left="1100" @choose-wind-full="getSelectionRows" :select-code="selectCode" />
 		<!--    反风模拟-->
 		<HomeReverseWind v-if="showReverseWindSimulation" :dom-left="1270" />
 		<!--    避灾路线模拟-->
@@ -81,6 +92,8 @@
 			@change-disaster-type="changeDisasterType"
 			@generate-disaster="generateDisaster"
 		/>
+		<!--    模式切换-->
+		<HomeModelType :top="40" :right="500" />
 	</div>
 </template>
 <style scoped lang="scss">

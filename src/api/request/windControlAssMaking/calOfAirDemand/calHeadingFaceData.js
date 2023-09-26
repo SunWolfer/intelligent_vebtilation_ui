@@ -4,6 +4,7 @@ import useDict from '@/hooks/useDict'
 export const calHeadingFaceData = () => {
 	const {
 		dataFormInfo,
+		dataFormInfoByCode,
 		dataList,
 		wind_predict_type,
 		windList,
@@ -86,6 +87,16 @@ export const calHeadingFaceData = () => {
 		powderQ: '',
 		// 采煤工作面一次爆破最大炸药量
 		powderTotal: '',
+		// 	按风速预测
+		speedFlag: '0',
+		// 	按瓦斯预测
+		gasFlag: '0',
+		// 	co2预测
+		co2Flag: '0',
+		// 	按人员预测
+		personFlag: '0',
+		// 	按炸药量
+		powderFlag: '0',
 	})
 
 	const resetForm = () => {
@@ -111,6 +122,16 @@ export const calHeadingFaceData = () => {
 			personTotal: '',
 			personAre: '',
 			powderTotal: '',
+			// 	按风速预测
+			speedFlag: '0',
+			// 	按瓦斯预测
+			gasFlag: '0',
+			// 	co2预测
+			co2Flag: '0',
+			// 	按人员预测
+			personFlag: '0',
+			// 	按炸药量
+			powderFlag: '0',
 		}
 	}
 	const changeRoad = async () => {
@@ -118,7 +139,7 @@ export const calHeadingFaceData = () => {
 			return i.code === dataForm.value.roadCode
 		})
 		dataForm.value.roadName = findData.name
-		const data = await dataFormInfo?.(findData.id)
+		const data = await dataFormInfoByCode?.(findData.code)
 		if (data) {
 			dataForm.value = data
 		} else {
@@ -145,6 +166,7 @@ export const calHeadingFaceData = () => {
 			dataForm.value.gasEmission = gasQs.value
 		}
 		dataForm.value.gasQ = gasQ.value
+		dataForm.value.gasFlag = dataForm.value.gasQ > 0 ? '1' : '0'
 	})
 	// 按二氧化碳
 	const checkCo2PredictType = (data) => {
@@ -165,6 +187,7 @@ export const calHeadingFaceData = () => {
 			dataForm.value.co2Emission = co2Qs.value
 		}
 		dataForm.value.co2Q = co2Q.value
+		dataForm.value.co2Flag = dataForm.value.co2Q > 0 ? '1' : '0'
 	})
 
 	// 按照人员
@@ -178,10 +201,12 @@ export const calHeadingFaceData = () => {
 			dataForm.value.personTotal = personNum.value
 		}
 		dataForm.value.personQ = (dataForm.value.personTotal * 4).toFixed(2)
+		dataForm.value.personFlag = dataForm.value.personQ > 0 ? '1' : '0'
 	})
 	// 按照炸药量
 	watchEffect(() => {
 		dataForm.value.powderQ = (dataForm.value.powderTotal * 10).toFixed(2)
+		dataForm.value.powderFlag = dataForm.value.powderQ > 0 ? '1' : '0'
 	})
 	// 按照风速进行验算
 	const coalMinBlow = computed(() => {
@@ -193,6 +218,7 @@ export const calHeadingFaceData = () => {
 	})
 	watchEffect(() => {
 		dataForm.value.speedQ = coalMinBlow.value
+		dataForm.value.speedFlag = dataForm.value.speedQ > 0 ? '1' : '0'
 	})
 
 	// 工作面所需风量

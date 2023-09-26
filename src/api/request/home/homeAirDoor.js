@@ -55,13 +55,11 @@ export const homeAirDoor = () => {
 	// 页面传参查询
 	const equipmentParams = useEquipmentParams()
 	onMounted(async () => {
-		const { id } = equipmentParams.dataParams
-		await getDataForm(id)
-		await getParamInfo(id)
+		const params = equipmentParams?.dataParams
+		if (!params) return
+		await getDataForm(params?.id)
+		await getParamInfo(params?.id)
 		clientSocket?.()
-	})
-	onBeforeUnmount(() => {
-		equipmentParams.cleanParams()
 	})
 	// 改变选中风门
 	const changeDoor = (id) => {

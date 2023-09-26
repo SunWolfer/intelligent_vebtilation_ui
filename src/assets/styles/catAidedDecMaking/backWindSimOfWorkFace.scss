@@ -27,7 +27,7 @@
   align-content: space-between;
   align-items: center;
 
-  font-size: vh(14);
+  font-size: vw(14);
   font-family: Adobe Heiti Std, serif;
   font-weight: normal;
   color: #FFFFFF;
@@ -84,7 +84,7 @@
   align-items: center;
 
   span{
-    font-size: vh(22);
+    font-size: vw(22);
     font-family: YouSheBiaoTiHei, serif;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.78);
@@ -108,8 +108,8 @@
 }
 
 .back_wind_body_btn_green{
-  @include wind_btn(linear-gradient(180deg, #D9FFE5 42.236328125%, #058003 100%),'@/assets/images/catAidedDecMaking/back_wind_btn_green.png');
+  @include wind_btn(linear-gradient(180deg, #d9ffe5 30%, #299529 100%),'@/assets/images/catAidedDecMaking/back_wind_btn_green.png');
 }
 .back_wind_body_btn_blue{
-  @include wind_btn(linear-gradient(180deg, #FFFFFF 0%, #17A9C7 100%),'@/assets/images/catAidedDecMaking/back_wind_btn_blue.png');
+  @include wind_btn(linear-gradient(180deg, #f5fbfd 30%, #21acc9 100%),'@/assets/images/catAidedDecMaking/back_wind_btn_blue.png');
 }

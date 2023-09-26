@@ -74,18 +74,20 @@
 <style lang="scss" scoped>
 	.s_navigate {
 		position: absolute;
+		max-height: 60%;
+		overflow-y: auto;
 		background: rgba(7, 31, 63, 0.93);
 		border: 1px solid;
 		border-image: linear-gradient(0deg, #163488, #071f3f) 10 10;
 		display: grid;
-		grid-template-columns: auto;
-		grid-template-rows: repeat(auto-fill, vh(52));
+		grid-template-columns: 1fr;
+		//grid-template-rows: repeat(auto-fill, vh(52));
 		z-index: 10;
 	}
 	@mixin textDefault {
 		cursor: pointer;
 		span {
-			font-size: vh(16);
+			font-size: vw(16);
 			font-family:
 				Adobe Heiti Std,
 				serif;

@@ -27,7 +27,7 @@
 }
 .home_title_route_btn_icon {
 	width: vw(20);
-	height: vh(21);
+	height: vw(21);
 	background-size: 100% 100%;
 	justify-self: end;
 }
@@ -46,7 +46,7 @@
 
 .home_route_text {
 	justify-self: start;
-	font-size: vh(20);
+	font-size: vw(20);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -58,7 +58,7 @@
 	display: grid;
 	grid-template-rows: vh(33) vh(38);
 	.res_text {
-		font-size: vh(18);
+		font-size: vw(18);
 		font-family:
 			Adobe Heiti Std,
 			serif;
@@ -68,24 +68,24 @@
 		line-height: vh(33);
 	}
 	.res_btn {
-		width: vw(152);
-		height: vh(38);
+		width: vw(160);
+		height: vw(38);
 		cursor: pointer;
 		background-image: url('@/assets/images/home/home_dis_pre_route/general_button.png');
 		background-size: 100% 100%;
 		display: grid;
 		place-content: center center;
-		grid-template-columns: vw(13) auto;
+		grid-template-columns: vh(13) auto;
 		grid-column-gap: vw(5);
 		.res_btn_icon {
 			width: vw(13);
-			height: vh(17);
+			height: vw(17);
 			background-image: url('@/assets/images/home/home_dis_pre_route/hand.png');
 			background-size: 100% 100%;
 			align-self: center;
 		}
 		.res_btn_text {
-			font-size: vh(16);
+			font-size: vw(16);
 			font-family:
 				Adobe Heiti Std,
 				serif;
@@ -111,11 +111,11 @@
 .home_title_route_right_btn {
 	align-self: center;
 	width: vw(153);
-	height: vh(38);
+	height: vw(38);
 	background-image: url('@/assets/images/home/home_menu_btn.png');
 	background-size: 100% 100%;
 	cursor: pointer;
-	font-size: vh(20);
+	font-size: vw(20);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -132,7 +132,7 @@
 }
 .home_reverse_wind_btn_icon {
 	width: vw(22);
-	height: vh(22);
+	height: vw(22);
 	background-image: url('@/assets/images/home/home_reverse_wind/btn_icon.png');
 	background-size: 100% 100%;
 	justify-self: center;
@@ -142,8 +142,8 @@
 .home_reverse_wind_people {
 	position: absolute;
 	top: vh(114);
-	right: vw(59);
-	width: vw(522);
+	right: vw(40);
+	width: vw(450);
 	height: vh(561);
 	padding: vh(10) vw(30) vh(31) vw(40);
 	background: rgba(12, 41, 70, 0.85);
@@ -161,7 +161,13 @@
 	padding-top: vh(26);
 	overflow-y: auto;
 	display: grid;
-	grid-template-columns: vw(29) auto;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(auto-fill, vh(79));
+	grid-auto-rows: vh(79);
+}
+.home_reverse_wind_people_bottom_item{
+	display: grid;
+	grid-template-columns: vw(29) 1fr;
 	grid-template-rows: repeat(auto-fill, vh(29) vh(50));
 	grid-column-gap: vw(11);
 	grid-template-areas:
@@ -176,7 +182,7 @@
 	border: vh(3) solid #00ffff;
 	border-radius: 50%;
 
-	font-size: vh(16);
+	font-size: vw(16);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -191,7 +197,7 @@
 	width: 100%;
 	height: 100%;
 
-	font-size: vh(16);
+	font-size: vw(16);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -207,7 +213,7 @@
 		position: absolute;
 		content: url('@/assets/images/home/home_dis_pre_route/route_text_bg.png');
 		width: vw(310);
-		height: vh(27);
+		height: vw(27);
 		background-size: 100% 100%;
 		left: 0;
 		z-index: -1;

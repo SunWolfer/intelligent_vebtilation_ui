@@ -54,6 +54,7 @@
 				label="菜单名称"
 				:show-overflow-tooltip="true"
 				:min-width="160"
+				align="center"
 			></el-table-column>
 			<el-table-column prop="icon" label="图标" align="center" width="100">
 				<template #default="scope">

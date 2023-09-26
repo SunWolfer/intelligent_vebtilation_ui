@@ -57,7 +57,7 @@
 	<div class="main_fan_body" v-if="mainFanId">
 		<div class="main_fan_body_l1">
 			<div class="main_fan_body_l1_top">
-				<el-select v-model="mainFanId" @change="changeItem">
+				<el-select v-model="mainFanId" @change="changeItem" clearable>
 					<el-option v-for="item in dataList" :label="item.name" :value="item.id"></el-option>
 				</el-select>
 				<div class="top_icon"></div>
@@ -278,7 +278,7 @@
 			</border-box>
 		</div>
 		<!--    视频监控-->
-		<dia-log v-model="videoVisible" title="视频监控" :width="910" :height="663">
+		<dia-log v-model="videoVisible" title="视频监控" :width="1280" :height="720">
 			<m-video type="fj" :video-path="dataForm.videoUrl"></m-video>
 		</dia-log>
 		<customized-dia-log

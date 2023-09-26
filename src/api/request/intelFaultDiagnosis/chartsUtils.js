@@ -1,5 +1,6 @@
 import echarts from '@/utils/echarts/index'
 import useCharts from '@/hooks/useCharts'
+import { dynamicWidth } from '@/utils/ruoyi'
 
 export const colors = ['#E93654', '#F36C04', '#F8D364', '#10D2F0', '#10A1F0']
 
@@ -244,7 +245,7 @@ export function getCrosswiseBarChart(domId, data) {
 			itemStyle: {
 				borderRadius: [0, 30, 30, 0],
 				shadowColor: colors[index],
-				fontSize: 14,
+				fontSize: dynamicWidth(14),
 				shadowBlur: 5,
 				color: color,
 			},
@@ -280,47 +281,47 @@ export function getCrosswiseBarChart(domId, data) {
 					rich: {
 						nt0: {
 							color: '#fff',
-							fontSize: 18,
-							width: 38,
-							height: 38,
+							fontSize: dynamicWidth(18),
+							width: dynamicWidth(38),
+							height: dynamicWidth(38),
 							align: 'center',
 							backgroundColor: colors[0],
 						},
 						nt1: {
 							color: '#fff',
-							fontSize: 18,
-							width: 38,
-							height: 38,
+							fontSize: dynamicWidth(18),
+							width: dynamicWidth(38),
+							height: dynamicWidth(38),
 							align: 'center',
 							backgroundColor: colors[1],
 						},
 						nt2: {
 							color: '#fff',
-							fontSize: 18,
-							width: 38,
-							height: 38,
+							fontSize: dynamicWidth(18),
+							width: dynamicWidth(38),
+							height: dynamicWidth(38),
 							align: 'center',
 							backgroundColor: colors[2],
 						},
 						nt3: {
 							color: '#fff',
-							fontSize: 18,
-							width: 38,
-							height: 38,
+							fontSize: dynamicWidth(18),
+							width: dynamicWidth(38),
+							height: dynamicWidth(38),
 							align: 'center',
 							backgroundColor: colors[3],
 						},
 						nt4: {
 							color: '#fff',
-							fontSize: 18,
-							width: 38,
-							height: 38,
+							fontSize: dynamicWidth(18),
+							width: dynamicWidth(38),
+							height: dynamicWidth(38),
 							align: 'center',
 							backgroundColor: colors[4],
 						},
 					},
 					color: '#fff',
-					fontSize: 18,
+					fontSize: dynamicWidth(18),
 					formatter: (val, index) => {
 						return `{nt${index}| ${index + 1}}`
 					},
@@ -336,7 +337,7 @@ export function getCrosswiseBarChart(domId, data) {
 				show: true,
 				axisLabel: {
 					color: '#A2CCDB',
-					fontSize: '14',
+					fontSize: dynamicWidth(14),
 				},
 				data: data1,
 			},
@@ -345,14 +346,14 @@ export function getCrosswiseBarChart(domId, data) {
 			{
 				name: '数量',
 				type: 'bar',
-				barWidth: 15,
+				barWidth: dynamicWidth(15),
 				data: data1,
 				label: {
 					color: '#A2CCDB',
-					fontSize: '16',
+					fontSize: dynamicWidth(16),
 					fontFamily: 'Adobe Heiti Std',
 					show: true,
-					position: [0, '-16px'],
+					position: [0, `${dynamicWidth(-16)}px`],
 					// 柱图名称
 					formatter: (value) => {
 						return value.name

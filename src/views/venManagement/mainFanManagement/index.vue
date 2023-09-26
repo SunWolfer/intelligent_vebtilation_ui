@@ -102,7 +102,7 @@
 			<el-form-item label="风机名称 ">
 				<el-input v-model="queryParams.name"></el-input>
 			</el-form-item>
-			<el-form-item label="风机编号 ">
+			<el-form-item label="风机编码 ">
 				<el-input v-model="queryParams.code"></el-input>
 			</el-form-item>
 			<el-form-item label="安装位置">
@@ -119,7 +119,7 @@
 		<el-table :data="dataList" border @selectionChange="handleSelectionChange">
 			<el-table-column type="selection" width="55" align="center" />
 			<el-table-column label="风机名称" align="center" prop="name" />
-			<el-table-column label="风机编号" align="center" prop="code" />
+			<el-table-column label="风机编码" align="center" prop="code" />
 			<el-table-column label="风机位置" align="center" prop="location" />
 			<el-table-column label="额定电压" align="center" prop="ratedVoltage1">
 				<template #default="scope">

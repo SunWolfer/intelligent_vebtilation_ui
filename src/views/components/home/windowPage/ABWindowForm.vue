@@ -214,7 +214,7 @@
 				align-items: center;
 				grid-column-gap: vw(30);
 				span {
-					font-size: vh(14);
+					font-size: vw(14);
 					font-family:
 						Adobe Heiti Std,
 						serif;
@@ -233,7 +233,7 @@
 					serif;
 				font-weight: normal;
 				color: #ffffff;
-				font-size: vh(18);
+				font-size: vw(18);
 			}
 		}
 		.window_li_l2_c2 {

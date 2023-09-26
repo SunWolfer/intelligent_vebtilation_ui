@@ -19,7 +19,7 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 		// 	点击位置起止点
 		let positions = [points]
 		for (let i = 0; i < disasterPreventionRoute.value.length; i++) {
-			const data = disasterPreventionRoute.value[i]
+			const data = disasterPreventionRoute.value[i].map((i) => i + '')
 			const index = data.indexOf(startNode)
 			if (index !== -1) {
 				for (let j = index; j < data.length; j++) {
@@ -155,7 +155,7 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 		clickType.value = ClickEventTypes.NORMAL
 		const startPoint = pointObj[1]
 		operateModel.value.myDisPreRoute.cleanMoveModel(-1)
-		createdMoveModelPoints?.(startPoint, disasterPeople.position, 400)
+		createdMoveModelPoints?.(startPoint, disasterPeople.position, 6)
 	}
 	// 清除避灾路线相关
 	const cleanDisasterRoute = () => {
@@ -193,7 +193,10 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 			return i.nodeName === pointObj[1]
 		}).nodePosition
 		operateModel.value.myDisPreRoute.createdDisasterSpread(
-			[startPoint, endPoint],
+			[startPoint, {
+				...endPoint,
+				y: endPoint.y + 3
+			}],
 			80,
 			disasterType.value,
 		)
@@ -215,7 +218,7 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 				y: 96870.74612915481,
 				z: -14285.663893880277,
 			},
-			400,
+			6,
 		)
 	}
 

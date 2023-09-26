@@ -1,14 +1,11 @@
 <script setup>
 	//设备对应图
-	import { Search } from '@element-plus/icons-vue'
 	import { homeIcon } from '@/api/request/home/homeIcon'
 
 	const emits = defineEmits(['moveCamera'])
 
 	const {
 		equipmentList,
-		equipSearch,
-		queryEquipList,
 		iconStyle,
 		getEquipmentClass,
 		clickFirstMenu,
@@ -25,13 +22,6 @@
 <template>
 	<div>
 		<div class="home_icon_bg">
-			<div class="home_icon_search">
-				<el-input v-model="equipSearch" placeholder="请输入关键字搜索">
-					<template #append>
-						<el-button :icon="Search" @click="queryEquipList" />
-					</template>
-				</el-input>
-			</div>
 			<template v-for="(item, index) in equipmentList" :key="item.id">
 				<div class="home_icon_dom" :style="iconStyle(index)">
 					<div :class="getEquipmentClass(item)" @click="setChooseFather(item.type)"></div>

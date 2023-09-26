@@ -1,12 +1,11 @@
 <!--自然分风网络解算-->
 <script setup>
 	import LoadWindControlEditModel from '@/views/components/loadModel/loadWindControlEditModel.vue'
-	import { useWindNetCalculation } from '@/hooks/useWindNetCalculation'
 	import { naturalDisNetSolution } from '@/api/request/windControlAssMaking/naturalDisNetSolution'
 	import { EditType } from '@/components/VueThree/types/editType'
 	import SolvingSimulation from '@/views/components/windControlAssMaking/solvingSimulation.vue'
-	const { fontList } = useWindNetCalculation()
-
+	import { useThreeModelData } from '@/hooks/useThreeModelData'
+	import { useInteraction } from '@/hooks/useInteraction'
 	const {
 		modelRef,
 		showAirDisNetwork,
@@ -30,19 +29,26 @@
 		tunnelConfirm,
 		tunnelCancel,
 		confirmTunnel,
+		fontList,
 	} = naturalDisNetSolution()
+	const { refreshModel } = useThreeModelData()
+
+	const { getSelectionRows, selectCode, getSelectionTunnel, watchDomRef } = useInteraction()
+	watchDomRef?.(modelRef)
 </script>
 
 <template>
 	<div class="fullDom">
 		<load-wind-control-edit-model
 			ref="modelRef"
+			v-if="refreshModel"
 			:font-list="fontList"
 			:edit-type="chooseMenu"
 			:confirm-add-window="confirmWindow"
 			:confirm-add-tunnel="confirmTunnel"
 			@add-window="showWindowVisibleVisible"
 			@readyConnect="tunnelHandle"
+			@choose-tunnel="getSelectionTunnel"
 		/>
 		<!--    自然分风网络测算-->
 		<div class="natural_top" v-show="showAirDisNetwork">
@@ -117,7 +123,7 @@
 			<div class="window_form_body">
 				<div class="window_form_body_label">风阻</div>
 				<el-input-number v-model="windowForm.windage"></el-input-number>
-				<div class="window_form_body_unit">Mpa</div>
+				<div class="window_form_body_unit">N·s2/m8</div>
 			</div>
 		</dia-log>
 		<!--    连接巷道确认弹窗-->
@@ -134,7 +140,7 @@
 			<div class="window_form_body">
 				<div class="window_form_body_label">风阻</div>
 				<el-input-number v-model="tunnelForm.windage"></el-input-number>
-				<div class="window_form_body_unit">Mpa</div>
+				<div class="window_form_body_unit">N·s2/m8</div>
 			</div>
 		</dia-log>
 		<!--    解算模拟-->
@@ -143,6 +149,8 @@
 			v-model:operation-steps-list="operationStepsList"
 			@show-cal-visible="showAfterCalVisible"
 			@cancel-cal-visible="cancelAirDisNetwork"
+			@getSelectionRows="getSelectionRows"
+			:select-code="selectCode"
 		/>
 	</div>
 </template>

@@ -18,9 +18,8 @@ export class ModelAnimation {
 		this.renderAnimation()
 	}
 	_initList() {
-		let modList = []
-		for (let i = 0; i < this.object.children.length; i++) {
-			const childObj = this.object.children[i]
+		let modList:any[] = []
+		this.object.traverse(childObj => {
 			for (let j = 0; j < childObj.animations.length; j++) {
 				let obj = childObj.animations[j]
 				const animation = this.mixer.clipAction(obj) // 返回动画操作对象
@@ -30,7 +29,7 @@ export class ModelAnimation {
 					value: animation,
 				})
 			}
-		}
+		})
 
 		return modList
 	}

@@ -9,7 +9,7 @@
 }
 
 .home_reverse_wind_title {
-	font-size: vh(26);
+	font-size: vw(26);
 	font-family: YouSheBiaoTiHei, serif;
 	font-weight: 400;
 	color: rgba(255, 255, 255, 0.78);
@@ -25,7 +25,7 @@
 	background-image: url('@/assets/images/home/home_menu_btn.png');
 	background-size: 100% 100%;
 	cursor: pointer;
-	font-size: vh(20);
+	font-size: vw(20);
 	font-family:
 		Adobe Heiti Std,
 		serif;
@@ -62,7 +62,7 @@
 	height: vh(96);
 	left: vw(649);
 	top: vh(147);
-	background-image: url('@/assets/images/home/home_reverse_wind/revese_wind.png');
+	background-image: url('@/assets/images/home/home_reverse_wind/revese_wind.gif');
 	background-size: 100% 100%;
 }
 .reverse_wind_ing_bottom {
@@ -84,7 +84,7 @@
 		width: 100%;
 		height: vh(45);
 		text-align: center;
-		font-size: vh(20);
+		font-size: vw(20);
 		font-family:
 			Adobe Heiti Std,
 			serif;

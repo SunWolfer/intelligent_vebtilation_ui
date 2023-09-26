@@ -50,12 +50,12 @@
 	<div class="table_page_default_no_btn">
 		<el-form :model="queryParams" inline>
 			<el-form-item label="统计类型">
-				<el-select v-model="queryParams.reportType">
+				<el-select v-model="queryParams.reportType" clearable>
 					<el-option v-for="i in report_type" :label="i.label" :value="i.value"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="设备类型">
-				<el-select v-model="queryParams.type">
+				<el-select v-model="queryParams.type" clearable>
 					<el-option v-for="i in typeList" :label="i.typeName" :value="i.type"></el-option>
 				</el-select>
 			</el-form-item>

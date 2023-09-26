@@ -1,39 +1,29 @@
 <!--巡检路线管理-->
 <script setup>
 	import useList from '@/hooks/useList'
-	import { deviceTypes } from '@/api/request/menuType'
 	import useEquipmentData from '@/hooks/useEquipmentData'
 	import RouteAddOrUpdate from '@/views/venManagement/patrolRouteManagement/routeAddOrUpdate.vue'
+	import { delPath, getPath, pathList } from '@/api/api/patrolRouteManagement'
 
-	const { queryParams, dataList, getList, handleQuery, handleDelete } = useList({
-		apiFun: () => {},
+	const { queryParams, dataList, handleQuery, handleDelete } = useList({
+		apiFun: pathList,
 		params: {
-			pageNum: 1,
-			pageSize: 10,
 			name: '',
 		},
+		resetReadyListFun: (res) => {
+			dataList.value = res.data
+		},
+		deleteFun: delPath,
 	})
 
-	// 预览
-	const previewVisible = ref(false)
-	const previewForm = (row) => {
-		previewVisible.value = true
-	}
 	// 路线图
-	const routeList = ref([
-		{
-			name: '11221风门',
-			type: deviceTypes.DOOR,
-		},
-		{
-			name: '11221风窗',
-			type: deviceTypes.WINDOW,
-		},
-		{
-			name: '11221风门',
-			type: deviceTypes.DOOR,
-		},
-	])
+	const routeList = ref([])
+	// 预览
+	const previewForm = async (row) => {
+		const res = await getPath(row.id)
+		routeList.value = res.data
+	}
+
 	// 行数
 	const lineNum = computed(() => {
 		return Math.ceil(routeList.value.length / 6)
@@ -72,10 +62,10 @@
 		</div>
 		<el-table :data="dataList" border height="100%">
 			<el-table-column label="巡检路线名称" align="center" prop="name" />
-			<el-table-column label="排序" align="center" prop="index" />
+			<el-table-column label="排序" align="center" prop="orderNum" />
 			<el-table-column label="操作" align="center">
 				<template #default="scope">
-					<el-button type="primary" link @click="previewForm">预览</el-button>
+					<el-button type="primary" link @click="previewForm(scope.row)">预览</el-button>
 					<el-button type="primary" link @click="handleUpdate(scope.row)">修改</el-button>
 					<el-button type="primary" link @click="handleDelete(scope.row)">删除</el-button>
 				</template>
@@ -90,10 +80,10 @@
 							<template v-if="index >= (i - 1) * 6 && index < i * 6">
 								<div class="patrol_manage_l2_c2_body_item">
 									<div class="patrol_manage_label c-center">
-										<span>{{ item.name }}</span>
+										<span>{{ item.devName }}</span>
 									</div>
 									<div class="patrol_manage_label_bg c-center">
-										{{ formatterEquipmentType(item.type) }}
+										{{ formatterEquipmentType(item.devType) }}
 									</div>
 									<div class="patrol_manage_line_2"></div>
 								</div>
@@ -110,6 +100,7 @@
 			v-if="addOrUpdateVisible"
 			v-model="addOrUpdateVisible"
 			:choose-row="chooseRow"
+			@submit="handleQuery"
 		/>
 	</div>
 </template>

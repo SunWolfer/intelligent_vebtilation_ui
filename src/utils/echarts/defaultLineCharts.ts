@@ -1,6 +1,6 @@
 import useCharts from '@/hooks/useCharts'
 import echarts from '@/utils/echarts/index'
-import { dynamicHeight } from '@/utils/ruoyi'
+import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
 
 // 普通折线
 export interface lineData {
@@ -165,7 +165,7 @@ export function defaultLineChart({
 			text: title,
 			textStyle: {
 				color: 'rgba(75, 200, 252, 1)',
-				fontSize: dynamicHeight(11),
+				fontSize: dynamicWidth(11),
 				fontWeight: 400,
 			},
 			right: '0',
@@ -175,6 +175,8 @@ export function defaultLineChart({
 			x: legendPosition,
 			textStyle: {
 				color: '#fff',
+				fontSize: dynamicWidth(14),
+				fontWeight: 400,
 			},
 			icon: 'path://M801.171 547.589H222.83c-17.673 0-32-14.327-32-32s14.327-32 32-32h578.341c17.673 0 32 14.327 32 32s-14.327 32-32 32z',
 		},
@@ -199,7 +201,7 @@ export function defaultLineChart({
 				name: xUnits,
 				nameLocation: 'end', // 坐标轴名称显示位置
 				nameTextStyle: {
-					fontSize: dynamicHeight(11),
+					fontSize: dynamicWidth(12),
 					fontWeight: 400,
 					padding: [0, 0, 0, 0], //间距分别是 上 右 下 左
 				},
@@ -213,7 +215,7 @@ export function defaultLineChart({
 				},
 				axisLabel: {
 					color: 'rgba(255, 255, 255, 0.6)',
-					fontSize: dynamicHeight(14),
+					fontSize: dynamicWidth(14),
 				},
 				splitLine: {
 					show: showXSplitLine,
@@ -231,7 +233,7 @@ export function defaultLineChart({
 				name: units,
 				nameLocation: 'end', // 坐标轴名称显示位置
 				nameTextStyle: {
-					fontSize: dynamicHeight(11),
+					fontSize: dynamicWidth(12),
 					fontWeight: 400,
 					padding: [0, 0, 0, 0], //间距分别是 上 右 下 左
 				},
@@ -251,7 +253,7 @@ export function defaultLineChart({
 				},
 				axisLabel: {
 					color: 'rgba(255, 255, 255, 0.6)',
-					fontSize: dynamicHeight(14),
+					fontSize: dynamicWidth(14),
 				},
 			},
 		],

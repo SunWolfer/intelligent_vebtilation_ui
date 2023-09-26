@@ -1,24 +1,24 @@
 <script lang="ts">
-	import {
-		AmbientLight,
-		Color,
-		DirectionalLight,
-		HemisphereLight,
-		Light,
-		Loader,
-		Object3D,
-		PerspectiveCamera,
-		PointLight,
-		Raycaster,
-		Scene,
-		Vector2,
-		Vector3,
-		WebGLRenderer,
-		WebGLRendererParameters,
-		SRGBColorSpace,
-		SpotLight,
-		Mesh,
-	} from 'three'
+import {
+  AmbientLight,
+  Color,
+  DirectionalLight,
+  HemisphereLight,
+  Light,
+  Loader,
+  Object3D,
+  PerspectiveCamera,
+  PointLight,
+  Raycaster,
+  Scene,
+  Vector2,
+  Vector3,
+  WebGLRenderer,
+  WebGLRendererParameters,
+  SRGBColorSpace,
+  SpotLight,
+  Mesh, AnimationMixer, Clock,
+} from 'three'
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 	import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
 	import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
@@ -41,7 +41,7 @@
 
 	import { OperateModel } from './IModelOperate'
 	import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
-	import useEditModel from './hooks/useEditModel'
+import useEditModel, {IMoveTexture} from './hooks/useEditModel'
 
 	const DEFAULT_GL_OPTIONS = {
 		antialias: true,
@@ -138,12 +138,27 @@
 				default: false,
 			},
 			modelList: {
-				type: Array,
-				default: [] as Array<modelLine>,
+				type: Array as PropType<modelLine[]>,
+				default: [],
 			},
 			otherThreeMod: {
-				type: Array,
-				default: [] as IOtherThreeMod[],
+				type: Array as PropType<IOtherThreeMod[]>,
+				default: [],
+			},
+			//   自定义数据
+			customize: {
+				type: Boolean,
+				default: false,
+			},
+			//   自定义数据
+			customizeData: {
+				type: Array as PropType<IModelNode[]>,
+				default: [],
+			},
+			//   自定义数据最大值
+			customizeMaxNodeNum: {
+				type: Number,
+				default: 0,
 			},
 		},
 		data() {
@@ -151,7 +166,7 @@
 				object: null as null | Object3D,
 				rayCaster: new Raycaster(),
 				mouse: new Vector2(),
-				camera: new PerspectiveCamera(60, 1, this.cameraSize, 10000000),
+				camera: new PerspectiveCamera(60, 1, this.cameraSize, 1000000),
 				scene: new Scene(),
 				wrapper: new Object3D(),
 				renderer: null as null | WebGLRenderer,
@@ -172,8 +187,23 @@
 				defaultAnimateList: [] as any[],
 				transformControl: null as null | TransformControls,
 				windObject: null as null | Object3D,
+        // 风流模型列表
 				windMeshList: [] as any[],
+        // 风流动画
+        windMeshAnimation: [] as any[],
+        // 风流动画Mixer
+        windMixer: null as null |AnimationMixer,
+        // 风流动画时钟
+        windClock: new Clock(),
 				planeModel: null as null | Mesh,
+				cameraAniPosition: {
+					// 相机初始位置
+					cameraPosition: null as null | Vector3,
+					// 相机移动后位置
+					removePosition: null as null | Vector3,
+					// 相机朝向点
+					removeLookAt: null as null | Vector3,
+				},
 			}
 			// 确保这些对象不被转为 vue reactive 对象，避免 three 渲染出错
 			Object.assign(this, result)
@@ -199,7 +229,7 @@
 				},
 				// 	总模型加载进度
 				loadOtherLen: 0,
-				selectedObjects: [] as any[], // 选中模型
+				selectedObjects: [] as Object3D[], // 选中模型
 			}
 
 			// 为了保留类型信息，仍然返回 result 的 type
@@ -248,9 +278,11 @@
 			this.labelRenderer.setSize(this.size.width, this.size.height)
 			this.labelRenderer.domElement.style.pointerEvents = 'none'
 
-			this.controls = new OrbitControls(this.camera, this.$refs.container as HTMLDivElement)
+			this.controls = new OrbitControls(this.camera, this.$refs.canvas as HTMLDivElement)
 
 			this.scene.add(this.wrapper)
+
+      this.windMixer = new AnimationMixer(this.wrapper)
 
 			this.initEdit()
 
@@ -374,8 +406,8 @@
 				if (this.width === 0 || this.height === 0) {
 					this.$nextTick(() => {
 						this.size = {
-							width: (this.$refs.container as HTMLDivElement).offsetWidth,
-							height: (this.$refs.container as HTMLDivElement).offsetHeight,
+							width: (this.$refs.canvas as HTMLDivElement).offsetWidth,
+							height: (this.$refs.canvas as HTMLDivElement).offsetHeight,
 						}
 					})
 				}
@@ -481,7 +513,7 @@
 						this.cameraPosition.y === 0 &&
 						this.cameraPosition.z === 0
 					) {
-						camera.position.z = distance
+						camera.position.y = distance
 					}
 
 					camera.lookAt(new Vector3())
@@ -694,6 +726,8 @@
 			},
 			render() {
 				useEditModel().customAnimation(this.defaultAnimateList)
+        useEditModel().customAnimation(this.windMeshAnimation)
+
 				this.renderer!.render(this.scene, this.camera)
 
 				if (this.composer) {
@@ -760,6 +794,15 @@
 						})
 					}
 				}
+			},
+			//   根据名称设置选中模型
+			setSelectObject(name: string) {
+				if (!this.object) return
+				let obj = undefined
+				this.object.traverse((child) => {
+					if (child.name === name) obj = child
+				})
+				if (obj) this.selectedObjects = [obj]
 			},
 		},
 	})

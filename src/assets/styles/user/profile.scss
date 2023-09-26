@@ -1,0 +1,69 @@
+//个人信息图片
+.profile-individual-1 {
+	background-image: url('@/assets/images/user/personal-information.png');
+	background-size: 100% 100%;
+	width: vw(35);
+	height: vh(31);
+	margin-right: vw(13);
+}
+
+.userInfo-form {
+	:deep(.el-form-item) {
+		height: vh(50);
+		&:nth-child(2n) {
+			background: rgba(50, 105, 169, 0.6);
+		}
+		.el-form-item__label {
+			padding-left: vw(10);
+			height: vh(50);
+			line-height: vh(50);
+		}
+		.el-form-item__content {
+			.el-input {
+				width: vw(300);
+				.el-input__wrapper {
+					.el-input__inner {
+						font-size: vw(16);
+						font-family: PingFang SC, serif;
+						font-weight: 400;
+						color: #2d86c4;
+						line-height: vh(50);
+					}
+				}
+			}
+			.el-radio-group {
+				.el-radio__inner {
+					background: rgba(0, 0, 0, 0.6);
+					border: 1px solid #00ffff;
+					border-radius: 50%;
+				}
+				.el-radio__input.is-checked {
+					.el-radio__inner {
+						box-shadow: 0 0 5px 0 rgba(14, 252, 255, 0.77);
+						&:after {
+							background-color: #00ffff;
+						}
+					}
+				}
+			}
+		}
+	}
+	.subBtn {
+		position: absolute;
+		left: vw(100);
+		bottom: vh(40);
+	}
+	.ordinary-btn,
+	.close-btn {
+		width: vw(105);
+		height: vh(41);
+		font-size: vw(16);
+		font-family: PingFang SC, serif;
+		font-weight: 400;
+		color: #ffffff;
+		line-height: vh(41);
+	}
+	.ordinary-btn {
+		color: #000;
+	}
+}

@@ -1,6 +1,7 @@
 import { IFires } from '@/components/VueThree/effect/IFires'
 import { IWindText } from '@/components/VueThree/effect/IWindText'
 import { ModelAnimation } from '@/components/VueThree/modelAnimation'
+import threeModel from "@/store/modules/threeModel";
 import gsap from 'gsap'
 import {
 	BufferAttribute,
@@ -22,6 +23,7 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
+import {Group} from "three/src/Three";
 import { DisasterPreventionRoute } from './effect/disasterPreventionRoute'
 import useEditModel from './hooks/useEditModel'
 import useThreeExport from './hooks/useThreeExport'
@@ -200,6 +202,12 @@ export class OperateModel {
 		if (!this.myDisPreRoute) return
 		this.myDisPreRoute.initRoute(pointObj)
 	}
+	// 创建流动线
+	addFlowLine(points: ICoordinates[]) {
+		if (!this.myDisPreRoute) return
+
+		this.myDisPreRoute.createdFlowLine(points, 6)
+	}
 	// 清除避灾路线相关
 	cleanMoveModel(index: number) {
 		if (!this.myDisPreRoute) return
@@ -241,10 +249,6 @@ export class OperateModel {
 	// 	导出主体Object
 	exportObjects() {
 		useThreeExport().exportGLTF([this.object])
-	}
-	// 模型线框材质
-	setLineBasicMaterial() {
-		const lineMaterial = new LineBasicMaterial({ color: '#1E90FF' })
 	}
 	// 轨迹移动
 	traMovement(
@@ -296,6 +300,25 @@ export class OperateModel {
 			}
 		}
 	}
+	// 创建图片贴图
+	createdImgPlane() {
+		const threeModelData:IModelNode[] = threeModel().data
+		let imgGroup = new Group()
+		for (let i = 0; i < threeModelData.length; i++) {
+			const child = threeModelData[i]
+			if (child.imgUrl && child.nodePosition && child.nextNodePosition && child.imgSize){
+				const size = child.meshes[0].geometry.radiusTop
+				if (!size) return
+				const position = useEditModel().getCenterPoint(child.nodePosition,child.nextNodePosition)
+				position.y = position.y + size
+				const start = new Vector3(child.nodePosition.x,child.nodePosition.y,child.nodePosition.z)
+				const end = new Vector3(child.nextNodePosition.x,child.nextNodePosition.y,child.nextNodePosition.z)
+				const mesh = createdImg(size * child.imgSize,size*2,child.imgUrl,position,start,end)
+				imgGroup.add(mesh)
+			}
+		}
+		this.wrapper.add(imgGroup)
+	}
 	resetFrame() {
 		this.editId = requestAnimationFrame(this.resetFrame.bind(this))
 		useEditModel().customAnimation(this.customizeAnimateList)
@@ -313,6 +336,21 @@ function createdTextBg(size: number, length: number, planeColor: string) {
 	geometry.rotateY(-Math.PI / 2)
 	const material = new MeshBasicMaterial({ color: planeColor, side: DoubleSide })
 	return new Mesh(geometry, material)
+}
+// 创建图片贴图平面
+function createdImg(width:number,height:number,url:string,position:Vector3,startPosition:Vector3,endPosition:Vector3) {
+	const geometry = new PlaneGeometry(width, height)
+	// 水平翻转
+	geometry.rotateY(-Math.PI / 2)
+	geometry.rotateZ(-Math.PI / 2)
+	let texture = new TextureLoader().load(url)
+	texture.colorSpace = SRGBColorSpace
+	let material = new MeshBasicMaterial({ map: texture, side: DoubleSide,transparent: true })
+	const mesh = new Mesh(geometry, material)
+	mesh.position.copy(position)
+	const quaternion = useEditModel().getQuaternion(startPosition,endPosition)
+	mesh.quaternion.copy(quaternion)
+	return mesh
 }
 //生成平面
 function createPlaneGeometry(points: Point[], scene: Object3D) {

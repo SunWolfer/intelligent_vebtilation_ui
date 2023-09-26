@@ -25,7 +25,7 @@
   grid-template-rows: vh(16) vh(200) 8px vh(114) 8px vh(200);
   .air_l1_c2_title{
     height: vh(16);
-    font-size: vh(16);
+    font-size: vw(16);
     font-family: Adobe Heiti Std, serif;
     font-weight: normal;
     color: rgba(255, 255, 255, 0.8);
@@ -43,7 +43,7 @@
     justify-content: center;
     place-items: center;
 
-    font-size: vh(14);
+    font-size: vw(14);
     font-family: Adobe Heiti Std, serif;
     font-weight: normal;
     color: rgba(255, 255, 255, 0.8);
@@ -73,6 +73,7 @@
   padding: vh(16) vw(16);
   display: grid;
   grid-template-rows: vh(59) 1fr;
+  grid-row-gap: vh(10);
 }
 .border1_body_title{
   justify-self: center;
@@ -90,7 +91,7 @@
   }
   .air_l3_c1_line{
     display: flex;
-    font-size: vh(14);
+    font-size: vw(14);
     font-family: Adobe Heiti Std, serif;
     font-weight: normal;
     color: #FFFFFF;
@@ -143,7 +144,7 @@
       justify-content: center;
       padding-top: vw(86);
       span {
-        font-size: vh(14);
+        font-size: vw(14);
         font-family:
           Adobe Heiti Std,
           serif;
@@ -158,7 +159,7 @@
     .air_l3_c3_btn_4{
       position: absolute;
       bottom: vh(-29);
-      font-size: vh(16);
+      font-size: vw(16);
       font-family: Adobe Heiti Std, serif;
       font-weight: normal;
       color: #FFFFFF;
@@ -181,7 +182,7 @@
 
   .air_l3_c4_label{
     align-self: end;
-    font-size: vh(14);
+    font-size: vw(14);
     font-family: Adobe Heiti Std, serif;
 
     font-weight: normal;
@@ -190,12 +191,12 @@
   .air_l3_c4_clock{
     position: relative;
     width: vw(210);
-    height: vh(64);
+    height: vw(64);
     background-image: url("@/assets/images/catAidedDecMaking/clock.png");
     background-size: 100% 100%;
     padding-left: vw(13);
     font-size: vw(47);
-    line-height: vh(80);
+    line-height: vw(80);
     letter-spacing: vw(6);
 
     display: flex;
@@ -206,14 +207,14 @@
     color: #bceaff;
     span{
       align-self: start;
-      font-size: vh(18);
+      font-size: vw(18);
     }
   }
 }
 
 @mixin airLight {
   width: vw(26);
-  height: vh(26);
+  height: vw(26);
   background-size: 100% 100%;
 }
 .light_1{

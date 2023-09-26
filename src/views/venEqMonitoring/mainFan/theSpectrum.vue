@@ -87,7 +87,7 @@
 		<div class="fullDom the_spec">
 			<el-form :model="queryParams" inline>
 				<el-form-item label="传感器">
-					<el-select v-model="queryParams.sensor"></el-select>
+					<el-select v-model="queryParams.sensor" clearable></el-select>
 				</el-form-item>
 				<el-form-item label="时间">
 					<el-date-picker
@@ -101,7 +101,7 @@
 					></el-date-picker>
 				</el-form-item>
 				<el-form-item label="振动波形">
-					<el-select v-model="queryParams.waveForm"></el-select>
+					<el-select v-model="queryParams.waveForm" clearable></el-select>
 				</el-form-item>
 				<el-form-item>
 					<div class="normal_btn">查询</div>
@@ -156,7 +156,7 @@
 		align-items: center;
 		justify-content: center;
 
-		font-size: vh(17);
+		font-size: vw(17);
 		font-family:
 			Adobe Heiti Std,
 			serif;

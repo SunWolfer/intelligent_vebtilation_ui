@@ -2,9 +2,12 @@
 <script setup>
 	import { basicReport } from '@/api/request/accPerOfRomance/basicReport'
 	import TabelItem from '@/views/accPerOfRomance/basicReport/tabelItem.vue'
+	import { reportInfo } from '@/api/api/basicReport'
 
 	const {
 		initData,
+		addStatus,
+		resetForm,
 		chooseVersion,
 		versionList,
 		setVersion,
@@ -39,6 +42,30 @@
 		halfBottomDom15,
 	} = basicReport()
 
+	const copyForm = ref({
+		reportTime: '',
+	})
+	watch(
+		() => addStatus.value,
+		(val) => {
+			if (!val) copyForm.value.reportTime = ''
+		},
+	)
+	const chooseCopyData = async (val) => {
+		if (!val) {
+			resetForm?.()
+			return
+		}
+		const res = await reportInfo({
+			reportTime: val,
+		})
+		if (!res) return
+		dataForm.value = {
+			...res.data,
+			reportTime: dataForm.value.reportTime,
+		}
+	}
+
 	onMounted(async () => {
 		await initData?.()
 	})
@@ -46,7 +73,7 @@
 
 <template>
 	<div class="bas_report_body">
-		<div class="bas_report_body_c1_l1" @click="addHandle">新增</div>
+		<div class="bas_report_body_c1_l1 pointer" @click="addHandle">新增</div>
 		<div class="bas_report_body_c1_l2">
 			<div class="bas_report_c1_l2_top">
 				<border-box name="border2" title="通风基础报表"></border-box>
@@ -76,9 +103,23 @@
 		</div>
 		<div class="bas_report_body_c2_l1">
 			<div class="bas_c2_l1_icon">{{ dataForm?.reportTime }}</div>
-			<div class="normal_btn" @click="saveHandle">保存</div>
-			<div class="normal_3_btn" @click="deleteHandle">删除</div>
-			<div class="normal_4_btn" @click="exportHandle">导出</div>
+			<div class="normal_btn" @click="saveHandle">{{ addStatus ? '新增' : '保存' }}</div>
+			<template v-if="!addStatus">
+				<div class="normal_3_btn" @click="deleteHandle">删除</div>
+				<div class="normal_4_btn" @click="exportHandle">导出</div>
+			</template>
+			<template v-else>
+				<div class="bas_c2_l1_select p-center">
+					<span>复制报表</span>
+					<el-select v-model="copyForm.reportTime" @change="chooseCopyData" clearable>
+						<el-option
+							v-for="i in versionList"
+							:label="i.reportTime"
+							:value="i.reportTime"
+						></el-option>
+					</el-select>
+				</div>
+			</template>
 		</div>
 		<div class="bas_report_body_c2_l2">
 			<div class="bas_table_half_top">

@@ -2,6 +2,17 @@
 <script setup>
 	import useList from '@/hooks/useList'
 	import { useForm } from '@/hooks/useForm'
+	import {
+		delVentWay,
+		getVentWay,
+		listRegion,
+		listVentWay,
+		updateVentWay,
+	} from '@/api/api/roadwayManagement'
+	import useDict from '@/hooks/useDict'
+	import { selectDictLabel } from '@/utils/ruoyi'
+	import RoadFireUpload from '@/views/venManagement/roadwayManagement/roadFireUpload.vue'
+	import { useGainList } from '@/hooks/useGainList'
 
 	const {
 		queryParams,
@@ -12,38 +23,73 @@
 		handleSelectionChange,
 		handleDelete,
 	} = useList({
-		apiFun: () => {},
+		apiFun: listVentWay,
 		params: {
 			pageNum: 1,
 			pageSize: 10,
 			name: undefined,
 			code: undefined,
 		},
-		deleteFun: () => {},
+		deleteFun: delVentWay,
 	})
 
-	onMounted(() => {
-		dataList.value.push({})
+	// 查询风路分支图区域
+	const { dataList: regionList } = useGainList({
+		apiFun: listRegion,
 	})
 
-	const rules = ref({
-		code: [{ required: true, message: '风机编码不能为空', trigger: 'blur' }],
-		name: [{ required: true, message: '风机名称不能为空', trigger: 'blur' }],
-	})
+	const { vent_shape, shore_type, ven_air_direction, vent_source, need_cal_type } = useDict(
+		'vent_shape',
+		'shore_type',
+		'ven_air_direction',
+		'vent_source',
+		'need_cal_type',
+	)
+	const formatterVentShape = (row) => {
+		return selectDictLabel(vent_shape.value, row.ventShape)
+	}
+	const formatterShoreType = (row) => {
+		return selectDictLabel(shore_type.value, row.shoreType)
+	}
+	const formatterVenAirDirection = (row) => {
+		return selectDictLabel(ven_air_direction.value, row.venAirDirection)
+	}
+	// 导入数据
+	const uploadVisible = ref(false)
+	const handleUpload = () => {
+		uploadVisible.value = true
+	}
+
 	// 新增修改操作
-	const { formRef, form, title, open, submitForm, handleUpdate, handleAdd } = useForm({
+	const { formRef, form, title, open, submitForm } = useForm({
 		formParams: {
 			id: undefined,
 			name: undefined,
 			code: undefined,
 		},
 		titleMes: '巷道',
-		initApi: () => {},
-		updateApi: () => {},
-		addApi: () => {},
+		updateApi: updateVentWay,
 		afterAddFun: handleQuery,
 		afterUpdateFun: handleQuery,
 	})
+	const handleUpdate = async (row) => {
+		const res = await getVentWay({
+			id: row.id,
+		})
+		form.value = res.data
+		open.value = true
+		title.value = `修改巷道`
+	}
+	const confirmList = ref([
+		{
+			label: '是',
+			value: '1',
+		},
+		{
+			label: '否',
+			value: '0',
+		},
+	])
 </script>
 
 <template>
@@ -57,8 +103,7 @@
 			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">查询</div>
-				<div class="normal_2_btn" @click="handleQuery">导入</div>
-				<div class="normal_2_btn" @click="handleQuery">导入模板</div>
+				<div class="normal_2_btn" @click="handleUpload">导入</div>
 				<div class="normal_3_btn" @click="handleDelete">删除</div>
 			</el-form-item>
 		</el-form>
@@ -66,19 +111,34 @@
 			<el-table-column type="selection" width="55" align="center" />
 			<el-table-column label="巷道名称" align="center" prop="name" />
 			<el-table-column label="巷道编号" align="center" prop="code" />
-			<el-table-column label="巷道周长(m)" align="center" prop="position" />
-			<el-table-column label="巷道长度(m)" align="center" prop="voltage" />
-			<el-table-column label="巷道断面积(㎡)" align="center" prop="electricCurrent" />
-			<el-table-column label="巷道形状" align="center" prop="power" />
-			<el-table-column label="支护类型" align="center" prop="status" />
-			<el-table-column label="进回风巷" align="center" prop="airVolume" />
-			<el-table-column label="风阻(N·S2/m8)" align="center" prop="totalPressure" />
-			<el-table-column label="计划风量(m³/min)" align="center" prop="staticPressure" />
-			<el-table-column label="人工实测风量(m³/min)" align="center" prop="efficiency" />
-			<el-table-column label="人工实测风量时间" align="center" prop="voltage" />
+			<el-table-column label="巷道周长(m)" align="center" prop="circumference" />
+			<el-table-column label="巷道长度(m)" align="center" prop="length" />
+			<el-table-column label="巷道断面积(㎡)" align="center" prop="surface" />
+			<el-table-column
+				label="巷道形状"
+				align="center"
+				prop="ventShape"
+				:formatter="formatterVentShape"
+			/>
+			<el-table-column
+				label="支护类型"
+				align="center"
+				prop="shoreType"
+				:formatter="formatterShoreType"
+			/>
+			<el-table-column
+				label="进回风类型"
+				align="center"
+				prop="venAirDirection"
+				:formatter="formatterVenAirDirection"
+			/>
+			<el-table-column label="风阻(N·S2/m8)" align="center" prop="ventR" />
+			<el-table-column label="计划风量(m³/min)" align="center" prop="minQ" />
+			<el-table-column label="人工实测风量(m³/min)" align="center" prop="personQ" />
+			<el-table-column label="人工实测风量时间" align="center" prop="personQTime" />
 			<el-table-column label="操作" align="center" width="150">
 				<template #default="scope">
-					<el-button type="primary" link @click="handleAdd(scope.row)">修改</el-button>
+					<el-button type="primary" link @click="handleUpdate(scope.row)">修改</el-button>
 					<el-button type="primary" link @click="handleDelete(scope.row)">删除</el-button>
 				</template>
 			</el-table-column>
@@ -97,7 +157,7 @@
 			v-model="open"
 			:title="title"
 			@submit="submitForm"
-			:width="900"
+			:width="1200"
 			:height="810"
 			has-bottom-btn
 			:btn-list="['保存', '取消']"
@@ -113,52 +173,121 @@
 					class="form_top"
 				>
 					<el-form-item label="巷道名称" class="table_page_form_row">
-						<el-input />
+						<el-input v-model="form.name" />
 					</el-form-item>
 					<el-form-item label="巷道周长(m)">
-						<el-input />
+						<el-input v-model="form.circumference" />
 					</el-form-item>
 					<el-form-item label="巷道长度(m)">
-						<el-input />
+						<el-input v-model="form.length" />
 					</el-form-item>
 					<el-form-item label="巷道断面积(m2)">
-						<el-input />
+						<el-input v-model="form.surface" />
 					</el-form-item>
 					<el-form-item label="巷道形状">
-						<el-select></el-select>
+						<el-select v-model="form.ventShape" clearable style="width: 100%">
+							<el-option v-for="i in vent_shape" :label="i.label" :value="i.value"></el-option>
+						</el-select>
 					</el-form-item>
 					<el-form-item label="巷道支护类型">
-						<el-select></el-select>
+						<el-select v-model="form.shoreType" clearable style="width: 100%">
+							<el-option v-for="i in shore_type" :label="i.label" :value="i.value"></el-option>
+						</el-select>
 					</el-form-item>
 					<el-form-item label="进回风类型">
-						<el-select></el-select>
+						<el-select v-model="form.venAirDirection" clearable style="width: 100%">
+							<el-option
+								v-for="i in ven_air_direction"
+								:label="i.label"
+								:value="i.value"
+							></el-option>
+						</el-select>
 					</el-form-item>
 					<el-form-item label="起始高程(m)">
-						<el-input />
+						<el-input v-model="form.startAltitude" />
 					</el-form-item>
 					<el-form-item label="结束高程(m)">
-						<el-input />
+						<el-input v-model="form.endAltitude" />
+					</el-form-item>
+					<el-form-item label="需风量计算类型">
+						<el-select v-model="form.needCalType" clearable>
+							<el-option v-for="i in need_cal_type" :label="i.label" :value="i.value"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="是否显示风流方向">
+						<el-select v-model="form.directionShow" clearable>
+							<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="是否有密闭墙">
+						<el-select v-model="form.wallExists" clearable>
+							<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="是否连通地面">
+						<el-select v-model="form.groundFlag" clearable>
+							<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label="是否显示巷道名称">
+						<el-select v-model="form.roadNameShow" clearable>
+							<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+						</el-select> </el-form-item
+					><el-form-item label="是否显示风量标签">
+						<el-select v-model="form.modelWindShow" clearable>
+							<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+						</el-select>
 					</el-form-item>
 				</el-form>
 				<div class="form_title">通风参数</div>
 				<el-form :model="form" inline label-width="auto" label-position="left" class="form_top">
-					<el-form-item label="最大风量(m³/min)"> <el-input /> </el-form-item
-					><el-form-item label="计划风量(m³/min)"> <el-input /> </el-form-item
-					><el-form-item label="人工实测风量(m³/min)"> <el-input /> </el-form-item
-					><el-form-item label="人工实测风量时间"> <el-input /> </el-form-item
-					><el-form-item label="风阻(N·s2/m8)"> <el-input /> </el-form-item
-					><el-form-item label="摩擦系数(N·s2/m4)"> <el-input /> </el-form-item
-					><el-form-item label="局部阻力"> <el-input /> </el-form-item
-					><el-form-item label="风阻测定来源"> <el-input /> </el-form-item
-					><el-form-item label="人工测定风阻时间"> <el-input /> </el-form-item
-					><el-form-item label="风路分支图区域"> <el-input /> </el-form-item
-					><el-form-item label="起始节点"> <el-input /> </el-form-item
+					<el-form-item label="最大风量(m³/min)"> <el-input v-model="form.maxQ" /> </el-form-item
+					><el-form-item label="计划风量(m³/min)"> <el-input v-model="form.minQ" /> </el-form-item
+					><el-form-item label="人工实测风量(m³/min)">
+						<el-input v-model="form.personQ" /> </el-form-item
+					><el-form-item label="人工实测风量时间">
+						<el-date-picker
+							v-model="form.personQTime"
+							value-format="YYYY-MM-DD hh:mm:ss"
+							type="datetime"
+							placeholder="选择日期"
+							prefix-icon="Calendar"
+						></el-date-picker>
+					</el-form-item>
+					<el-form-item label="风阻(N·s2/m8)"> <el-input v-model="form.ventR" /> </el-form-item
+					><el-form-item label="摩擦系数(N·s2/m4)">
+						<el-input v-model="form.ventFriction" /> </el-form-item
+					><el-form-item label="局部风阻"> <el-input v-model="form.ventPartR" /> </el-form-item
+					><el-form-item label="风阻测定来源">
+						<el-select v-model="form.ventSource" clearable style="width: 100%">
+							<el-option v-for="i in vent_source" :label="i.label" :value="i.value"></el-option>
+						</el-select> </el-form-item
+					><el-form-item label="人工测定风阻时间">
+						<el-date-picker
+							v-model="form.ventPersonTime"
+							value-format="YYYY-MM-DD hh:mm:ss"
+							type="datetime"
+							placeholder="选择日期"
+							prefix-icon="Calendar"
+						></el-date-picker> </el-form-item
+					><el-form-item label="风路分支图区域">
+						<el-select v-model="form.windMapRegion" clearable style="width: 100%">
+							<el-option
+								v-for="i in regionList"
+								:label="i.region"
+								:value="i.region"
+							></el-option> </el-select
+					></el-form-item>
+					<el-form-item label="起始节点">
+						<el-input disabled v-model="form.startNode" /> </el-form-item
 					><el-form-item label="结束节点">
-						<el-input />
+						<el-input disabled v-model="form.endNode" />
 					</el-form-item>
 				</el-form>
 			</div>
 		</dia-log>
+		<!--    导入数据-->
+		<RoadFireUpload v-if="uploadVisible" v-model="uploadVisible" @submit="handleQuery" />
 	</div>
 </template>
 
@@ -175,13 +304,13 @@
 		align-content: space-between;
 	}
 	.form_title {
-		font-size: vh(26);
+		font-size: vw(26);
 		font-family: YouSheBiaoTiHei, serif;
 		font-weight: 400;
 		color: rgba(255, 255, 255, 0.78);
 		text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
-		background: linear-gradient(180deg, #d7e8ff 0%, #2bbbea 100%);
+		background: linear-gradient(180deg, #d7e8ff 30%, #2bbbea 100%);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}

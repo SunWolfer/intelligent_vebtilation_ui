@@ -1,6 +1,6 @@
 export const defaultNode: INodeMesh = {
 	geometry: {
-		radius: 300,
+		radius: 3,
 	},
 	material: {
 		mapUrl: 'file/material/80.png',
@@ -12,8 +12,8 @@ export const defaultNode: INodeMesh = {
 export const defaultMesh: IMesh[] = [
 	{
 		geometry: {
-			radiusTop: 600,
-			radiusBottom: 600,
+			radiusTop: 6,
+			radiusBottom: 6,
 			height: 1,
 			radialSegments: 4,
 			openEnded: true,
@@ -28,8 +28,8 @@ export const defaultMesh: IMesh[] = [
 	},
 	{
 		geometry: {
-			radiusTop: 200,
-			radiusBottom: 200,
+			radiusTop: 2,
+			radiusBottom: 2,
 			height: 1,
 			radialSegments: 4,
 			openEnded: false,
@@ -51,8 +51,8 @@ export const defaultMesh: IMesh[] = [
 export const loadDefaultMesh: IMesh[] = [
 	{
 		geometry: {
-			radiusTop: 600,
-			radiusBottom: 600,
+			radiusTop: 6,
+			radiusBottom: 6,
 			height: 1,
 			radialSegments: 4,
 			openEnded: true,
@@ -67,8 +67,8 @@ export const loadDefaultMesh: IMesh[] = [
 	},
 	{
 		geometry: {
-			width: 300,
-			offsetY: 300,
+			width: 3,
+			offsetY: 3,
 			geometryType: 'Plane',
 		},
 		material: {
@@ -85,8 +85,8 @@ export const loadDefaultMesh: IMesh[] = [
 	},
 	{
 		geometry: {
-			radiusTop: 200,
-			radiusBottom: 200,
+			radiusTop: 2,
+			radiusBottom: 2,
 			height: 1,
 			radialSegments: 4,
 			openEnded: false,

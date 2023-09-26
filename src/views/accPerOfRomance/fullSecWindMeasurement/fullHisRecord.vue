@@ -60,7 +60,10 @@
 			<el-table :data="dataList" border height="100%">
 				<el-table-column label="设备名称" align="center" prop="name" />
 				<el-table-column label="设备位置" align="center" prop="location" />
-				<el-table-column label="操作时间" align="center" prop="createTime" />
+				<el-table-column label="断面" align="center" prop="surface" />
+				<el-table-column label="风速" align="center" prop="windSpeed" />
+				<el-table-column label="风量" align="center" prop="airVolume" />
+				<el-table-column label="测量时间" align="center" prop="measureTime" />
 			</el-table>
 			<pagination
 				:total="total"

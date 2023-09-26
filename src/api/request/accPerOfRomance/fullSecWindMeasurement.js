@@ -11,6 +11,7 @@ import {
 import { useCommitForm } from '@/hooks/useForm'
 import { addDateRange, getRandomColor, parseTime, selectDictLabel } from '@/utils/ruoyi'
 import { useSocket } from '@/hooks/useSocket'
+import useEquipmentParams from '@/hooks/useEquipmentParams'
 
 export const fullSecWindMeasurement = () => {
 	// 一键测风
@@ -19,9 +20,20 @@ export const fullSecWindMeasurement = () => {
 		await useCommitForm(startWindDevAll, {})
 		measuringWindVisible.value = true
 	}
+	// 页面传参查询
+	const equipmentParams = useEquipmentParams()
 	//   全断面测风列表
 	const { dataList: fullSecWindList } = useGainList({
 		apiFun: listView,
+		afterReadyDataFun: () => {
+			const params = equipmentParams?.dataParams
+			const tDataIndex = fullSecWindList.value.findIndex((i) => i.id === params?.id)
+			if (tDataIndex !== -1) {
+				choose.value = tDataIndex
+			} else {
+				resetCharts?.()
+			}
+		},
 	})
 	// 测风站socket
 	const { clientSocket: clientFullWindSocket } = useSocket('fullwind|adjustAll', getFullSocketMsg)
@@ -139,6 +151,7 @@ export const fullSecWindMeasurement = () => {
 			receiveTime.value++
 			if (receiveTime.value > 5) {
 				playMod.value = false
+				receiveTime.value = 0
 			}
 		}, 1000)
 	}
@@ -161,6 +174,8 @@ export const fullSecWindMeasurement = () => {
 		oneWindSocketData.value = socketData.value
 		playMod.value = true
 	}
+	// 实时测风数据
+	const realWindDataList = ref([])
 	// 单个测风
 	function oneWindSocketDataNext(data) {
 		receiveTime.value = 0
@@ -170,16 +185,28 @@ export const fullSecWindMeasurement = () => {
 			time: parseTime(new Date()),
 		})
 	}
-	// 实时测风数据
-	const realWindDataList = ref([])
 
 	// 自动测风站记录表
 	const aneTableData = ref([])
+
+	// 视频路径
+	const videoPath = ref('')
+	const videoVisible = ref(true)
+	watch(
+		() => videoPath.value,
+		() => {
+			videoVisible.value = false
+			nextTick(() => {
+				videoVisible.value = true
+			})
+		},
+	)
 
 	// 电子看板信息
 	const getAneTableDara = async () => {
 		if (choose.value === -1) return
 		const cData = fullSecWindList.value[choose.value]
+		videoPath.value = cData.videoUrl
 		const { data } = await getBoard(cData)
 		if (data) {
 			aneTableData.value = []
@@ -253,12 +280,15 @@ export const fullSecWindMeasurement = () => {
 		}
 	}
 
-	const { showCharts, resetCharts } = useResetCharts(initChart)
+	const { showCharts, resetCharts } = useResetCharts(initChart, false)
 
-	watch(choose, () => {
-		resetCharts?.()
-		getAneTableDara()
-	})
+	watch(
+		() => choose.value,
+		() => {
+			resetCharts?.()
+			getAneTableDara()
+		},
+	)
 
 	onBeforeUnmount(() => {
 		clearInterval(startWindInterval.value)
@@ -285,5 +315,7 @@ export const fullSecWindMeasurement = () => {
 		fullDataForm,
 		measuringWindVisible,
 		playMod,
+		videoPath,
+		videoVisible,
 	}
 }

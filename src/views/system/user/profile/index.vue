@@ -7,61 +7,25 @@
 				<span>个人信息</span>
 			</div>
 			<div class="profile-individual-bottom">
-				<el-form :model="state.user" class="profile-form" label-width="auto" label-position="right">
-					<el-form-item>
-						<template #label>
-							<span>用户名称</span>
-						</template>
-						<div class="profile-decorator">
-							<decorator name="decorator3"></decorator>
-						</div>
+				<el-form :model="state.user" label-width="auto" label-position="right">
+					<el-form-item label="用户名称:">
 						<span>{{ state.user.userName }}</span>
 					</el-form-item>
-					<el-form-item>
-						<template #label>
-							<span>手机号码</span>
-						</template>
-						<div class="profile-decorator">
-							<decorator name="decorator3"></decorator>
-						</div>
+					<el-form-item label="手机号码:">
 						<span>{{ state.user.phonenumber }}</span>
 					</el-form-item>
-					<el-form-item>
-						<template #label>
-							<span>用户邮箱</span>
-						</template>
-						<div class="profile-decorator">
-							<decorator name="decorator3"></decorator>
-						</div>
+					<el-form-item label="用户邮箱:">
 						<span>{{ state.user.email }}</span>
 					</el-form-item>
-					<el-form-item>
-						<template #label>
-							<span>所属部门</span>
-						</template>
-						<div class="profile-decorator">
-							<decorator name="decorator3"></decorator>
-						</div>
+					<el-form-item label="所属部门:">
 						<span v-if="state.user.dept"
 							>{{ state.user.dept.deptName }} / {{ state.postGroup }}</span
 						>
 					</el-form-item>
-					<el-form-item>
-						<template #label>
-							<span>所属角色</span>
-						</template>
-						<div class="profile-decorator">
-							<decorator name="decorator3"></decorator>
-						</div>
+					<el-form-item label="所属角色:">
 						<span>{{ state.roleGroup }}</span>
 					</el-form-item>
-					<el-form-item>
-						<template #label>
-							<span>创建日期</span>
-						</template>
-						<div class="profile-decorator">
-							<decorator name="decorator3"></decorator>
-						</div>
+					<el-form-item label="创建日期:">
 						<span>{{ state.user.createTime }}</span>
 					</el-form-item>
 				</el-form>
@@ -71,13 +35,12 @@
 		<div class="profile-basic">
 			<div class="profile-btn">
 				<template v-for="i in btnList">
-					<chart-btns
-						:btnimg="i.btnImg"
-						:text="i.label"
-						:tabs="i.value"
-						:activeName="chooseTabs"
-						@toClick="changeTabs"
-					></chart-btns>
+					<div
+						:class="chooseTabs === i.value ? 'real_btn_1_active' : 'real_btn_1'"
+						@click="changeTabs(i.value)"
+					>
+						<span>{{ i.label }}</span>
+					</div>
 				</template>
 			</div>
 			<div class="profile-right-form">
@@ -93,7 +56,6 @@
 </template>
 
 <script setup>
-	import ChartBtns from '@/views/components/ChartBtns'
 	import UserInfo from './userInfo'
 	import ResetPwd from './resetPwd'
 	import { getUserProfile } from '@/api/system/user'
@@ -145,7 +107,7 @@
 			height: vh(80);
 			margin-bottom: vh(6);
 			span {
-				font-size: vh(26);
+				font-size: vw(26);
 				font-family: FZLanTingHei-R-GBK, serif;
 				font-weight: 400;
 				color: #36e5ff;
@@ -156,7 +118,7 @@
 		.profile-individual-bottom {
 			position: relative;
 			width: 100%;
-			height: vh(294);
+			height: max-content;
 			background-color: rgba(8, 35, 87, 0.6);
 			padding: vh(20);
 		}
@@ -171,31 +133,8 @@
 			position: relative;
 			width: 100%;
 			height: vh(50);
-			:deep(.tBtns) {
-				width: vw(170);
-				height: vh(50);
-				cursor: pointer;
-				border-radius: 0 2px 2px 2px;
-				border: 1px solid #276a9f;
-				margin-right: 0.8854166667vw;
-				margin-top: 0;
-				background: rgba(0, 0, 0, 0.6);
-				float: left;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				font-weight: 700;
-			}
-			:deep(.tBtns-hover) {
-				width: vw(170);
-				height: vh(50);
-				margin-top: 0;
-				float: left;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				font-weight: 700;
-			}
+			display: grid;
+			grid-template-columns: repeat(auto-fill, vw(140));
 		}
 
 		.profile-right-form {
@@ -203,8 +142,6 @@
 			width: 100%;
 			height: vh(324);
 			margin-top: vh(6);
-			.fullDom {
-			}
 		}
 	}
 	.profile-decorator {
@@ -212,19 +149,12 @@
 		height: vh(15);
 		margin: 0 vw(10);
 	}
-	.profile-form {
-		:deep(.el-form-item--default) {
-			margin-bottom: vh(5);
-			.el-form-item__content {
-				span {
-					font-size: vh(16);
-					font-family:
-						PingFang SC,
-						serif;
-					font-weight: 400;
-					color: #ffffff;
-				}
-			}
-		}
+	:deep(.el-form-item__content) {
+		font-size: vw(16);
+		font-family:
+			PingFang SC,
+			serif;
+		font-weight: 400;
+		color: #ffffff;
 	}
 </style>

@@ -1,11 +1,10 @@
 <script setup>
-	import { useWindNetCalculation } from '@/hooks/useWindNetCalculation'
 	import LoadWindControlModel from '@/views/components/loadModel/loadWindControlModel.vue'
 	import { onDemandAirDisNetSolution } from '@/api/request/windControlAssMaking/onDemandAirDisNetSolution'
 	import SolvingSimulation from '@/views/components/windControlAssMaking/solvingSimulation.vue'
 	import { useTunnelData } from '@/hooks/useTunnelData'
-
-	const { fontList } = useWindNetCalculation()
+	import { useThreeModelData } from '@/hooks/useThreeModelData'
+	import { useInteraction } from '@/hooks/useInteraction'
 
 	const {
 		tunnelList,
@@ -19,14 +18,29 @@
 		cancelAirDisNetwork,
 		tunnelListVisible,
 		chooseTunnel,
+		fontList,
 	} = onDemandAirDisNetSolution()
 
 	const { vent_shape, shore_type } = useTunnelData()
+	const { refreshModel } = useThreeModelData()
+
+	const { threeModelRef, getSelectionRows, selectCode, getSelectionTunnel } = useInteraction()
+
+	//   巷道点击
+	const intersectedTunnel = (object) => {
+		if (tunnelListVisible.value) chooseTunnel?.(object)
+		getSelectionTunnel?.(object)
+	}
 </script>
 
 <template>
 	<div class="fullDom">
-		<load-wind-control-model :font-list="fontList" @choose-tunnel="chooseTunnel" />
+		<load-wind-control-model
+			v-if="refreshModel"
+			ref="threeModelRef"
+			:font-list="fontList"
+			@choose-tunnel="intersectedTunnel"
+		/>
 
 		<div v-if="tunnelListVisible" class="on_dem_left">
 			<div class="on_dem_left_top">
@@ -68,7 +82,7 @@
 									</div>
 									<div class="on_dem_item_left_item">
 										<div class="on_dem_item_left_label">[巷道形状]</div>
-										<el-select v-model="item.ventShape" placeholder="_ _ _ _">
+										<el-select v-model="item.ventShape" placeholder="_ _ _ _" clearable>
 											<el-option
 												v-for="i in vent_shape"
 												:label="i.label"
@@ -78,7 +92,7 @@
 									</div>
 									<div class="on_dem_item_left_item">
 										<div class="on_dem_item_left_label">[支护类型]</div>
-										<el-select v-model="item.shoreType" placeholder="_ _ _ _">
+										<el-select v-model="item.shoreType" placeholder="_ _ _ _" clearable>
 											<el-option
 												v-for="i in shore_type"
 												:label="i.label"
@@ -116,6 +130,8 @@
 			calculating-type="2"
 			@show-cal-visible="showAfterCalVisible"
 			@cancel-cal-visible="cancelAirDisNetwork"
+			@getSelectionRows="getSelectionRows"
+			:select-code="selectCode"
 		/>
 	</div>
 </template>

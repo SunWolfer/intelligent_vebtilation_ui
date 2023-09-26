@@ -82,9 +82,9 @@ export class DisasterPreventionRoute {
 		let loader = new GLTFLoader()
 		let src = import.meta.env.BASE_URL + 'file/pao-02.glb'
 		loader.load(src, (data) => {
-			data.scene.scale.x = 5000
-			data.scene.scale.y = 5000
-			data.scene.scale.z = 5000
+			data.scene.scale.x = 50
+			data.scene.scale.y = 50
+			data.scene.scale.z = 50
 
 			data.scene.traverse(function (object: any) {
 				if (object.isMesh) {
@@ -148,7 +148,7 @@ export class DisasterPreventionRoute {
 		iTexture: disasterTexture,
 	) {
 		// 	创建平面
-		const geometry = new PlaneGeometry(720, 872)
+		const geometry = new PlaneGeometry(7, 8)
 		const mesh = new Mesh(geometry, material)
 		let cloneMesh = depthCloneMesh(mesh)
 		cloneMesh.geometry.rotateY(Math.PI / (Math.random() * 10))
@@ -242,9 +242,9 @@ export class DisasterPreventionRoute {
 			len += usePoint().distance(points[i], points[i + 1])
 		}
 		// 设置x方向的重复数(沿着管道路径方向)
-		texture.repeat.x = parseInt(String(len / 30 / 100))
+		texture.repeat.x = parseInt(String(len / 30))
 		// 设置y方向的重复数(环绕管道方向)
-		texture.repeat.y = 1
+		texture.repeat.y = 2
 
 		let { mesh } = createdLine(points, radius, texture)
 		this.animateList.push(() => {
@@ -310,7 +310,7 @@ function createdLine(points: ICoordinates[], radius: number, texture: Texture) {
 	// 创建管道
 	let tubeGeometry = new TubeGeometry(curve, 400, radius)
 	let mesh = new Mesh(tubeGeometry, material)
-
+	mesh.name = 'line-' + mesh.uuid
 	return {
 		texture,
 		mesh,

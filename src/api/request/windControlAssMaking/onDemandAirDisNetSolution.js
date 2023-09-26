@@ -1,6 +1,7 @@
 import { useTunnelData } from '@/hooks/useTunnelData'
 import { setFixedOk } from '@/api/api/onDemandAirDisNetSolution'
 import useCurrentInstance from '@/hooks/useCurrentInstance'
+import { useWindNetCalculation } from '@/hooks/useWindNetCalculation'
 
 export const onDemandAirDisNetSolution = () => {
 	const { proxy } = useCurrentInstance()
@@ -81,9 +82,10 @@ export const onDemandAirDisNetSolution = () => {
 
 		imitateVisible.value = true
 	}
-
+	const { fontList, splitText } = useWindNetCalculation()
 	// 解算模拟显示后
-	const showAfterCalVisible = () => {
+	const showAfterCalVisible = (dataList) => {
+		splitText?.(dataList)
 		tunnelListVisible.value = false
 	}
 	// 解算模拟隐藏后
@@ -103,5 +105,6 @@ export const onDemandAirDisNetSolution = () => {
 		cancelAirDisNetwork,
 		tunnelListVisible,
 		chooseTunnel,
+		fontList,
 	}
 }
