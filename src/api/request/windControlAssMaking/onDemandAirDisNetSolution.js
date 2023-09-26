@@ -91,6 +91,7 @@ export const onDemandAirDisNetSolution = () => {
 	// 解算模拟隐藏后
 	const cancelAirDisNetwork = () => {
 		tunnelListVisible.value = true
+		fontList.value = []
 	}
 
 	return {

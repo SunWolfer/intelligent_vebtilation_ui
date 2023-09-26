@@ -36,7 +36,7 @@
 			defaultLineChart({
 				domId: 'a_b_window_chart_1',
 				xData: xData,
-				yDataList: value,
+				yDataList: [value],
 				legends: ['风阻'],
 				legendPosition: 'center',
 				units: '风阻(kN)',

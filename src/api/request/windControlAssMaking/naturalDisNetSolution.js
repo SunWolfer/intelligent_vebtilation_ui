@@ -138,6 +138,7 @@ export const naturalDisNetSolution = () => {
 	// 取消解算后界面
 	const cancelAirDisNetwork = () => {
 		showAirDisNetwork.value = true
+		fontList.value = []
 	}
 
 	// 重置

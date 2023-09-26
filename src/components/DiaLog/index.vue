@@ -56,33 +56,26 @@
 
 <template>
 	<div class="os-dialog" v-if="showDiaLog">
-		<transition
-			mode="out-in"
-			appear
-			enter-active-class="animate__animated animate__faster animate__zoomInDown"
-			leave-active-class="animate__animated animate__faster animate__zoomOutDown"
-		>
-			<div class="os-dialog-content">
-				<border-box name="border8" :title="title">
-					<div class="os-dialog-close" @click="closeDia">
-						<el-icon>
-							<Close />
-						</el-icon>
-					</div>
-					<div :class="hasBottomBtn ? 'os-dialog-content_type_2' : 'os-dialog-content_type_1'">
-						<div class="content_type_2_header">
-							<slot></slot>
-						</div>
-						<div v-if="hasBottomBtn" class="content_type_2_bottom">
-							<slot name="bottom">
-								<div class="normal_btn" @click="submitForms">{{ btnList[0] }}</div>
-								<div class="normal_2_btn" @click="closeDia">{{ btnList[1] }}</div>
-							</slot>
-						</div>
-					</div>
-				</border-box>
-			</div>
-		</transition>
+    <div class="os-dialog-content animate__animated animate__faster animate__zoomInDown">
+      <border-box name="border8" :title="title">
+        <div class="os-dialog-close" @click="closeDia">
+          <el-icon>
+            <Close />
+          </el-icon>
+        </div>
+        <div :class="hasBottomBtn ? 'os-dialog-content_type_2' : 'os-dialog-content_type_1'">
+          <div class="content_type_2_header">
+            <slot></slot>
+          </div>
+          <div v-if="hasBottomBtn" class="content_type_2_bottom">
+            <slot name="bottom">
+              <div class="normal_btn" @click="submitForms">{{ btnList[0] }}</div>
+              <div class="normal_2_btn" @click="closeDia">{{ btnList[1] }}</div>
+            </slot>
+          </div>
+        </div>
+      </border-box>
+    </div>
 	</div>
 </template>
 
@@ -136,6 +129,7 @@
 		height: 100%;
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
 		place-items: center center;
 	}
 	//  关闭按钮

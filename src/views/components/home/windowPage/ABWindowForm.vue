@@ -55,6 +55,7 @@
 	const setParams = async (key, type) => {
 		await useCommitForm(controlWindow, {
 			queryParams: {
+        devId: dataForm.value.id,
 				controlType: type,
 				controlValue: dataForm.value[key],
 			},

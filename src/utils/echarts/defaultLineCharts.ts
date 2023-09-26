@@ -45,7 +45,6 @@ export function getSeriesData({
 	symbolItemStyle,
 }: any) {
 	let seriesData: any = []
-
 	for (let i = 0; i < yDataList.length; i++) {
 		let yData = yDataList[i]
 		let lineType = lineTypes[i] ?? 'solid'
