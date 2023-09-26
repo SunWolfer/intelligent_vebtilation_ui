@@ -131,8 +131,7 @@
 									</div>
 								</template>
 							</el-table-column>
-							<el-table-column label="解算风量(m³/min)" align="center" prop="airVolume">
-							</el-table-column>
+							<el-table-column label="解算风量(m³/min)" align="center" prop="airVolume"/>
 							<el-table-column label="解算前风量(m³/min)" align="center" prop="oldAirVolume">
 								<template #default="scope">
 									<span class="full_table_cell_bg" :class="cellStyle(scope.row.calBeforeDeviation)">{{
@@ -145,26 +144,17 @@
 							<el-table-column
 								label="目标风量(m³/min)"
 								align="center"
-								prop="minQ"
-							></el-table-column>
-							<el-table-column label="人工实测风量(m³/min)" align="center" prop="personQ">
-								<template #default="scope">
-									<span class="full_table_cell_bg" :class="cellStyle(scope.row.personQ)">{{
-										scope.row.personQ
-									}}</span>
-								</template>
-							</el-table-column>
+								prop="minQ"/>
+							<el-table-column label="人工实测风量(m³/min)" align="center" prop="personQ"/>
 							<el-table-column
 								label="解算风速(m/s)"
 								align="center"
-								prop="windSpeed"
-							></el-table-column>
-							<el-table-column label="风阻" align="center" prop="ventR"></el-table-column>
+								prop="windSpeed"/>
+							<el-table-column label="风阻" align="center" prop="ventR"/>
 							<el-table-column
 								label="解算风压(Pa)"
 								align="center"
-								prop="airPressure"
-							></el-table-column>
+								prop="airPressure"/>
 						</el-table>
 					</div>
 				</div>
