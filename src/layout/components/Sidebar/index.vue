@@ -23,8 +23,9 @@
 	<div>
 		<div class="sys_top">
 			<div class="sys_top_line1"><div class="d_line" /></div>
-			<div />
 			<div class="sys_top_line2"><div class="d_line" /></div>
+      <div class="sys_top_left_img"></div>
+      <div class="sys_top_right_img"></div>
 			<!--    左侧导航栏-->
 			<div class="sys_top_left_navigate">
 				<template v-for="(item, index) in leftSidebarRouters" :key="item.name">

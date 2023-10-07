@@ -2,7 +2,6 @@ import useEquipmentData from '@/hooks/useEquipmentData'
 import { deviceWarnList, roadAll, totalAirVolume } from '@/api/api/home'
 import { useThreeModelData } from '@/hooks/useThreeModelData'
 import { useGainList } from '@/hooks/useGainList'
-import { useGainForm } from '@/hooks/useForm'
 
 export const homeRightMess = () => {
 	// 矿井总风量

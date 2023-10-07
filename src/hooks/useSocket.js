@@ -1,7 +1,6 @@
 import ReconnectingWebSocket from 'reconnecting-websocket'
 export const useSocket = (key, nextFun = () => {}) => {
 	const socketIP = import.meta.env.VITE_APP_SOCKETIP
-	const nowTime = new Date()
 	// socket链接地址
 	const webSocketUrl = `${socketIP}/WebSocketServer/${key}|${new Date()}`
 	const socketData = ref()
@@ -19,7 +18,7 @@ export const useSocket = (key, nextFun = () => {}) => {
 				if (msg.data !== '连接成功') {
 					console.log(msg)
 					let dataMsg = JSON.parse(msg.data)
-					nextFun(dataMsg)
+					nextFun(dataMsg.data)
 				}
 			}
 			socketData.value.onclose = function () {

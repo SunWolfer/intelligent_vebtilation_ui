@@ -48,8 +48,8 @@ export const homeAirWindow = () => {
 	}
 
 	// 监听socket信息
-	// socket监听风门信息
-	const { clientSocket } = useSocket('adjust', dealWithData)
+	// socket监听风窗信息
+	const { clientSocket } = useSocket('|adjust', dealWithData)
 	// 接收socket信息
 	function dealWithData(data) {
 		if (data.id === dataForm.value.id && data.ip === dataForm.value.ip) {

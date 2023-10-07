@@ -348,6 +348,7 @@ export class ITunnelMesh {
 			showMesh: true,
 			showNode: true,
 		}
+		this.newNodes = []
 	}
 	// 	判断节点并添加巷道(连接操作)
 	judgeNode(intersected: any) {

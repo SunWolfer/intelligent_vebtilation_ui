@@ -29,7 +29,7 @@ export const homeAirDoor = () => {
 		}
 	}
 	// socket监听风门信息
-	const { clientSocket } = useSocket('door|adjust', dealWithData)
+	const { clientSocket,socketData } = useSocket('|door|adjust', dealWithData)
 	// 接收socket信息
 	function dealWithData(data) {
 		if (data.id === dataForm.value.id && data.ip === dataForm.value.ip) {
@@ -121,6 +121,10 @@ export const homeAirDoor = () => {
 	const hisRecordHandle = () => {
 		hisRecordVisible.value = true
 	}
+
+	onBeforeUnmount(() => {
+		socketData.value?.close()
+	})
 
 	return {
 		dataList,

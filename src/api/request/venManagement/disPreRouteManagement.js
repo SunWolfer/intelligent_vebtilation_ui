@@ -1,4 +1,3 @@
-import useList from '@/hooks/useList'
 import {
 	deleteEscape,
 	escapeExitList,
@@ -15,13 +14,13 @@ export const disPreRouteManagement = () => {
 	const { dataList: exitList, queryDataList: queryExitDataList } = useGainList({
 		apiFun: escapeExitList,
 		afterReadyDataFun: () => {
-			exitList.value.forEach((i) => {
-				i.point = {
+			for (let i = 0; i < exitList.value.length; i++) {
+				exitList.value[i].point = {
 					x: i.pointX,
 					y: i.pointY,
 					z: i.pointZ,
 				}
-			})
+			}
 		},
 	})
 

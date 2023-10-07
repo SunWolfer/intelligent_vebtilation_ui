@@ -53,6 +53,7 @@
 			planeHei(val) {
 				if (!this.planeModel) return
 				this.planeModel.position.y = val ? val : 0
+        this.$emit('planeHeight',val)
 			},
 		},
 		computed: {
@@ -203,7 +204,9 @@
 						// this.tunnelMesh.redrawModel(redrawList)
 						//   返回连接完成
 						this.$emit('readyAdd')
-					}
+					} else {
+            this.$emit('addPosition',this.tunnelMesh.newNodes)
+          }
 				}
 				// 连接
 				if (this.editType === EditType.CONNECT) {

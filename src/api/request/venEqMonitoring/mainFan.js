@@ -4,7 +4,6 @@ import {
 	activeStopMain,
 	backWindMain,
 	intelligentWindControlMain,
-	mainFanInfo,
 	manFanList,
 	standbyForwardStartMain,
 	standbyReverseStartMain,

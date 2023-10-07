@@ -22,13 +22,13 @@
 
 	const typeList = [
 		{
-			label: '科技模式',
-			value: '1',
+			label: '经典模式',
+			value: '2',
 			iconClass: 'home_model_type_item_icon1',
 		},
 		{
-			label: '经典模式',
-			value: '2',
+			label: '科技模式',
+			value: '1',
 			iconClass: 'home_model_type_item_icon2',
 		},
 	]

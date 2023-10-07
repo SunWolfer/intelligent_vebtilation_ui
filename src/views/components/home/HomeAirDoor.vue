@@ -171,14 +171,15 @@
 				<div class="home_air_door_body_c2_item6_l5">
 					<div
 						class="home_air_door_body_c2_item6_l5_bg"
+            :class="dataForm.lockStatus === '1' ? 'deadlock_bg':'open_lock_bg'"
 						@click="
 							controlDoorHandle(dataForm.lockStatus === '1' ? ControlKey.SEVEN : ControlKey.EIGHT)
 						"
 					>
-						<span>关闭中</span>
+						<span>{{dataForm.lockStatus === '1' ? '关闭中': ''}}</span>
 					</div>
 					<div class="home_air_door_body_c2_item6_l5_title">
-						{{ dataForm.lockStatus === '1' ? '闭锁' : '解除闭锁' }}
+            闭锁
 					</div>
 				</div>
 			</div>

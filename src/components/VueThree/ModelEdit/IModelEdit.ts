@@ -340,12 +340,12 @@ export class IModelEdit {
 		})
 	}
 	// 	从模型中删除对象
-	removeObj(objects: Mesh[]) {
+	removeObj(objects: any[]) {
 		toNextByIndex(this.hierarchy, this.object, (obj: Mesh) => {
 			obj.remove(...objects)
-			objects.forEach((i) => {
-				i.geometry.dispose()
-			})
+			for (let i = 0; i < objects.length; i++) {
+				objects[i].geometry.dispose()
+			}
 		})
 	}
 	// 根据模型对象名称删除

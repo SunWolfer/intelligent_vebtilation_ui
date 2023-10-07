@@ -1,4 +1,4 @@
-import { parseTime } from '@/utils/ruoyi'
+import {parseTime} from '@/utils/ruoyi'
 
 /**
  * 表格时间格式化
@@ -144,8 +144,7 @@ export function param2Obj(url: string) {
 		const index = v.indexOf('=')
 		if (index !== -1) {
 			const name = v.substring(0, index)
-			const val = v.substring(index + 1, v.length)
-			obj[name] = val
+			obj[name] = v.substring(index + 1, v.length)
 		}
 	})
 	return obj

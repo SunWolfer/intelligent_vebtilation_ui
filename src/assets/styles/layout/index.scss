@@ -3,7 +3,7 @@
   width: 100%;
   height: vh(91);
   display: grid;
-  grid-template-columns: vw(1008) auto vw(1008);
+  grid-template-columns: vw(203) vw(800) 1fr vw(740) vw(256);
   grid-template-rows: vh(45) vh(46);
 }
 //顶部装饰线1
@@ -17,6 +17,7 @@
   }
 }
 .sys_top_line1{
+  grid-area: 1/1/2/3;
   @include sysDecorateLine;
   .d_line{
     background-image: linear-gradient(
@@ -30,6 +31,7 @@
 
 }
 .sys_top_line2{
+  grid-area: 1/4/2/6;
   @include sysDecorateLine;
   .d_line{
     background-image: linear-gradient(
@@ -42,25 +44,49 @@
   }
 
 }
+//左侧图片
+.sys_top_left_img{
+  grid-area: 2/1/3/2;
+  width: vw(131);
+  height: vw(33);
+  background-image: url("@/assets/images/layout/logo_left.png");
+  background-size: 100% 100%;
+  align-self: center;
+  justify-self: end;
+}
+.sys_top_right_img {
+  grid-area: 2/5/3/6;
+  width: vw(135);
+  height: vw(33);
+  background-image: url("@/assets/images/layout/logo_right.png");
+  background-size: 100% 100%;
+  align-self: center;
+}
+//右侧图片
 //左侧导航栏
 .sys_top_left_navigate{
+  grid-area: 2/2/3/3;
   display: grid;
-  grid-template-columns: vw(170) repeat(4, vw(210));
+  grid-template-columns: vw(80) repeat(4, 1fr);
+  grid-column-gap: vw(20);
   grid-template-rows: vh(46);
   justify-content: start;
   align-items: center;
 }
 //右侧导航栏
 .sys_top_right_navigate{
+  grid-area: 2/4/3/5;
   display: grid;
-  grid-template-columns: repeat(4,vw(210)) auto;
+  grid-template-columns: repeat(4,1fr);
+  grid-column-gap: vw(20);
   grid-template-rows: auto;
+  align-items: center;
 }
 //首页图标
 .navigate_home{
   position: relative;
-  width: vh(32);
-  height: vh(32);
+  width: vw(32);
+  height: vw(32);
   background-image: url("@/assets/images/layout/home.gif");
   background-size: 100% 100%;
   float: right;
@@ -73,15 +99,16 @@
 
 //导航栏标签背景
 @mixin navigateBG{
-  width: vh(169);
-  height: vh(36);
+  width: 100%;
+  height: vw(36);
   text-align: center;
   font-size: vw(18);
   font-family: Adobe Heiti Std, serif;
   font-weight: normal;
-  line-height: vh(36);
   background-size: 100% 100%;
   cursor: pointer;
+  display: grid;
+  align-items: center;
 }
 //左侧导航栏标签默认背景
 @mixin navigateLeftDefault{
@@ -139,6 +166,7 @@
   -webkit-text-fill-color: transparent;
 }
 .sys_title {
+  grid-area: 2/3/3/4;
   position: relative;
   text-align: center;
   span{

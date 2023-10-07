@@ -36,16 +36,18 @@ export const fullSecWindMeasurement = () => {
 		},
 	})
 	// 测风站socket
-	const { clientSocket: clientFullWindSocket } = useSocket('fullwind|adjustAll', getFullSocketMsg)
+	const { socketData:socketFullData,clientSocket: clientFullWindSocket } = useSocket('|fullwind|adjustAll', getFullSocketMsg)
 
 	function getFullSocketMsg(data) {
 		// 测风站数据
 		const fullData = data.info
-		fullSecWindList.value.forEach((i) => {
+		const tIndex = ref(-1)
+		fullSecWindList.value.forEach((i,index) => {
 			if (fullData.id === i.id) {
-				i = fullData
+				tIndex.value = index
 			}
 		})
+		if (tIndex.value !==-1) fullSecWindList.value[tIndex.value] = fullData
 		//自动测风站记录
 		const boardList = data.board
 
@@ -54,26 +56,26 @@ export const fullSecWindMeasurement = () => {
 		const defaultData = [
 			{
 				label: '风量',
-				value: cData.airVolume,
+				value: cData?.airVolume,
 				unit: 'm³/min',
 			},
 			{
 				label: '风速',
-				value: cData.windSpeed,
+				value: cData?.windSpeed,
 				unit: 'm/s',
 			},
 			{
 				label: '断面',
-				value: cData.surface,
+				value: cData?.surface,
 				unit: '㎡',
 			},
 		]
 		aneTableData.value.push(...defaultData)
 		for (let i = 0; i < boardList.length; i++) {
 			aneTableData.value.push({
-				label: boardList[i].propertyName,
-				value: boardList[i].propertyValue ?? '-',
-				unit: boardList[i].propertyUnit,
+				label: boardList[i]?.propertyName,
+				value: boardList[i]?.propertyValue ?? '-',
+				unit: boardList[i]?.propertyUnit,
 			})
 		}
 	}
@@ -159,7 +161,7 @@ export const fullSecWindMeasurement = () => {
 	const oneWindSocketData = ref()
 	// 开始测风
 	const startMeasuringTheWind = async (data) => {
-		oneWindSocketData.value = undefined
+		oneWindSocketData.value?.close()
 		realWindDataList.value = []
 		await useCommitForm(startWindDev, {
 			queryParams: data.id,
@@ -292,6 +294,7 @@ export const fullSecWindMeasurement = () => {
 
 	onBeforeUnmount(() => {
 		clearInterval(startWindInterval.value)
+		socketFullData.value.close()
 	})
 	return {
 		choose,

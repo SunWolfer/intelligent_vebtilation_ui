@@ -24,7 +24,7 @@
 			:style="{ 'grid-area': i.gridArea }"
 		></div>
 		<div
-			v-if="i.isInput"
+			v-if="i.isInput && i.formKey"
 			:class="i.bodyClass ?? 'table_item_body'"
 			:style="{ 'grid-area': i.gridArea }"
 		>

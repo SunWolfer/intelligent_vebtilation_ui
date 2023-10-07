@@ -32,7 +32,6 @@
 				realWindDataList: [],
 			}
 		})
-		console.log(props.dataList)
 	}
 	onMounted(() => {
 		initWindList?.()
@@ -56,20 +55,22 @@
 	function dealWithData(data) {
 		receiveTime.value = 0
 		timeout?.()
-		windList.value.forEach((i) => {
-			if (i.id === data.id && i.ipAddr === data.ipAddr) {
-				i.realWindDataList.push({
-					value: data.windSpeed,
-					time: parseTime(new Date()),
-				})
-			}
-		})
+    for (let i = 0; i < windList.value.length; i++) {
+      const windData = windList.value[i]
+      if (windData.id === data.id && windData.ipAddr === data.ipAddr) {
+        windData.realWindDataList.push({
+          value: data.windSpeed,
+          time: parseTime(new Date()),
+        })
+      }
+    }
 	}
 
-	const { clientSocket } = useSocket('fullwind|CollectAll', dealWithData)
+	const { clientSocket,socketData } = useSocket('|fullwind|CollectAll', dealWithData)
 
 	onBeforeMount(() => {
 		clearInterval(receiveTimeInterval.value)
+    socketData.value?.close()
 	})
 </script>
 

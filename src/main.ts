@@ -32,8 +32,6 @@ import {
 } from '@/utils/ruoyi'
 
 const app = createApp(App)
-
-app.config.globalProperties.global = 'ws://127.0.0.1:8080'
 // 全局方法挂载
 app.config.globalProperties.parseTime = parseTime
 app.config.globalProperties.handleTree = handleTree

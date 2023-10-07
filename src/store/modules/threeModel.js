@@ -8,7 +8,7 @@ const threeModel = defineStore('three-model', {
 		// 巷道详情
 		roadAllList: [],
 		// 	模型样式 '1'科技模式 ‘2‘经典模型
-		modelType: '1',
+		modelType: '2',
 		// 	模型大小
 		modelSize: 2,
 	}),

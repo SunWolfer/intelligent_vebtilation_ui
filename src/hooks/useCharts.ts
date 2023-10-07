@@ -4,7 +4,6 @@ export default (domId: string) => {
 	const option = ref({})
 	const charEle = document.getElementById(domId) as HTMLElement
 	myChart.value = markRaw(echarts.init(charEle))
-
 	watch(
 		() => option.value,
 		() => {
@@ -14,5 +13,6 @@ export default (domId: string) => {
 
 	return {
 		option,
+		myChart
 	}
 }

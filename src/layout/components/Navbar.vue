@@ -96,7 +96,6 @@
 
 			.avatar-container {
 				.avatar-wrapper {
-					margin-top: 5px;
 					position: relative;
 					color: #ffffff;
 

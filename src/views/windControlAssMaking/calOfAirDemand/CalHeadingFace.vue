@@ -135,14 +135,14 @@
 							</template>
 
 							<div class="child_body_item_t3_line">
-								<span>采煤工作面回风瓦斯涌出量(m³/min)</span>
+								<span>掘进工作面回风瓦斯涌出量(m³/min)</span>
 								<el-input
 									:disabled="dataForm.gasPredictType === '1'"
 									v-model="dataForm.gasEmission"
 								/>
 							</div>
 							<div class="child_body_item_t3_line">
-								<span>采煤工作面瓦斯涌出备用风量系数</span>
+								<span>掘进工作面瓦斯涌出备用风量系数</span>
 								<el-input v-model="dataForm.gasAirCoe" />
 							</div>
 							<div class="child_body_item_t3_line">
@@ -193,14 +193,14 @@
 							</template>
 
 							<div class="child_body_item_t3_line">
-								<span>采煤工作面回风CO2涌出量(m³/min)</span>
+								<span>掘进工作面回风CO2涌出量(m³/min)</span>
 								<el-input
 									:disabled="dataForm.co2PredictType === '1'"
 									v-model="dataForm.co2Emission"
 								/>
 							</div>
 							<div class="child_body_item_t3_line">
-								<span>采煤工作面CO2涌出备用风量系数</span>
+								<span>掘进工作面CO2涌出备用风量系数</span>
 								<el-input v-model="dataForm.co2AirCoe" />
 							</div>
 							<div class="child_body_item_t3_line">
@@ -241,7 +241,7 @@
 							</template>
 
 							<div class="child_body_item_t3_line">
-								<span>采煤工作面同时工作最大人数(人) </span>
+								<span>掘进工作面同时工作最大人数(人) </span>
 								<el-input
 									:disabled="dataForm.personPredictType === '1'"
 									v-model="dataForm.personTotal"
@@ -263,7 +263,7 @@
 						</div>
 						<div class="child_body_item_t3">
 							<div class="child_body_item_t3_line">
-								<span>采煤工作面一次爆破最大炸药量(kg) </span>
+								<span>掘进工作面一次爆破最大炸药量(kg) </span>
 								<el-input v-model="dataForm.powderTotal" />
 							</div>
 							<div class="child_body_item_t3_line">

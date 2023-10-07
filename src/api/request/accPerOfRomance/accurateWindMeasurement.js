@@ -108,18 +108,23 @@ export const accurateWindMeasurement = () => {
 	}
 
 	// 连接socket
-	const { clientSocket } = useSocket(`windsensor|adjustAll`, getSocketMsg)
+	const { clientSocket,socketData } = useSocket(`|windsensor|adjustAll`, getSocketMsg)
 
 	function getSocketMsg(data) {
-		windList.value.forEach((i) => {
+		const tIndex = ref(-1)
+		windList.value.forEach((i,index) => {
 			if (i.id === data.id) {
-				i = data
+				tIndex.value = index
 			}
 		})
+		tIndex.value !==-1 && (windList.value[tIndex] = data)
 	}
 
 	onMounted(() => {
 		clientSocket?.()
+	})
+	onBeforeUnmount(() => {
+		socketData.value?.close()
 	})
 
 	return {

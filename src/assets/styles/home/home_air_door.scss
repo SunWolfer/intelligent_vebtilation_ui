@@ -163,7 +163,7 @@
 				position: relative;
 				width: vw(144);
 				height: vw(144);
-				background-image: url('@/assets/images/equipment/deadlock.png');
+
 				background-size: 100% 100%;
 				text-align: center;
 				padding-top: vw(86);
@@ -179,6 +179,14 @@
 					-webkit-background-clip: text;
 					-webkit-text-fill-color: transparent;
 				}
+			}
+			//关闭中
+			.deadlock_bg{
+				background-image: url('@/assets/images/equipment/deadlock.png');
+			}
+			//开启中
+			.open_lock_bg{
+				background-image: url("@/assets/images/equipment/openlock.gif");
 			}
 			.home_air_door_body_c2_item6_l5_title {
 				width: 100%;

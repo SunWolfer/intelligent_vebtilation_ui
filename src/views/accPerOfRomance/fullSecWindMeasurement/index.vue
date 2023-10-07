@@ -35,15 +35,7 @@
 		videoVisible,
 	} = fullSecWindMeasurement()
 
-	const dateTime = ref('')
-	const timeInterval = ref(-1)
-	timeInterval.value = setInterval(() => {
-		dateTime.value = parseTime(new Date())
-	}, 1000)
 
-	onBeforeUnmount(() => {
-		clearInterval(timeInterval.value)
-	})
 </script>
 
 <template>
@@ -117,7 +109,7 @@
 			</div>
 		</div>
 		<div class="full_body_l2">
-			<LoadWindMeaStation :play-mod="playMod" />
+			<LoadWindMeaStation :play-mod="playMod" :choose="choose" :ane-table-data="aneTableData" />
 			<div class="full_body_l2_item">
 				<div v-show="playMod" class="full_body_l2_item_bg full_body_l2_item_text_left">
 					<span>实时测风数据</span>
@@ -129,18 +121,6 @@
 								<div>时间：{{ i.time }}</div>
 							</div>
 						</vue3-seamless-scroll>
-					</div>
-				</div>
-				<div v-show="choose !== -1" class="full_body_l2_item_bg full_body_l2_item_text_right">
-					<span>自动测风站记录</span>
-					<span>{{ dateTime }}</span>
-					<div class="full_body_l2_item_text_table">
-						<template v-for="item in aneTableData">
-							<div class="full_body_l2_item_text_table_item">
-								<span>{{ item.label + '  ' + item.value }}</span>
-								<span>{{ item.unit }}</span>
-							</div>
-						</template>
 					</div>
 				</div>
 			</div>

@@ -921,8 +921,7 @@ export function getChart5(domId, type, value, title) {
 	setTimeout(startTimer, 1000)
 }
 // 监测曲线
-export function getLineChartOption(domId, names, lineX, value) {
-	const { option } = useCharts(domId)
+export function getLineChartOption(names, lineX, value) {
 	let charts = {
 		names: names,
 		lineX: lineX,
@@ -1046,7 +1045,7 @@ export function getLineChartOption(domId, names, lineX, value) {
 		lineY.push(data)
 	}
 
-	option.value = {
+	return {
 		tooltip: {
 			trigger: 'axis',
 		},
