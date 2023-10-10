@@ -1,5 +1,5 @@
-import useTagsViewStore from '@/store/modules/tagsView'
 import router from '@/router/index'
+import useTagsViewStore from '@/store/modules/tagsView'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
 export default {

@@ -1,9 +1,6 @@
-import { ComputedRef, Ref } from 'vue'
-import {
-	addResizeListener,
-	removeResizeListener,
-} from '@/utils/border-box/resize-event'
+import { addResizeListener, removeResizeListener } from '@/utils/border-box/resize-event'
 import { debounce, deepCopy, deepMerge } from '@/utils/border-box/util'
+import { ComputedRef, Ref } from 'vue'
 
 export function useAutoResize(afterResizeFun?: () => void) {
 	const domRef = ref(null) // dorm容器，默认设置为domRef
@@ -59,10 +56,7 @@ export function useBorderBox(
 	const defaultColor = ref(_defaultColor)
 
 	function mergeColor() {
-		mergedColor.value = deepMerge(
-			deepCopy(defaultColor.value),
-			props.color || [],
-		)
+		mergedColor.value = deepMerge(deepCopy(defaultColor.value), props.color || [])
 	}
 
 	watch(
@@ -86,15 +80,8 @@ export function useBorderBox(
 }
 
 //获取动态点
-export function getPoint(
-	[x, y]: any,
-	[standardW, standardH]: any,
-	[width, height]: any,
-) {
-	return [
-		(x / standardW) * width.toFixed(3),
-		(y / standardH) * height.toFixed(3),
-	]
+export function getPoint([x, y]: any, [standardW, standardH]: any, [width, height]: any) {
+	return [(x / standardW) * width.toFixed(3), (y / standardH) * height.toFixed(3)]
 }
 //获取路径
 export function getPath(Point: ComputedRef<number[][]> | Ref<number[][]>) {

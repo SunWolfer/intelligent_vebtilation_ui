@@ -1,9 +1,9 @@
 <!--二级菜单-->
 <script setup lang="ts">
 	import { layout } from '@/api/request/layout'
-	import AppLink from './Link.vue'
 	import { IRouteRecordRaw } from '@/router'
 	import { onClickOutside } from '@vueuse/core'
+	import AppLink from './Link.vue'
 
 	interface secondaryProps {
 		// 是否显示菜单

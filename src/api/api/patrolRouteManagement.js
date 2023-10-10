@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+
 // 巡检路线查询
 export function pathList(query) {
 	return request({

@@ -23,8 +23,9 @@
 </template>
 
 <script setup lang="ts">
-	import useUserStore from '@/store/modules/user'
 	import useCurrentInstance from '@/hooks/useCurrentInstance'
+	import useUserStore from '@/store/modules/user'
+
 	const userStore = useUserStore()
 
 	function handleCommand(command: any) {

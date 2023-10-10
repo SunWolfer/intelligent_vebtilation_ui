@@ -12,7 +12,6 @@ import store from './store'
 import router from './router/index'
 import directive from './directive/index' // directive
 
-import '@/assets/styles/element-ui.scss'
 // 注册指令
 import plugins from '@/plugins/index' // plugins
 

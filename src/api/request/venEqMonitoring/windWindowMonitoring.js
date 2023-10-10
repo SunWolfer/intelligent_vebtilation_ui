@@ -3,6 +3,7 @@ import { monitoring } from '@/api/request/venEqMonitoring/monitoring'
 import useList from '@/hooks/useList'
 import useEquipmentParams from '@/hooks/useEquipmentParams'
 import { stateTotal, windowHomeList } from '@/api/api/windWindowMonitoring'
+
 export const windWindowMonitoring = () => {
 	//   顶部预警表单
 	const { dataFrom, getDataForm } = useGainForm({

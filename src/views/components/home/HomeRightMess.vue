@@ -20,9 +20,9 @@
 		manualControlWarnIcon,
 		closeWarnIcon,
 		maxWarnType,
-    getWarnListData,
-    queryAirVolumeList,
-    queryRoadAllList
+		getWarnListData,
+		queryAirVolumeList,
+		queryRoadAllList,
 	} = homeRightMess()
 	const { toPosition, equipTypeList } = useEquipmentData()
 	const { fan_work_status } = useDict('fan_work_status')
@@ -42,11 +42,11 @@
 	}
 	const { dislodgeDomStyle, warnStyle } = useHomeMenu()
 
-  onActivated(() =>{
-    queryAirVolumeList?.()
-    getWarnListData?.()
-    queryRoadAllList?.()
-  })
+	onActivated(() => {
+		queryAirVolumeList?.()
+		getWarnListData?.()
+		queryRoadAllList?.()
+	})
 </script>
 
 <template>

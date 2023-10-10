@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { defineComponent } from 'vue'
 	import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+	import { defineComponent } from 'vue'
 	import mixin from './model-mixin.vue'
 
 	export default defineComponent({

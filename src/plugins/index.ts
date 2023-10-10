@@ -1,7 +1,7 @@
-import tab from './tab'
 import auth from './auth'
 import cache from './cache'
 import modal from './modal'
+import tab from './tab'
 
 export default function installPlugins(app: any) {
 	// 页签操作

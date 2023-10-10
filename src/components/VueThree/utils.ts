@@ -1,4 +1,4 @@
-import { Box3, Vector3, Vector2, BufferAttribute, Object3D, BufferGeometry } from 'three'
+import { Box3, BufferAttribute, BufferGeometry, Object3D, Vector2, Vector3 } from 'three'
 
 const box = new Box3()
 

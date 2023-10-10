@@ -3,7 +3,6 @@
 	import AfterCalculation from '@/views/windControlAssMaking/naturalDisNetSolution/afterCalculation.vue'
 	import { useCommitForm } from '@/hooks/useForm'
 	import { naturedCalculateSimulate, reloadDrawing } from '@/api/api/naturalDisNetSolution'
-	import { useLoading } from '@/hooks/useLoading'
 	import { fixedCalculateSimulate } from '@/api/api/onDemandAirDisNetSolution'
 	import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
 

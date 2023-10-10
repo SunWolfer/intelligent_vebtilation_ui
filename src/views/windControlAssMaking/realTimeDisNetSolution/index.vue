@@ -117,11 +117,9 @@
 						></el-table-column>
 						<el-table-column label="实时风量(m³/min)" align="center" prop="windSensorAirVolume">
 							<template #default="scope">
-								<span
-									class="full_table_cell_bg"
-									:class="cellStyle(scope.row.calSensorDeviation)"
-									>{{ scope.row.windSensorAirVolume }}</span
-								>
+								<span class="full_table_cell_bg" :class="cellStyle(scope.row.calSensorDeviation)">{{
+									scope.row.windSensorAirVolume
+								}}</span>
 							</template>
 						</el-table-column>
 						<el-table-column label="人工实测风量(m³/min)" align="center" prop="personQ">

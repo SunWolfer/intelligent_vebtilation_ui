@@ -1,7 +1,7 @@
 import axios from 'axios'
-import {CatmullRomCurve3, Euler, Matrix4, Quaternion, Vector3} from 'three'
-import {FBXLoader} from 'three/examples/jsm/loaders/FBXLoader'
-import {CSS2DObject} from 'three/examples/jsm/renderers/CSS2DRenderer'
+import { CatmullRomCurve3, Euler, Matrix4, Quaternion, Vector3 } from 'three'
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
 import * as XLSX from 'xlsx'
 
 export interface IMoveTexture {

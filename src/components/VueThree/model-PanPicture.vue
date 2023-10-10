@@ -1,16 +1,17 @@
 <!--全景查看-->
 <script setup lang="ts">
-import {
-  PerspectiveCamera,
-  Scene,
-  WebGLRenderer,
-  SphereGeometry,
-  TextureLoader,
-  MeshBasicMaterial,
-  Mesh,
-  MathUtils, SRGBColorSpace,
-} from 'three'
-	import { ref, onMounted, onUnmounted } from 'vue'
+	import {
+		MathUtils,
+		Mesh,
+		MeshBasicMaterial,
+		PerspectiveCamera,
+		Scene,
+		SphereGeometry,
+		SRGBColorSpace,
+		TextureLoader,
+		WebGLRenderer,
+	} from 'three'
+	import { onMounted, onUnmounted, ref } from 'vue'
 
 	const props = defineProps({
 		src: {
@@ -101,7 +102,7 @@ import {
 		geometry.scale(-1, 1, 1)
 
 		const texture = new TextureLoader().load(props.src)
-    texture.colorSpace = SRGBColorSpace
+		texture.colorSpace = SRGBColorSpace
 		material = new MeshBasicMaterial({ map: texture })
 
 		const mesh = new Mesh(geometry, material)

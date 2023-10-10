@@ -12,16 +12,18 @@ import {
 	Quaternion,
 	RepeatWrapping,
 	Scene,
-	SphereGeometry, SRGBColorSpace,
+	SphereGeometry,
+	SRGBColorSpace,
 	Texture,
 	TextureLoader,
 	Vector3,
 } from 'three'
-import usePoint from './IPoint'
 import { TubeGeometry } from 'three/src/geometries/TubeGeometry'
+import useEditModel from '../hooks/useEditModel'
 // 风流图片
 import ___image_direction_png from '../image/direction.png'
-import useEditModel from "../hooks/useEditModel";
+import usePoint from './IPoint'
+
 interface wind {
 	obj: Mesh
 	texture: Texture

@@ -89,8 +89,8 @@
 		operateModel.value.created3DFont(props.fontList)
 		//   添加图标
 		loadAllTypeList?.()
-    // 添加巷道名字贴图
-    operateModel.value?.createdImgPlane()
+		// 添加巷道名字贴图
+		operateModel.value?.createdImgPlane()
 	}
 	const emits = defineEmits(['addWindow', 'readyConnect', 'chooseTunnel'])
 	// 双击
@@ -151,9 +151,12 @@
 		homeModelVisible.value.tunnelMesh.emptyNewTunnel()
 	}
 	// 监听巷道被点击
-	watch(() => intersected.value, (val) => {
-		val && emits('chooseTunnel', val)
-	})
+	watch(
+		() => intersected.value,
+		(val) => {
+			val && emits('chooseTunnel', val)
+		},
+	)
 	// 设置选中
 	function setSelectModel(name) {
 		homeModelVisible.value?.setSelectObject(name)

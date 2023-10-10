@@ -308,7 +308,6 @@
 		font-family: YouSheBiaoTiHei, serif;
 		font-weight: 400;
 		color: rgba(255, 255, 255, 0.78);
-		text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
 		background: linear-gradient(180deg, #d7e8ff 30%, #2bbbea 100%);
 		-webkit-background-clip: text;

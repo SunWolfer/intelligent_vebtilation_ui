@@ -1,5 +1,5 @@
-import { ElMessage, ElMessageBox, ElNotification, ElLoading } from 'element-plus'
 import PromptBox from '@/components/PromptBox/index.vue'
+import { ElLoading, ElMessage, ElMessageBox, ElNotification } from 'element-plus'
 import { createVNode, render } from 'vue'
 
 let loadingInstance: { close: () => void }

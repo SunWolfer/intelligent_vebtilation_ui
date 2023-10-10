@@ -1,8 +1,9 @@
+import { AnimationClip } from 'three'
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter'
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
-import { AnimationClip } from 'three'
 import { Group } from 'three/src/Three'
 import { ref } from 'vue'
+
 const useThreeExport = () => {
 	const GLTFParams = ref({
 		trs: false, //导出位置、旋转和缩放，而不是每个节点的矩阵 默认是false

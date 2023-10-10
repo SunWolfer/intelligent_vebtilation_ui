@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { deviceTypes } from '@/api/request/menuType'
 import { EditType } from '@/components/VueThree/types/editType'
 import { deviceAll } from '@/api/api/home'
+
 const useEquipment = defineStore('equipment-data', {
 	state: () => ({
 		// 设备信息

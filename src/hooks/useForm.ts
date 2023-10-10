@@ -1,7 +1,7 @@
 import useCurrentInstance from '@/hooks/useCurrentInstance'
 import { useLoading } from '@/hooks/useLoading'
-import { ElMessage } from 'element-plus'
 import type { FormInstance } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { Ref } from 'vue'
 
 export interface IForm<TData> {

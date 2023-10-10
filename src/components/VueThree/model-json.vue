@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { defineComponent } from 'vue'
 	import { ObjectLoader } from 'three'
+	import { defineComponent } from 'vue'
 	import mixin from './model-mixin.vue'
 
 	export default defineComponent({

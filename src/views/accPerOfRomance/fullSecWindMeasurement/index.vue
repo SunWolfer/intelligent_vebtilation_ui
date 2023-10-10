@@ -7,7 +7,6 @@
 	import WarnTableRecord from '@/views/components/warnTableRecord'
 	import LoadWindMeaStation from '@/views/components/loadModel/loadWindMeaStation.vue'
 	import MeasuringWind from '@/views/accPerOfRomance/fullSecWindMeasurement/measuringWind.vue'
-	import { parseTime } from '@/utils/ruoyi'
 
 	const {
 		choose,
@@ -34,8 +33,6 @@
 		videoPath,
 		videoVisible,
 	} = fullSecWindMeasurement()
-
-
 </script>
 
 <template>

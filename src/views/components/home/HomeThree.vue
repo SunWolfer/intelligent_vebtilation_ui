@@ -12,10 +12,8 @@
 	import WindSpeedMsg from '@/views/components/equiptmentMsg/WindSpeedMsg.vue'
 	import { threeDisasterRoute } from '@/api/request/home/homeThree/threeDisasterRoute'
 	import { deviceTypes } from '@/api/request/menuType'
-  import {EditType} from "@/components/VueThree/types/editType";
-  import TunnelMessage
-    from "@/views/components/equiptmentMsg/TunnelMessage.vue";
-  import {homeMenu} from "@/api/request/home/homeMenu";
+	import TunnelMessage from '@/views/components/equiptmentMsg/TunnelMessage.vue'
+	import { homeMenu } from '@/api/request/home/homeMenu'
 
 	const tabs = reactive([
 		{
@@ -119,18 +117,21 @@
 		intersectedPosition,
 	} = useThree()
 
-  const readyCamera = () => {
-    operateModel.value?.createdImgPlane()
-    if (showTypeList.value) {
-      nextFun?.(showTypeList.value)
-    }
-  }
+	const readyCamera = () => {
+		operateModel.value?.createdImgPlane()
+		if (showTypeList.value) {
+			nextFun?.(showTypeList.value)
+		}
+	}
 
-  const emits = defineEmits(['chooseTunnel'])
+	const emits = defineEmits(['chooseTunnel'])
 
-  watch(() => intersected.value, (val) => {
-    val && emits('chooseTunnel', val)
-  })
+	watch(
+		() => intersected.value,
+		(val) => {
+			val && emits('chooseTunnel', val)
+		},
+	)
 
 	const { reverseWind } = useHomeMenu()
 	// 监听反风，重绘风流
@@ -166,7 +167,7 @@
 		disasterRoute,
 		createdDisasterSpread,
 	})
-  const {showTunnelMesVisible} = homeMenu()
+	const { showTunnelMesVisible } = homeMenu()
 </script>
 
 <template>
@@ -219,13 +220,13 @@
 					<div v-for="i in disasterPeopleList" :key="i.id" :id="i.id" class="disaster_start"></div>
 				</template>
 			</template>
-      <template #default>
-        <tunnel-message
-          v-if="!showTunnelMesVisible"
-          :intersected="intersected"
-          :operate-model="operateModel"
-        />
-      </template>
+			<template #default>
+				<tunnel-message
+					v-if="!showTunnelMesVisible"
+					:intersected="intersected"
+					:operate-model="operateModel"
+				/>
+			</template>
 		</model-generation>
 	</div>
 </template>

@@ -174,7 +174,7 @@
 </template>
 
 <script setup>
-	import { listDept, getDept, delDept, addDept, updateDept } from '@/api/system/dept'
+	import { addDept, delDept, getDept, listDept, updateDept } from '@/api/system/dept'
 	import useDict from '@/hooks/useDict'
 
 	const { proxy } = getCurrentInstance()

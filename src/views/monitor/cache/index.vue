@@ -21,9 +21,7 @@
 									</td>
 									<td class="el-table__cell is-leaf">
 										<div class="cell" v-if="cache.info">
-											{{
-												cache.info.redis_mode == 'standalone' ? '单机' : '集群'
-											}}
+											{{ cache.info.redis_mode == 'standalone' ? '单机' : '集群' }}
 										</div>
 									</td>
 									<td class="el-table__cell is-leaf">
@@ -65,9 +63,7 @@
 									</td>
 									<td class="el-table__cell is-leaf">
 										<div class="cell" v-if="cache.info">
-											{{
-												parseFloat(cache.info.used_cpu_user_children).toFixed(2)
-											}}
+											{{ parseFloat(cache.info.used_cpu_user_children).toFixed(2) }}
 										</div>
 									</td>
 									<td class="el-table__cell is-leaf">

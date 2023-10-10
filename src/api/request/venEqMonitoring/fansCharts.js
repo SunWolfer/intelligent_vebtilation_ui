@@ -1,6 +1,7 @@
 import useCharts from '@/hooks/useCharts'
-import { dynamicHeight } from '@/utils/ruoyi'
-import { getSeriesData } from '@/utils/echarts/defaultLineCharts'
+import {dynamicHeight} from '@/utils/ruoyi'
+import {getSeriesData} from '@/utils/echarts/defaultLineCharts'
+
 // 风机特性曲线
 export function fanChart1({
 	domId,

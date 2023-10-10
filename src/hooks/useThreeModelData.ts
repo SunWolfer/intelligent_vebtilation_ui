@@ -1,4 +1,4 @@
-import {homeMenu} from "@/api/request/home/homeMenu";
+import { homeMenu } from '@/api/request/home/homeMenu'
 import threeModel from '@/store/modules/threeModel'
 
 export const useThreeModelData = () => {
@@ -83,6 +83,6 @@ export const useThreeModelData = () => {
 		modelType,
 		changeType,
 		modelSize,
-		refreshModelFun
+		refreshModelFun,
 	}
 }

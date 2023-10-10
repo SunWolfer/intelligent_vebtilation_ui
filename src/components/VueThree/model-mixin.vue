@@ -1,47 +1,47 @@
 <script lang="ts">
-import {
-  AmbientLight,
-  Color,
-  DirectionalLight,
-  HemisphereLight,
-  Light,
-  Loader,
-  Object3D,
-  PerspectiveCamera,
-  PointLight,
-  Raycaster,
-  Scene,
-  Vector2,
-  Vector3,
-  WebGLRenderer,
-  WebGLRendererParameters,
-  SRGBColorSpace,
-  SpotLight,
-  Mesh, AnimationMixer, Clock,
-} from 'three'
-	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-	import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
-	import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
-	import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
-	import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass'
-	import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader'
-	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-	import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
-
-	import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer'
-	import { CSS3DRenderer } from 'three/examples/jsm/renderers//CSS3DRenderer'
-
-	import { getSize, modelLine } from './utils'
-	import { defineComponent, PropType } from 'vue'
-
 	import gsap from 'gsap'
 	import { CSSRulePlugin } from 'gsap/CSSRulePlugin'
+	import {
+		AmbientLight,
+		AnimationMixer,
+		Clock,
+		Color,
+		DirectionalLight,
+		HemisphereLight,
+		Light,
+		Loader,
+		Mesh,
+		Object3D,
+		PerspectiveCamera,
+		PointLight,
+		Raycaster,
+		Scene,
+		SpotLight,
+		SRGBColorSpace,
+		Vector2,
+		Vector3,
+		WebGLRenderer,
+		WebGLRendererParameters,
+	} from 'three'
+	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+	import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
+	import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+	import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
+	import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass'
+	import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
+	import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
+	import { CSS3DRenderer } from 'three/examples/jsm/renderers//CSS3DRenderer'
+
+	import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer'
+	import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader'
+	import { defineComponent, PropType } from 'vue'
+	import useEditModel from './hooks/useEditModel'
+	import { OperateModel } from './IModelOperate'
+
+	import { getSize, modelLine } from './utils'
 
 	gsap.registerPlugin(CSSRulePlugin)
-
-	import { OperateModel } from './IModelOperate'
-	import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
-import useEditModel, {IMoveTexture} from './hooks/useEditModel'
 
 	const DEFAULT_GL_OPTIONS = {
 		antialias: true,
@@ -187,14 +187,14 @@ import useEditModel, {IMoveTexture} from './hooks/useEditModel'
 				defaultAnimateList: [] as any[],
 				transformControl: null as null | TransformControls,
 				windObject: null as null | Object3D,
-        // 风流模型列表
+				// 风流模型列表
 				windMeshList: [] as any[],
-        // 风流动画
-        windMeshAnimation: [] as any[],
-        // 风流动画Mixer
-        windMixer: null as null |AnimationMixer,
-        // 风流动画时钟
-        windClock: new Clock(),
+				// 风流动画
+				windMeshAnimation: [] as any[],
+				// 风流动画Mixer
+				windMixer: null as null | AnimationMixer,
+				// 风流动画时钟
+				windClock: new Clock(),
 				planeModel: null as null | Mesh,
 				cameraAniPosition: {
 					// 相机初始位置
@@ -282,7 +282,7 @@ import useEditModel, {IMoveTexture} from './hooks/useEditModel'
 
 			this.scene.add(this.wrapper)
 
-      this.windMixer = new AnimationMixer(this.wrapper)
+			this.windMixer = new AnimationMixer(this.wrapper)
 
 			this.initEdit()
 
@@ -726,7 +726,7 @@ import useEditModel, {IMoveTexture} from './hooks/useEditModel'
 			},
 			render() {
 				useEditModel().customAnimation(this.defaultAnimateList)
-        useEditModel().customAnimation(this.windMeshAnimation)
+				useEditModel().customAnimation(this.windMeshAnimation)
 
 				this.renderer!.render(this.scene, this.camera)
 

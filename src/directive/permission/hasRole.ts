@@ -3,8 +3,8 @@
  * Copyright (c) 2019 ruoyi
  */
 
-import { Directive, DirectiveBinding } from "vue";
 import useUserStore from '@/store/modules/user'
+import {Directive, DirectiveBinding} from "vue";
 
 const hasRole: Directive = {
 	mounted(el: HTMLElement, binding: DirectiveBinding) {

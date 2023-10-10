@@ -268,12 +268,8 @@
 								: 'main_fan_body_l5_body_l2'
 						"
 					></div>
-					<div class="normal_2_btn" @click="intelligentWindControlMainHandle('1')">
-						<span>开启</span>
-					</div>
-					<div class="normal_btn" @click="intelligentWindControlMainHandle('0')">
-						<span>关闭</span>
-					</div>
+					<div class="normal_2_btn" @click="intelligentWindControlMainHandle('1')">开启</div>
+					<div class="normal_btn" @click="intelligentWindControlMainHandle('0')">关闭</div>
 				</div>
 			</border-box>
 		</div>

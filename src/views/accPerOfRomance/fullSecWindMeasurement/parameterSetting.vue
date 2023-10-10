@@ -1,6 +1,5 @@
 <script setup>
 	import { setCollect } from '@/api/api/fullSecWindMeasurement'
-	import useCurrentInstance from '@/hooks/useCurrentInstance'
 	import { useCommitForm } from '@/hooks/useForm'
 
 	const props = defineProps({

@@ -18,7 +18,7 @@
 	import { useTunnelData } from '@/hooks/useTunnelData'
 	import { useGainList } from '@/hooks/useGainList'
 	import { listRegion } from '@/api/api/roadwayManagement'
-  import useDict from "@/hooks/useDict";
+	import useDict from '@/hooks/useDict'
 
 	const {
 		modelRef,
@@ -49,7 +49,7 @@
 		tunnelVisible,
 		tunnelForm,
 		tunnelHandle,
-    confirmList,
+		confirmList,
 		submitTunnelForm,
 		closeTunnelHandle,
 		tunnelColor,
@@ -60,7 +60,7 @@
 		intersectedPosition,
 	} = customizeThreeData()
 
-  const {need_cal_type} = useDict('need_cal_type')
+	const { need_cal_type } = useDict('need_cal_type')
 
 	const { vent_shape, shore_type, ven_air_direction, vent_source } = useTunnelData()
 	// 查询风路分支图区域
@@ -276,36 +276,40 @@
 							<el-form-item label="结束高程(m)">
 								<el-input v-model="tunnelForm.endAltitude" />
 							</el-form-item>
-              <el-form-item label="需风量计算类型">
-                <el-select v-model="tunnelForm.needCalType" clearable>
-                  <el-option v-for="i in need_cal_type" :label="i.label" :value="i.value"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="是否显示风流方向">
-                <el-select v-model="tunnelForm.directionShow" clearable>
-                  <el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="是否有密闭墙">
-                <el-select v-model="tunnelForm.wallExists" clearable>
-                  <el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="是否连通地面">
-                <el-select v-model="tunnelForm.groundFlag" clearable>
-                  <el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="是否显示巷道名称">
-                <el-select v-model="tunnelForm.roadNameShow" clearable>
-                  <el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="是否显示风量标签">
-                <el-select v-model="tunnelForm.modelWindShow" clearable>
-                  <el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
-                </el-select>
-              </el-form-item>
+							<el-form-item label="需风量计算类型">
+								<el-select v-model="tunnelForm.needCalType" clearable>
+									<el-option
+										v-for="i in need_cal_type"
+										:label="i.label"
+										:value="i.value"
+									></el-option>
+								</el-select>
+							</el-form-item>
+							<el-form-item label="是否显示风流方向">
+								<el-select v-model="tunnelForm.directionShow" clearable>
+									<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+								</el-select>
+							</el-form-item>
+							<el-form-item label="是否有密闭墙">
+								<el-select v-model="tunnelForm.wallExists" clearable>
+									<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+								</el-select>
+							</el-form-item>
+							<el-form-item label="是否连通地面">
+								<el-select v-model="tunnelForm.groundFlag" clearable>
+									<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+								</el-select>
+							</el-form-item>
+							<el-form-item label="是否显示巷道名称">
+								<el-select v-model="tunnelForm.roadNameShow" clearable>
+									<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+								</el-select>
+							</el-form-item>
+							<el-form-item label="是否显示风量标签">
+								<el-select v-model="tunnelForm.modelWindShow" clearable>
+									<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+								</el-select>
+							</el-form-item>
 						</el-form>
 					</div>
 					<div class="ven_sys_tunnel_body_l2_c2 fullDom"></div>

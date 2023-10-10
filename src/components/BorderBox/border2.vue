@@ -8,6 +8,7 @@
 		//   隐藏后方闪烁点
 		hiddenGlimmer?: boolean
 	}
+
 	import { useAutoResize } from '@/components/BorderBox/borderUtils'
 	import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
 

@@ -3,6 +3,7 @@
 	import { Vue3SeamlessScroll } from 'vue3-seamless-scroll'
 	import { useSocket } from '@/hooks/useSocket'
 	import { parseTime } from '@/utils/ruoyi'
+
 	const props = defineProps({
 		modelValue: {
 			type: Boolean,
@@ -55,22 +56,22 @@
 	function dealWithData(data) {
 		receiveTime.value = 0
 		timeout?.()
-    for (let i = 0; i < windList.value.length; i++) {
-      const windData = windList.value[i]
-      if (windData.id === data.id && windData.ipAddr === data.ipAddr) {
-        windData.realWindDataList.push({
-          value: data.windSpeed,
-          time: parseTime(new Date()),
-        })
-      }
-    }
+		for (let i = 0; i < windList.value.length; i++) {
+			const windData = windList.value[i]
+			if (windData.id === data.id && windData.ipAddr === data.ipAddr) {
+				windData.realWindDataList.push({
+					value: data.windSpeed,
+					time: parseTime(new Date()),
+				})
+			}
+		}
 	}
 
-	const { clientSocket,socketData } = useSocket('|fullwind|CollectAll', dealWithData)
+	const { clientSocket, socketData } = useSocket('|fullwind|CollectAll', dealWithData)
 
 	onBeforeMount(() => {
 		clearInterval(receiveTimeInterval.value)
-    socketData.value?.close()
+		socketData.value?.close()
 	})
 </script>
 

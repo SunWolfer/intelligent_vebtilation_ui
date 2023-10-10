@@ -101,7 +101,6 @@
 			serif;
 		font-weight: normal;
 		color: rgba(255, 255, 255, 0.78);
-		text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
 		background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
 		-webkit-background-clip: text;
@@ -184,7 +183,6 @@
 			font-family: YouSheBiaoTiHei, serif;
 			font-weight: 400;
 			color: rgba(255, 255, 255, 0.78);
-			text-shadow: 0 2px 2px rgba(0, 0, 0, 0.45);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 		}
@@ -204,19 +202,15 @@
 			font-size: vw(20);
 			font-family: YouSheBiaoTiHei, serif;
 			font-weight: 400;
-			color: rgba(255, 255, 255, 0.78);
-			line-height: 25px;
-			text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+			color: rgba(255, 255, 255, 1);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 		}
 		.main_fan_body_l2_l5_title_1 {
 			font-size: vw(22);
 			font-family: AdobeHeitiStd-Regular, 'Microsoft YaHei', sans-serif;
-			font-weight: 400;
+			font-weight: 600;
 			color: #ffffff;
-			text-shadow: 0 1px 2px rgba(4, 0, 0, 0.64);
-
 			background: linear-gradient(180deg, #80e9e9 30%, #2bd6dc 100%);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
@@ -224,10 +218,8 @@
 		.main_fan_body_l2_l5_title_2 {
 			font-size: vw(22);
 			font-family: AdobeHeitiStd-Regular, 'Microsoft YaHei', sans-serif;
-			font-weight: 400;
+			font-weight: 600;
 			color: #ffffff;
-			text-shadow: 0 1px 2px rgba(4, 0, 0, 0.84);
-
 			background: linear-gradient(180deg, #80dafa 30%, #2bb9fc 100%);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
@@ -320,19 +312,19 @@
 	}
 }
 .btn_text_1 {
-	background: linear-gradient(180deg, #d9ffe5 42.236328125%, #299529 100%);
+	background: #00FF00;
 }
 .btn_text_2 {
-	background: linear-gradient(180deg, #feecea 30%, #b04445 100%);
+	background: #FF5C86;
 }
 .btn_text_3 {
-	background: linear-gradient(180deg, #f5fbfd 30%, #21acc9 100%);
+	background: #00FFFF;
 }
 .btn_text_4 {
-	background: linear-gradient(180deg, #fefbf6 30%, #e09615 100%);
+	background: #FCB300
 }
 .btn_text_5 {
-	background: linear-gradient(180deg, #f4e215 30%, #e09615 100%);
+	background: #FFFF00;
 }
 
 .main_fan_body_l3 {
@@ -355,7 +347,6 @@
 			font-family: YouSheBiaoTiHei, serif;
 			font-weight: 400;
 			color: rgba(255, 255, 255, 0.78);
-			text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
 			background: linear-gradient(0deg, #b8d6ff 0%, #2ba0ea 100%);
 			-webkit-background-clip: text;
@@ -455,7 +446,6 @@
 				serif;
 			font-weight: normal;
 			color: rgba(255, 255, 255, 0.78);
-			text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 			background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;

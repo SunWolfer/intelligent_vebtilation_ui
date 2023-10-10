@@ -1,9 +1,8 @@
 import {
-	createWebHistory,
-	createRouter,
-	createWebHashHistory,
-	RouteMeta,
-	RouteRecordRaw,
+  createRouter,
+  createWebHashHistory,
+  RouteMeta,
+  RouteRecordRaw,
 } from 'vue-router'
 /* Layout */
 export const Layout = () => import('@/layout/index.vue')

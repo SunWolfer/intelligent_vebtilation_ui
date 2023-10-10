@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { SRGBColorSpace } from 'three'
-	import { defineComponent } from 'vue'
 	import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+	import { defineComponent } from 'vue'
 	import mixin from './model-mixin.vue'
 
 	export default defineComponent({
@@ -76,7 +76,7 @@
 								if (object.material.map?.colorSpace) object.material.map.colorSpace = SRGBColorSpace
 							}
 						})
-            data.scene.animations = data.animations
+						data.scene.animations = data.animations
 						this.addObject(data.scene)
 						this.loadOtherLen++
 					},

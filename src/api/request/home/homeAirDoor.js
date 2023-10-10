@@ -29,7 +29,7 @@ export const homeAirDoor = () => {
 		}
 	}
 	// socket监听风门信息
-	const { clientSocket,socketData } = useSocket('|door|adjust', dealWithData)
+	const { clientSocket, socketData } = useSocket('|door|adjust', dealWithData)
 	// 接收socket信息
 	function dealWithData(data) {
 		if (data.id === dataForm.value.id && data.ip === dataForm.value.ip) {
@@ -103,9 +103,11 @@ export const homeAirDoor = () => {
 	// 设置风门参数
 	const doorParamHandle = async (key) => {
 		await useCommitForm(setDoorParam, {
-			devId: dataForm.value.id,
-			paramType: key,
-			paramValue: paramsData.value[key],
+			queryParams: {
+				devId: dataForm.value.id,
+				paramType: key,
+				paramValue: paramsData.value[key],
+			},
 		})
 	}
 

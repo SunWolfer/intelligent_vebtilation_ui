@@ -1,13 +1,12 @@
 import { IFires } from '@/components/VueThree/effect/IFires'
 import { IWindText } from '@/components/VueThree/effect/IWindText'
 import { ModelAnimation } from '@/components/VueThree/modelAnimation'
-import threeModel from "@/store/modules/threeModel";
+import threeModel from '@/store/modules/threeModel'
 import gsap from 'gsap'
 import {
 	BufferAttribute,
 	BufferGeometry,
 	DoubleSide,
-	LineBasicMaterial,
 	Mesh,
 	MeshBasicMaterial,
 	MeshPhongMaterial,
@@ -23,7 +22,7 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
-import {Group} from "three/src/Three";
+import { Group } from 'three/src/Three'
 import { DisasterPreventionRoute } from './effect/disasterPreventionRoute'
 import useEditModel from './hooks/useEditModel'
 import useThreeExport from './hooks/useThreeExport'

@@ -1,7 +1,6 @@
 <!--通风网络故障诊断-->
 <script setup>
 	import { fauDiaOfVentNetwork } from '@/api/request/intelFaultDiagnosis/fauDiaOfVentNetwork'
-	import useResetCharts from '@/hooks/useResetCharts'
 
 	const {
 		showTunnelChart,

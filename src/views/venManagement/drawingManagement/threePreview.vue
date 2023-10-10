@@ -9,20 +9,20 @@
 	const route = useRoute()
 	const initMap = () => {
 		dataForm.tag = route.query.tag
-		dataForm.type = '1'
+		dataForm.type = '2'
 		queryThreeModelData?.()
 	}
 
 	const typeList = [
 		{
-			label: '科技模式',
-			value: '1',
-			iconClass: 'home_model_type_item_icon1',
-		},
-		{
 			label: '经典模式',
 			value: '2',
 			iconClass: 'home_model_type_item_icon2',
+		},
+		{
+			label: '科技模式',
+			value: '1',
+			iconClass: 'home_model_type_item_icon1',
 		},
 	]
 	// 切换模式

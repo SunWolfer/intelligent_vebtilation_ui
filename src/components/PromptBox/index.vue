@@ -1,7 +1,7 @@
 <script setup lang="ts">
-	import { ElIcon } from 'element-plus'
-	import { Close } from '@element-plus/icons-vue'
 	import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
+	import { Close } from '@element-plus/icons-vue'
+	import { ElIcon } from 'element-plus'
 
 	const props = defineProps({
 		title: {

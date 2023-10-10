@@ -16,8 +16,8 @@
 	import { WindowParamType, WindowStatus } from '@/api/request/home/doorParams'
 	import { controlWindow, curveList, getVentrLine } from '@/api/api/airWindow'
 	import { useCommitForm } from '@/hooks/useForm'
-  import useCharts from "@/hooks/useCharts";
-  import {useSocket} from "@/hooks/useSocket";
+	import useCharts from '@/hooks/useCharts'
+	import { useSocket } from '@/hooks/useSocket'
 
 	const { window_work_model, window_type } = useDict(
 		'window_work_model',
@@ -94,35 +94,35 @@
 	const { showCharts: showChart1, resetCharts: resetCharts1 } = useResetCharts(initChart1, false)
 
 	// 监测曲线
-  const lineChartsData = reactive({
-    names: [],
-    lineX: [],
-    value: [],
-  })
-  const oneSocketData = ref()
+	const lineChartsData = reactive({
+		names: [],
+		lineX: [],
+		value: [],
+	})
+	const oneSocketData = ref()
 	const initChart2 = async () => {
 		const res = await curveList({
 			devId: dataForm.value.id,
 		})
 		if (res.code === 200) {
-      const { option } = useCharts('window_chart_2')
-      lineChartsData.names = res.data.names
-      lineChartsData.lineX = res.data.lineX
-      lineChartsData.value = res.data.value
-      option.value = getLineChartOption(res.data.names, res.data.lineX, res.data.value)
-      oneSocketData.value?.close()
-      // 监测曲线socket
-      const {socketData,clientSocket} = useSocket('|adjustCurveList',(data) => {
-        lineChartsData.lineX = data.lineX
-        lineChartsData.value = data.value
-        option.value = getLineChartOption(
-          lineChartsData.names,
-          lineChartsData.lineX,
-          lineChartsData.value,
-        )
-      })
-      clientSocket?.()
-      oneSocketData.value = socketData.value
+			const { option } = useCharts('window_chart_2')
+			lineChartsData.names = res.data.names
+			lineChartsData.lineX = res.data.lineX
+			lineChartsData.value = res.data.value
+			option.value = getLineChartOption(res.data.names, res.data.lineX, res.data.value)
+			oneSocketData.value?.close()
+			// 监测曲线socket
+			const { socketData, clientSocket } = useSocket('|adjustCurveList', (data) => {
+				lineChartsData.lineX = data.lineX
+				lineChartsData.value = data.value
+				option.value = getLineChartOption(
+					lineChartsData.names,
+					lineChartsData.lineX,
+					lineChartsData.value,
+				)
+			})
+			clientSocket?.()
+			oneSocketData.value = socketData.value
 		}
 	}
 	const { showCharts: showChart2, resetCharts: resetCharts2 } = useResetCharts(initChart2, false)
@@ -197,7 +197,7 @@
 	const setParams = async (key, type) => {
 		await useCommitForm(controlWindow, {
 			queryParams: {
-        devId: dataForm.value.id,
+				devId: dataForm.value.id,
 				controlType: type,
 				controlValue: dataForm.value[key],
 			},

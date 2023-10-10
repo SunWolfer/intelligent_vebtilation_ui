@@ -1,7 +1,6 @@
 <!--实时分风网络解算、按需分风网络解算-->
 <script setup>
 	import useThree from '@/hooks/useThree'
-	import { useThreeModelData } from '@/hooks/useThreeModelData'
 	import HomeModelType from '@/views/components/home/HomeModelType.vue'
 
 	const props = defineProps({

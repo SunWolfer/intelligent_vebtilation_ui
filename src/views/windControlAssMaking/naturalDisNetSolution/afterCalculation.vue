@@ -95,10 +95,10 @@
 		emits('getSelectionRows', row)
 	}
 
-//   是否显示固定风量巷道文字
-  const hasFixedData = computed(() => {
-    return props.dataList.filter(i => i.isFixed).length > 0
-  })
+	//   是否显示固定风量巷道文字
+	const hasFixedData = computed(() => {
+		return props.dataList.filter((i) => i.isFixed).length > 0
+	})
 </script>
 
 <template>
@@ -114,11 +114,10 @@
 						<span>5%-10%</span>
 						<div class="orange_piece"></div>
 						<span>1%-5%</span>
-            <template v-if="hasFixedData">
-              <div class="green_piece"></div>
-              <span>固定风量巷道</span>
-            </template>
-
+						<template v-if="hasFixedData">
+							<div class="green_piece"></div>
+							<span>固定风量巷道</span>
+						</template>
 					</div>
 					<div class="after_cal_body_table">
 						<el-table
@@ -141,30 +140,23 @@
 									</div>
 								</template>
 							</el-table-column>
-							<el-table-column label="解算风量(m³/min)" align="center" prop="airVolume"/>
+							<el-table-column label="解算风量(m³/min)" align="center" prop="airVolume" />
 							<el-table-column label="解算前风量(m³/min)" align="center" prop="oldAirVolume">
 								<template #default="scope">
-									<span class="full_table_cell_bg" :class="cellStyle(scope.row.calBeforeDeviation)">{{
-										scope.row.oldAirVolume
-									}}</span>
+									<span
+										class="full_table_cell_bg"
+										:class="cellStyle(scope.row.calBeforeDeviation)"
+										>{{ scope.row.oldAirVolume }}</span
+									>
 								</template>
 							</el-table-column>
 							<el-table-column label="实时风量(m³/min)" align="center" prop="windSensorAirVolume">
 							</el-table-column>
-							<el-table-column
-								label="目标风量(m³/min)"
-								align="center"
-								prop="minQ"/>
-							<el-table-column label="人工实测风量(m³/min)" align="center" prop="personQ"/>
-							<el-table-column
-								label="解算风速(m/s)"
-								align="center"
-								prop="windSpeed"/>
-							<el-table-column label="风阻" align="center" prop="ventR"/>
-							<el-table-column
-								label="解算风压(Pa)"
-								align="center"
-								prop="airPressure"/>
+							<el-table-column label="目标风量(m³/min)" align="center" prop="minQ" />
+							<el-table-column label="人工实测风量(m³/min)" align="center" prop="personQ" />
+							<el-table-column label="解算风速(m/s)" align="center" prop="windSpeed" />
+							<el-table-column label="风阻" align="center" prop="ventR" />
+							<el-table-column label="解算风压(Pa)" align="center" prop="airPressure" />
 						</el-table>
 					</div>
 				</div>
@@ -190,5 +182,5 @@
 </template>
 
 <style scoped lang="scss">
-@import "@/assets/styles/windControlAssMaking/afterCalculation";
+	@import '@/assets/styles/windControlAssMaking/afterCalculation';
 </style>

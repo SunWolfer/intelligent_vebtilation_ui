@@ -16,9 +16,9 @@ export const disPreRouteManagement = () => {
 		afterReadyDataFun: () => {
 			for (let i = 0; i < exitList.value.length; i++) {
 				exitList.value[i].point = {
-					x: i.pointX,
-					y: i.pointY,
-					z: i.pointZ,
+					x: exitList.value[i].pointX,
+					y: exitList.value[i].pointY,
+					z: exitList.value[i].pointZ,
 				}
 			}
 		},

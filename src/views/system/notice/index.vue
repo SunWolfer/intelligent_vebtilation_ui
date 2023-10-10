@@ -169,7 +169,7 @@
 </template>
 
 <script setup name="Notice">
-	import { listNotice, getNotice, delNotice, addNotice, updateNotice } from '@/api/system/notice'
+	import { addNotice, delNotice, getNotice, listNotice, updateNotice } from '@/api/system/notice'
 	import useDict from '@/hooks/useDict'
 	import useList from '@/hooks/useList'
 	import { useForm } from '@/hooks/useForm'

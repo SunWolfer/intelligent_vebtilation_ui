@@ -23,7 +23,7 @@
 	]
 
 	onMounted(() => {
-    initMap?.()
+		initMap?.()
 	})
 </script>
 

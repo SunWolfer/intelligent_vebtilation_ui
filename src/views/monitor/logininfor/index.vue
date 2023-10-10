@@ -1,5 +1,5 @@
 <script setup name="Logininfor">
-	import { list, delLogininfor, cleanLogininfor, unlockLogininfor } from '@/api/monitor/logininfor'
+	import { cleanLogininfor, delLogininfor, list, unlockLogininfor } from '@/api/monitor/logininfor'
 	import useDict from '@/hooks/useDict'
 
 	const { proxy } = getCurrentInstance()

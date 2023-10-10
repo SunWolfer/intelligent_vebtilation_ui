@@ -1,5 +1,6 @@
 //全断面测风
 import request from '@/utils/request'
+
 // 测风站设备列表
 export function listView() {
 	return request({

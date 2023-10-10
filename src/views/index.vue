@@ -14,7 +14,7 @@
 	import HomeDisaster from '@/views/components/home/HomeDisaster.vue'
 	import { useThreeModelData } from '@/hooks/useThreeModelData'
 	import HomeModelType from '@/views/components/home/HomeModelType.vue'
-  import {useInteraction} from "@/hooks/useInteraction";
+	import { useInteraction } from '@/hooks/useInteraction'
 
 	const {
 		threeRef,
@@ -38,15 +38,14 @@
 		showDisasterSimulation,
 	} = homeMenu()
 	const { dislodgeDomStyle } = useHomeMenu()
-	const { refreshModel,refreshModelFun } = useThreeModelData()
+	const { refreshModel, refreshModelFun } = useThreeModelData()
 
-  const {getSelectionRows,watchDomRef,selectCode, getSelectionTunnel} = useInteraction()
-  watchDomRef?.(threeRef)
+	const { getSelectionRows, watchDomRef, selectCode, getSelectionTunnel } = useInteraction()
+	watchDomRef?.(threeRef)
 
-  onActivated(() => {
-    refreshModelFun?.()
-  })
-
+	onActivated(() => {
+		refreshModelFun?.()
+	})
 </script>
 
 <template>
@@ -72,7 +71,12 @@
 			:style="dislodgeDomStyle"
 		/>
 		<!--    多视角-->
-		<HomeVisualAngle v-if="showMultiplePerspectives" :dom-left="1100" @choose-wind-full="getSelectionRows" :select-code="selectCode" />
+		<HomeVisualAngle
+			v-if="showMultiplePerspectives"
+			:dom-left="1100"
+			@choose-wind-full="getSelectionRows"
+			:select-code="selectCode"
+		/>
 		<!--    反风模拟-->
 		<HomeReverseWind v-if="showReverseWindSimulation" :dom-left="1270" />
 		<!--    避灾路线模拟-->

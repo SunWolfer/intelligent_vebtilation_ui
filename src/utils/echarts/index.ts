@@ -1,53 +1,50 @@
 // * Echarts 按需引入
-import { PolarComponentOption } from 'echarts'
-import * as echarts from 'echarts/core'
+import {PolarComponentOption} from 'echarts'
+import 'echarts-gl'
+import 'echarts-liquidfill'
 import {
-	BarChart,
-	// 系列类型的定义后缀都为 SeriesOption
-	BarSeriesOption,
-	LineChart,
-	LineSeriesOption,
-	PieChart,
-	PieSeriesOption,
-	GaugeChart,
-	GaugeSeriesOption,
-	RadarChart,
-	RadarSeriesOption,
-	PictorialBarChart,
-	PictorialBarSeriesOption,
-	HeatmapChart,
-	HeatmapSeriesOption,
-	ScatterChart,
-	ScatterSeriesOption,
+  BarChart,
+  BarSeriesOption,
+  GaugeChart,
+  GaugeSeriesOption,
+  HeatmapChart,
+  HeatmapSeriesOption,
+  LineChart,
+  LineSeriesOption,
+  PictorialBarChart,
+  PictorialBarSeriesOption,
+  PieChart,
+  PieSeriesOption,
+  RadarChart,
+  RadarSeriesOption,
+  ScatterChart,
+  ScatterSeriesOption,
 } from 'echarts/charts'
 
-import { LegendComponent, PolarComponent } from 'echarts/components'
 import {
-	TitleComponent,
-	// 组件类型的定义后缀都为 ComponentOption
-	TitleComponentOption,
-	TooltipComponent,
-	ToolboxComponent,
-	TooltipComponentOption,
-	GridComponent,
-	GridComponentOption,
-	// 数据集组件
-	DatasetComponent,
-	DatasetComponentOption,
-	// 内置数据转换器组件 (filter, sort)
-	TransformComponent,
-	DataZoomComponent,
-	DataZoomComponentOption,
-	VisualMapComponent,
-	VisualMapComponentOption,
-	MarkLineComponent,
-	GraphicComponent,
-	GraphicComponentOption,
+  DatasetComponent,
+  DatasetComponentOption,
+  DataZoomComponent,
+  DataZoomComponentOption,
+  GraphicComponent,
+  GraphicComponentOption,
+  GridComponent,
+  GridComponentOption,
+  LegendComponent,
+  MarkLineComponent,
+  PolarComponent,
+  TitleComponent,
+  TitleComponentOption,
+  ToolboxComponent,
+  TooltipComponent,
+  TooltipComponentOption,
+  TransformComponent,
+  VisualMapComponent,
+  VisualMapComponentOption
 } from 'echarts/components'
-import { LabelLayout, UniversalTransition } from 'echarts/features'
-import { CanvasRenderer } from 'echarts/renderers'
-import 'echarts-liquidfill'
-import 'echarts-gl'
+import * as echarts from 'echarts/core'
+import {LabelLayout, UniversalTransition} from 'echarts/features'
+import {CanvasRenderer} from 'echarts/renderers'
 
 // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
 export type ECOption = echarts.ComposeOption<

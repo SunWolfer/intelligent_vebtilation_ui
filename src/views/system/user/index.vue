@@ -428,7 +428,7 @@
 
 <script setup name="User">
 	import { getToken } from '@/utils/auth'
-	import { oldDownload, parseTime } from '@/utils/ruoyi'
+	import { parseTime } from '@/utils/ruoyi'
 	import {
 		addUser,
 		changeUserStatus,

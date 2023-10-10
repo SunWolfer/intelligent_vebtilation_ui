@@ -1,6 +1,7 @@
+import { OperateModel } from '@/components/VueThree/IModelOperate'
 import ModelGltf from '@/components/VueThree/model-gltf.vue'
 import { Vector3 } from 'three'
-import { OperateModel } from '@/components/VueThree/IModelOperate'
+
 const useThree = () => {
 	const homeModelVisible = ref<InstanceType<typeof ModelGltf>>()
 	// 3D文件路径

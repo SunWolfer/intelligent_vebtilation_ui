@@ -1,13 +1,13 @@
-import router from './router/index'
+import usePermissionStore from '@/store/modules/permission'
+import useSettingsStore from '@/store/modules/settings'
+import useUserStore from '@/store/modules/user'
+import { getToken } from '@/utils/auth'
+import { isReLogin } from '@/utils/request'
+import { isHttp } from '@/utils/validate'
 import { ElMessage } from 'element-plus'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import { getToken } from '@/utils/auth'
-import { isHttp } from '@/utils/validate'
-import { isReLogin } from '@/utils/request'
-import useUserStore from '@/store/modules/user'
-import useSettingsStore from '@/store/modules/settings'
-import usePermissionStore from '@/store/modules/permission'
+import router from './router/index'
 
 NProgress.configure({ showSpinner: false })
 

@@ -2,8 +2,8 @@
  * v-hasPermi 操作权限处理
  * Copyright (c) 2019 ruoyi
  */
-import { Directive, DirectiveBinding } from "vue";
 import useUserStore from '@/store/modules/user'
+import {Directive, DirectiveBinding} from "vue";
 
 const hasPermi: Directive = {
 	mounted(el: HTMLElement, binding: DirectiveBinding) {

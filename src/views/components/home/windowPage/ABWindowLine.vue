@@ -4,8 +4,8 @@
 	import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
 	import useResetCharts from '@/hooks/useResetCharts'
 	import { getLineChartOption } from '@/api/request/home/remoterControlCharts'
-  import useCharts from "@/hooks/useCharts";
-  import {useSocket} from "@/hooks/useSocket";
+	import useCharts from '@/hooks/useCharts'
+	import { useSocket } from '@/hooks/useSocket'
 
 	const props = defineProps({
 		devId: {
@@ -48,36 +48,36 @@
 		}
 	}
 	const { showCharts: showChart1, resetCharts: resetCharts1 } = useResetCharts(initChart1, false)
-  // 监测曲线
-  const lineChartsData = reactive({
-    names: [],
-    lineX: [],
-    value: [],
-  })
-  const oneSocketData = ref()
+	// 监测曲线
+	const lineChartsData = reactive({
+		names: [],
+		lineX: [],
+		value: [],
+	})
+	const oneSocketData = ref()
 	const initChart2 = async () => {
 		const res = await curveList({
 			devId: props.devId,
 		})
 		if (res.code === 200) {
-      const { option } = useCharts('a_b_window_chart_2')
-      lineChartsData.names = res.data.names
-      lineChartsData.lineX = res.data.lineX
-      lineChartsData.value = res.data.value
-      option.value = getLineChartOption(res.data.names, res.data.lineX, res.data.value)
-      oneSocketData.value?.close()
-      // 监测曲线socket
-      const {clientSocket,socketData} = useSocket('adjustCurveList',(data) => {
-        lineChartsData.lineX = data.lineX
-        lineChartsData.value = data.value
-        option.value = getLineChartOption(
-          lineChartsData.names,
-          lineChartsData.lineX,
-          lineChartsData.value,
-        )
-      })
-      clientSocket?.()
-      oneSocketData.value = socketData.value
+			const { option } = useCharts('a_b_window_chart_2')
+			lineChartsData.names = res.data.names
+			lineChartsData.lineX = res.data.lineX
+			lineChartsData.value = res.data.value
+			option.value = getLineChartOption(res.data.names, res.data.lineX, res.data.value)
+			oneSocketData.value?.close()
+			// 监测曲线socket
+			const { clientSocket, socketData } = useSocket('adjustCurveList', (data) => {
+				lineChartsData.lineX = data.lineX
+				lineChartsData.value = data.value
+				option.value = getLineChartOption(
+					lineChartsData.names,
+					lineChartsData.lineX,
+					lineChartsData.value,
+				)
+			})
+			clientSocket?.()
+			oneSocketData.value = socketData.value
 		}
 	}
 	const { showCharts: showChart2, resetCharts: resetCharts2 } = useResetCharts(initChart2, false)

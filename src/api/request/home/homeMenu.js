@@ -81,7 +81,14 @@ export const homeMenu = () => {
 	})
 	// 隐藏巷道信息
 	const showTunnelMesVisible = computed(() => {
-		return showInspectionRoaming.value || showWindNetworkCalculation.value || showMultiplePerspectives.value || showReverseWindSimulation.value ||showDisasterPreventionRoute.value||showDisasterSimulation.value
+		return (
+			showInspectionRoaming.value ||
+			showWindNetworkCalculation.value ||
+			showMultiplePerspectives.value ||
+			showReverseWindSimulation.value ||
+			showDisasterPreventionRoute.value ||
+			showDisasterSimulation.value
+		)
 	})
 
 	const hasType = (type) => {
@@ -98,6 +105,6 @@ export const homeMenu = () => {
 		showReverseWindSimulation,
 		showDisasterPreventionRoute,
 		showDisasterSimulation,
-		showTunnelMesVisible
+		showTunnelMesVisible,
 	}
 }

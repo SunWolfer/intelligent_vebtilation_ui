@@ -5,9 +5,9 @@
  * @LastEditors: Please set LastEditors
  * @LastEditTime: 2023-01-31 14:26:21
  * Copyright: 2023 xxxTech CO.,LTD. All Rights Reserved.
- * @Descripttion: 
+ * @Descripttion:
  */
-import { sm2 } from 'sm-crypto'
+import {sm2} from 'sm-crypto'
 
 //公钥
 let publicKey =

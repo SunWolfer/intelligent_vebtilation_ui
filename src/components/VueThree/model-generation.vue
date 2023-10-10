@@ -1,16 +1,14 @@
 <script lang="ts">
 	import { ITunnelMesh } from '@/components/VueThree/effect/ITunnelMesh'
-  import useEditModel, {
-    IMoveTexture
-  } from "@/components/VueThree/hooks/useEditModel";
+	import useEditModel, { IMoveTexture } from '@/components/VueThree/hooks/useEditModel'
 	import { OperateModel } from '@/components/VueThree/IModelOperate'
 	import { getCenter, setMovePosition } from '@/components/VueThree/utils'
 	import threeModel from '@/store/modules/threeModel'
-	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-	import mixin from './model-mixin.vue'
-	import { Object3D, Vector3, WebGLRenderer } from 'three'
+	import { Object3D, WebGLRenderer } from 'three'
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 	import { defineComponent } from 'vue'
+	import mixin from './model-mixin.vue'
 
 	export default defineComponent({
 		name: 'model-generation',
@@ -82,34 +80,34 @@
 					let modelNode = models[i]
 					if (modelNode.showWind && modelNode.windMesh) {
 						modelNode.windMesh.direction = direction
-            if (!modelNode.nodePosition && !modelNode.nextNodePosition) return;
-            const moveModel = this.tunnelMesh.addWindMesh(modelNode)
-            const startNode = {
-              ...modelNode.nodePosition,
-              y: modelNode.nodePosition!.y + (modelNode.windMesh.windPosition ?? 0)
-            }
-            const endNode = {
-              ...modelNode.nextNodePosition,
-              y: modelNode.nextNodePosition!.y + (modelNode.windMesh.windPosition ?? 0)
-            }
-            const coordinates: any[] = direction ? [endNode,startNode] : [startNode,endNode]
-            let { curve } = useEditModel().createMotionTrack(coordinates)
-            const speed = modelNode.speed ? (modelNode.speed>0?modelNode.speed:0):0.01
-            let moveTexture: IMoveTexture = {
-              obj: moveModel,
-              curve: curve,
-              counter: 0,
-              speed: speed,
-              isCirculate: true,
-            }
-            let time = this.windClock.getDelta()
-            if (this.windMixer) {
-              this.windMixer.update(time)
-            }
-            this.windMeshAnimation.push(() => {
-              this.windMixer?.update(this.windClock.getDelta())
-              useEditModel().texturesUpdate(moveTexture)
-            })
+						if (!modelNode.nodePosition && !modelNode.nextNodePosition) return
+						const moveModel = this.tunnelMesh.addWindMesh(modelNode)
+						const startNode = {
+							...modelNode.nodePosition,
+							y: modelNode.nodePosition!.y + (modelNode.windMesh.windPosition ?? 0),
+						}
+						const endNode = {
+							...modelNode.nextNodePosition,
+							y: modelNode.nextNodePosition!.y + (modelNode.windMesh.windPosition ?? 0),
+						}
+						const coordinates: any[] = direction ? [endNode, startNode] : [startNode, endNode]
+						let { curve } = useEditModel().createMotionTrack(coordinates)
+						const speed = modelNode.speed ? (modelNode.speed > 0 ? modelNode.speed : 0) : 0.01
+						let moveTexture: IMoveTexture = {
+							obj: moveModel,
+							curve: curve,
+							counter: 0,
+							speed: speed,
+							isCirculate: true,
+						}
+						let time = this.windClock.getDelta()
+						if (this.windMixer) {
+							this.windMixer.update(time)
+						}
+						this.windMeshAnimation.push(() => {
+							this.windMixer?.update(this.windClock.getDelta())
+							useEditModel().texturesUpdate(moveTexture)
+						})
 
 						meshList.push(moveModel)
 					}

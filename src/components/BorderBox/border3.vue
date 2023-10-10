@@ -5,6 +5,7 @@
 		// 动画时间
 		dur?: number
 	}
+
 	import { useAutoResize } from '@/components/BorderBox/borderUtils'
 
 	const props = withDefaults(defineProps<ReqBorderBox>(), {

@@ -1,4 +1,5 @@
 import echarts from '@/utils/echarts/index'
+
 export default (domId: string) => {
 	const myChart = ref<echarts.ECharts>()
 	const option = ref({})
@@ -13,6 +14,6 @@ export default (domId: string) => {
 
 	return {
 		option,
-		myChart
+		myChart,
 	}
 }

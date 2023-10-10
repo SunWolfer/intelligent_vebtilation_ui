@@ -6,6 +6,7 @@ import useResetCharts from '@/hooks/useResetCharts'
 import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
 import { useCommitForm } from '@/hooks/useForm'
 import { useWindowFormData } from '@/api/request/venManagement/windowCurveManagement/useWindowFormData'
+
 export const windowWindResCurve = () => {
 	const { dataList: windowList } = useList({
 		apiFun: listWindow,

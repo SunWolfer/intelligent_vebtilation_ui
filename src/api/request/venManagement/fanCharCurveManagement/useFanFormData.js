@@ -1,6 +1,7 @@
 import { useGainList } from '@/hooks/useGainList'
 import { fanDict, fanLine, fanLineDict } from '@/api/api/fanCharCurveManagement'
 import { isNull } from '@/utils/ruoyi'
+
 export const useFanFormData = () => {
 	// 查询参数
 	const queryParams = ref({

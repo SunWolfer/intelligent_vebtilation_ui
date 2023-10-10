@@ -3,43 +3,43 @@
  */
 
 import {
-	AdditiveBlending,
-	BufferAttribute,
-	BufferGeometry,
-	Color,
-	DoubleSide,
-	Group,
-	InstancedBufferAttribute,
-	InstancedBufferGeometry,
-	LinearFilter,
-	Mesh,
-	Object3D,
-	PerspectiveCamera,
-	PlaneGeometry,
-	PointLight,
-	Points,
-	Quaternion,
-	RGBAFormat,
-	Scene,
-	ShaderMaterial,
-	TextureLoader,
-	Vector2,
-	Vector3,
-	WebGLRenderer,
-	WebGLRenderTarget,
+  AdditiveBlending,
+  BufferAttribute,
+  BufferGeometry,
+  Color,
+  DoubleSide,
+  Group,
+  InstancedBufferAttribute,
+  InstancedBufferGeometry,
+  LinearFilter,
+  Mesh,
+  Object3D,
+  PerspectiveCamera,
+  PlaneGeometry,
+  PointLight,
+  Points,
+  Quaternion,
+  RGBAFormat,
+  Scene,
+  ShaderMaterial,
+  TextureLoader,
+  Vector2,
+  Vector3,
+  WebGLRenderer,
+  WebGLRenderTarget,
 } from 'three'
-import flame from '../image/flame.png'
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import ember from '../image/ember.png'
+import flame from '../image/flame.png'
 import haze from '../image/haze.png'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 import {
-	fireVertexShader,
-	fireFragmentShader,
-	embersVertexShader,
-	embersFragmentShader,
-	hazeVertexShader,
-	hazeFragmentShader,
+  embersFragmentShader,
+  embersVertexShader,
+  fireFragmentShader,
+  fireVertexShader,
+  hazeFragmentShader,
+  hazeVertexShader,
 } from './fireShader'
 
 type ISize = {

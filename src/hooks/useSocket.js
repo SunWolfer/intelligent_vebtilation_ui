@@ -1,4 +1,5 @@
 import ReconnectingWebSocket from 'reconnecting-websocket'
+
 export const useSocket = (key, nextFun = () => {}) => {
 	const socketIP = import.meta.env.VITE_APP_SOCKETIP
 	// socket链接地址

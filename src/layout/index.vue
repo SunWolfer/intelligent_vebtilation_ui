@@ -11,18 +11,18 @@
 		<div :class="showBreadcrumb ? 'sys_content' : 'sys_content_default'" @contextmenu.prevent>
 			<app-main />
 		</div>
-<!--    <div class="app_home_change">-->
-<!--      <div v-for="i in 4" class="app_home_icon" @click="changeBg(i)">{{i}}</div>-->
-<!--    </div>-->
+		<!--    <div class="app_home_change">-->
+		<!--      <div v-for="i in 4" class="app_home_icon" @click="changeBg(i)">{{i}}</div>-->
+		<!--    </div>-->
 	</div>
 </template>
 
 <script setup lang="ts">
-	import {useUpdateMainData} from "@/hooks/useUpdateMainData";
-  import Sidebar from './components/Sidebar/index.vue'
-	import { AppMain, Navbar } from './components'
-	import useSettingsStore from '@/store/modules/settings'
 	import useHomeMenu from '@/hooks/useHomeMenu'
+	import { useUpdateMainData } from '@/hooks/useUpdateMainData'
+	import useSettingsStore from '@/store/modules/settings'
+	import { AppMain, Navbar } from './components'
+	import Sidebar from './components/Sidebar/index.vue'
 
 	const settingsStore = useSettingsStore()
 
@@ -38,14 +38,14 @@
 		},
 	)
 	const { roam } = useHomeMenu()
-	const {loadPubData} = useUpdateMainData()
-  loadPubData()
+	const { loadPubData } = useUpdateMainData()
+	loadPubData()
 
-//   当前背景
-  const homeBgIndex = ref(1)
-  const changeBg = (index:number) => {
-    homeBgIndex.value = index
-  }
+	//   当前背景
+	const homeBgIndex = ref(1)
+	const changeBg = (index: number) => {
+		homeBgIndex.value = index
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -100,35 +100,35 @@
 		height: calc(100vh - #{vh(121)});
 		top: vh(121);
 	}
-//  背景切换
-  .app_home_change{
-    position: fixed;
-    width: 100%;
-    height: vw(40);
-    bottom: vh(5);
-    color: #FFFFFF;
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(4,vw(40));
-    grid-column-gap: vw(5);
-    grid-template-rows: 1fr;
-    div {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #0DDE79;
-      cursor: pointer;
-    }
-  }
-  .app_home {
-    background-image: url('@/assets/images/main_bg.png');
-  }
-  @for $i from 1 through 4 {
-    .app_home_#{$i}{
-      background-image: url('@/assets/images/main_bg_#{$i}.png');
-      background-size: 100% 100%;
-    }
-  }
+	//  背景切换
+	.app_home_change {
+		position: fixed;
+		width: 100%;
+		height: vw(40);
+		bottom: vh(5);
+		color: #ffffff;
+		display: grid;
+		justify-content: center;
+		grid-template-columns: repeat(4, vw(40));
+		grid-column-gap: vw(5);
+		grid-template-rows: 1fr;
+		div {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: #0dde79;
+			cursor: pointer;
+		}
+	}
+	.app_home {
+		background-image: url('@/assets/images/main_bg.png');
+	}
+	@for $i from 1 through 4 {
+		.app_home_#{$i} {
+			background-image: url('@/assets/images/main_bg_#{$i}.png');
+			background-size: 100% 100%;
+		}
+	}
 </style>

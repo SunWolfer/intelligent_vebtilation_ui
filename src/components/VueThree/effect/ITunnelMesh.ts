@@ -23,7 +23,7 @@ import { BufferGeometry } from 'three/src/core/BufferGeometry'
 import { Texture } from 'three/src/textures/Texture'
 import { Group } from 'three/src/Three'
 
-import { defaultNode, defaultMesh, loadDefaultMesh } from './IMaterial'
+import { defaultMesh, defaultNode, loadDefaultMesh } from './IMaterial'
 
 interface ITexture {
 	name: string

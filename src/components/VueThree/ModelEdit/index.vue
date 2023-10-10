@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { defineComponent } from 'vue'
-  import {GLTF, GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
-	import mixin from '../model-mixin.vue'
-	import EditArea from './editArea.vue'
-	import { IModelEdit } from '../ModelEdit/IModelEdit'
-	import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
 	import { Mesh, Object3D, Vector3 } from 'three'
+	import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
+	import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+	import { defineComponent } from 'vue'
+	import mixin from '../model-mixin.vue'
 	import DeleteDialog from '../ModelEdit/deleteDialog.vue'
+	import { IModelEdit } from '../ModelEdit/IModelEdit'
+	import EditArea from './editArea.vue'
 
 	export default defineComponent({
 		name: 'model-edit',
@@ -123,7 +123,7 @@
 				this.reportProgress('start')
 				this.loader.load(
 					this.src,
-					(data:GLTF) => {
+					(data: GLTF) => {
 						this.reportProgress('end')
 						data.scene.traverse(function (object: any) {
 							if (object.isMesh) {
@@ -143,11 +143,11 @@
 							this.firstNodeName,
 						)
 					},
-					(event:ProgressEvent) => {
+					(event: ProgressEvent) => {
 						this.reportProgress('progress', event)
 						this.$emit('progress', event)
 					},
-					(event:ErrorEvent) => {
+					(event: ErrorEvent) => {
 						this.reportProgress('end')
 						this.$emit('error', event)
 					},
@@ -158,7 +158,7 @@
 				this.reportProgress('start')
 				for (let i = 0; i < this.modelList.length; i++) {
 					const oneObj: any = this.modelList[i]
-					this.loader.load(oneObj.src, (data:GLTF) => {
+					this.loader.load(oneObj.src, (data: GLTF) => {
 						this.loadLen++
 						this.addObject(data.scene)
 					})
@@ -275,26 +275,26 @@
 				this.selectedObjects = []
 				this.showDeleteDia = false
 			},
-    //   巷道节点移动
-      modelMove(obj: any, object: Object3D, transformControl: TransformControls){
-        let dealRoadWay: Mesh[] | Object3D[] = []
-        transformControl.detach()
-        if (obj.isMesh && obj.name !== 'planeModel' && obj.name.split('-').length === 1) {
-          if (obj !== transformControl.object) {
-            transformControl.attach(obj)
-          }
-          let tName = obj.name + ''
-          // 添加待移动模型
-          object.traverse((child: any) => {
-            if (child.name.indexOf(tName) !== -1) {
-              if (child.name.split('-').length > 1) {
-                dealRoadWay.push(child)
-              }
-            }
-          })
-        }
-        return dealRoadWay
-      }
+			//   巷道节点移动
+			modelMove(obj: any, object: Object3D, transformControl: TransformControls) {
+				let dealRoadWay: Mesh[] | Object3D[] = []
+				transformControl.detach()
+				if (obj.isMesh && obj.name !== 'planeModel' && obj.name.split('-').length === 1) {
+					if (obj !== transformControl.object) {
+						transformControl.attach(obj)
+					}
+					let tName = obj.name + ''
+					// 添加待移动模型
+					object.traverse((child: any) => {
+						if (child.name.indexOf(tName) !== -1) {
+							if (child.name.split('-').length > 1) {
+								dealRoadWay.push(child)
+							}
+						}
+					})
+				}
+				return dealRoadWay
+			},
 		},
 		beforeUnmount() {
 			for (let i = 0; i < this.CartoonInterval.length; i++) {

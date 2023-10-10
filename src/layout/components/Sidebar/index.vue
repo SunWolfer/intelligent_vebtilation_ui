@@ -1,7 +1,7 @@
 <script setup lang="ts">
+	import { layout } from '@/api/request/layout'
 	import SecondaryMenu from '@/layout/components/Sidebar/secondaryMenu.vue'
 	import AppLink from './Link.vue'
-	import { layout } from '@/api/request/layout'
 	//标题
 	const sysTitle = import.meta.env.VITE_APP_TITLE
 	const {
@@ -24,8 +24,8 @@
 		<div class="sys_top">
 			<div class="sys_top_line1"><div class="d_line" /></div>
 			<div class="sys_top_line2"><div class="d_line" /></div>
-      <div class="sys_top_left_img"></div>
-      <div class="sys_top_right_img"></div>
+			<div class="sys_top_left_img"></div>
+			<div class="sys_top_right_img"></div>
 			<!--    左侧导航栏-->
 			<div class="sys_top_left_navigate">
 				<template v-for="(item, index) in leftSidebarRouters" :key="item.name">
@@ -38,7 +38,7 @@
 							:class="getMenuChoose(item) ? 'navigate_left_bg_active' : 'navigate_left_bg'"
 							@click="clickTheFirstLevelMenu(item, $event)"
 						>
-              {{ item.meta?.title }}
+							{{ item.meta?.title }}
 						</div>
 					</template>
 				</template>

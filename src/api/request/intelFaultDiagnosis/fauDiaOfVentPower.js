@@ -9,6 +9,7 @@ import {
 } from '@/api/api/intelFaultDiagnosis'
 import useResetCharts from '@/hooks/useResetCharts'
 import useList from '@/hooks/useList'
+
 export const fauDiaOfVentPower = () => {
 	// 主扇预警类型Top5
 	const mainFanDataList = ref([])

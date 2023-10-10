@@ -5,31 +5,31 @@
 	import HomeWindBranch from '@/views/components/home/HomeWindBranch.vue'
 	import HomeVenNetwork from '@/views/components/home/HomeVenNetwork.vue'
 
-  const props = defineProps({
-    domLeft:{
-      type:Number,
-      default: 0
-    },
-    domBottom: {
-      type: Number,
-      default: 90
-    },
-    selectCode: {
-      type: String,
-      default: ''
-    }
-  })
+	const props = defineProps({
+		domLeft: {
+			type: Number,
+			default: 0,
+		},
+		domBottom: {
+			type: Number,
+			default: 90,
+		},
+		selectCode: {
+			type: String,
+			default: '',
+		},
+	})
 
-  const { domStyle } = useMenuItemPosition(props.domLeft,props.domBottom)
+	const { domStyle } = useMenuItemPosition(props.domLeft, props.domBottom)
 
 	const { checkedWindPath, checkedVenNetwork } = homeVisualAngle()
 	const { dislodgeDomStyle } = useHomeMenu()
 
-  const emits = defineEmits(['chooseWindFull'])
-  // 选中风路分支图
-  const chooseFullData = (row) => {
-    emits('chooseWindFull',row)
-  }
+	const emits = defineEmits(['chooseWindFull'])
+	// 选中风路分支图
+	const chooseFullData = (row) => {
+		emits('chooseWindFull', row)
+	}
 </script>
 
 <template>

@@ -5,7 +5,7 @@ import { useGainList } from '@/hooks/useGainList'
 
 export const homeRightMess = () => {
 	// 矿井总风量
-	const { dataList: airVolumeList,queryDataList:queryAirVolumeList } = useGainList({
+	const { dataList: airVolumeList, queryDataList: queryAirVolumeList } = useGainList({
 		automatic: false,
 		apiFun: totalAirVolume,
 	})
@@ -16,7 +16,7 @@ export const homeRightMess = () => {
 
 	// 查询巷道信息
 	const queryRoadAllList = async () => {
-		const {data} = await roadAll()
+		const { data } = await roadAll()
 		regionalAirVolumeList.value = data.roadAreaList
 		roadAllList.value = data.roadAllList
 	}
@@ -137,6 +137,6 @@ export const homeRightMess = () => {
 		maxWarnType,
 		getWarnListData,
 		queryAirVolumeList,
-		queryRoadAllList
+		queryRoadAllList,
 	}
 }

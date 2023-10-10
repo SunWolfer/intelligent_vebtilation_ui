@@ -4,11 +4,11 @@
 	import Border2 from './border2.vue'
 	import Border3 from './border3.vue'
 	import Border4 from './border4.vue'
-	import Border5 from '@/components/BorderBox/border5.vue'
+	import Border5 from './border5.vue'
 	import Border6 from './border6.vue'
-	import Border7 from '@/components/BorderBox/border7.vue'
-	import Border8 from '@/components/BorderBox/border8.vue'
-	import Border9 from '@/components/BorderBox/border9.vue'
+	import Border7 from './border7.vue'
+	import Border8 from './border8.vue'
+	import Border9 from './border9.vue'
 
 	export default defineComponent({
 		name: 'BorderBox',

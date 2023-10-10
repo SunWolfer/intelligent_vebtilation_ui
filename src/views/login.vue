@@ -26,7 +26,6 @@
 
 <script setup>
 	import useUserStore from '@/store/modules/user'
-	import { getCodeImg } from '@/api/login'
 
 	const userStore = useUserStore()
 	const router = useRouter()
@@ -48,7 +47,6 @@
 			})
 			.catch(() => {
 				loading.value = false
-				getCode()
 			})
 	}
 </script>

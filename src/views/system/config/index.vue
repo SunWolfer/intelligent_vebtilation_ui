@@ -177,12 +177,12 @@
 
 <script setup>
 	import {
-		listConfig,
-		getConfig,
-		delConfig,
 		addConfig,
-		updateConfig,
+		delConfig,
 		exportConfig,
+		getConfig,
+		listConfig,
+		updateConfig,
 	} from '@/api/system/config'
 	import useDict from '@/hooks/useDict'
 	import useList from '@/hooks/useList'

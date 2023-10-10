@@ -1,6 +1,6 @@
 import useCharts from '@/hooks/useCharts'
 import echarts from '@/utils/echarts/index'
-import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
+import {dynamicHeight, dynamicWidth} from '@/utils/ruoyi'
 
 // 普通折线
 export interface lineData {

@@ -6,6 +6,7 @@
 	import useDict from '@/hooks/useDict'
 	import { ControlKey, DoorStatus, WorkStatus } from '@/api/request/home/doorParams'
 	import DoorHisRecord from '@/views/venEqMonitoring/throttleMonitoring/doorHisRecord.vue'
+
 	const {
 		dataList,
 		videoUrl1,
@@ -171,16 +172,14 @@
 				<div class="home_air_door_body_c2_item6_l5">
 					<div
 						class="home_air_door_body_c2_item6_l5_bg"
-            :class="dataForm.lockStatus === '1' ? 'deadlock_bg':'open_lock_bg'"
+						:class="dataForm.lockStatus === '1' ? 'deadlock_bg' : 'open_lock_bg'"
 						@click="
 							controlDoorHandle(dataForm.lockStatus === '1' ? ControlKey.SEVEN : ControlKey.EIGHT)
 						"
 					>
-						<span>{{dataForm.lockStatus === '1' ? '关闭中': ''}}</span>
+						<span>{{ dataForm.lockStatus === '1' ? '关闭中' : '' }}</span>
 					</div>
-					<div class="home_air_door_body_c2_item6_l5_title">
-            闭锁
-					</div>
+					<div class="home_air_door_body_c2_item6_l5_title">闭锁</div>
 				</div>
 			</div>
 			<div class="home_air_door_body_c2_item7">

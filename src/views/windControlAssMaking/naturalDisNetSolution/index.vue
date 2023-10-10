@@ -6,6 +6,7 @@
 	import SolvingSimulation from '@/views/components/windControlAssMaking/solvingSimulation.vue'
 	import { useThreeModelData } from '@/hooks/useThreeModelData'
 	import { useInteraction } from '@/hooks/useInteraction'
+
 	const {
 		modelRef,
 		showAirDisNetwork,

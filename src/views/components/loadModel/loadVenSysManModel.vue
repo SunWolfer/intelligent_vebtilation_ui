@@ -4,7 +4,6 @@
 	import { useModel } from '@/hooks/useModel'
 	import useEquipmentData from '@/hooks/useEquipmentData'
 	import { EditType } from '@/components/VueThree/types/editType'
-	import HomeModelType from '@/views/components/home/HomeModelType.vue'
 
 	const props = defineProps({
 		//   编辑类型
@@ -70,8 +69,8 @@
 	const readyCamera = () => {
 		//   添加图标
 		loadAllTypeList?.()
-    // 添加巷道名字贴图
-    operateModel.value?.createdImgPlane()
+		// 添加巷道名字贴图
+		operateModel.value?.createdImgPlane()
 	}
 	//   获取改变巷道
 	const changeHandle = () => {
@@ -82,34 +81,37 @@
 		return homeModelVisible.value.tunnelMesh.redrawModel(redrawList)
 	}
 
-  // 新增显示控制辅助平台高度
-  const planeHeiVisible = computed(() => {
-    return props.editType === EditType.ADD
-  })
-  // 辅助平台高度表单
-  const planeForm = reactive({
-    //当前点击位置高度
-    addPositionHeight: 0,
-    // 平台高度
-    planeHeight: 0
-  })
-  watch(() => planeHeiVisible.value,(val) => {
-    if (val) {
-      planeForm.addPositionHeight = 0
-    }
-  })
-  const changeAddPosition = (objList) => {
-    if (objList.length !== 1) return
-    planeForm.addPositionHeight = objList[0].position.y ?? 0
-    homeModelVisible.value.planeHei = objList[0].position.y ?? 0
-  }
-  const changePlaneHeight = (val) => {
-    planeForm.planeHeight = val
-  }
-  // 设置平台高度
-  const setPlaneHeight = () => {
-    homeModelVisible.value.planeHei = planeForm.planeHeight
-  }
+	// 新增显示控制辅助平台高度
+	const planeHeiVisible = computed(() => {
+		return props.editType === EditType.ADD
+	})
+	// 辅助平台高度表单
+	const planeForm = reactive({
+		//当前点击位置高度
+		addPositionHeight: 0,
+		// 平台高度
+		planeHeight: 0,
+	})
+	watch(
+		() => planeHeiVisible.value,
+		(val) => {
+			if (val) {
+				planeForm.addPositionHeight = 0
+			}
+		},
+	)
+	const changeAddPosition = (objList) => {
+		if (objList.length !== 1) return
+		planeForm.addPositionHeight = objList[0].position.y ?? 0
+		homeModelVisible.value.planeHei = objList[0].position.y ?? 0
+	}
+	const changePlaneHeight = (val) => {
+		planeForm.planeHeight = val
+	}
+	// 设置平台高度
+	const setPlaneHeight = () => {
+		homeModelVisible.value.planeHei = planeForm.planeHeight
+	}
 
 	defineExpose({
 		changeHandle,
@@ -137,8 +139,8 @@
 			@onClick="onClick"
 			@onDblclick="dblclick"
 			@ready-camera="readyCamera"
-      @planeHeight="changePlaneHeight"
-      @addPosition="changeAddPosition"
+			@planeHeight="changePlaneHeight"
+			@addPosition="changeAddPosition"
 		>
 			<!--			显示全部设备图标-->
 			<template #label v-if="isReady">
@@ -151,15 +153,15 @@
 					</div>
 				</div>
 			</template>
-      <template v-if="planeHeiVisible">
-        <div class="plane_hei_dom">
-          <div class="plane_hei_dom_label">平台高度：</div>
-          <el-input v-model="planeForm.planeHeight"/>
-          <div class="normal_btn" @click="setPlaneHeight">设置</div>
-          <div class="plane_hei_dom_label">点击位置高度：</div>
-          <el-input v-model="planeForm.addPositionHeight" disabled/>
-        </div>
-      </template>
+			<template v-if="planeHeiVisible">
+				<div class="plane_hei_dom">
+					<div class="plane_hei_dom_label">平台高度：</div>
+					<el-input v-model="planeForm.planeHeight" />
+					<div class="normal_btn" @click="setPlaneHeight">设置</div>
+					<div class="plane_hei_dom_label">点击位置高度：</div>
+					<el-input v-model="planeForm.addPositionHeight" disabled />
+				</div>
+			</template>
 		</model-node-edit>
 	</div>
 </template>
@@ -179,29 +181,29 @@
 			'footer';
 		justify-items: center;
 	}
-//  控制平台高度
-  .plane_hei_dom{
-    position: absolute;
-    left: vw(60);
-    top: vh(60);
-    width: vw(380);
-    height: vh(80);
-    background: rgba(15,46,81,0.78);
-    padding: 0 vw(10);
-    display: grid;
-    grid-template-columns: vw(130) 1fr vw(100);
-    grid-template-rows: repeat(2,1fr);
-    grid-row-gap: vh(5);
-    align-items: center;
-    .normal_btn{
-      justify-self: center;
-      width: vw(90);
-      height: vh(40);
-    }
-  }
-  .plane_hei_dom_label {
-    justify-self: end;
-    font-size: vw(16);
-    color: #FFFFFF;
-  }
+	//  控制平台高度
+	.plane_hei_dom {
+		position: absolute;
+		left: vw(60);
+		top: vh(60);
+		width: vw(380);
+		height: vh(80);
+		background: rgba(15, 46, 81, 0.78);
+		padding: 0 vw(10);
+		display: grid;
+		grid-template-columns: vw(130) 1fr vw(100);
+		grid-template-rows: repeat(2, 1fr);
+		grid-row-gap: vh(5);
+		align-items: center;
+		.normal_btn {
+			justify-self: center;
+			width: vw(90);
+			height: vh(40);
+		}
+	}
+	.plane_hei_dom_label {
+		justify-self: end;
+		font-size: vw(16);
+		color: #ffffff;
+	}
 </style>
