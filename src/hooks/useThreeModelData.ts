@@ -1,5 +1,5 @@
 import { homeMenu } from '@/api/request/home/homeMenu'
-import threeModel from '@/store/modules/threeModel'
+import { threeModel } from '@/store/modules/threeModel'
 
 export const useThreeModelData = () => {
 	const IThreeModel: any = threeModel()

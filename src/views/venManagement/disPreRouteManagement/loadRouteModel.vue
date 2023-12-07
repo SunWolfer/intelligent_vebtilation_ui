@@ -1,7 +1,7 @@
 <script setup>
 	import useThree from '@/hooks/useThree'
 	import useCurrentInstance from '@/hooks/useCurrentInstance'
-	import threeModel from '@/store/modules/threeModel'
+	import { threeModel } from '@/store/modules/threeModel'
 
 	const props = defineProps({
 		labelList: {

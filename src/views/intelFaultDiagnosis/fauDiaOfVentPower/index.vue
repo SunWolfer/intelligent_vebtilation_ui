@@ -3,8 +3,8 @@
 	import { fauDiaOfVentPower } from '@/api/request/intelFaultDiagnosis/fauDiaOfVentPower'
 
 	const {
-		showCharts1,
-		showCharts2,
+		chartOption2,
+		chartOption1,
 		warnLevelList,
 		dateRange,
 		dataList,
@@ -24,12 +24,12 @@
 		<div class="fau_body_c1"></div>
 		<div class="fau_body_c2">
 			<div class="fau_body_c_title">预警类型Top5</div>
-			<div v-if="showCharts1" class="fau_body_c_chart" id="fan_chart_1"></div>
+			<BaseEchart :option="chartOption1" class="fau_body_c_chart" />
 		</div>
 		<div class="fau_body_c3"></div>
 		<div class="fau_body_c4">
 			<div class="fau_body_c_title">预警类型Top5</div>
-			<div v-if="showCharts2" class="fau_body_c_chart" id="fan_chart_2"></div>
+			<BaseEchart :option="chartOption2" class="fau_body_c_chart" />
 		</div>
 		<div class="fau_body_form">
 			<el-form :model="queryParams" inline>

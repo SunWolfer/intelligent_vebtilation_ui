@@ -2,7 +2,6 @@
 import useList from '@/hooks/useList'
 import { listWindow } from '@/api/api/windWindowManagement'
 import { removeVentrLine } from '@/api/api/windowWindResCurve'
-import useResetCharts from '@/hooks/useResetCharts'
 import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
 import { useCommitForm } from '@/hooks/useForm'
 import { useWindowFormData } from '@/api/request/venManagement/windowCurveManagement/useWindowFormData'
@@ -17,13 +16,13 @@ export const windowWindResCurve = () => {
 	})
 	const { lineData, dataList, queryParams, queryDataList, watchFormId } = useWindowFormData()
 	// 风阻曲线
+	const chartOption1 = ref({})
 	const initWindowChart = () => {
 		const xData = lineData.value.kaidu
 		const yData = [lineData.value.fengzu]
 		const legends = ['通风阻力']
 
-		defaultLineChart({
-			domId: 'window_curve_chart_1',
+		chartOption1.value = defaultLineChart({
 			xData: xData ?? [],
 			yDataList: yData ?? [],
 			legends: legends,
@@ -33,10 +32,9 @@ export const windowWindResCurve = () => {
 			isArea: false,
 		})
 	}
-	const { showCharts, resetCharts } = useResetCharts(initWindowChart, false)
 
 	const handleQuery = () => {
-		queryDataList?.(resetCharts)
+		queryDataList?.(initWindowChart)
 	}
 
 	const chooseRow = ref({
@@ -74,7 +72,7 @@ export const windowWindResCurve = () => {
 	}
 
 	onMounted(() => {
-		watchFormId?.(resetCharts)
+		watchFormId?.(initWindowChart)
 	})
 
 	return {
@@ -82,11 +80,11 @@ export const windowWindResCurve = () => {
 		queryParams,
 		handleQuery,
 		dataList,
-		showCharts,
 		chooseRow,
 		addOrUpdateVisible,
 		handleAdd,
 		handleUpdate,
 		handleDelete,
+		chartOption1,
 	}
 }

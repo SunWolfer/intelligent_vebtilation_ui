@@ -214,7 +214,7 @@ export function mergeSameStackData(item: { stack: any; data: any }, series: any[
 
 	const dataLength = datas[0].length
 
-	return new Array(dataLength).fill(0).map((foo, i) => mulAdd(datas.map((d: any[]) => d[i])))
+	return new Array(dataLength).fill(0).map((_foo, i) => mulAdd(datas.map((d: any[]) => d[i])))
 }
 
 /**
@@ -262,7 +262,7 @@ export function getLinearGradientColor(ctx: any, begin: any, end: any, color: st
 export function getPolylineLength(points: string | any[]) {
 	const lineSegments: any[] = new Array(points.length - 1)
 		.fill(0)
-		.map((foo, i) => [points[i], points[i + 1]])
+		.map((_foo, i) => [points[i], points[i + 1]])
 	const lengths = lineSegments.map((item: any) => getTwoPointDistance(item[0], item[1]))
 
 	return mulAdd(lengths)

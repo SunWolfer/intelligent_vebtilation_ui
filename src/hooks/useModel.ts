@@ -29,7 +29,7 @@ export const useModel = (operateModel: Ref<OperateModel>) => {
 	const temporaryLabelList = ref([])
 	watch(
 		() => temporaryLabelList.value,
-		(val) => {
+		() => {
 			temReady.value = false
 			nextTick().then(() => {
 				loadTemLabelList()

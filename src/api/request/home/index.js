@@ -1,4 +1,4 @@
-import { ClickEventTypes } from '@/api/request/menuType'
+import { ClickEventTypes } from '@/types/menuType'
 
 export const home = () => {
 	// 3D图Dom

@@ -30,13 +30,17 @@
 		otherThreeMod,
 		controlsOptions,
 		lights,
-		onLoad,
 		onModel,
 		onClick,
 		operateModel,
 		intersected,
 		intersectedPosition,
+		removePosition,
+		removeLookAt,
 	} = useThree()
+	const onLoad = () => {
+		operateModel.value.traMovement(removePosition, removeLookAt, 3, readyCamera)
+	}
 	// 显示全部设备图标
 	const { equipTypeImgClass } = useEquipmentData()
 
@@ -113,9 +117,16 @@
 		homeModelVisible.value.planeHei = planeForm.planeHeight
 	}
 
+	// 设置多个选中
+	function setSelectModel(names) {
+		homeModelVisible.value?.setSelectObjects(names)
+	}
+
 	defineExpose({
 		changeHandle,
 		redrawModel,
+		setSelectModel,
+		intersected,
 	})
 </script>
 
@@ -167,6 +178,7 @@
 </template>
 
 <style scoped lang="scss">
+	@import '@/assets/styles/three/sensor_icon';
 	@import '@/assets/styles/home/home_map';
 	.wind_label_bg {
 		position: absolute;

@@ -1,3 +1,4 @@
+@import "@/assets/styles/defaultMinix";
 @import '@/assets/styles/home/home_air_door';
 .home_air_window_body {
 	position: relative;
@@ -195,16 +196,19 @@
 	grid-row-gap: vh(25);
 	place-items: center center;
 	align-content: center;
+	.el-form-item{
+		width: 100%;
+	}
+
 
 	@include ParamItemText;
 }
 .window_param_item {
-	padding-left: vw(60);
 	width: 100%;
 	display: flex;
 	justify-content: start;
 	.el-input {
-		margin: 0 vw(8);
+		margin-right: vw(8);
 		width: vw(102);
 		height: vh(32);
 	}

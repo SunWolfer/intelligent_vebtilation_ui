@@ -5,17 +5,18 @@
 	display: grid;
 	background-image: url('@/assets/images/home/home_dis_pre_route/routeBg.png');
 	grid-template-columns: 1fr 1fr;
+	grid-template-rows: vh(205);
 }
 .home_title_route_left {
 	display: grid;
-	grid-template-rows: repeat(4, vh(40));
-	align-content: space-between;
+	grid-template-rows: repeat(4, 1fr);
+	align-items: center;
 }
 
 .home_title_route_btn {
 	text-align: center;
 	width: vw(170);
-	height: vh(40);
+	height: vw(40);
 	background-image: url('@/assets/images/home/home_menu_btn.png');
 	background-size: 100% 100%;
 	cursor: pointer;
@@ -24,6 +25,7 @@
 	grid-column-gap: vw(11);
 	justify-self: center;
 	align-items: center;
+	align-content: center;
 }
 .home_title_route_btn_icon {
 	width: vw(20);
@@ -164,6 +166,7 @@
 	grid-template-columns: 1fr;
 	grid-template-rows: repeat(auto-fill, vh(79));
 	grid-auto-rows: vh(79);
+	pointer-events: auto;
 }
 .home_reverse_wind_people_bottom_item{
 	display: grid;

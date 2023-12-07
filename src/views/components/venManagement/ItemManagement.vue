@@ -126,7 +126,7 @@
 				label-position="left"
 			>
 				<el-form-item label="标签编码" prop="code">
-					<el-input :readonly="form.id !== 0" v-model="form.code" placeholder="标签编码" />
+					<el-input :readonly="form.id !== undefined" v-model="form.code" placeholder="标签编码" />
 				</el-form-item>
 				<el-form-item label="操作类型" prop="czlx">
 					<el-select v-model="form.czlx" placeholder="请选择操作类型" clearable>

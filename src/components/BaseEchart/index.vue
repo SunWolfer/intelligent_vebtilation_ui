@@ -5,7 +5,7 @@
 	import { Ref } from 'vue'
 
 	interface Props {
-		option: ECOption
+		option: ECOption | undefined
 		theme?: Object | string | null
 		loading?: boolean // 受控
 		onMouseover?: (...args: any[]) => any
@@ -22,7 +22,7 @@
 
 	const draw = () => {
 		if (chartInstance.value) {
-			chartInstance.value.setOption(props.option, { notMerge: true })
+			props.option && chartInstance.value.setOption(props.option, { notMerge: true })
 		}
 	}
 

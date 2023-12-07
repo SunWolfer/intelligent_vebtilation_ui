@@ -5,7 +5,7 @@
 	width: max-content;
 	height: vh(40);
 	display: grid;
-	grid-template-columns: repeat(5, vw(126)) vw(180) vw(126);
+	grid-template-columns: repeat(7, vw(126));
 	grid-template-rows: vh(40);
 	grid-column-gap: vw(45);
 	justify-content: center;

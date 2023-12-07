@@ -1,10 +1,8 @@
-import useCharts from '@/hooks/useCharts'
 import echarts from '@/utils/echarts/index'
-import {dynamicHeight, dynamicWidth} from '@/utils/ruoyi'
+import { dynamicHeight, dynamicWidth } from '@/utils/ruoyi'
 
 // 普通折线
 export interface lineData {
-	domId: string
 	xData: string[]
 	yDataList: number[][]
 	legends: string[]
@@ -126,7 +124,6 @@ export function getSeriesData({
 }
 
 export function defaultLineChart({
-	domId,
 	xData,
 	yDataList,
 	legends,
@@ -144,8 +141,6 @@ export function defaultLineChart({
 	markLineList = [],
 	lineTypes = [],
 }: lineData) {
-	const { option } = useCharts(domId)
-
 	let seriesData = getSeriesData({
 		yDataList: yDataList,
 		lineTypes: lineTypes,
@@ -159,7 +154,7 @@ export function defaultLineChart({
 		symbolItemStyle: {},
 	})
 
-	option.value = {
+	return {
 		title: {
 			text: title,
 			textStyle: {
@@ -276,7 +271,6 @@ export interface gradualLineData extends lineData {
 	symbolItemStyle?: ISymbolItemStyle
 }
 export function gradualLineChart({
-	domId,
 	xData,
 	yDataList,
 	legends,
@@ -294,7 +288,6 @@ export function gradualLineChart({
 	tooltip = { line1Title: '时间', unit: '' },
 	symbolItemStyle = {},
 }: gradualLineData) {
-	const { option } = useCharts(domId)
 	let seriesData = getSeriesData({
 		yDataList: yDataList,
 		lineTypes: lineTypes,
@@ -307,7 +300,7 @@ export function gradualLineChart({
 		markLineList: markLineList,
 		symbolItemStyle: symbolItemStyle,
 	})
-	option.value = {
+	return {
 		legend: {
 			data: legends,
 			right: 5,

@@ -1,0 +1,68 @@
+.parameter_setting{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: vh(15) vw(100) vh(15) vw(120);
+}
+.overFloorBody{
+  overflow-y: auto;
+}
+.setting_body{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: vh(17) vw(20);
+  display: grid;
+  grid-template-rows: vh(35) vh(120) vh(35) vh(238) vh(56) vh(382) 1fr;
+  align-items: center;
+}
+.padding-left-12{
+  padding-left: vw(12);
+}
+//网络设置表单
+.setting_net_form{
+  width: vw(1290);
+  height: 100%;
+}
+.setting_net_form_item{
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3,vw(360));
+  grid-template-rows: repeat(2,1fr);
+  align-items: center;
+}
+//调控表单
+.setting_regulation{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-column-gap: vw(8);
+  grid-template-rows: repeat(4,1fr);
+  align-items: center;
+
+  :deep(.el-form-item__content){
+    display: grid;
+    grid-template-columns: 1fr vw(100);
+    grid-column-gap: vw(8);
+  }
+}
+
+//系统设置
+.setting_sys_btn{
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  justify-content: center;
+  align-items: center;
+}
+//当前状态
+.window-condition-setting {
+  position: fixed;
+  right: vw(115);
+  top: vh(110);
+  font-size: vw(16);
+  font-family: PingFang SC, serif;
+  font-weight: 400;
+  color: #00ffff;
+  line-height: vh(20);
+  cursor: pointer;
+  z-index: 1;
+}

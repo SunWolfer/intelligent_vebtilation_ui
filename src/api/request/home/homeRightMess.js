@@ -1,4 +1,3 @@
-import useEquipmentData from '@/hooks/useEquipmentData'
 import { deviceWarnList, roadAll, totalAirVolume } from '@/api/api/home'
 import { useThreeModelData } from '@/hooks/useThreeModelData'
 import { useGainList } from '@/hooks/useGainList'
@@ -21,7 +20,7 @@ export const homeRightMess = () => {
 		roadAllList.value = data.roadAllList
 	}
 
-	const { warnList } = useEquipmentData()
+	const warnList = ref([])
 	// 整体预警等级
 	const maxWarnType = ref('0')
 	// 查询预警列表
@@ -89,14 +88,6 @@ export const homeRightMess = () => {
 			})?.label ?? ''
 		)
 	}
-	const equipmentTypeList = useEquipmentData().equipmentTypeList
-	const formatterEquipmentTypeList = (type) => {
-		return (
-			equipmentTypeList.find((i) => {
-				return i.value === type
-			})?.label ?? ''
-		)
-	}
 	// 通风动力预警
 	const powerNum = computed(() => {
 		return warnList.value.filter((i) => {
@@ -124,13 +115,13 @@ export const homeRightMess = () => {
 	return {
 		airVolumeList,
 		regionalAirVolumeList,
+		warnList,
 		showWarnList,
 		powerNum,
 		theNetworkNum,
 		facilitiesNum,
 		fusionNum,
 		formatterWarnType,
-		formatterEquipmentTypeList,
 		isWarn,
 		manualControlWarnIcon,
 		closeWarnIcon,

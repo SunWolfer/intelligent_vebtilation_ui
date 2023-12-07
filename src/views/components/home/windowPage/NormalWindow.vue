@@ -1,9 +1,8 @@
 <!--常规风窗-->
 <script setup>
-	import { dynamicHeight, selectDictLabel } from '@/utils/ruoyi'
+	import { dynamicHeight, dynamicWidth, selectDictLabel } from '@/utils/ruoyi'
 	import LoadWindowModel from '@/views/components/loadModel/loadWindowModel.vue'
 	import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
-	import useResetCharts from '@/hooks/useResetCharts'
 	import {
 		getChart1,
 		getChart2,
@@ -16,8 +15,8 @@
 	import { WindowParamType, WindowStatus } from '@/api/request/home/doorParams'
 	import { controlWindow, curveList, getVentrLine } from '@/api/api/airWindow'
 	import { useCommitForm } from '@/hooks/useForm'
-	import useCharts from '@/hooks/useCharts'
-	import { useSocket } from '@/hooks/useSocket'
+	import useSocket from '@/hooks/useSocket'
+	import { useCheckWindowForm } from '@/hooks/useCheckWindowForm'
 
 	const { window_work_model, window_type } = useDict(
 		'window_work_model',
@@ -34,8 +33,10 @@
 		},
 	})
 	const emits = defineEmits(['moreVisibleHandle', 'changeDoor', 'changeWindow'])
+
 	//   表单
 	const dataForm = ref({})
+
 	// 风窗视频链接
 	const videoUrl1 = ref('')
 	const videoUrl2 = ref('')
@@ -47,13 +48,27 @@
 		videoUrl2.value = urls[1] ?? ''
 	}
 
+	// 气源动力样式
+	const airStatusClass = computed(() => {
+		let dev_class = 'large_light_1'
+		if (dataForm.value.airStatus === '0') {
+			dev_class = 'large_light_2'
+		} else if (dataForm.value.airStatus === '1') {
+			dev_class = 'large_light_1'
+		} else if (dataForm.value.airStatus === '2') {
+			dev_class = 'large_light_3'
+		}
+
+		return dev_class
+	})
+
 	watch(
 		() => props.formA.id,
 		() => {
 			initForm()
-			resetCharts1?.()
-			resetCharts2?.()
-			resetCharts3?.()
+			initChart1?.()
+			initChart2?.()
+			initChart3?.()
 		},
 		{ deep: true },
 	)
@@ -68,6 +83,7 @@
 	}
 
 	// 风阻特性曲线
+	const optionWindow = ref({})
 	const initChart1 = async () => {
 		const res = await getVentrLine({
 			devId: dataForm.value.id,
@@ -79,7 +95,7 @@
 			const xData = res.data.res.map((i) => {
 				return i?.kaidu
 			})
-			defaultLineChart({
+			optionWindow.value = defaultLineChart({
 				domId: 'window_chart_1',
 				xData: xData,
 				yDataList: [value],
@@ -91,7 +107,6 @@
 			})
 		}
 	}
-	const { showCharts: showChart1, resetCharts: resetCharts1 } = useResetCharts(initChart1, false)
 
 	// 监测曲线
 	const lineChartsData = reactive({
@@ -99,69 +114,85 @@
 		lineX: [],
 		value: [],
 	})
-	const oneSocketData = ref()
+
+	// 监测曲线socket
+	const { socketData, clientSocket, dataRes } = useSocket('curveList')
+	watch(dataRes.curveList, (val) => {
+		lineChartsData.lineX.push(val.lineX)
+		lineChartsData.value?.[0] && lineChartsData.value?.[0].push(val.value[0][0])
+		lineChartsData.value?.[1] && lineChartsData.value?.[1].push(val.value[1][0])
+		lineChartsData.value?.[2] && lineChartsData.value?.[2].push(val.value[2][0])
+		lineChartsData.value?.[3] && lineChartsData.value?.[3].push(val.value[3][0])
+		lineChartsData.value?.[4] && lineChartsData.value?.[4].push(val.value[4][0])
+		option.value = getLineChartOption(
+			lineChartsData.names,
+			lineChartsData.lineX,
+			lineChartsData.value,
+		)
+	})
+
+	const option = ref({})
 	const initChart2 = async () => {
+		option.value = {}
 		const res = await curveList({
 			devId: dataForm.value.id,
 		})
 		if (res.code === 200) {
-			const { option } = useCharts('window_chart_2')
 			lineChartsData.names = res.data.names
 			lineChartsData.lineX = res.data.lineX
 			lineChartsData.value = res.data.value
 			option.value = getLineChartOption(res.data.names, res.data.lineX, res.data.value)
-			oneSocketData.value?.close()
-			// 监测曲线socket
-			const { socketData, clientSocket } = useSocket('|adjustCurveList', (data) => {
-				lineChartsData.lineX = data.lineX
-				lineChartsData.value = data.value
-				option.value = getLineChartOption(
-					lineChartsData.names,
-					lineChartsData.lineX,
-					lineChartsData.value,
-				)
-			})
-			clientSocket?.()
-			oneSocketData.value = socketData.value
+			socketData.value?.close()
+			clientSocket?.('|adjustCurveList')
 		}
 	}
-	const { showCharts: showChart2, resetCharts: resetCharts2 } = useResetCharts(initChart2, false)
+
+	const optionChart1 = ref({})
+	const optionChart2 = ref({})
+	const optionChart3 = ref({})
+	const optionChart4 = ref({})
+	const optionChart5 = ref({})
+	const optionChart6 = ref({})
+	let timer
 
 	// 巷道饼图
 	const initChart3 = () => {
-		getChart1('window_chart_3', dataForm.value?.openDegreeNow ?? 0)
-		getChart2('window_chart_4', dataForm.value?.areaPercent ?? 0)
-		getChart3(
-			'window_chart_5',
-			['1', '2'].includes(domType.value)
-				? dataForm.value.volume ?? 0
-				: dataForm.value.pressure ?? 0,
+		optionChart1.value = getChart1(dataForm.value?.openDegreeNow ?? 0)
+		optionChart2.value = getChart2(dataForm.value?.areaPercent ?? 0)
+		const dataType = ['1', '2'].includes(domType.value)
+		optionChart3.value = getChart3(
+			dataType ? dataForm.value.volume ?? 0 : dataForm.value.pressure ?? 0,
 			chartTitleMap.get(domType.value)[0],
 			chartTitleMap.get(domType.value)[1],
+			dataType ? 'm³/min' : 'Pa',
 		)
-		getChart4(
-			'window_chart_6',
-			['1', '2'].includes(domType.value)
-				? dataForm.value.speed ?? 0
-				: dataForm.value.absolutePressure ?? 0,
+		optionChart4.value = getChart4(
+			dataType ? dataForm.value.speed ?? 0 : dataForm.value.absolutePressure ?? 0,
 			chartTitleMap.get(domType.value)[2],
+			dataType ? 'm/s' : 'Pa',
 		)
 		if (!['1', '2'].includes(domType.value)) {
-			getChart5(
-				'window_chart_7',
+			optionChart5.value = getChart5(
 				'1',
 				dataForm.value.humidity ?? 0,
 				chartTitleMap.get(domType.value)[3],
 			)
-			getChart5(
-				'window_chart_8',
+			optionChart6.value = getChart5(
 				'2',
 				dataForm.value.temperature ?? 0,
 				chartTitleMap.get(domType.value)[4],
 			)
+			timer && clearInterval(timer)
+			function doing() {
+				optionChart5.value.series[1].startAngle = optionChart5.value.series[1].startAngle - 1
+				optionChart6.value.series[1].startAngle = optionChart6.value.series[1].startAngle - 1
+			}
+			function startTimer() {
+				timer = setInterval(doing, 100)
+			}
+			setTimeout(startTimer, 1000)
 		}
 	}
-	const { showCharts: showChart3, resetCharts: resetCharts3 } = useResetCharts(initChart3, false)
 
 	//   风窗状态
 	const windowStatusLight = (data) => {
@@ -183,26 +214,35 @@
 		return type
 	})
 	const chartTitleMap = new Map([
-		['1', ['当前风量(未接入)', '风量范围', '当前风速(未接入)']],
-		['2', ['当前风量', '风量范围', '当前风速']],
-		['3', ['当前风压', '风压范围', '当前绝压', '当前湿度', '当前温度']],
-		['4', ['当前风压', '风压范围', '当前绝压', '当前湿度(未接入)', '当前温度(未接入)']],
+		['1', ['当前风量(未接入)', '风量', '当前风速(未接入)']],
+		['2', ['当前风量', '风量', '当前风速']],
+		['3', ['当前风压', '风压', '当前绝压', '当前湿度', '当前温度']],
+		['4', ['当前风压', '风压范', '当前绝压', '当前湿度(未接入)', '当前温度(未接入)']],
 	])
 
 	//   操作记录
 	const hisRecordHandle = () => {
 		emits('hisRecordHandle')
 	}
+
 	//   设置参数
-	const setParams = async (key, type) => {
-		await useCommitForm(controlWindow, {
-			queryParams: {
-				devId: dataForm.value.id,
-				controlType: type,
-				controlValue: dataForm.value[key],
-			},
+	const { ruleFormRef, rules, submitForm, ruleForm } = useCheckWindowForm()
+
+	const setParams = (key, type) => {
+		submitForm?.(key, async () => {
+			await useCommitForm(controlWindow, {
+				queryParams: {
+					devId: dataForm.value.id,
+					controlType: type,
+					controlValue: ruleForm.value[key],
+				},
+			})
 		})
 	}
+
+	onBeforeUnmount(() => {
+		clearInterval(timer)
+	})
 </script>
 
 <template>
@@ -249,8 +289,8 @@
 				<span>类型：{{ selectDictLabel(window_type, dataForm.type) }}</span>
 			</div>
 			<div class="home_air_window_body_l2_item_3">
-				<div v-if="showChart3" class="fullDom" id="window_chart_3" />
-				<div v-if="showChart3" class="fullDom" id="window_chart_4" />
+				<BaseEchart :option="optionChart1" />
+				<BaseEchart :option="optionChart2" />
 				<div class="home_air_window_body_l2_item_3_chart_title">
 					<span>通风面积</span>
 					<span>{{ dataForm.areaOpen ?? 0 }} m²</span>
@@ -260,11 +300,11 @@
 			</div>
 			<div class="home_air_window_body_l2_item_4"></div>
 			<div class="home_air_window_body_l2_item_5">
-				<div v-if="showChart3" class="fullDom" id="window_chart_5" />
-				<div v-if="showChart3" class="fullDom" id="window_chart_6" />
+				<BaseEchart :option="optionChart3" />
+				<BaseEchart :option="optionChart4" />
 				<template v-if="!['1', '2'].includes(domType)">
-					<div v-if="showChart3" class="fullDom" id="window_chart_7" />
-					<div v-if="showChart3" class="fullDom" id="window_chart_8" />
+					<BaseEchart :option="optionChart5" />
+					<BaseEchart :option="optionChart6" />
 				</template>
 			</div>
 			<div class="home_air_window_body_l2_item_6">
@@ -276,7 +316,7 @@
 				<div class="home_air_window_body_l2_item_6_item">
 					<div class="door_icon_2"></div>
 					<span>气源动力</span>
-					<div :class="dataForm.airStatus === '1' ? 'large_light_1' : 'large_light_2'"></div>
+					<div :class="airStatusClass"></div>
 				</div>
 				<div class="home_air_window_body_l2_item_6_item">
 					<div class="door_icon_4"></div>
@@ -313,7 +353,7 @@
 							</div>
 						</border-box>
 					</div>
-					<div v-if="showChart1" class="fullDom" id="window_chart_1"></div>
+					<BaseEchart :option="optionWindow" />
 				</div>
 			</border-box>
 			<border-box name="border1" background-color="rgba(24, 25, 49, 0.71)">
@@ -325,7 +365,7 @@
 							</div>
 						</border-box>
 					</div>
-					<div v-if="showChart2" class="fullDom" id="window_chart_2"></div>
+					<BaseEchart :option="option" />
 				</div>
 			</border-box>
 			<border-box name="border1" background-color="rgba(24, 25, 49, 0.71)">
@@ -337,40 +377,57 @@
 							</div>
 						</border-box>
 					</div>
-					<div class="window_param_body">
-						<div class="window_param_item">
-							开度
-							<el-input v-model="dataForm.openDegreeNow" />
-							%
-						</div>
-						<div class="normal_btn" @click="setParams('openDegreeNow', WindowParamType.TEN)">
+					<el-form
+						ref="ruleFormRef"
+						:rules="rules"
+						:model="ruleForm"
+						class="window_param_body"
+						:label-width="dynamicWidth(100)"
+					>
+						<el-form-item prop="openDegreeAdjust" label="开度">
+							<div class="window_param_item">
+								<el-input v-model="ruleForm.openDegreeAdjust" />
+								%
+							</div>
+						</el-form-item>
+						<div class="normal_btn" @click="setParams('openDegreeAdjust', WindowParamType.TEN)">
 							设定
 						</div>
 						<template v-if="['1', '2'].includes(domType)">
-							<div class="window_param_item">
-								风量
-								<el-input v-model="dataForm.volume" />
-								m³/min
+							<el-form-item prop="volumeAdjust" label="风量">
+								<div class="window_param_item">
+									<el-input v-model="ruleForm.volumeAdjust" />
+									m³/min
+								</div>
+							</el-form-item>
+
+							<div class="normal_btn" @click="setParams('volumeAdjust', WindowParamType.ONE)">
+								设定
 							</div>
-							<div class="normal_btn" @click="setParams('volume', WindowParamType.ONE)">设定</div>
 						</template>
 						<template v-else>
-							<div class="window_param_item">
-								风压
-								<el-input v-model="dataForm.pressure" />
-								m³/min
+							<el-form-item prop="pressureAdjust" label="风压">
+								<div class="window_param_item">
+									<el-input v-model="ruleForm.pressureAdjust" />
+									m³/min
+								</div>
+							</el-form-item>
+
+							<div class="normal_btn" @click="setParams('pressureAdjust', WindowParamType.TWO)">
+								设定
 							</div>
-							<div class="normal_btn" @click="setParams('pressure', WindowParamType.TWO)">设定</div>
 						</template>
-						<div class="window_param_item">
-							面积
-							<el-input v-model="dataForm.areaPercent" />
-							m2
-						</div>
-						<div class="normal_btn" @click="setParams('areaPercent', WindowParamType.ELEVEN)">
+						<el-form-item prop="areaAdjust" label="面积">
+							<div class="window_param_item">
+								<el-input v-model="ruleForm.areaAdjust" />
+								m2
+							</div>
+						</el-form-item>
+
+						<div class="normal_btn" @click="setParams('areaAdjust', WindowParamType.ELEVEN)">
 							设定
 						</div>
-					</div>
+					</el-form>
 				</div>
 				<div class="window_operation">
 					<div class="operation_btn" @click="hisRecordHandle">

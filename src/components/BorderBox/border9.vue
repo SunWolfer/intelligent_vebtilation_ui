@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import { getPath, getPathNZ, useAutoResize } from '@/components/BorderBox/borderUtils'
 
-	const props = defineProps({
+	defineProps({
 		color: {
 			type: Array as any[3],
 			default: () => {

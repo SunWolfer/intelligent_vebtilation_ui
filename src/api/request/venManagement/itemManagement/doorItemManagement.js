@@ -31,7 +31,7 @@ export const doorItemManagement = (type) => {
 		useForm({
 			domRefName: 'formRef',
 			formParams: {
-				id: 0,
+				id: undefined,
 				devId: 0,
 				sbmc: '',
 				czlx: '',

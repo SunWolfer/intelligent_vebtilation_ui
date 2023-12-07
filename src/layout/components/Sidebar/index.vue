@@ -28,7 +28,7 @@
 			<div class="sys_top_right_img"></div>
 			<!--    左侧导航栏-->
 			<div class="sys_top_left_navigate">
-				<template v-for="(item, index) in leftSidebarRouters" :key="item.name">
+				<template v-for="item in leftSidebarRouters" :key="item.name">
 					<template v-if="!item.alwaysShow && hasOneShowingChild(item) && !onlyOneChild?.children"
 						><app-link v-if="onlyOneChild" :to="resolvePath(item.path, onlyOneChild.path)">
 							<div class="navigate_home"></div> </app-link
@@ -49,7 +49,7 @@
 				<span>{{ sysTitle }}</span>
 			</div>
 			<div class="sys_top_right_navigate">
-				<template v-for="(item, index) in rightSidebarRouters" :key="item.name">
+				<template v-for="item in rightSidebarRouters" :key="item.name">
 					<div
 						:class="getMenuChoose(item) ? 'navigate_left_bg_active' : 'navigate_left_bg'"
 						@click="clickTheFirstLevelMenu(item, $event)"

@@ -13,7 +13,7 @@ const useDict = (...args: string[]) => {
 			if (dicts) {
 				res.value[dictType] = dicts
 			} else {
-				getDicts(dictType).then((resp) => {
+				getDicts(dictType).then((resp: IApiResponseDataList) => {
 					res.value[dictType] = resp.data.map((p: any) => ({
 						label: p.dictLabel,
 						value: p.dictValue,

@@ -1,8 +1,6 @@
-import useCharts from '@/hooks/useCharts'
 import echarts from '@/utils/echarts/index'
 
 export interface barData {
-	domId: string
 	xData: string[]
 	yDataList: number[][]
 	legends?: string[]
@@ -34,7 +32,6 @@ export interface barData {
 }
 
 export function defaultBarChart({
-	domId,
 	xData,
 	yDataList,
 	legends,
@@ -53,7 +50,6 @@ export function defaultBarChart({
 	legendPosition = 'center',
 	showSplitArea = false,
 }: barData) {
-	const { option } = useCharts(domId)
 	let seriesData: any[] = []
 
 	for (let i = 0; i < yDataList.length; i++) {
@@ -140,7 +136,7 @@ export function defaultBarChart({
 		}
 	}
 
-	option.value = {
+	return {
 		legend: {
 			data: legends,
 			top: 0,

@@ -23,7 +23,6 @@
 	}
 	// 选中对象
 	const chooseData = computed(() => {
-		console.log(dataList.value[chooseVersion.value])
 		return dataList.value[chooseVersion.value]
 	})
 	// 地图范围

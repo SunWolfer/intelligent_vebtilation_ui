@@ -9,11 +9,12 @@
 		dataForm2,
 		beamTubeMonitoringData,
 		chooseForm1Date,
-		showLeftCharts,
 		optFibTemMeaList,
 		chooseForm2Date,
-		showRightCharts,
-		showRightCharts2,
+		chartOption1,
+		chartOption2,
+		chartOption3,
+		chartOption4,
 	} = fireMonitoring()
 </script>
 
@@ -61,8 +62,8 @@
 					月统计
 				</div>
 			</div>
-			<div v-if="showLeftCharts" id="fire-charts-1" class="fullDom"></div>
-			<div v-if="showLeftCharts" id="fire-charts-2" class="fullDom"></div>
+			<BaseEchart :option="chartOption1" />
+			<BaseEchart :option="chartOption2" />
 		</div>
 		<div class="fire_body_right">
 			<border-box name="border2" title="光纤测温" />
@@ -83,7 +84,7 @@
 					</div>
 				</template>
 			</div>
-			<div v-if="showRightCharts" id="fire-charts-3" class="fullDom"></div>
+			<BaseEchart :option="chartOption3" />
 			<div style="grid-area: 5/1/6/2" class="fire_statistics">
 				<div
 					class="fire_statistics_item"
@@ -107,7 +108,7 @@
 					月统计
 				</div>
 			</div>
-			<div v-if="showRightCharts2" id="fire-charts-4" class="fullDom"></div>
+			<BaseEchart :option="chartOption4" />
 		</div>
 	</div>
 </template>

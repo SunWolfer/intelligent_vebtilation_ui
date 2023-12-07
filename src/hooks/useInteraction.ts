@@ -1,7 +1,7 @@
 // 表格与模型互动
 import { OperateModel } from '@/components/VueThree/IModelOperate'
 import useThree from '@/hooks/useThree'
-import threeModel from '@/store/modules/threeModel'
+import { threeModel } from '@/store/modules/threeModel'
 import type { TableInstance } from 'element-plus'
 import { Object3D } from 'three'
 import { Ref } from 'vue'
@@ -58,7 +58,7 @@ export const useInteraction = () => {
 	//   表格行被点击
 	const getSelectionRows = (row: tunnelTable) => {
 		const names = row.code.split('-')
-		if (names.length <= 1) return;
+		if (names.length <= 1) return
 		const chooseModel = threeModelData.value.find((i) => {
 			return i.nodeName === names[0] && i.nextNode === names[1]
 		})
@@ -87,26 +87,28 @@ export const useInteraction = () => {
 			() => selectCode.value,
 			(val) => {
 				if (val) {
-					positionTableRow?.(list.value,val)
+					positionTableRow?.(list.value, val)
 				}
 			},
 		)
 	}
 	// 定位表格行
-	const positionTableRow = (list: tunnelTable[],code:string) => {
+	const positionTableRow = (list: tunnelTable[], code: string) => {
 		const index = list.findIndex((i) => i.code === code)
 		if (index === -1) return
 		tableRef.value?.setCurrentRow(list[index])
 		// 获取行高
-		const offSetTop =
-			tableRef.value?.$el.getElementsByClassName('el-table__row')[index].offsetTop
+		const offSetTop = tableRef.value?.$el.getElementsByClassName('el-table__row')[index].offsetTop
 		tableRef.value?.setScrollTop(offSetTop)
 	}
 	// 传入模型dom
 	const watchDomRef = (domRef: Ref<IThreeModelDOM>) => {
-		watch(() => domRef.value,(value) => {
-			threeModelRef.value = value
-		})
+		watch(
+			() => domRef.value,
+			(value) => {
+				threeModelRef.value = value
+			},
+		)
 	}
 
 	return {
@@ -117,6 +119,6 @@ export const useInteraction = () => {
 		selectCode,
 		getSelectionTunnel,
 		watchCode,
-		watchDomRef
+		watchDomRef,
 	}
 }

@@ -1,6 +1,5 @@
 import { removeFanLine } from '@/api/api/fanCharCurveManagement'
 import { fanChart1 } from '@/api/request/venEqMonitoring/fansCharts'
-import useResetCharts from '@/hooks/useResetCharts'
 import { useCommitForm } from '@/hooks/useForm'
 import { useFanFormData } from '@/api/request/venManagement/fanCharCurveManagement/useFanFormData'
 
@@ -18,6 +17,7 @@ export const fanCharCurveManagement = () => {
 		queryData,
 	} = useFanFormData()
 	//  风机曲线
+	const chartOption1 = ref({})
 	const initFanChart = () => {
 		const xData = lineData.value.fengliang
 		const yData = [
@@ -28,18 +28,15 @@ export const fanCharCurveManagement = () => {
 		]
 		const legends = ['通风阻力', '全压', '效率', '功率']
 
-		fanChart1({
-			domId: 'fan_curve_chart_1',
+		chartOption1.value = fanChart1({
 			xData: xData,
 			yData: yData,
 			legends: legends,
 		})
 	}
 
-	const { showCharts, resetCharts } = useResetCharts(initFanChart, false)
-
 	const handleQuery = () => {
-		queryData?.(resetCharts)
+		queryData?.(initFanChart)
 	}
 
 	const chooseRow = ref({
@@ -88,7 +85,7 @@ export const fanCharCurveManagement = () => {
 	// 监听风机改变
 	handleMonitor?.()
 	// 监听查询表单
-	handleSingle?.(resetCharts)
+	handleSingle?.(initFanChart)
 
 	return {
 		queryParams,
@@ -97,12 +94,12 @@ export const fanCharCurveManagement = () => {
 		rotationalSpeedList,
 		bladeAngleList,
 		handleQuery,
-		showCharts,
 		dataList,
 		chooseRow,
 		addOrUpdateVisible,
 		handleAdd,
 		handleUpdate,
 		handleDelete,
+		chartOption1,
 	}
 }

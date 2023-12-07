@@ -2,13 +2,10 @@
 <script setup lang="ts">
 	import { getPoints, useAutoResize } from '@/components/BorderBox/borderUtils'
 
-	interface ReqBorderBox {
-		// 动画时间
-		dur?: number
-		//   标题
-		title?: string
-	}
-	const props = defineProps<ReqBorderBox>()
+	defineProps({
+		dur: Number,
+		title: String,
+	})
 
 	const { domRef, width, height } = useAutoResize()
 	// 宽度偏移量

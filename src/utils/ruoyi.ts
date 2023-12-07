@@ -78,7 +78,7 @@ export function selectDictLabel(datas: any, value: string | undefined) {
 	if (value === undefined) {
 		return ''
 	}
-	const actions = []
+	let actions: any[] = []
 	Object.keys(datas).some((key) => {
 		if (datas[key].value === '' + value) {
 			actions.push(datas[key].label)
@@ -170,7 +170,7 @@ export function handleTree(data: any, id = 'id', parentId = 'parentId', children
 
 	const childrenListMap: any = {}
 	const nodeIds: any = {}
-	const tree = []
+	const tree: any[] = []
 
 	for (let d of data) {
 		let parentId = d[config.parentId]
@@ -357,3 +357,8 @@ export function getMonthStartEnd() {
 	const monthEnd = parseTime(monthEndDate)
 	return [monthStart, monthEnd]
 }
+
+// 非负浮点数
+export const PositiveNum = /^\d+(\.\d+)?$/
+// 数字
+export const isNum = /^(([1-9]\d*)|([0][.]{1}[0-9]{0,2}[1-9]+)|([1-9]\d*[.]{1}[0-9]+))$/g

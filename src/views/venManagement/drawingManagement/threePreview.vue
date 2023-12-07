@@ -34,6 +34,17 @@
 	const quit = () => {
 		router.back()
 	}
+	const modelRef = ref(null)
+	// 调试节点
+	const debugNode = ref('')
+	const setNode = () => {
+		const nodeNames = debugNode.value.split(',')
+		modelRef.value?.setSelectModel(nodeNames)
+	}
+
+	const chooseModelName = computed(() => {
+		return modelRef.value?.intersected?.name
+	})
 
 	onMounted(() => {
 		initMap()
@@ -61,6 +72,16 @@
 		</div>
 		<div class="reverse_wind_ing_bottom">
 			<div class="reverse_wind_ing_bottom_1" @click="quit"></div>
+		</div>
+		<div class="debug_model">
+			<border-box name="border3">
+				<div class="debug_model_body">
+					<span>输入节点</span>
+					<el-input v-model="debugNode"></el-input>
+					<div class="normal_btn" @click="setNode">确定</div>
+				</div>
+			</border-box>
+			<span>当前选中模型名称：{{ chooseModelName }}</span>
 		</div>
 	</div>
 </template>
@@ -99,5 +120,30 @@
 			line-height: vh(45);
 			top: 100%;
 		}
+	}
+
+	.debug_model {
+		position: absolute;
+		width: vw(500);
+		height: vh(200);
+		left: vw(20);
+		top: vh(20);
+		display: grid;
+		grid-template-rows: repeat(2, 1fr);
+		font-size: vw(18);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: #ffffff;
+	}
+	.debug_model_body {
+		display: grid;
+		grid-template-columns: vw(80) 1fr vw(140);
+		grid-column-gap: vw(20);
+		width: 100%;
+		height: 100%;
+		padding: 0 vw(20);
+		align-items: center;
 	}
 </style>

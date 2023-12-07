@@ -1,7 +1,7 @@
 <!--巡检漫游-->
 <script setup>
 	import { homeRoam } from '@/api/request/home/homeRoam'
-	import { MenuTypes } from '@/api/request/menuType'
+	import { MenuTypes } from '@/types/menuType'
 	import useHomeMenu from '@/hooks/useHomeMenu'
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
 

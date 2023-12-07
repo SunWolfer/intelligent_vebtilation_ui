@@ -1,6 +1,6 @@
 import { EditType, TunnelBtn } from '@/components/VueThree/types/editType'
 import { getDeviceByType } from '@/api/api/patrolRouteManagement'
-import { deviceTypes } from '@/api/request/menuType'
+import { deviceTypes } from '@/types/menuType'
 
 export const venSystemManagement = () => {
 	// 模型

@@ -1,8 +1,8 @@
 <script setup>
 	import mapImg from '@/assets/images/catAidedDecMaking/back_wind_plane.png'
-	import { useOpenlayers } from '@/hooks/useOpenlayers'
+	import { useOpenLayers } from '@/hooks/useOpenLayers'
 
-	const { mapRef, textExtent, zoom, datalayerList, initMap } = useOpenlayers()
+	const { mapRef, textExtent, zoom, datalayerList, initMap } = useOpenLayers()
 	zoom.value = 2.5
 	textExtent.value = [0, 0, 1882, 886]
 	datalayerList.value = [

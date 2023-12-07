@@ -5,8 +5,8 @@
 	import { useCommitForm } from '@/hooks/useForm'
 	import { controlWindow } from '@/api/api/airWindow'
 	import { getChart1, getChart2 } from '@/api/request/home/remoterControlCharts'
-	import useResetCharts from '@/hooks/useResetCharts'
 	import useDict from '@/hooks/useDict'
+	import { useCheckWindowForm } from '@/hooks/useCheckWindowForm'
 
 	const { window_work_model, window_type } = useDict('window_work_model', 'window_type')
 
@@ -22,43 +22,50 @@
 	const emits = defineEmits(['changeWindow', 'hisRecordHandle'])
 
 	const dataForm = ref({})
+
 	// 视频地址
 	const videoUrl = ref('')
 	onMounted(() => {
-		dataForm.value = props.form
-		let urls = dataForm.value.videoUrl ? dataForm.value.videoUrl.split(',') : []
-		videoUrl.value = urls[0] ?? ''
+		initForm()
 	})
-
+	const initForm = () => {
+		if (!props.form) return
+		dataForm.value = props.form
+		let urls = dataForm.value?.videoUrl ? dataForm.value.videoUrl.split(',') : []
+		videoUrl.value = urls[0] ?? ''
+	}
+	const optionA = ref({})
+	const optionB = ref({})
 	//   加载A窗开度面积图
 	const initChart1 = () => {
-		getChart1('window_chart_a_b_1', dataForm.value?.openDegreeNow ?? 0)
-		getChart2('window_chart_a_b_2', dataForm.value?.areaPercent ?? 0)
+		optionA.value = getChart1(dataForm.value?.openDegreeNow ?? 0)
+		optionB.value = getChart2(dataForm.value?.areaPercent ?? 0)
 	}
-
-	const { showCharts, resetCharts } = useResetCharts(initChart1, false)
 
 	watch(
 		() => props.form,
 		(val) => {
 			dataForm.value = val
-			resetCharts?.()
+			initChart1?.()
 		},
 		{ deep: true },
 	)
 
 	//   风窗A状态
 	const windowStatusALight = (data) => {
-		return dataForm.value.status === data ? 'small_light_1' : 'small_light_2'
+		return dataForm.value?.status === data ? 'small_light_1' : 'small_light_2'
 	}
 	//   设置参数
-	const setParams = async (key, type) => {
-		await useCommitForm(controlWindow, {
-			queryParams: {
-				devId: dataForm.value.id,
-				controlType: type,
-				controlValue: dataForm.value[key],
-			},
+	const { ruleFormRef, rules, submitForm, ruleForm } = useCheckWindowForm()
+	const setParams = (key, type) => {
+		submitForm?.(key, async () => {
+			await useCommitForm(controlWindow, {
+				queryParams: {
+					devId: dataForm.value.id,
+					controlType: type,
+					controlValue: ruleForm.value[key],
+				},
+			})
 		})
 	}
 
@@ -74,7 +81,7 @@
 	// 控制显示图表
 	const domType = computed(() => {
 		let type = '-1'
-		const rsType = dataForm.value.rsSensorType
+		const rsType = dataForm.value?.rsSensorType
 		if (rsType === '-1') {
 			type = '1'
 		} else if (rsType === '0') {
@@ -95,7 +102,7 @@
 			<!--        选择按钮-->
 			<div
 				class="window_choose_icon"
-				:style="{ left: dynamicHeight(dataForm.name?.length * 24) + 'px' }"
+				:style="{ left: dynamicHeight(dataForm?.name?.length * 24) + 'px' }"
 			>
 				<el-dropdown trigger="click" @command="changeWindow">
 					<el-icon><CaretBottom /></el-icon>
@@ -111,15 +118,13 @@
 		</div>
 		<div class="window_li_l2">
 			<div class="window_li_l2_l1">
-				<span>位置：{{ dataForm.location }}</span>
-				<span>IP地址：{{ dataForm.ip }}</span>
-				<span>当前模式：{{ selectDictLabel(window_work_model, dataForm.workModel) }}</span>
-				<span>类型：{{ selectDictLabel(window_type, dataForm.type) }}</span>
+				<span>位置：{{ dataForm?.location }}</span>
+				<span>IP地址：{{ dataForm?.ip }}</span>
+				<span>当前模式：{{ selectDictLabel(window_work_model, dataForm?.workModel) }}</span>
+				<span>类型：{{ selectDictLabel(window_type, dataForm?.type) }}</span>
 			</div>
-			<template v-if="showCharts">
-				<div class="fullDom" id="window_chart_a_b_1"></div>
-				<div class="fullDom" id="window_chart_a_b_2"></div>
-			</template>
+			<BaseEchart :option="optionA" />
+			<BaseEchart :option="optionB" />
 			<div class="window_li_l2_l3">
 				<div class="p-center">
 					<span class="mr5">调风超时</span>
@@ -139,7 +144,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="window_li_l2_c2">
+		<el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" class="window_li_l2_c2">
 			<border-box name="border5">
 				<div class="set_btn_default">
 					<span>参数设定</span>
@@ -153,39 +158,51 @@
 					</div>
 				</border-box>
 			</div>
-
-			<div class="window_li_l2_c2_item">
-				开度
-				<el-input v-model="dataForm.openDegreeNow" />
-				%
-				<div class="normal_btn" @click="setParams('openDegreeNow', WindowParamType.TEN)">设定</div>
-			</div>
+			<el-form-item prop="openDegreeAdjust" label="开度">
+				<div class="window_li_l2_c2_item">
+					<el-input v-model="ruleForm.openDegreeAdjust" />
+					%
+					<div class="normal_btn" @click="setParams('openDegreeAdjust', WindowParamType.TEN)">
+						设定
+					</div>
+				</div>
+			</el-form-item>
 
 			<template v-if="['1', '2'].includes(domType)">
-				<div class="window_param_item">
-					风量
-					<el-input v-model="dataForm.volume" />
-					m³/min
-					<div class="normal_btn" @click="setParams('volume', WindowParamType.ONE)">设定</div>
-				</div>
+				<el-form-item prop="volumeAdjust" label="风量">
+					<div class="window_li_l2_c2_item">
+						<el-input v-model="ruleForm.volumeAdjust" />
+						m³/min
+						<div class="normal_btn" @click="setParams('volumeAdjust', WindowParamType.ONE)">
+							设定
+						</div>
+					</div>
+				</el-form-item>
 			</template>
 			<template v-else>
-				<div class="window_li_l2_c2_item">
-					风压
-					<el-input v-model="dataForm.pressure" />
-					m³/min
-					<div class="normal_btn" @click="setParams('pressure', WindowParamType.TWO)">设定</div>
-				</div>
+				<el-form-item prop="pressureAdjust" label="风压">
+					<div class="window_li_l2_c2_item">
+						<el-input v-model="ruleForm.pressureAdjust" />
+						m³/min
+						<div class="normal_btn" @click="setParams('pressureAdjust', WindowParamType.TWO)">
+							设定
+						</div>
+					</div>
+				</el-form-item>
 			</template>
-			<div class="window_li_l2_c2_item">
-				面积
-				<el-input v-model="dataForm.areaPercent" />
-				m2
-				<div class="normal_btn" @click="setParams('areaPercent', WindowParamType.ELEVEN)">设定</div>
-			</div>
-		</div>
+			<el-form-item prop="areaAdjust" label="面积">
+				<div class="window_li_l2_c2_item">
+					<el-input v-model="ruleForm.areaAdjust" />
+					m2
+					<div class="normal_btn" @click="setParams('areaAdjust', WindowParamType.ELEVEN)">
+						设定
+					</div>
+				</div>
+			</el-form-item>
+		</el-form>
+
 		<div class="fullDom window_li_l2_c3">
-			<m-video :video-path="videoUrl" :domid="`windowFormPlayer` + dataForm.id" type="fc" />
+			<m-video :video-path="videoUrl" :domid="`windowFormPlayer` + dataForm?.id" type="fc" />
 		</div>
 	</div>
 </template>
@@ -245,6 +262,9 @@
 			display: grid;
 			grid-template-rows: vh(37) vh(32) repeat(3, vh(40));
 			align-content: space-between;
+			.el-form-item {
+				width: 100%;
+			}
 			.operation_btn {
 				justify-self: end;
 			}
@@ -252,7 +272,7 @@
 				width: 100%;
 				display: grid;
 				justify-content: start;
-				grid-template-columns: vh(30) vw(105) vh(65) 1fr;
+				grid-template-columns: vw(105) vh(65) 1fr;
 				@include ParamItemText;
 				align-items: center;
 				.el-input {

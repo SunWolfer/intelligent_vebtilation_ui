@@ -1,36 +1,22 @@
 import router from '@/router/index'
-import useTagsViewStore from '@/store/modules/tagsView'
+import { useTagsViewStore } from '@/store/modules/tagsView'
+import { unref } from 'vue'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 
 export default {
 	// 刷新当前tab页签
-	async refreshPage(obj: any) {
-		const { path, matched }: any = router.currentRoute
-		if (obj === undefined) {
-			matched.forEach((m: { components: { default: { name: string } } }) => {
-				// prettier-ignore
-				if (m.components && m.components.default && m.components.default.name) {
-						if (!["Layout", "ParentView"].includes(m.components.default.name)) {
-							obj = { name: m.components.default.name, path: path };
-						}
-					}
-			})
-		}
-
-		await useTagsViewStore().delCachedView(obj)
-		const { path: path_1, query } = obj
+	async refreshPage(obj: RouteLocationNormalizedLoaded) {
+		const { path, query } = obj || unref(router.currentRoute)
+		await nextTick()
 		await router.replace({
-			path: '/redirect' + path_1,
+			path: '/redirect' + path,
 			query: query,
 		})
 	},
 	// 关闭当前tab页签，打开新页签
-	closeOpenPage(obj: any) {
+	closeOpenPage(obj: RouteLocationNormalizedLoaded) {
 		const viewStore = useTagsViewStore()
-		viewStore.delView(router.currentRoute.value)
-		if (obj !== undefined) {
-			return router.push(obj)
-		}
+		viewStore.delView(obj || unref(router.currentRoute))
 	},
 	// 关闭指定tab页签
 	async closePage(obj?: RouteLocationNormalizedLoaded) {
@@ -48,21 +34,21 @@ export default {
 	// 关闭左侧tab页签
 	closeLeftPage(obj: RouteLocationNormalizedLoaded) {
 		// prettier-ignore
-		return useTagsViewStore().delLeftTags(obj || router.currentRoute);
+		return useTagsViewStore().delLeftTags(obj || unref(router.currentRoute));
 	},
 	// 关闭右侧tab页签
 	closeRightPage(obj: RouteLocationNormalizedLoaded) {
 		// prettier-ignore
-		return useTagsViewStore().delRightTags( obj || router.currentRoute);
+		return useTagsViewStore().delRightTags( obj || unref(router.currentRoute));
 	},
 	// 关闭其他tab页签
 	closeOtherPage(obj: RouteLocationNormalizedLoaded) {
 		// prettier-ignore
-		return useTagsViewStore().delOthersViews(obj || router.currentRoute);
+		return useTagsViewStore().delOthersViews(obj || unref(router.currentRoute));
 	},
 	// 添加tab页签
-	openPage(title: any, url: any) {
-		var obj: any = { path: url, meta: { title: title } }
+	openPage(title: string, url: string) {
+		let obj: any = { path: url, meta: { title: title } }
 		useTagsViewStore().addView(obj)
 		return router.push(url)
 	},

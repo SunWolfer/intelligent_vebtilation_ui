@@ -25,7 +25,7 @@
 					<span>[设备类型]</span>
 					{{ formatterEquipmentType(data.devType) }}
 				</div>
-				<div :class="data.warnType === '1' ? 'equipment_warn' : 'equipment_normal'" />
+				<div :class="dataForm.warnType === '1' ? 'equipment_warn' : 'equipment_normal'" />
 			</div>
 			<div class="equipment_msg_top_item_2">{{ data.name }}</div>
 			<div class="equipment_msg_top_item_3 equipment_msg_top_item_3_duo_shen">
@@ -42,7 +42,7 @@
 					<div class="equipment_text">1</div>
 				</div>
 				<div class="equipment_msg_top_item_3_body">
-					<span>绝压(Pa)</span>
+					<span>绝压(kPa)</span>
 					<div class="equipment_text">1</div>
 				</div>
 				<div class="equipment_msg_top_item_3_body">

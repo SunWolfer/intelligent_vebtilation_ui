@@ -123,7 +123,7 @@ export function getMoreLineMapMarkLine(
 	const charEle = document.getElementById(domId) as HTMLElement
 	let myChart = echarts.init(charEle)
 	aName = !isNull(aName) ? aName : ''
-	let seriesList = []
+	let seriesList: any[] = []
 	dataList.forEach((i: any, index: number) => {
 		seriesList.push({
 			name: LegendList[index],
@@ -148,14 +148,14 @@ export function getMoreLineMapMarkLine(
 			color: '#e01f54',
 		},
 	}
-	formattingMarkLine.forEach((i: any, index: number) => {
+	formattingMarkLine.forEach((i: any, _index: number) => {
 		markLine.data.push([
 			{ xAxis: i[0] + '', yAxis: 0, symbol: 'circle', symbolSize: 1 },
 			{ xAxis: i[0] + '', yAxis: i[1] / 2, symbol: 'circle', symbolSize: 1 },
 			{
 				label: {
 					position: 'end',
-					formatter: (value: any) => {
+					formatter: (_value: any) => {
 						return (i[2] + '').split('').join('\n')
 					},
 					color: '#e01f54',

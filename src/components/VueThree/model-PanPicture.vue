@@ -39,8 +39,7 @@
 		reqId: number,
 		size: DomSize
 
-	let isUserInteracting = false,
-		onPointerDownMouseX = 0,
+	let onPointerDownMouseX = 0,
 		onPointerDownMouseY = 0,
 		lon = 0,
 		onPointerDownLon = 0,
@@ -147,8 +146,6 @@
 	function onPointerDown(event: PointerEvent) {
 		if (!event.isPrimary) return
 
-		isUserInteracting = true
-
 		onPointerDownMouseX = event.clientX
 		onPointerDownMouseY = event.clientY
 
@@ -171,7 +168,6 @@
 	function onPointerUp(event: PointerEvent) {
 		if (!event.isPrimary) return
 
-		isUserInteracting = false
 		if (container.value) {
 			container.value.removeEventListener('pointermove', onPointerMove)
 			container.value.removeEventListener('pointerup', onPointerUp)

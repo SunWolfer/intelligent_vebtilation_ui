@@ -1,4 +1,4 @@
-import {parseTime} from '@/utils/ruoyi'
+import { parseTime } from '@/utils/ruoyi'
 
 /**
  * 表格时间格式化
@@ -7,17 +7,12 @@ export function formatDate(cellValue: string | number | Date | null) {
 	if (cellValue == null || cellValue === '') return ''
 	const date = new Date(cellValue)
 	const year = date.getFullYear()
-	const month =
-		date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
+	const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
 	const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
 	const hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-	const minutes =
-		date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-	const seconds =
-		date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
-	return (
-		year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds
-	)
+	const minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+	const seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
+	return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds
 }
 
 /**
@@ -25,10 +20,7 @@ export function formatDate(cellValue: string | number | Date | null) {
  * @param {string} option
  * @returns {string}
  */
-export function formatTime(
-	time: string | number | Date,
-	option: string | undefined,
-) {
+export function formatTime(time: string | number | Date, option: string | undefined) {
 	if (('' + time).length === 10) {
 		time = parseInt(time + '') * 1000
 	} else {
@@ -53,15 +45,7 @@ export function formatTime(
 		return parseTime(time, option)
 	} else {
 		return (
-			d.getMonth() +
-			1 +
-			'月' +
-			d.getDate() +
-			'日' +
-			d.getHours() +
-			'时' +
-			d.getMinutes() +
-			'分'
+			d.getMonth() + 1 + '月' + d.getDate() + '日' + d.getHours() + '时' + d.getMinutes() + '分'
 		)
 	}
 }
@@ -106,7 +90,7 @@ export function byteLength(str: string) {
  * @returns {Array}
  */
 export function cleanArray(actual: string | any[]) {
-	const newArray = []
+	let newArray: any[] = []
 	for (let i = 0; i < actual.length; i++) {
 		if (actual[i]) {
 			newArray.push(actual[i])
@@ -198,8 +182,7 @@ export function toggleClass(element: any, className: string | any[]) {
 		classString += '' + className
 	} else {
 		classString =
-			classString.substr(0, nameIndex) +
-			classString.substr(nameIndex + className.length)
+			classString.substr(0, nameIndex) + classString.substr(nameIndex + className.length)
 	}
 	element.className = classString
 }
@@ -358,9 +341,29 @@ export const getBase64 = (file: Blob) => {
 	return new Promise((resolve, reject) => {
 		const reader = new FileReader()
 		reader.readAsDataURL(file)
-		reader.onload = (e) => {
+		reader.onload = (_e) => {
 			resolve(reader.result)
 		}
 		reader.onerror = (error) => reject(error)
 	})
+}
+/**
+ * 查找数组对象的某个下标
+ * @param {Array} ary 查找的数组
+ * @param {Functon} fn 判断的方法
+ */
+// eslint-disable-next-line
+export const findIndex = <T = Recordable>(ary: Array<T>, fn: Fn): number => {
+	if (ary.findIndex) {
+		return ary.findIndex(fn)
+	}
+	let index = -1
+	ary.some((item: T, i: number, ary: Array<T>) => {
+		const ret: T = fn(item, i, ary)
+		if (ret) {
+			index = i
+			return ret
+		}
+	})
+	return index
 }

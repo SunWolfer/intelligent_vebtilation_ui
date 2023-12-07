@@ -85,6 +85,7 @@
 		color: #a2ccdb;
 		box-sizing: border-box;
 		border-bottom: 1px solid #9eb7d4;
+		height: calc(100% - #{2px});
 	}
 	:deep(.el-input) {
 		height: calc(100% - 2px);

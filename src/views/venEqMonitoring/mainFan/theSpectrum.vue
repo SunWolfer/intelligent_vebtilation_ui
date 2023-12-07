@@ -1,6 +1,5 @@
 <!--温振图谱分析-->
 <script setup>
-	import useResetCharts from '@/hooks/useResetCharts'
 	import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
 
 	const props = defineProps({
@@ -53,7 +52,7 @@
 		if (chooseItem.value === data) return
 		chooseItem.value = data
 	}
-
+	const chartOption = ref({})
 	const initChart = () => {
 		let xData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 		let yData = [[], []]
@@ -64,8 +63,7 @@
 			}
 		}
 
-		defaultLineChart({
-			domId: 'the_spe_chart_1',
+		chartOption.value = defaultLineChart({
 			xData: xData,
 			yDataList: yData,
 			legends: ['预警波形', '故障库波形'],
@@ -79,7 +77,9 @@
 			isArea: false,
 		})
 	}
-	useResetCharts(initChart)
+	onMounted(() => {
+		initChart()
+	})
 </script>
 
 <template>
@@ -118,7 +118,7 @@
 					</div>
 				</template>
 			</div>
-			<div id="the_spe_chart_1" class="fullDom"></div>
+			<BaseEchart :option="chartOption" />
 		</div>
 	</dia-log>
 </template>

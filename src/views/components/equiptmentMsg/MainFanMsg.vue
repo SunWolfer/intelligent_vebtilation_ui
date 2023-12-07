@@ -54,7 +54,7 @@
 					<span>[设备类型]</span>
 					{{ formatterEquipmentType(data.devType) }}
 				</div>
-				<div :class="data.warnStatus !== '0' ? 'equipment_warn' : 'equipment_normal'" />
+				<div :class="dataForm.warnStatus !== '0' ? 'equipment_warn' : 'equipment_normal'" />
 			</div>
 			<div class="equipment_msg_top_item_2">{{ dataForm.name }}</div>
 			<div class="equipment_msg_top_item_3 equipment_msg_top_item_3_main_fan">

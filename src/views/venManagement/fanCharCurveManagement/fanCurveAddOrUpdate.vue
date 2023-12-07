@@ -2,8 +2,8 @@
 <script setup>
 	import { isNull } from '@/utils/ruoyi'
 	import { useCommitForm } from '@/hooks/useForm'
-	import { saveFanLine } from '@/api/api/fanCharCurveManagement'
-	import { useFanFormData } from '@/api/request/venManagement/fanCharCurveManagement/useFanFormData'
+	import { fanDict, saveFanLine } from '@/api/api/fanCharCurveManagement'
+	import { useGainList } from '@/hooks/useGainList'
 
 	const props = defineProps({
 		chooseRow: {
@@ -37,19 +37,33 @@
 	const updateData = computed(() => {
 		return !isNull(props.chooseRow.devId)
 	})
-	const {
-		queryParams,
-		fanList,
-		rotationalSpeedList,
-		bladeAngleList,
-		single,
-		handleMonitor,
-		handleSingle,
-		dataList,
-	} = useFanFormData()
 
+	const queryParams = ref({
+		devId: '',
+		// 	转速
+		zhuansu: '',
+		// 	角度
+		jiaodu: '',
+	})
+	// 表单是否有空值
+	const single = computed(() => {
+		let flag = true
+		for (const key in queryParams.value) {
+			if (isNull(queryParams.value[key])) {
+				flag = false
+			}
+		}
+		return flag
+	})
+
+	//   风机下拉
+	const { dataList: fanList } = useGainList({
+		apiFun: fanDict,
+	})
+
+	// 风机曲线列表
+	const dataList = ref([])
 	const selections = ref([])
-
 	const handleSelectionChange = (selection) => {
 		selections.value = selection
 	}
@@ -80,8 +94,6 @@
 			dataList.value = lines
 		} else {
 			title.value = '新增'
-			handleMonitor?.()
-			handleSingle?.()
 		}
 	}
 
@@ -140,28 +152,14 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="转速(r/min)">
-						<el-select
-							clearable
+						<el-input
 							:disabled="updateData"
 							class="fan_curve_input"
 							v-model="queryParams.zhuansu"
-						>
-							<el-option
-								v-for="i in rotationalSpeedList"
-								:label="i.zhuansu"
-								:value="i.zhuansu"
-							></el-option>
-						</el-select>
+						/>
 					</el-form-item>
 					<el-form-item label="叶片角度">
-						<el-select
-							clearable
-							:disabled="updateData"
-							class="fan_curve_input"
-							v-model="queryParams.jiaodu"
-						>
-							<el-option v-for="i in bladeAngleList" :value="i" :label="i"></el-option>
-						</el-select>
+						<el-input :disabled="updateData" class="fan_curve_input" v-model="queryParams.jiaodu" />
 					</el-form-item>
 				</el-form>
 			</div>

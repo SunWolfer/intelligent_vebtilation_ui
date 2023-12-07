@@ -1,9 +1,9 @@
 import useEquipmentParams from '@/hooks/useEquipmentParams'
 import { controlDoor, doorListAll, monitorInfo, paramInfo, setDoorParam } from '@/api/api/airDoor'
 import { useGainList } from '@/hooks/useGainList'
-import { WorkStatus } from '@/api/request/home/doorParams'
+import { ControlKey, WorkStatus } from '@/api/request/home/doorParams'
 import { useCommitForm } from '@/hooks/useForm'
-import { useSocket } from '@/hooks/useSocket'
+import useSocket from '@/hooks/useSocket'
 
 export const homeAirDoor = () => {
 	// 风门下拉列表
@@ -29,7 +29,10 @@ export const homeAirDoor = () => {
 		}
 	}
 	// socket监听风门信息
-	const { clientSocket, socketData } = useSocket('|door|adjust', dealWithData)
+	const { clientSocket, socketData, doorInfo } = useSocket('doorInfo')
+	watch(doorInfo, (value) => {
+		dealWithData(value)
+	})
 	// 接收socket信息
 	function dealWithData(data) {
 		if (data.id === dataForm.value.id && data.ip === dataForm.value.ip) {
@@ -59,7 +62,7 @@ export const homeAirDoor = () => {
 		if (!params) return
 		await getDataForm(params?.id)
 		await getParamInfo(params?.id)
-		clientSocket?.()
+		clientSocket?.('|adjust|door')
 	})
 	// 改变选中风门
 	const changeDoor = (id) => {
@@ -91,6 +94,14 @@ export const homeAirDoor = () => {
 		dataForm.value.workModel = type
 		controlDoorHandle(type)
 	}
+	// 风门动画状态
+	const playmod = ref('')
+	const modTypeMap = new Map([
+		[ControlKey.THREE, 'men1kai'],
+		[ControlKey.FOUR, 'men1guan'],
+		[ControlKey.FIVE, 'men2kai'],
+		[ControlKey.SIX, 'men2guan'],
+	])
 	// 风门远程操作
 	const controlDoorHandle = async (type) => {
 		await useCommitForm(controlDoor, {
@@ -99,6 +110,7 @@ export const homeAirDoor = () => {
 				controlType: type,
 			},
 		})
+		playmod.value = modTypeMap.get(type) ?? ''
 	}
 	// 设置风门参数
 	const doorParamHandle = async (key) => {
@@ -145,5 +157,6 @@ export const homeAirDoor = () => {
 		doorParamHandle,
 		hisRecordVisible,
 		hisRecordHandle,
+		playmod,
 	}
 }

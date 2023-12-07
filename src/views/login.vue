@@ -5,9 +5,9 @@
 			<el-input
 				prefix-icon="User"
 				v-model="loginForm.username"
-				type="primary"
+				type="text"
 				link
-				auto-complete="off"
+				autocomplete="off"
 				placeholder="账号"
 			>
 			</el-input>
@@ -15,7 +15,7 @@
 				prefix-icon="Lock"
 				v-model="loginForm.password"
 				type="password"
-				auto-complete="off"
+				autocomplete="new-password"
 				placeholder="密码"
 				@keyup.enter="handleLogin"
 			/>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-	import useUserStore from '@/store/modules/user'
+	import { useUserStore } from '@/store/modules/user'
 
 	const userStore = useUserStore()
 	const router = useRouter()

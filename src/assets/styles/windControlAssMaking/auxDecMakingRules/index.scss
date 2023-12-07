@@ -1,0 +1,80 @@
+@import "@/assets/styles/defaultMinix";
+.aux_body{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  padding: 0 vw(75) vh(30) vw(75);
+  grid-template-columns: repeat(2,1fr);
+  grid-template-rows: vh(90) 1fr;
+  grid-column-gap: vw(20);
+}
+.aux_body_form{
+  grid-area: 1/1/2/3;
+  align-self: center;
+}
+.aux_body_rule{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: vh(60) vw(32) 1fr;
+}
+.aux_body_rule_title{
+  @include defaultMinix1(255,56);
+  padding-left: vw(100);
+}
+.aux_body_rule_text{
+  display: flex;
+  gap: vw(20);
+  font-size: vw(16);
+  font-family: Microsoft YaHei, serif;
+  font-weight: 400;
+  color: #FFFFFF;
+  align-self: center;
+}
+
+.aux_body_rule_list{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,vw(350));
+  grid-template-rows: vh(198);
+  grid-row-gap: vh(50);
+  overflow-y: auto;
+}
+.aux_body_rule_list_item{
+  justify-self: end;
+  position: relative;
+  width: vw(281);
+  height: vh(198);
+  &:after{
+    position: absolute;
+    content: '';
+    left: vw(-45);
+    top: calc(50% - #{vw(15)});
+    width: vw(23);
+    height: vw(30);
+    background-image: url('@/assets/images/windControlAssMaking/ana_icon_1.png');
+    background-size: 100% 100%;
+  }
+}
+.aux_body_rule_list_item_body{
+  padding: vh(15) vw(40);
+  display: grid;
+  grid-template-rows: repeat(5,1fr);
+  align-items: center;
+  font-size: vw(14);
+  font-family: Microsoft YaHei, serif;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+.aux_body_rule_list_item_body_line{
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-column-gap: vw(10);
+  align-items: center;
+  height: 100%;
+  word-wrap: break-word;
+}

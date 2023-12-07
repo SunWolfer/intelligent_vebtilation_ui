@@ -29,6 +29,7 @@
 			name: undefined,
 			location: undefined,
 			ip: undefined,
+			devVersion: undefined,
 		},
 		deleteFun: delThrottle,
 	})
@@ -36,6 +37,9 @@
 	const { door_type, door_version } = useDict('door_type', 'door_version')
 	const formatterDoorType = (row) => {
 		return selectDictLabel(door_type.value, row.type)
+	}
+	const formatterVersion = (data) => {
+		return selectDictLabel(door_version.value, data.devVersion)
 	}
 
 	const rules = ref({
@@ -121,6 +125,11 @@
 			<el-form-item label="风门ip">
 				<el-input v-model="queryParams.ip"></el-input>
 			</el-form-item>
+			<el-form-item label="风门版本">
+				<el-select v-model="queryParams.devVersion" clearable>
+					<el-option v-for="i in door_version" :label="i.label" :value="i.value"></el-option>
+				</el-select>
+			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">查询</div>
 			</el-form-item>
@@ -138,6 +147,12 @@
 			<el-table-column label="风门长度" align="center" prop="length" />
 			<el-table-column label="风门宽度" align="center" prop="width" />
 			<el-table-column label="风门类型" align="center" prop="type" :formatter="formatterDoorType" />
+			<el-table-column
+				label="风门版本"
+				align="center"
+				prop="devVersion"
+				:formatter="formatterVersion"
+			/>
 			<el-table-column label="操作" align="center" min-width="150">
 				<template #default="scope">
 					<el-button

@@ -1,4 +1,3 @@
-import { IRouteRecordRaw } from '@/router'
 import usePermissionStore from '@/store/modules/permission'
 import useSettingsStore from '@/store/modules/settings'
 import { getNormalPath } from '@/utils/ruoyi'
@@ -17,10 +16,6 @@ export const layout = () => {
 			return !item.hidden
 		})
 	})
-	//可显示范围
-	const indicationRange = computed(() => {
-		return availableAddressList.value.length
-	})
 	//选中菜单
 	const activeMenu = computed(() => {
 		return route.meta.activeMenu ? (route.meta.activeMenu as string) : route.path
@@ -32,13 +27,13 @@ export const layout = () => {
 
 	// 左侧路由地址
 	const leftSidebarRouters = computed<IRouteRecordRaw[]>(() => {
-		return availableAddressList.value.filter((i, index) => {
+		return availableAddressList.value.filter((_i, index) => {
 			return index < 5
 		})
 	})
 	// 右侧路由地址
 	const rightSidebarRouters = computed<IRouteRecordRaw[]>(() => {
-		return availableAddressList.value.filter((i, index) => {
+		return availableAddressList.value.filter((_i, index) => {
 			return index > 4
 		})
 	})
@@ -100,7 +95,7 @@ export const layout = () => {
 		return showingChildren.length === 1
 	}
 	//返回路由地址
-	function resolvePath(basePath: string, routePath: string | undefined, routeQuery?: string) {
+	function resolvePath(basePath: string, routePath: string | undefined, _routeQuery?: string) {
 		if (routePath && isExternal(routePath)) {
 			return routePath
 		}

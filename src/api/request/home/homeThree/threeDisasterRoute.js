@@ -1,7 +1,7 @@
-import { ClickEventTypes, DisasterTypes } from '@/api/request/menuType'
+import { ClickEventTypes, DisasterTypes } from '@/types/menuType'
 import useHomeMenu from '@/hooks/useHomeMenu'
 import useEquipmentData from '@/hooks/useEquipmentData'
-import threeModel from '@/store/modules/threeModel'
+import { threeModel } from '@/store/modules/threeModel'
 import { useThreeModelData } from '@/hooks/useThreeModelData'
 
 export const threeDisasterRoute = (operateModel, intersectedPosition, intersected) => {
@@ -15,20 +15,17 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 		personPosition,
 	} = useEquipmentData()
 	// 生成避灾路线点位
-	const createdMoveModelPoints = (startNode, points, radius = 4) => {
+	const createdMoveModelPoints = (points, radius = 4) => {
 		// 	点击位置起止点
 		let positions = [points]
 		for (let i = 0; i < disasterPreventionRoute.value.length; i++) {
 			const data = disasterPreventionRoute.value[i].map((i) => i + '')
-			const index = data.indexOf(startNode)
-			if (index !== -1) {
-				for (let j = index; j < data.length; j++) {
-					if (object) {
-						for (let k = 0; k < object.length; k++) {
-							const item = object[k]
-							if (item.nodeName === data[j]) {
-								positions.push(item.nodePosition)
-							}
+			for (let j = 1; j < data.length; j++) {
+				if (object) {
+					for (let k = 0; k < object.length; k++) {
+						const item = object[k]
+						if (item.nodeName === data[j]) {
+							positions.push(item.nodePosition)
 						}
 					}
 				}
@@ -59,8 +56,8 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 		})
 	}
 
-	// 灾变层灾变地点显示列表
-	const disasterWarnList = ref([])
+	// 灾变层灾变地点
+	const disasterWarn = ref(undefined)
 	// 显示灾变人员
 	const isShowDisasterPeople = ref(false)
 
@@ -85,26 +82,27 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 	}
 
 	// 根据点击类型返回灾变地点样式
-	const disasterClass = (type) => {
-		switch (type) {
+	const disasterClass = computed(() => {
+		switch (disasterWarn.value.type) {
 			case DisasterTypes.ONE:
 				return 'disaster_warn_body'
 			case DisasterTypes.TWO:
-				return 'disaster_warn_body'
+				return 'disaster_warn_gas'
 			case DisasterTypes.THREE:
-				return 'disaster_warn_body'
+				return 'disaster_warn_dust'
 			case DisasterTypes.FOUR:
 				return 'disaster_warn_body'
 			default:
 				return ''
 		}
-	}
+	})
 
 	// 灾变类型
 	const disasterType = ref(DisasterTypes.ONE)
 	// 改变灾变类型
 	const changeDisasterType = (type) => {
 		disasterType.value = type
+		disasterWarn.value.type = type
 	}
 
 	// 灾变人员所在巷道
@@ -116,18 +114,18 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 	watch(
 		() => intersectedPosition.value,
 		(val) => {
+			if (!val) return
 			// 点击类型为灾变地点
 			if (clickType.value === ClickEventTypes.DISASTER) {
 				disasterLocation.value = intersected.value.name
 				disasterPosition.value = val
-				disasterWarnList.value = []
-				disasterWarnList.value.push({
+				disasterWarn.value = {
 					id: Math.random(),
 					point: val,
 					type: disasterType.value,
-				})
+				}
 				refreshDisaster(() => {
-					operateModel.value.myDisPreRoute.createdDisaster(disasterWarnList.value)
+					operateModel.value.myDisPreRoute.createdDisaster([disasterWarn.value])
 				})
 			}
 			// 点击类型为人员位置
@@ -150,12 +148,10 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 
 	// 创建避灾路线
 	const disasterRoute = () => {
-		const pointObj = personLocation.value.split('-')
 		avoidDisaster.value = true
 		clickType.value = ClickEventTypes.NORMAL
-		const startPoint = pointObj[1]
 		operateModel.value.myDisPreRoute.cleanMoveModel(-1)
-		createdMoveModelPoints?.(startPoint, disasterPeople.position, 6)
+		createdMoveModelPoints?.(disasterPeople.position, 6)
 	}
 	// 清除避灾路线相关
 	const cleanDisasterRoute = () => {
@@ -165,7 +161,7 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 		disasterPeopleList.value = []
 		disasterPosition.value = undefined
 		disasterLocation.value = undefined
-		disasterWarnList.value = []
+		disasterWarn.value = undefined
 		personPosition.value = undefined
 		personLocation.value = undefined
 		disasterType.value = DisasterTypes.ONE
@@ -187,46 +183,37 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 	// 灾害模拟相关
 	//   创建灾害蔓延
 	const createdDisasterSpread = () => {
-		let startPoint = disasterWarnList.value[0].point
+		let startPoint = disasterWarn.value?.point
 		const pointObj = disasterLocation.value.split('-')
 		let endPoint = threeModelData.value.find((i) => {
 			return i.nodeName === pointObj[1]
 		}).nodePosition
 		operateModel.value.myDisPreRoute.createdDisasterSpread(
-			[startPoint, {
-				...endPoint,
-				y: endPoint.y + 3
-			}],
+			[
+				startPoint,
+				{
+					...endPoint,
+					y: endPoint.y + 3,
+				},
+			],
 			80,
 			disasterType.value,
 		)
-		// createdDisasterPreventionRoute()
 
 		isShowDisaster.value = false
-		disasterWarnList.value = []
+		disasterWarn.value = undefined
 		operateModel.value.myDisPreRoute.cleanDisasterMesh()
 		clickType.value = ClickEventTypes.NORMAL
 		disaster.value = true
-	}
-
-	//   创建灾害模拟避灾路线
-	const createdDisasterPreventionRoute = () => {
-		createdMoveModelPoints?.(
-			'143',
-			{
-				x: -4221.058428933942,
-				y: 96870.74612915481,
-				z: -14285.663893880277,
-			},
-			6,
-		)
 	}
 
 	// 清除灾害模拟
 	const cleanDisasterPrevent = () => {
 		clickType.value = ClickEventTypes.NORMAL
 		isShowDisaster.value = false
-		disasterWarnList.value = []
+		disasterPosition.value = undefined
+		disasterLocation.value = undefined
+		disasterWarn.value = undefined
 		disasterType.value = DisasterTypes.ONE
 		operateModel.value.myDisPreRoute.cleanMoveModel(-1)
 		operateModel.value.myDisPreRoute.cleanDisasterSpread()
@@ -240,7 +227,7 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 
 	return {
 		isShowDisaster,
-		disasterWarnList,
+		disasterWarn,
 		disasterClass,
 		isShowDisasterPeople,
 		disasterPeopleList,
@@ -249,5 +236,6 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 		disasterRoute,
 		cleanDisasterRoute,
 		createdDisasterSpread,
+		cleanDisasterPrevent,
 	}
 }

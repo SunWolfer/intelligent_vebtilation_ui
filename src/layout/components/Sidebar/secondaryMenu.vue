@@ -1,7 +1,6 @@
 <!--二级菜单-->
 <script setup lang="ts">
 	import { layout } from '@/api/request/layout'
-	import { IRouteRecordRaw } from '@/router'
 	import { onClickOutside } from '@vueuse/core'
 	import AppLink from './Link.vue'
 

@@ -3,9 +3,12 @@
 	import { abnEaWarOfEnvMonitoring } from '@/api/request/intelFaultDiagnosis/abnEaWarOfEnvMonitoring'
 
 	const {
-		showPointChart,
-		showTrendChart,
-		showTypeChart,
+		initWarnPointList,
+		initWarnTrendList,
+		initWarnEquipList,
+		chartOption1,
+		chartOption2,
+		chartOption3,
 		warnLevelList,
 		dateRange,
 		dataList,
@@ -18,21 +21,27 @@
 		YJLXList,
 		formatterDevType,
 	} = abnEaWarOfEnvMonitoring()
+
+	onMounted(async () => {
+		await initWarnPointList?.()
+		await initWarnTrendList?.()
+		await initWarnEquipList?.()
+	})
 </script>
 
 <template>
 	<div class="fau_net_body">
 		<div class="fau_net_body_c1">
 			<div class="fau_net_chart_title">预警点位Top5</div>
-			<div v-if="showPointChart" class="fau_net_chart" id="fan_mon_chart_1"></div>
+			<BaseEchart :option="chartOption1" class="fau_net_chart" />
 		</div>
 		<div class="fau_net_body_c2">
 			<div class="fau_net_chart_title">预警趋势</div>
-			<div v-if="showTrendChart" class="fau_net_chart" id="fan_mon_chart_2"></div>
+			<BaseEchart :option="chartOption2" class="fau_net_chart" />
 		</div>
 		<div class="fau_net_body_c3">
 			<div class="fau_net_chart_title">预警类型</div>
-			<div v-if="showTypeChart" class="fau_net_chart" id="fan_mon_chart_3"></div>
+			<BaseEchart :option="chartOption3" class="fau_net_chart" />
 		</div>
 		<div class="fau_net_body_l2">
 			<el-form :model="queryParams" inline>

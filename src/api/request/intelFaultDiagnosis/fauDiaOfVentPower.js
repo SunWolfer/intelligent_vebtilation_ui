@@ -7,7 +7,6 @@ import {
 	findYjlxTopFive,
 	powerListView,
 } from '@/api/api/intelFaultDiagnosis'
-import useResetCharts from '@/hooks/useResetCharts'
 import useList from '@/hooks/useList'
 
 export const fauDiaOfVentPower = () => {
@@ -26,16 +25,14 @@ export const fauDiaOfVentPower = () => {
 					name: i.yjmc,
 				}
 			})
-			resetCharts1?.()
+			initMainFanChart?.()
 		},
 	})
+
+	const chartOption1 = ref({})
 	const initMainFanChart = () => {
-		getCrosswiseBarChart('fan_chart_1', mainFanDataList.value)
+		chartOption1.value = getCrosswiseBarChart(mainFanDataList.value)
 	}
-	const { showCharts: showCharts1, resetCharts: resetCharts1 } = useResetCharts(
-		initMainFanChart,
-		false,
-	)
 
 	// 局扇预警类型Top5
 	const localFanDataList = ref([])
@@ -51,16 +48,14 @@ export const fauDiaOfVentPower = () => {
 					name: i.yjmc,
 				}
 			})
-			resetCharts2?.()
+			initLocalFanChart?.()
 		},
 	})
+
+	const chartOption2 = ref({})
 	const initLocalFanChart = () => {
-		getCrosswiseBarChart('fan_chart_2', localFanDataList.value)
+		chartOption2.value = getCrosswiseBarChart(localFanDataList.value)
 	}
-	const { showCharts: showCharts2, resetCharts: resetCharts2 } = useResetCharts(
-		initLocalFanChart,
-		false,
-	)
 
 	const warnLevelList = new Map([
 		[1, [colors[0], '1级']],
@@ -118,8 +113,6 @@ export const fauDiaOfVentPower = () => {
 	}
 
 	return {
-		showCharts1,
-		showCharts2,
 		warnLevelList,
 		dateRange,
 		dataList,
@@ -131,5 +124,7 @@ export const fauDiaOfVentPower = () => {
 		devTypeList,
 		YJLXList,
 		formatterDevType,
+		chartOption2,
+		chartOption1,
 	}
 }

@@ -93,7 +93,7 @@
 					<div class="safe_data_table_item">
 						<div
 							class="safe_data_table_item_icon c-center pointer"
-							:class="iconMap.get(item.type)[1]"
+							:class="iconMap.get(item.type)?.[1]"
 							@click="hisHandle(item)"
 						></div>
 						<div class="safe_data_table_item_top">
@@ -103,7 +103,7 @@
 						</div>
 						<div class="safe_data_table_item_center c-center">
 							<div class="safe_item_value">{{ item.value }}</div>
-							<div class="safe_item_unit">{{ iconMap.get(item.type)[0] }}</div>
+							<div class="safe_item_unit">{{ iconMap.get(item.type)?.[0] }}</div>
 						</div>
 						<div class="safe_data_table_item_end c-center">{{ item.updateTime }}</div>
 					</div>

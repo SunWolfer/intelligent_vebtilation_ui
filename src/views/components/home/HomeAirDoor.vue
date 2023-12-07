@@ -1,11 +1,12 @@
 <script setup>
-	import LoadDoorModel from '@/views/components/loadModel/LoadDoorModel.vue'
 	import { homeAirDoor } from '@/api/request/home/homeAirDoor'
 	import { dynamicHeight, selectDictLabel } from '@/utils/ruoyi'
 	import HomeAirDoorMore from '@/views/components/home/HomeAirDoorMore.vue'
 	import useDict from '@/hooks/useDict'
 	import { ControlKey, DoorStatus, WorkStatus } from '@/api/request/home/doorParams'
 	import DoorHisRecord from '@/views/venEqMonitoring/throttleMonitoring/doorHisRecord.vue'
+	import NormalDoor from '@/views/components/home/doorPage/NormalDoor.vue'
+	import FourWindowDoor from '@/views/components/home/doorPage/FourWindowDoor.vue'
 
 	const {
 		dataList,
@@ -24,28 +25,40 @@
 		doorParamHandle,
 		hisRecordVisible,
 		hisRecordHandle,
+		playmod,
 	} = homeAirDoor()
+
+	const tabs = reactive([
+		{
+			name: '默认显示',
+			domName: markRaw(NormalDoor),
+		},
+		{
+			name: '一拖四风门',
+			domName: markRaw(FourWindowDoor),
+		},
+	])
+	const showDoorDom = computed(() => {
+		let domName = tabs[0].domName
+		if (dataForm.value?.doorFlag === '1') {
+			domName = tabs[1].domName
+		}
+		return domName
+	})
 
 	const { door_type } = useDict('door_type')
 </script>
 
 <template>
 	<div class="home_air_door_body">
-		<div class="home_air_door_body_c1">
-			<div class="home_air_door_body_c1_c1">
-				<load-door-model :data-form="dataForm" />
-			</div>
-			<div class="home_air_door_body_c1_l1">
-				<border-box name="border1" background-color="rgba(24, 25, 49, 0.54)">
-					<m-video type="fm" :video-path="videoUrl1" :domid="'mDevicePlayer1'" />
-				</border-box>
-			</div>
-			<div class="home_air_door_body_c1_l2">
-				<border-box name="border1" background-color="rgba(24, 25, 49, 0.54)">
-					<m-video type="fm" :video-path="videoUrl2" :domid="'mDevicePlayer2'" />
-				</border-box>
-			</div>
-		</div>
+		<component
+			:is="showDoorDom"
+			:dataForm="dataForm"
+			:playmod="playmod"
+			:videoUrl1="videoUrl1"
+			:videoUrl2="videoUrl2"
+		></component>
+
 		<div class="home_air_door_body_c2">
 			<div class="home_air_door_body_c2_item1">
 				<border2 :title="dataForm.name" :hidden-glimmer="true" />
@@ -232,44 +245,44 @@
 								<div class="set_btn_default"><span>A风门参数设置</span></div>
 							</border-box>
 						</div>
-						<div class="door_param_item_1">
-							<div class="door_param_item_1_body">
-								外门遮挡时间
-								<el-input
-									v-model.trim="paramsData.coverOutDoorTime1"
-									v-inputInt
-									@blur="doorParamHandle('coverOutDoorTime1')"
-								/>
-								s
-							</div>
-							<div class="door_param_item_1_body">
-								外门闪烁次数
-								<el-input
-									v-model.trim="paramsData.outDoorTwinkleCount1"
-									v-inputInt
-									@blur="doorParamHandle('outDoorTwinkleCount1')"
-								/>
-								次
-							</div>
-							<div class="door_param_item_1_body">
-								内门遮挡时间
-								<el-input
-									v-model.trim="paramsData.coverInnerDoorTime1"
-									v-inputInt
-									@blur="doorParamHandle('coverInnerDoorTime1')"
-								/>
-								s
-							</div>
-							<div class="door_param_item_1_body">
-								内门闪烁次数
-								<el-input
-									v-model.trim="paramsData.innerDoorTwinkleCount1"
-									v-inputInt
-									@blur="doorParamHandle('innerDoorTwinkleCount1')"
-								/>
-								次
-							</div>
-						</div>
+						<!--						<div class="door_param_item_1">-->
+						<!--							<div class="door_param_item_1_body">-->
+						<!--								外门遮挡时间-->
+						<!--								<el-input-->
+						<!--									v-model.trim="paramsData.coverOutDoorTime1"-->
+						<!--									v-inputInt-->
+						<!--									@blur="doorParamHandle('coverOutDoorTime1')"-->
+						<!--								/>-->
+						<!--								s-->
+						<!--							</div>-->
+						<!--							<div class="door_param_item_1_body">-->
+						<!--								外门闪烁次数-->
+						<!--								<el-input-->
+						<!--									v-model.trim="paramsData.outDoorTwinkleCount1"-->
+						<!--									v-inputInt-->
+						<!--									@blur="doorParamHandle('outDoorTwinkleCount1')"-->
+						<!--								/>-->
+						<!--								次-->
+						<!--							</div>-->
+						<!--							<div class="door_param_item_1_body">-->
+						<!--								内门遮挡时间-->
+						<!--								<el-input-->
+						<!--									v-model.trim="paramsData.coverInnerDoorTime1"-->
+						<!--									v-inputInt-->
+						<!--									@blur="doorParamHandle('coverInnerDoorTime1')"-->
+						<!--								/>-->
+						<!--								s-->
+						<!--							</div>-->
+						<!--							<div class="door_param_item_1_body">-->
+						<!--								内门闪烁次数-->
+						<!--								<el-input-->
+						<!--									v-model.trim="paramsData.innerDoorTwinkleCount1"-->
+						<!--									v-inputInt-->
+						<!--									@blur="doorParamHandle('innerDoorTwinkleCount1')"-->
+						<!--								/>-->
+						<!--								次-->
+						<!--							</div>-->
+						<!--						</div>-->
 						<div class="door_param_item_2">
 							<div class="door_param_item_2_l1 green_bg">风门开启</div>
 							<div class="door_param_item_2_l2">
@@ -341,44 +354,44 @@
 								<div class="set_btn_default"><span>B风门参数设置</span></div>
 							</border-box>
 						</div>
-						<div class="door_param_item_1">
-							<div class="door_param_item_1_body">
-								外门遮挡时间
-								<el-input
-									v-model.trim="paramsData.coverOutDoorTime2"
-									v-inputInt
-									@blur="doorParamHandle('coverOutDoorTime2')"
-								/>
-								s
-							</div>
-							<div class="door_param_item_1_body">
-								外门闪烁次数
-								<el-input
-									v-model.trim="paramsData.outDoorTwinkleCount2"
-									v-inputInt
-									@blur="doorParamHandle('outDoorTwinkleCount2')"
-								/>
-								次
-							</div>
-							<div class="door_param_item_1_body">
-								内门遮挡时间
-								<el-input
-									v-model.trim="paramsData.coverInnerDoorTime2"
-									v-inputInt
-									@blur="doorParamHandle('coverInnerDoorTime2')"
-								/>
-								s
-							</div>
-							<div class="door_param_item_1_body">
-								内门闪烁次数
-								<el-input
-									v-model.trim="paramsData.innerDoorTwinkleCount2"
-									v-inputInt
-									@blur="doorParamHandle('innerDoorTwinkleCount2')"
-								/>
-								次
-							</div>
-						</div>
+						<!--						<div class="door_param_item_1">-->
+						<!--							<div class="door_param_item_1_body">-->
+						<!--								外门遮挡时间-->
+						<!--								<el-input-->
+						<!--									v-model.trim="paramsData.coverOutDoorTime2"-->
+						<!--									v-inputInt-->
+						<!--									@blur="doorParamHandle('coverOutDoorTime2')"-->
+						<!--								/>-->
+						<!--								s-->
+						<!--							</div>-->
+						<!--							<div class="door_param_item_1_body">-->
+						<!--								外门闪烁次数-->
+						<!--								<el-input-->
+						<!--									v-model.trim="paramsData.outDoorTwinkleCount2"-->
+						<!--									v-inputInt-->
+						<!--									@blur="doorParamHandle('outDoorTwinkleCount2')"-->
+						<!--								/>-->
+						<!--								次-->
+						<!--							</div>-->
+						<!--							<div class="door_param_item_1_body">-->
+						<!--								内门遮挡时间-->
+						<!--								<el-input-->
+						<!--									v-model.trim="paramsData.coverInnerDoorTime2"-->
+						<!--									v-inputInt-->
+						<!--									@blur="doorParamHandle('coverInnerDoorTime2')"-->
+						<!--								/>-->
+						<!--								s-->
+						<!--							</div>-->
+						<!--							<div class="door_param_item_1_body">-->
+						<!--								内门闪烁次数-->
+						<!--								<el-input-->
+						<!--									v-model.trim="paramsData.innerDoorTwinkleCount2"-->
+						<!--									v-inputInt-->
+						<!--									@blur="doorParamHandle('innerDoorTwinkleCount2')"-->
+						<!--								/>-->
+						<!--								次-->
+						<!--							</div>-->
+						<!--						</div>-->
 						<div class="door_param_item_2">
 							<div class="door_param_item_2_l1 green_bg">风门开启</div>
 							<div class="door_param_item_2_l2">

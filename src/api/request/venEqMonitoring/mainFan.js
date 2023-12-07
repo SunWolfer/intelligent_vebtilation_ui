@@ -267,6 +267,14 @@ export const mainFan = () => {
 			},
 		})
 	}
+	//开启智能调风
+	const openIntelWindControl = async () => {
+		await intelligentWindControlMainHandle('1')
+	}
+	// 	关闭智能调风
+	const closeIntelWindControl = async () => {
+		await intelligentWindControlMainHandle('0')
+	}
 
 	return {
 		dataList,
@@ -290,7 +298,8 @@ export const mainFan = () => {
 		standbyReverseStartMainHandle,
 		videoVisible,
 		videoHandle,
-		intelligentWindControlMainHandle,
+		openIntelWindControl,
+		closeIntelWindControl,
 		oneCustomizedParameters1,
 		oneCustomizedParameters2,
 		twoCustomizedParameters1,

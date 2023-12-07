@@ -9,6 +9,8 @@
 	import Border7 from './border7.vue'
 	import Border8 from './border8.vue'
 	import Border9 from './border9.vue'
+	import Border10 from './border10.vue'
+	import Border11 from './border11.vue'
 
 	export default defineComponent({
 		name: 'BorderBox',
@@ -22,6 +24,8 @@
 			Border7,
 			Border8,
 			Border9,
+			Border10,
+			Border11,
 		},
 		props: {
 			name: {

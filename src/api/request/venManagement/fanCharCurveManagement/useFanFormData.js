@@ -32,10 +32,10 @@ export const useFanFormData = () => {
 		// 监听选择风机
 		watch(
 			() => queryParams.value.devId,
-			(value) => {
+			async (value) => {
 				queryParams.value.zhuansu = ''
 				if (value) {
-					chooseFanData(value)
+					await chooseFanData(value)
 				}
 			},
 		)
@@ -47,7 +47,7 @@ export const useFanFormData = () => {
 				bladeAngleList.value = []
 				if (!value) return
 				bladeAngleList.value = rotationalSpeedList.value.find((i) => {
-					return i.zhuansu === value
+					return i?.zhuansu === value
 				})?.children
 			},
 		)

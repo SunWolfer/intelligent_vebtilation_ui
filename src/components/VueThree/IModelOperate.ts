@@ -1,34 +1,18 @@
-import { IFires } from '@/components/VueThree/effect/IFires'
+import { IHeatmap, pointConfig } from '@/components/VueThree/effect/IHeatmap'
 import { IWindText } from '@/components/VueThree/effect/IWindText'
 import { ModelAnimation } from '@/components/VueThree/modelAnimation'
-import threeModel from '@/store/modules/threeModel'
+import { threeModel } from '@/store/modules/threeModel'
 import gsap from 'gsap'
-import {
-	BufferAttribute,
-	BufferGeometry,
-	DoubleSide,
-	Mesh,
-	MeshBasicMaterial,
-	MeshPhongMaterial,
-	Object3D,
-	PerspectiveCamera,
-	PlaneGeometry,
-	Scene,
-	SphereGeometry,
-	SRGBColorSpace,
-	TextureLoader,
-	Vector3,
-	WebGLRenderer,
-} from 'three'
+import { Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
 import { Group } from 'three/src/Three'
 import { DisasterPreventionRoute } from './effect/disasterPreventionRoute'
 import useEditModel from './hooks/useEditModel'
 import useThreeExport from './hooks/useThreeExport'
-import wall1 from './image/0002.jpg'
 
-import material1 from './image/01.jpg'
+const { addCss2DomList, getCenterPoint, createdImg, createPlaneGeometry } = useEditModel()
+const { exportGLTF } = useThreeExport()
 
 export class OperateModel {
 	// 主体模型
@@ -44,22 +28,17 @@ export class OperateModel {
 	scene: Scene
 	// 初始动画类
 	defaultAnimation: ModelAnimation | undefined
-	// 自定义动画方法列表
-	customizeAnimateList: any[]
-	// 自定义球体列表
-	ballMeshList: IBallData[]
 	// 避灾路线类
 	myDisPreRoute: DisasterPreventionRoute | undefined
-	muFire: IFires
 	// 文字类
 	myWindText: IWindText
-	editId: number | undefined
 	// label标签
 	slotLabelList: CSS2DObject[]
 	// 临时标签
 	temporaryLabelList: CSS2DObject[]
 	// 其他标签
 	otherLabelList: CSS2DObject[]
+	myHeatmap: IHeatmap
 	constructor(
 		object: Object3D,
 		wrapper: Object3D,
@@ -77,21 +56,18 @@ export class OperateModel {
 		this.size = size
 		this.scene = scene
 
-		this.ballMeshList = []
 		// label标签
 		this.slotLabelList = []
 		// 临时标签
 		this.temporaryLabelList = []
 		// 其他标签
 		this.otherLabelList = []
-		// 初始化自定义动画
-		this.customizeAnimateList = []
 		// 加载避灾路线类
 		this.initDisPreRoute()
 		// 文字
 		this.myWindText = new IWindText(this.scene)
-		this.muFire = new IFires(this.size)
-		this.resetFrame()
+		// 3D热力图
+		this.myHeatmap = new IHeatmap(this.wrapper)
 	}
 	// 	模型添加/更新标签
 	addLabelList(labelList: LabelAttribute[], IObj: Object3D, domKey = 'id') {
@@ -99,7 +75,7 @@ export class OperateModel {
 		this.slotLabelList = []
 		this.slotLabelList = []
 
-		let Css2DomList = useEditModel().addCss2DomList(labelList, domKey)
+		let Css2DomList = addCss2DomList(labelList, domKey)
 		if (!Css2DomList?.length) return
 		this.slotLabelList.push(...Css2DomList)
 		IObj.add(...Css2DomList)
@@ -113,7 +89,7 @@ export class OperateModel {
 		this.wrapper.remove(...this.otherLabelList)
 		this.otherLabelList = []
 		if (!labelList?.length) return
-		let Css2DomList = useEditModel().addCss2DomList(labelList)
+		let Css2DomList = addCss2DomList(labelList)
 		if (!Css2DomList?.length) return
 		this.otherLabelList.push(...Css2DomList)
 		this.wrapper.add(...Css2DomList)
@@ -123,21 +99,10 @@ export class OperateModel {
 		this.wrapper.remove(...this.temporaryLabelList)
 		this.temporaryLabelList = []
 		if (!labelList.length) return
-		let Css2DomList = useEditModel().addCss2DomList(labelList)
+		let Css2DomList = addCss2DomList(labelList)
 		if (!Css2DomList?.length) return
 		this.temporaryLabelList.push(...Css2DomList)
 		this.wrapper.add(...Css2DomList)
-	}
-	// 清空所有标签
-	cleanWrapperLabels() {
-		let removeList: any[] = []
-		for (let i = 0; i < this.wrapper.children.length; i++) {
-			const child: any = this.wrapper.children[i]
-			if (child.isCSS2DObject) {
-				removeList.push(child)
-			}
-		}
-		this.wrapper.remove(...removeList)
 	}
 	// 	创建自定义平面
 	addGeometry(points: Point[]) {
@@ -149,47 +114,6 @@ export class OperateModel {
 		// 加载初始动画
 		this.defaultAnimation = new ModelAnimation(this.wrapper)
 		this.defaultAnimation._disposeMod(-1)
-	}
-	// 	添加自定义动画
-	addAnimations(animateData: IAnimateData) {
-		let animationObj: any = null
-		this.wrapper?.traverse((child) => {
-			if (child.name === animateData.objName) {
-				animationObj = child
-			}
-		})
-		if (!animationObj) return
-		switch (animateData.animationType) {
-			// 贴图位移
-			case 1:
-				//材质
-				let material = animationObj?.material
-				//材质贴图
-				let texture = material.map
-				texture.repeat.set(2, 2)
-				let offset = 0
-				this.customizeAnimateList.push(() => {
-					if (!animateData.state) {
-						offset += animateData.speed // 偏移的方向和速度
-					} else {
-						offset -= animateData.speed // 偏移的方向和速度
-					}
-					texture.offset.set(offset, 0)
-				})
-				break
-			// 自身旋转
-			case 2:
-				this.customizeAnimateList.push(() => {
-					if (animateData.rotationAxis === 'x') {
-						animationObj.rotateX(animateData.speed)
-					} else if (animateData.rotationAxis === 'y') {
-						animationObj.rotateY(animateData.speed)
-					} else if (animateData.rotationAxis === 'z') {
-						animationObj.rotateZ(animateData.speed)
-					}
-				})
-				break
-		}
 	}
 	// 初始化避灾/避灾路线
 	initDisPreRoute() {
@@ -213,49 +137,12 @@ export class OperateModel {
 		this.myDisPreRoute.cleanMoveModel(index)
 	}
 
-	// 	添加自定义球体
-	addBall(ballList: IBall[]) {
-		if (!this.object) return
-		//设置球体的值
-		const radius = 4,
-			segemnt = 32,
-			rings = 32
-		const meshes = this.ballMeshList.map((i) => {
-			return i.mesh
-		})
-		this.wrapper.remove(...meshes)
-		for (let i = 0; i < ballList.length; i++) {
-			const data = ballList[i]
-			let sphereMaterial = new MeshPhongMaterial({
-				color: data.color,
-				specular: data.color,
-				shininess: 1,
-			})
-
-			let sphere = new Mesh(new SphereGeometry(radius, segemnt, rings), sphereMaterial)
-
-			this.wrapper.add(sphere)
-			sphere.position.x = data.point.x
-			sphere.position.y = data.point.y
-			sphere.position.z = data.point.z
-			this.ballMeshList.push({
-				mesh: sphere,
-				uuid: sphere.uuid,
-				value: data,
-			})
-		}
-	}
 	// 	导出主体Object
 	exportObjects() {
-		useThreeExport().exportGLTF([this.object])
+		exportGLTF([this.object])
 	}
-	// 轨迹移动
-	traMovement(
-		position: ICoordinates | Vector3,
-		lookAt: ICoordinates | Vector3,
-		time = 1,
-		nextTick = () => {},
-	) {
+	// 相机轨迹移动
+	traMovement(position: ICoordinates, lookAt: ICoordinates, time = 1, nextTick = () => {}) {
 		const { camera, controls }: any = this
 		gsap.to(camera.position, {
 			x: position.x,
@@ -301,107 +188,35 @@ export class OperateModel {
 	}
 	// 创建图片贴图
 	createdImgPlane() {
-		const threeModelData:IModelNode[] = threeModel().data
+		const threeModelData: IModelNode[] = threeModel().data
 		let imgGroup = new Group()
 		for (let i = 0; i < threeModelData.length; i++) {
 			const child = threeModelData[i]
-			if (child.imgUrl && child.nodePosition && child.nextNodePosition && child.imgSize){
+			if (child.imgUrl && child.nodePosition && child.nextNodePosition && child.imgSize) {
 				const size = child.meshes[0].geometry.radiusTop
 				if (!size) return
-				const position = useEditModel().getCenterPoint(child.nodePosition,child.nextNodePosition)
+				const position = getCenterPoint(child.nodePosition, child.nextNodePosition)
 				position.y = position.y + size
-				const start = new Vector3(child.nodePosition.x,child.nodePosition.y,child.nodePosition.z)
-				const end = new Vector3(child.nextNodePosition.x,child.nextNodePosition.y,child.nextNodePosition.z)
-				const mesh = createdImg(size * child.imgSize,size*2,child.imgUrl,position,start,end)
+				const start = new Vector3(child.nodePosition.x, child.nodePosition.y, child.nodePosition.z)
+				const end = new Vector3(
+					child.nextNodePosition.x,
+					child.nextNodePosition.y,
+					child.nextNodePosition.z,
+				)
+				const mesh = createdImg(size * child.imgSize, size * 2, child.imgUrl, position, start, end)
 				imgGroup.add(mesh)
 			}
 		}
 		this.wrapper.add(imgGroup)
 	}
-	resetFrame() {
-		this.editId = requestAnimationFrame(this.resetFrame.bind(this))
-		useEditModel().customAnimation(this.customizeAnimateList)
+	createdHeatmap(pointDataList: pointConfig[]) {
+		if (!this.myHeatmap) return
+		this.myHeatmap.initHeatmap(pointDataList)
 	}
+
 	// 页面注销后操作
 	unmountEditModel() {
 		if (this.myDisPreRoute) this.myDisPreRoute.unMountClass()
 		if (this.defaultAnimation) this.defaultAnimation.unMountClass()
-		cancelAnimationFrame(this.editId!)
 	}
-}
-// 生成文字背景
-function createdTextBg(size: number, length: number, planeColor: string) {
-	const geometry = new PlaneGeometry(length, size)
-	geometry.rotateY(-Math.PI / 2)
-	const material = new MeshBasicMaterial({ color: planeColor, side: DoubleSide })
-	return new Mesh(geometry, material)
-}
-// 创建图片贴图平面
-function createdImg(width:number,height:number,url:string,position:Vector3,startPosition:Vector3,endPosition:Vector3) {
-	const geometry = new PlaneGeometry(width, height)
-	// 水平翻转
-	geometry.rotateY(-Math.PI / 2)
-	geometry.rotateZ(-Math.PI / 2)
-	let texture = new TextureLoader().load(url)
-	texture.colorSpace = SRGBColorSpace
-	let material = new MeshBasicMaterial({ map: texture, side: DoubleSide,transparent: true })
-	const mesh = new Mesh(geometry, material)
-	mesh.position.copy(position)
-	const quaternion = useEditModel().getQuaternion(startPosition,endPosition)
-	mesh.quaternion.copy(quaternion)
-	return mesh
-}
-//生成平面
-function createPlaneGeometry(points: Point[], scene: Object3D) {
-	let IMeshes = []
-	for (let i = 0; i < points.length; i++) {
-		const c1 = points[i].points
-		const color = points[i].color
-		const material = points[i].type === 1 ? '' : 1
-		// 生成两个三角形的顶点集合
-		const p1 = [c1[0], c1[1], c1[2]]
-		const p2 = [c1[0], c1[2], c1[3]]
-		IMeshes.push(createdMesh(p1, color, material))
-		IMeshes.push(createdMesh(p2, color, material))
-	}
-	scene.add(...IMeshes)
-}
-
-function createdMesh(points: number[][], color?: string, IMaterial?: any) {
-	// 每一个三角形，需要三个顶点，每个顶点需要3个值
-	const geometry = new BufferGeometry()
-	const vertices = new Float32Array(9)
-	for (let j = 0; j < 9; j++) {
-		if (j < 3) {
-			vertices[j] = points[0][j]
-		} else if (j < 6) {
-			vertices[j] = points[1][j - 3]
-		} else if (j < 9) {
-			vertices[j] = points[2][j - 6]
-		}
-	}
-
-	geometry.setAttribute('position', new BufferAttribute(vertices, 3))
-
-	let material, texture
-	if (IMaterial) {
-		texture = new TextureLoader().load(material1)
-	} else {
-		// material = new MeshBasicMaterial({ color: color, side: DoubleSide })
-		texture = new TextureLoader().load(wall1)
-	}
-	if (texture) {
-		texture.colorSpace = SRGBColorSpace
-		material = new MeshBasicMaterial({ map: texture, side: DoubleSide })
-	}
-
-	//初始化存放颜色信息的序列化数组
-	const colors = new Float32Array([0.5, 0.3, 0.6, 0.5, 0.3, 0.6, 0.5, 0.3, 0.6])
-	geometry.setAttribute('color', new BufferAttribute(colors, 3))
-
-	const indexS = new Uint16Array([0, 1, 2])
-	geometry.index = new BufferAttribute(indexS, 1)
-	const uvs = new Uint16Array([0, 1, 1, 1, 1, 0, 0, 0])
-	geometry.setAttribute('uv', new BufferAttribute(uvs, 2))
-	return new Mesh(geometry, material)
 }

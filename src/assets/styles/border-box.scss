@@ -1,5 +1,3 @@
-@import '@/assets/styles/utils.scss';
-
 @mixin sw1 {
 	stroke-width: 1;
 }
@@ -96,6 +94,38 @@
 }
 
 .border-box-10 {
+	@include borderBox;
+	.bv-border-svg-container {
+		& > polyline {
+			fill: none;
+		}
+	}
+
+	.bv-bb2-line-1 {
+		@include sw1;
+	}
+
+	.bv-bb2-line-2 {
+		stroke-width: 5px;
+		stroke-linecap: round;
+	}
+
+	.bv-bb2-line-3 {
+		@include sw10;
+	}
+
+	.bv-border-box-2-title {
+		color: #ffffff;
+		font-size: vw(26);
+	}
+
+	.border-box-content {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+}
+.border-box-11 {
 	@include borderBox;
 }
 

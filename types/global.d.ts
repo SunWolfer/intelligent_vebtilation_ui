@@ -1,7 +1,8 @@
+declare module 'element-plus/dist/locale/zh-cn.mjs'
+
 declare interface Fn<T = any> {
 	(...arg: T[]): T
 }
-
 declare type Nullable<T> = T | null
 
 declare type ElRef<T extends HTMLElement = HTMLDivElement> = Nullable<T>
@@ -39,9 +40,4 @@ declare interface ITableApiResponseData<T = any> {
 	rows: T[]
 	msg: string
 }
-//空间坐标格式
-declare interface ICoordinates {
-	x: number
-	y: number
-	z: number
-}
+declare var h337

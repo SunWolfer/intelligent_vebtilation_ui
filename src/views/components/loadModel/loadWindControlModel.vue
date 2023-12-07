@@ -24,13 +24,17 @@
 		otherThreeMod,
 		controlsOptions,
 		lights,
-		onLoad,
 		onModel,
 		onClick,
 		dblclick,
 		operateModel,
 		intersected,
+		removePosition,
+		removeLookAt,
 	} = useThree()
+	const onLoad = () => {
+		operateModel.value.traMovement(removePosition, removeLookAt, 3, readyCamera)
+	}
 
 	const emits = defineEmits(['chooseTunnel'])
 

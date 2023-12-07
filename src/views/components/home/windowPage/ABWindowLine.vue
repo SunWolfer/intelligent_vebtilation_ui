@@ -2,10 +2,8 @@
 <script setup>
 	import { curveList, getVentrLine } from '@/api/api/airWindow'
 	import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
-	import useResetCharts from '@/hooks/useResetCharts'
 	import { getLineChartOption } from '@/api/request/home/remoterControlCharts'
-	import useCharts from '@/hooks/useCharts'
-	import { useSocket } from '@/hooks/useSocket'
+	import useSocket from '@/hooks/useSocket'
 
 	const props = defineProps({
 		devId: {
@@ -17,12 +15,12 @@
 		() => props.devId,
 		(val) => {
 			if (val) {
-				resetCharts1?.()
-				resetCharts2?.()
+				initChart1?.()
+				initChart2?.()
 			}
 		},
 	)
-
+	const option1 = ref({})
 	// 风阻特性曲线
 	const initChart1 = async () => {
 		const res = await getVentrLine({
@@ -35,8 +33,7 @@
 			const xData = res.data.res.map((i) => {
 				return i?.kaidu
 			})
-			defaultLineChart({
-				domId: 'a_b_window_chart_1',
+			option1.value = defaultLineChart({
 				xData: xData,
 				yDataList: [value],
 				legends: ['风阻'],
@@ -47,40 +44,40 @@
 			})
 		}
 	}
-	const { showCharts: showChart1, resetCharts: resetCharts1 } = useResetCharts(initChart1, false)
 	// 监测曲线
 	const lineChartsData = reactive({
 		names: [],
 		lineX: [],
 		value: [],
 	})
-	const oneSocketData = ref()
+
+	// 监测曲线socket
+	const { clientSocket, socketData, dataRes } = useSocket('curveList')
+	const option2 = ref({})
+
+	watch(dataRes.curveList, (value) => {
+		lineChartsData.lineX.push(value.lineX)
+		lineChartsData.value.push(value.value)
+		option2.value = getLineChartOption(
+			lineChartsData.names,
+			lineChartsData.lineX,
+			lineChartsData.value,
+		)
+	})
+
 	const initChart2 = async () => {
 		const res = await curveList({
 			devId: props.devId,
 		})
 		if (res.code === 200) {
-			const { option } = useCharts('a_b_window_chart_2')
 			lineChartsData.names = res.data.names
 			lineChartsData.lineX = res.data.lineX
 			lineChartsData.value = res.data.value
-			option.value = getLineChartOption(res.data.names, res.data.lineX, res.data.value)
-			oneSocketData.value?.close()
-			// 监测曲线socket
-			const { clientSocket, socketData } = useSocket('adjustCurveList', (data) => {
-				lineChartsData.lineX = data.lineX
-				lineChartsData.value = data.value
-				option.value = getLineChartOption(
-					lineChartsData.names,
-					lineChartsData.lineX,
-					lineChartsData.value,
-				)
-			})
-			clientSocket?.()
-			oneSocketData.value = socketData.value
+			option2.value = getLineChartOption(res.data.names, res.data.lineX, res.data.value)
+			socketData.value?.close()
+			clientSocket?.('|adjustCurveList')
 		}
 	}
-	const { showCharts: showChart2, resetCharts: resetCharts2 } = useResetCharts(initChart2, false)
 </script>
 
 <template>
@@ -93,7 +90,7 @@
 			</border-box>
 		</div>
 
-		<div v-if="showChart1" class="fullDom" id="a_b_window_chart_1"></div>
+		<BaseEchart :option="option1" />
 		<div class="a_b_window_line_title_2">
 			<border-box name="border5">
 				<div class="set_btn_cus_icon">
@@ -102,7 +99,7 @@
 			</border-box>
 		</div>
 
-		<div v-if="showChart2" class="fullDom" id="a_b_window_chart_2"></div>
+		<BaseEchart :option="option2" />
 	</div>
 </template>
 

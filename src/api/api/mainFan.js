@@ -216,3 +216,27 @@ export function windElectricBlockLocal(data) {
 		data: data,
 	})
 }
+// 温振监测分析传感器下拉
+export function getWzSensorDict(query) {
+	return request({
+		url: '/api/fan/getWzSensorDict',
+		method: 'get',
+		params: query,
+	})
+}
+// 温振监测分析折线图
+export function sensorWaveData(query) {
+	return request({
+		url: '/api/fan/sensorWaveData',
+		method: 'get',
+		params: query,
+	})
+}
+// 一键排放瓦斯
+export function gasStartLocal(data) {
+	return request({
+		url: '/api/fan/gasStartLocal',
+		method: 'post',
+		data: data,
+	})
+}

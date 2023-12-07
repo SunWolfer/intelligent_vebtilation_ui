@@ -1,17 +1,16 @@
 <!--精准测风上方边框-->
 <script setup lang="ts">
-	interface ReqBorderBox {
-		// 线条颜色组
-		color?: string[]
-		// 背景色
-		backgroundColor?: string
-		// 动画时间
-		dur?: number
-	}
-
 	import { useAutoResize } from '@/components/BorderBox/borderUtils'
 
-	const props = defineProps<ReqBorderBox>()
+	interface BorderProp {
+		color: string[]
+		backgroundColor: string
+		dur: number
+	}
+	withDefaults(defineProps<BorderProp>(), {
+		backgroundColor: 'rgba(36, 38, 83, 0.54)',
+		dur: 3,
+	})
 	const { domRef, width, height } = useAutoResize()
 	// 内部缩减长度
 	const reduce = 1

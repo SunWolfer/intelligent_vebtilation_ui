@@ -33,13 +33,14 @@
 	import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
 	import { CSS3DRenderer } from 'three/examples/jsm/renderers//CSS3DRenderer'
 
-	import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer'
-	import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader'
+	import { CSS2DObject, CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer'
+	import { Intersection } from 'three/src/core/Raycaster'
+	import { Group } from 'three/src/Three'
 	import { defineComponent, PropType } from 'vue'
 	import useEditModel from './hooks/useEditModel'
 	import { OperateModel } from './IModelOperate'
 
-	import { getSize, modelLine } from './utils'
+	import { getCenter, getSize, modelLine, setMovePosition } from './utils'
 
 	gsap.registerPlugin(CSSRulePlugin)
 
@@ -204,6 +205,8 @@
 					// 相机朝向点
 					removeLookAt: null as null | Vector3,
 				},
+				//   节点标签
+				nodeLabelList: [] as Mesh[],
 			}
 			// 确保这些对象不被转为 vue reactive 对象，避免 three 渲染出错
 			Object.assign(this, result)
@@ -433,8 +436,8 @@
 				if (!this.$attrs.onOnClick) return
 				this.selectedObjects = []
 
-				const intersected: any = this.pick(event.clientX, event.clientY)
-				if (intersected !== null) this.selectedObjects.push(intersected.object)
+				const intersected: Intersection | null | undefined = this.pick(event.clientX, event.clientY)
+				if (intersected) this.selectedObjects.push(intersected.object)
 				this.$emit('on-click', event, intersected)
 			},
 			onDblclick(event: MouseEvent) {
@@ -457,13 +460,20 @@
 
 				this.rayCaster.setFromCamera(this.mouse, this.camera)
 
-				const intersects: any = this.rayCaster.intersectObject(this.wrapper, true)
-				let rData: any = (intersects && intersects.length) > 0 ? intersects[0] : null
-				let chooseObj = rData
+				const intersects: Intersection[] = this.rayCaster.intersectObject(this.wrapper, true)
+				let rData: Intersection | null =
+					(intersects && intersects.length) > 0 ? intersects[0] : null
+				let rDataObject = rData
 				if (this.chooseGroup && rData) {
-					chooseObj.object = rData.object.parent.isGroup ? rData.object.parent : rData.object
+					if (rData.object.parent) {
+						rDataObject!.object = (<Group>rData.object.parent)?.isGroup
+							? rData.object.parent
+							: rData.object
+					} else {
+						rDataObject!.object = rData.object
+					}
 				}
-				return chooseObj
+				return rDataObject
 			},
 			update() {
 				this.updateRenderer()
@@ -631,13 +641,6 @@
 				this.outlinePass.visibleEdgeColor.set(outlineParams.visibleEdgeColor)
 				this.outlinePass.hiddenEdgeColor.set(outlineParams.hiddenEdgeColor)
 				this.outlinePass.usePatternTexture = outlineParams.usePatternTexture
-
-				this.effectFXAA = new ShaderPass(FXAAShader)
-				this.effectFXAA.uniforms['resolution'].value.set(
-					1 / window.innerWidth,
-					1 / window.innerHeight,
-				)
-				this.composer.addPass(this.effectFXAA)
 			},
 			reportProgress(
 				type: 'start' | 'end' | 'progress',
@@ -716,6 +719,14 @@
 					this.size,
 					this.scene,
 				)
+				// 判断是否传入初始化相机位置
+				if (!this.cameraPosition) {
+					const center = getCenter(this.wrapper)
+					const mPosition = setMovePosition(this.camera.position, center)
+					this.camera.position.copy(mPosition)
+					this.controls?.target.copy(center)
+				}
+
 				this.$emit('on-model', this.operateModel)
 			},
 			animate() {
@@ -731,7 +742,7 @@
 				this.renderer!.render(this.scene, this.camera)
 
 				if (this.composer) {
-					this.composer.render()
+					this.composer?.render()
 				}
 				this.labelRenderer.render(this.scene, this.camera)
 				this.tRenderer.render(this.scene, this.camera)
@@ -798,11 +809,55 @@
 			//   根据名称设置选中模型
 			setSelectObject(name: string) {
 				if (!this.object) return
-				let obj = undefined
+				let obj: any = undefined
 				this.object.traverse((child) => {
 					if (child.name === name) obj = child
 				})
 				if (obj) this.selectedObjects = [obj]
+			},
+			// 根据名称组设置选中模型
+			setSelectObjects(names: string[]) {
+				if (!this.object) return
+				let objs: Object3D[] = []
+				this.object.traverse((child) => {
+					const findNameIndex = names.findIndex((item) => item && item === child.name)
+					if (findNameIndex !== -1) objs.push(child)
+				})
+				this.selectedObjects = objs
+				this.createdNamesLabel()
+			},
+			// 根据名称组生成标签
+			createdNamesLabel() {
+				// 清除所有2D标签
+				this.wrapper.remove(...this.nodeLabelList)
+
+				this.nodeLabelList = []
+
+				for (let i = 0; i < this.selectedObjects.length; i++) {
+					let obj = this.selectedObjects[i]
+					let element = document.createElement('div')
+					element.className = 'node_label_bg'
+					let e1 = document.createElement('div')
+					e1.className = 'node_three_label'
+					element.appendChild(e1)
+					let e2 = document.createElement('div')
+					e2.className = 'node_label_header'
+
+					let e4 = document.createElement('span')
+					e4.textContent = obj.name
+					e2.appendChild(e4)
+					e1.appendChild(e2)
+					let e3 = document.createElement('div')
+					e3.className = 'node_label_footer'
+
+					e1.appendChild(e3)
+
+					let objectCSS: any = new CSS2DObject(element)
+					objectCSS.position.copy(obj.position)
+
+					this.wrapper.add(objectCSS)
+					this.nodeLabelList.push(objectCSS)
+				}
 			},
 		},
 	})

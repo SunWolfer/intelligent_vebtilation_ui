@@ -1,6 +1,6 @@
 import usePermissionStore from '@/store/modules/permission'
 import useSettingsStore from '@/store/modules/settings'
-import useUserStore from '@/store/modules/user'
+import { useUserStore } from '@/store/modules/user'
 import { getToken } from '@/utils/auth'
 import { isReLogin } from '@/utils/request'
 import { isHttp } from '@/utils/validate'
@@ -13,7 +13,7 @@ NProgress.configure({ showSpinner: false })
 
 const whiteList = ['/login', '/auth-redirect', '/bind', '/noLoadingLogin']
 
-router.beforeEach((to: any, from, next) => {
+router.beforeEach((to: any, _from, next) => {
 	NProgress.start()
 	if (getToken()) {
 		to.meta.title && useSettingsStore().setTitle(to.meta.title)

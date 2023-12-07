@@ -52,6 +52,7 @@
 }
 .after_cal_body_right {
   grid-area: right;
+  pointer-events: auto;
 }
 .after_quit_btn {
   position: absolute;

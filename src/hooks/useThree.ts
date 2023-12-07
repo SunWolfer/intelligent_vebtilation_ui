@@ -1,6 +1,7 @@
-import { OperateModel } from '@/components/VueThree/IModelOperate'
+import type { OperateModel } from '@/components/VueThree/IModelOperate'
 import ModelGltf from '@/components/VueThree/model-gltf.vue'
-import { Vector3 } from 'three'
+import { Object3D, Vector3 } from 'three'
+import { Intersection } from 'three/src/core/Raycaster'
 
 const useThree = () => {
 	const homeModelVisible = ref<InstanceType<typeof ModelGltf>>()
@@ -11,21 +12,21 @@ const useThree = () => {
 
 	// 初始化相机位置
 	const cameraPosition = reactive({
-		x: 6569.731384271249,
-		y: 319811.1603805003,
-		z: 30857.947379695604,
+		x: 0,
+		y: 10000,
+		z: 0,
 	})
 	//初始化后相机位置
 	const removePosition = reactive({
-		x: 2664.3369015526932,
-		y: 129291.21757011325,
-		z: 4664.617343535043,
+		x: 80.25202350933255,
+		y: 717.8519898104702,
+		z: 5.67857044598486,
 	})
 	// 初始化后相机朝向点
 	const removeLookAt = reactive({
-		x: 773.4890080180351,
-		y: 21674.616827062124,
-		z: -61220.03908038469,
+		x: 72.44309788343183,
+		y: 113.24693261244929,
+		z: -358.828878905651,
 	})
 
 	// 相机移动固定参数
@@ -41,12 +42,6 @@ const useThree = () => {
 	})
 	// 默认灯光
 	const lights = ref<any>([
-		// {
-		// 	type: 'pointlight',
-		// 	position: { x: 130, y: 300000, z: -80 },
-		// 	color: 0xffffff,
-		// 	intensity: 0.2,
-		// },
 		{
 			type: 'DirectionalLight',
 			position: { x: 1, y: 1, z: 1 },
@@ -64,12 +59,12 @@ const useThree = () => {
 	// 相机朝向点
 	const cameraLookAtPoint = ref<Vector3>()
 	// 点击对象
-	const intersected = ref<any>(undefined)
+	const intersected = ref<Object3D | null | undefined>()
 	// 点击位置
-	const intersectedPosition = ref({})
+	const intersectedPosition = ref<Vector3>()
 
 	// 单击
-	function onClick(event: MouseEvent, CIntersected: any) {
+	function onClick(_event: MouseEvent, CIntersected: Intersection) {
 		if (!CIntersected) {
 			intersected.value = null
 			return
@@ -89,11 +84,11 @@ const useThree = () => {
 	}
 
 	// 双击
-	function dblclick(event: MouseEvent, CIntersected: any) {}
+	function dblclick(_event: MouseEvent, _CIntersected: any) {}
 
 	// 全部模型加载完毕后执行
 	function onLoad() {
-		// homeModelVisible.value?.cameraReset(removePosition, removeLookAt, 3)
+		homeModelVisible.value?.cameraReset(removePosition, removeLookAt, 3)
 	}
 	// 模型编辑类
 	const operateModel = ref<OperateModel>()

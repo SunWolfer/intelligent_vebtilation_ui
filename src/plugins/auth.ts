@@ -1,4 +1,4 @@
-import useUserStore from '@/store/modules/user'
+import { useUserStore } from '@/store/modules/user'
 
 function authPermission(permission: string | any[]) {
 	const all_permission = '*:*:*'
@@ -13,7 +13,7 @@ function authPermission(permission: string | any[]) {
 }
 
 function authRole(role: string | any[]) {
-	const super_admin = "admin";
+	const super_admin = 'admin'
 	const roles = useUserStore().roles
 	if (role && role.length > 0) {
 		return roles.some((v: string | any[]) => {
@@ -27,7 +27,7 @@ function authRole(role: string | any[]) {
 export default {
 	// 验证用户是否具备某权限
 	hasPermi(permission: any) {
-		return authPermission(permission);
+		return authPermission(permission)
 	},
 	// 验证用户是否含有指定权限，只需包含其中一个
 	hasPermiOr(permissions: any[]) {
@@ -43,7 +43,7 @@ export default {
 	},
 	// 验证用户是否具备某角色
 	hasRole(role: any) {
-		return authRole(role);
+		return authRole(role)
 	},
 	// 验证用户是否含有指定角色，只需包含其中一个
 	hasRoleOr(roles: any[]) {
@@ -56,5 +56,5 @@ export default {
 		return roles.every((item: any) => {
 			return authRole(item)
 		})
-	}
+	},
 }

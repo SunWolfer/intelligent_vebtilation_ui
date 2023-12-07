@@ -1,0 +1,142 @@
+<!--模拟量输入(AI)配置-->
+<script setup>
+	import useDict from '@/hooks/useDict'
+	import { paramsAISetting } from '@/api/request/doorParameterSettings/paramsAISetting'
+
+	const { ai_type, ai_sensor_type, ai_sensor_factory, ai_sensor_model } = useDict(
+		'ai_type',
+		'ai_sensor_type',
+		'ai_sensor_factory',
+		'ai_sensor_model',
+	)
+
+	const props = defineProps({
+		dataFrom: {
+			type: Object,
+			default: {},
+		},
+	})
+	const emit = defineEmits(['update:dataFrom', 'setParam'])
+
+	const { dataList, resetForm, controlForm, isDisable, setParams } = paramsAISetting(props, emit)
+</script>
+
+<template>
+	<div class="ai_setting fullDom">
+		<template v-for="data in dataList">
+			<div class="ai_setting_item">
+				<el-form :model="data" label-width="auto" class="ai_setting_item_form">
+					<el-form-item :label="data.label1" prop="value1">
+						<el-select
+							filterable
+							v-model="controlForm[data.value1]"
+							clearable
+							@change="
+								resetForm(
+									data.value2,
+									data.value3,
+									data.value4,
+									data.value5,
+									data.value6,
+									data.value7,
+								)
+							"
+						>
+							<el-option
+								v-for="item in ai_type"
+								:key="item.value"
+								:label="item.label"
+								:value="item.value"
+							></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item :label="data.label2" prop="value2">
+						<el-input
+							v-model="controlForm[data.value2]"
+							:disabled="isDisable(controlForm[data.value1])"
+						></el-input>
+					</el-form-item>
+					<el-form-item :label="data.label3" prop="value3">
+						<el-input
+							v-model="controlForm[data.value3]"
+							:disabled="isDisable(controlForm[data.value1])"
+						></el-input>
+					</el-form-item>
+					<el-form-item :label="data.label4" prop="value4">
+						<el-input
+							v-model="controlForm[data.value4]"
+							:disabled="isDisable(controlForm[data.value1])"
+						></el-input>
+					</el-form-item>
+					<el-form-item :label="data.label5" prop="value5">
+						<el-select
+							filterable
+							v-model="controlForm[data.value5]"
+							clearable
+							:disabled="isDisable(controlForm[data.value1])"
+						>
+							<el-option
+								v-for="item in ai_sensor_type"
+								:key="item.value"
+								:label="item.label"
+								:value="item.value"
+							></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item :label="data.label6" prop="value6">
+						<el-select
+							filterable
+							v-model="controlForm[data.value6]"
+							clearable
+							:disabled="isDisable(controlForm[data.value1])"
+						>
+							<el-option
+								v-for="item in ai_sensor_factory"
+								:key="item.value"
+								:label="item.label"
+								:value="item.value"
+							></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item :label="data.label7" prop="value7">
+						<el-select
+							filterable
+							v-model="controlForm[data.value7]"
+							clearable
+							:disabled="isDisable(controlForm[data.value1])"
+						>
+							<el-option
+								v-for="item in ai_sensor_model"
+								:key="item.value"
+								:label="item.label"
+								:value="item.value"
+							></el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item label=" ">
+						<el-button
+							class="add-btn"
+							icon="Setting"
+							@click="
+								setParams(
+									data.value1,
+									data.value2,
+									data.value3,
+									data.value4,
+									data.value5,
+									data.value6,
+									data.value7,
+								)
+							"
+							>设置</el-button
+						>
+					</el-form-item>
+				</el-form>
+			</div>
+		</template>
+	</div>
+</template>
+
+<style lang="scss" scoped>
+	@import '@/assets/styles/door/aISetting';
+</style>

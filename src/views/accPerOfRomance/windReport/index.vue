@@ -115,7 +115,7 @@
 						<el-table-column prop="pressure" label="差压(Pa)" align="center"></el-table-column>
 						<el-table-column
 							prop="absolutePressure"
-							label="绝压(Pa)"
+							label="绝压(kPa)"
 							align="center"
 						></el-table-column
 						><el-table-column prop="ch4" label="CH4(%)" align="center"></el-table-column

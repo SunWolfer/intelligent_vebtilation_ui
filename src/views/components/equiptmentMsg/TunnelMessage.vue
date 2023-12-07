@@ -18,7 +18,7 @@
 	watch(
 		() => props.intersected,
 		(val) => {
-			if (val) {
+			if (val && val?.name) {
 				showParam?.(val?.name)
 			} else {
 				cleanLabelList?.()

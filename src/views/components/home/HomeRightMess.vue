@@ -15,7 +15,6 @@
 		facilitiesNum,
 		fusionNum,
 		formatterWarnType,
-		formatterEquipmentTypeList,
 		isWarn,
 		manualControlWarnIcon,
 		closeWarnIcon,
@@ -143,14 +142,14 @@
 									{{ child.warnName }}
 								</div>
 								<div class="home_body4_item_body_B">{{ formatterWarnType(child.mainType) }}</div>
-								<div class="home_body4_item_body_C">
-									设备类型：{{ formatterEquipmentTypeList(child.devType) }}
-								</div>
+								<div class="home_body4_item_body_C">设备类型：{{ child.devTypeName }}</div>
 								<div class="home_body4_item_body_D overText" :title="child.name">
 									{{ child.name }}
 								</div>
 								<div class="home_body4_item_body_E">{{ child.warnTime }}</div>
-								<div class="home_body4_item_body_F" @click="setPosition(child)">定位</div>
+								<div class="home_body4_item_body_F" @click="setPosition(child)">
+									{{ ['4'].includes(child.mainType) ? '' : '定位' }}
+								</div>
 								<div class="home_body4_item_body_G"></div>
 								<div class="home_body4_item_body_H" :class="'warn_level_' + child.warnLevel">
 									预警级别：{{ child.warnLevel }}级

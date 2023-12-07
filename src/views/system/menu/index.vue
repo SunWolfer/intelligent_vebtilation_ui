@@ -54,7 +54,7 @@
 				label="菜单名称"
 				:show-overflow-tooltip="true"
 				:min-width="160"
-				align="center"
+				align="left"
 			></el-table-column>
 			<el-table-column prop="icon" label="图标" align="center" width="100">
 				<template #default="scope">
@@ -174,8 +174,8 @@
 	function handleAdd(row) {
 		chooseRow.value = row
 		isAdd.value = true
-		open.value = true
 		title.value = '添加菜单'
+		open.value = true
 	}
 	/** 展开/折叠操作 */
 	function toggleExpandAll() {

@@ -15,12 +15,11 @@ import {
 	roadListView,
 } from '@/api/api/intelFaultDiagnosis'
 import { useGainList } from '@/hooks/useGainList'
-import useResetCharts from '@/hooks/useResetCharts'
 
 export const fauDiaOfVentNetwork = () => {
 	//   预警巷道列表
 	const warnTunnelList = ref([])
-
+	const chartOption1 = ref({})
 	const initTunnelChart = async () => {
 		const { data } = await findYjdwTopFive({
 			mainType: '3',
@@ -31,18 +30,17 @@ export const fauDiaOfVentNetwork = () => {
 				value: i.zs,
 			}
 		})
-		getCrosswiseBarChart('fan_net_chart_1', warnTunnelList.value)
+		chartOption1.value = getCrosswiseBarChart(warnTunnelList.value)
 	}
-	const { showCharts: showTunnelChart } = useResetCharts(initTunnelChart)
 	// 预警趋势列表
+	const chartOption2 = ref({})
 	const initTrendChart = async () => {
 		const { data } = await monthTrend({
 			mainType: '3',
 		})
 		const xData = data.lineX
 		const yDataList = data.value
-		defaultBarChart({
-			domId: 'fan_net_chart_2',
+		chartOption2.value = defaultBarChart({
 			xData: xData,
 			yDataList: [yDataList],
 			colors: [['rgba(23, 242, 208, 1)', 'rgba(23, 242, 208, 0)']],
@@ -50,18 +48,18 @@ export const fauDiaOfVentNetwork = () => {
 			showSplitArea: true,
 		})
 	}
-	const { showCharts: showTrendChart } = useResetCharts(initTrendChart)
 
 	// 预警类型
 	const warnTypeList = ref([])
+	const chartOption3 = ref({})
 	const initTypeChart = async () => {
 		const { data } = await findYjlxPieChart({
 			mainType: '3',
 		})
 		warnTypeList.value = data
-		getType1PieChart('fan_net_chart_3', warnTypeList.value)
+		chartOption3.value = getType1PieChart(warnTypeList.value)
 	}
-	const { showCharts: showTypeChart } = useResetCharts(initTypeChart)
+
 	const warnLevelList = new Map([
 		[1, [colors[0], '1级']],
 		[2, [colors[1], '2级']],
@@ -90,9 +88,6 @@ export const fauDiaOfVentNetwork = () => {
 	})
 
 	return {
-		showTunnelChart,
-		showTrendChart,
-		showTypeChart,
 		warnTunnelList,
 		warnLevelList,
 		dateRange,
@@ -103,5 +98,11 @@ export const fauDiaOfVentNetwork = () => {
 		getList,
 		handleDelete,
 		YJLXList,
+		initTunnelChart,
+		chartOption1,
+		initTrendChart,
+		chartOption2,
+		initTypeChart,
+		chartOption3,
 	}
 }

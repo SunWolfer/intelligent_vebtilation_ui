@@ -1,4 +1,4 @@
-import usePoint from '@/components/VueThree/ModelEdit/IPoint'
+import usePoint from './IPoint'
 import {
 	BoxGeometry,
 	CylinderGeometry,
@@ -47,6 +47,8 @@ interface IOverEdit {
 	deleteTunnel: IModelNode[]
 }
 
+const { distance } = usePoint()
+
 export class ITunnelMesh {
 	object: Object3D | undefined
 	iTexture: ITexture[]
@@ -93,7 +95,7 @@ export class ITunnelMesh {
 		let models = [...model]
 		for (let i = 0; i < models.length; i++) {
 			let modelNode = models[i]
-			let geometryList = []
+			let geometryList: Object3D[] = []
 			if (modelNode.showNode) geometryList.push(...this.createdNodeMesh(modelNode))
 			if (modelNode.showMesh) geometryList.push(...this.createdTunnelMesh(modelNode))
 			this.object.add(...geometryList)
@@ -196,7 +198,7 @@ export class ITunnelMesh {
 		if (!this.object) return []
 		let hasStart = false
 		let hasEnd = false
-		let geometryList = []
+		let geometryList: Mesh[] = []
 		this.object.traverse((child) => {
 			if (child.name === modelNode.nodeName) {
 				hasStart = true
@@ -231,7 +233,7 @@ export class ITunnelMesh {
 	// 	创建巷道
 	createdTunnelMesh(modelNode: IModelNode) {
 		if (!modelNode.nodePosition || !modelNode.nextNodePosition) return []
-		let geometryList = []
+		let geometryList: Group[] = []
 		let meshGroup = new Group()
 		for (let j = 0; j < modelNode.meshes.length; j++) {
 			let obj = modelNode?.meshes[j]
@@ -246,16 +248,15 @@ export class ITunnelMesh {
 				modelNode.nextNodePosition.y,
 				modelNode.nextNodePosition.z,
 			)
-			let len = usePoint().distance(p1, p2)
+			let len = distance(p1, p2)
 			len = modelNode.showNode
 				? len - modelNode.nodes.geometry.radius
 				: len + modelNode.nodes.geometry.radius
 			cylinderGeometry.scale.set(1, 1, len)
-			cylinderGeometry.position.set(
-				p1.x + (p2.x - p1.x) / 2,
-				p1.y + (p2.y - p1.y) / 2,
-				p1.z + (p2.z - p1.z) / 2,
-			)
+			const x = p1.x + (p2.x - p1.x) / 2
+			const y = p1.y + (p2.y - p1.y) / 2
+			const z = p1.z + (p2.z - p1.z) / 2
+			cylinderGeometry.position.set(x, y, z)
 			cylinderGeometry.position.y = cylinderGeometry.position.y + (obj?.geometry?.offsetY ?? 0)
 
 			let mtx = new Matrix4() //创建一个4维矩阵
@@ -295,9 +296,9 @@ export class ITunnelMesh {
 		if (!modelNode.windMesh) return []
 		let iMaterial: IMaterial = {
 			mapUrl:
-				modelNode.windMesh.windType === 2
-					? 'file/material/red_arrow.png'
-					: 'file/material/blue_arrow.png',
+				modelNode.windMesh.windType === 1
+					? 'file/material/no_icon_arrow.png'
+					: 'file/material/icon_arrow.png',
 			side: 2,
 		}
 
@@ -442,7 +443,7 @@ export class ITunnelMesh {
 			readyModel = this.editConnectNode(nodeObj.name, nodeObj.position)
 		} else {
 			// 	点击到平面
-			if (name === 'planeModel') {
+			if (name === 'planeModel' || name === 'textCylinder') {
 				this.maxNodeNum++
 				const nodeObj: NewNode = {
 					fixed: false,
@@ -453,7 +454,13 @@ export class ITunnelMesh {
 				readyModel = this.editConnectNode(nodeObj.name, nodeObj.position)
 			} else {
 				// 	点击到节点
-				readyModel = this.editConnectNode(name, intersected.point)
+				const nodeObj: NewNode = {
+					fixed: false,
+					name: intersected.object.name,
+					position: intersected.object.position,
+				}
+				this.newNodes.push(nodeObj)
+				readyModel = this.editConnectNode(nodeObj.name, nodeObj.position)
 			}
 		}
 		// 如果连接完成
@@ -576,7 +583,7 @@ export class ITunnelMesh {
 		if (!this.cylinder || !this.connectNode.nodePosition) return
 		let p1 = this.connectNode.nodePosition
 		let p2 = position
-		let len = usePoint().distance(p1, p2)
+		let len = distance(p1, p2)
 		this.cylinder.scale.set(1, 1, len)
 		this.cylinder.position.set(
 			p1.x + (p2.x - p1.x) / 2,
@@ -624,7 +631,6 @@ export class ITunnelMesh {
 		}
 	}
 }
-interface IPointVector extends ICoordinates, Vector3 {}
 
 /**
  * 计算空间点到直线垂足坐标
@@ -633,7 +639,7 @@ interface IPointVector extends ICoordinates, Vector3 {}
  * @param end 直线结束点
  */
 function getFootPoint(
-	p1: IPointVector,
+	p1: ICoordinates,
 	begin: ICoordinates | undefined,
 	end: ICoordinates | undefined,
 ) {

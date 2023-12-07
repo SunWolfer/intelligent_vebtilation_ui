@@ -16,11 +16,13 @@ import {
 	monthTrend,
 } from '@/api/api/intelFaultDiagnosis'
 import { useGainList } from '@/hooks/useGainList'
-import useResetCharts from '@/hooks/useResetCharts'
 
 export const abnEaWarOfEnvMonitoring = () => {
 	//   预警点位
 	const warnPointList = ref([])
+
+	const chartOption1 = ref({})
+
 	const initWarnPointList = async () => {
 		const { data } = await findYjdwTopFive({
 			mainType: '4',
@@ -31,19 +33,17 @@ export const abnEaWarOfEnvMonitoring = () => {
 				value: i.zs,
 			}
 		})
-		getCrosswiseBarChart('fan_mon_chart_1', warnPointList.value)
+		chartOption1.value = getCrosswiseBarChart(warnPointList.value)
 	}
 
-	const { showCharts: showPointChart } = useResetCharts(initWarnPointList)
-
+	const chartOption2 = ref({})
 	const initWarnTrendList = async () => {
 		const { data } = await monthTrend({
 			mainType: '4',
 		})
 		const xData = data.lineX
 		const yDataList = data.value
-		defaultBarChart({
-			domId: 'fan_mon_chart_2',
+		chartOption2.value = defaultBarChart({
 			xData: xData,
 			yDataList: [yDataList],
 			colors: [['rgba(23, 242, 208, 1)', 'rgba(23, 242, 208, 0)']],
@@ -51,18 +51,17 @@ export const abnEaWarOfEnvMonitoring = () => {
 			showSplitArea: true,
 		})
 	}
-	const { showCharts: showTrendChart } = useResetCharts(initWarnTrendList)
 
 	//   预警设备类型
 	const warnEquipList = ref([])
+	const chartOption3 = ref({})
 	const initWarnEquipList = async () => {
 		const { data } = await findYjsbPieChart({
 			mainType: '4',
 		})
 		warnEquipList.value = data
-		getType2PieChart('fan_mon_chart_3', warnEquipList.value)
+		chartOption3.value = getType2PieChart(warnEquipList.value)
 	}
-	const { showCharts: showTypeChart } = useResetCharts(initWarnEquipList)
 
 	const warnLevelList = new Map([
 		[1, [colors[0], '1级']],
@@ -120,9 +119,6 @@ export const abnEaWarOfEnvMonitoring = () => {
 	}
 
 	return {
-		showPointChart,
-		showTrendChart,
-		showTypeChart,
 		warnLevelList,
 		dateRange,
 		dataList,
@@ -134,5 +130,11 @@ export const abnEaWarOfEnvMonitoring = () => {
 		devTypeList,
 		YJLXList,
 		formatterDevType,
+		initWarnPointList,
+		initWarnTrendList,
+		initWarnEquipList,
+		chartOption1,
+		chartOption2,
+		chartOption3,
 	}
 }

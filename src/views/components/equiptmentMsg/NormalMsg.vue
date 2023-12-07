@@ -1,7 +1,7 @@
 <script setup>
 	import useEquipmentParams from '@/hooks/useEquipmentParams'
 	import useEquipmentData from '@/hooks/useEquipmentData'
-	import { deviceTypes } from '@/api/request/menuType'
+	import { deviceTypes } from '@/types/menuType'
 
 	const props = defineProps({
 		data: {
@@ -73,5 +73,6 @@
 </template>
 
 <style lang="scss" scoped>
+	@import '@/assets/styles/three/sensor_icon';
 	@import '@/assets/styles/home/home_map';
 </style>

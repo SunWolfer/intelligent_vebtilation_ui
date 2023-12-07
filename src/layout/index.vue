@@ -1,5 +1,5 @@
 <template>
-	<div class="app-wrapper forbiddenText" :class="'app_home_' + homeBgIndex">
+	<div class="app-wrapper forbiddenText app_home_1">
 		<!--系统顶部栏-->
 		<sidebar v-show="!roam" />
 		<!--    右上角登录人员信息-->
@@ -11,15 +11,13 @@
 		<div :class="showBreadcrumb ? 'sys_content' : 'sys_content_default'" @contextmenu.prevent>
 			<app-main />
 		</div>
-		<!--    <div class="app_home_change">-->
-		<!--      <div v-for="i in 4" class="app_home_icon" @click="changeBg(i)">{{i}}</div>-->
-		<!--    </div>-->
 	</div>
 </template>
 
 <script setup lang="ts">
 	import useHomeMenu from '@/hooks/useHomeMenu'
-	import { useUpdateMainData } from '@/hooks/useUpdateMainData'
+	import { useLoadThreeModel } from '@/hooks/useLoadThreeModel'
+	import useEquipment from '@/store/modules/equipmentData'
 	import useSettingsStore from '@/store/modules/settings'
 	import { AppMain, Navbar } from './components'
 	import Sidebar from './components/Sidebar/index.vue'
@@ -37,15 +35,18 @@
 			settingsStore.updateNavigate(false)
 		},
 	)
-	const { roam } = useHomeMenu()
-	const { loadPubData } = useUpdateMainData()
-	loadPubData()
 
-	//   当前背景
-	const homeBgIndex = ref(1)
-	const changeBg = (index: number) => {
-		homeBgIndex.value = index
+	//漫游隐藏菜单
+	const { roam } = useHomeMenu()
+	// 加载模型信息
+	const { setThreeData } = useLoadThreeModel()
+	const equipmentData = useEquipment()
+	// 加载模型&&设备信息
+	const loadPubData = () => {
+		equipmentData.updateData()
+		setThreeData?.()
 	}
+	loadPubData()
 </script>
 
 <style lang="scss" scoped>
@@ -125,10 +126,8 @@
 	.app_home {
 		background-image: url('@/assets/images/main_bg.png');
 	}
-	@for $i from 1 through 4 {
-		.app_home_#{$i} {
-			background-image: url('@/assets/images/main_bg_#{$i}.png');
-			background-size: 100% 100%;
-		}
+	.app_home_1 {
+		background-image: url('@/assets/images/main_bg_1.png');
+		background-size: 100% 100%;
 	}
 </style>

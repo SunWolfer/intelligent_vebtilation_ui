@@ -1,5 +1,5 @@
 <script setup>
-	import { useOpenlayers } from '@/hooks/useOpenlayers'
+	import { useOpenLayers } from '@/hooks/useOpenLayers'
 
 	const props = defineProps({
 		groupName: {
@@ -12,7 +12,7 @@
 		},
 	})
 
-	const { mapRef, textExtent, zoom, datalayerList, initMap } = useOpenlayers()
+	const { mapRef, textExtent, zoom, datalayerList, initMap } = useOpenLayers()
 	zoom.value = 3
 	textExtent.value = props.extent
 	datalayerList.value = [

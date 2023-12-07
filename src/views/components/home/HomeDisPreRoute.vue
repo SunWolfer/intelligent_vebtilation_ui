@@ -2,7 +2,7 @@
 	import { homeDisPreRoute } from '@/api/request/home/homeDisPreRoute'
 	import useHomeMenu from '@/hooks/useHomeMenu'
 	import useMenuItemPosition from '@/hooks/useMenuItemPosition'
-	import { DisasterTypes } from '@/api/request/menuType'
+	import { DisasterTypes } from '@/types/menuType'
 
 	const props = defineProps({
 		domLeft: {
@@ -20,7 +20,7 @@
 
 	const emits = defineEmits(['setDisaster', 'setPersonnel', 'imitateRoute', 'changeDisasterType'])
 
-	const { setDisaster, setPersonnel, changeDisaster, imitateRoute, quit, disasterRouteText } =
+	const { setDisaster, setPersonnel, changeDisaster, quit, disasterRouteText } =
 		homeDisPreRoute(emits)
 	const { avoidDisaster } = useHomeMenu()
 </script>
@@ -40,10 +40,10 @@
 				<div class="home_title_route_btn_icon home_route_icon_3"></div>
 				<div class="home_route_text">粉尘</div>
 			</div>
-			<div class="home_title_route_btn" @click="changeDisaster(DisasterTypes.FOUR)">
-				<div class="home_title_route_btn_icon home_route_icon_4"></div>
-				<div class="home_route_text">水灾</div>
-			</div>
+			<!--			<div class="home_title_route_btn" @click="changeDisaster(DisasterTypes.FOUR)">-->
+			<!--				<div class="home_title_route_btn_icon home_route_icon_4"></div>-->
+			<!--				<div class="home_route_text">水灾</div>-->
+			<!--			</div>-->
 		</div>
 		<div class="home_title_route_right">
 			<div class="home_title_route_top">
@@ -59,10 +59,6 @@
 					<div class="res_btn_icon"></div>
 					<div class="res_btn_text" @click="setPersonnel">点击地图拾取</div>
 				</div>
-			</div>
-			<div class="home_title_route_right_btn" @click="imitateRoute">
-				<div class="home_reverse_wind_btn_icon"></div>
-				<span>模拟</span>
 			</div>
 		</div>
 	</div>

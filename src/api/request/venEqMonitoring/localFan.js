@@ -11,6 +11,7 @@ import {
 	switchAsLocal,
 	windControlLocal,
 	windElectricBlockLocal,
+	gasStartLocal,
 } from '@/api/api/mainFan'
 import { useGainList } from '@/hooks/useGainList'
 import { useCommitForm } from '@/hooks/useForm'
@@ -221,6 +222,16 @@ export const localFan = () => {
 			},
 		})
 	}
+	const gasStartLocalHandle = async () => {
+		await useCommitForm(gasStartLocal, {
+			queryParams: {
+				devId: dataForm.value.id,
+			},
+			afterReadyDataFun: () => {
+				getMainFanInfo?.(mainFanId.value)
+			},
+		})
+	}
 	return {
 		inShowList,
 		toLast,
@@ -266,5 +277,6 @@ export const localFan = () => {
 		gasOutLocalHandle,
 		gasElectricBlockLocalHandle,
 		windElectricBlockLocalHandle,
+		gasStartLocalHandle,
 	}
 }

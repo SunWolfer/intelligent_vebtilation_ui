@@ -29,6 +29,7 @@
 			name: undefined,
 			type: undefined,
 			location: undefined,
+			devVersion: undefined,
 			ip: undefined,
 		},
 		deleteFun: delWindow,
@@ -39,16 +40,19 @@
 	const formatterWindowType = (row) => {
 		return selectDictLabel(window_type.value, row.type)
 	}
+	const formatterVersion = (data) => {
+		return selectDictLabel(window_version.value, data.devVersion)
+	}
 
 	const rules = ref({
-		name: [{ required: true, message: '风门不能为空', trigger: 'blur' }],
-		location: [{ required: true, message: '风门位置不能为空', trigger: 'blur' }],
+		name: [{ required: true, message: '风窗不能为空', trigger: 'blur' }],
+		location: [{ required: true, message: '风窗位置不能为空', trigger: 'blur' }],
 		ip: [{ required: true, message: 'ip不能为空', trigger: 'blur' }],
-		length: [{ required: true, message: '风门长度不能为空', trigger: 'blur' }],
-		width: [{ required: true, message: '风门宽度不能为空', trigger: 'blur' }],
-		code: [{ required: true, message: '风门编码不能为空', trigger: 'blur' }],
-		type: [{ required: true, message: '风门类型不能为空', trigger: 'blur' }],
-		devVersion: [{ required: true, message: '风门版本不能为空', trigger: 'blur' }],
+		length: [{ required: true, message: '风窗长度不能为空', trigger: 'blur' }],
+		width: [{ required: true, message: '风窗宽度不能为空', trigger: 'blur' }],
+		code: [{ required: true, message: '风窗编码不能为空', trigger: 'blur' }],
+		type: [{ required: true, message: '风窗类型不能为空', trigger: 'blur' }],
+		devVersion: [{ required: true, message: '风窗版本不能为空', trigger: 'blur' }],
 	})
 	// 新增修改操作
 	const { formRef, form, title, open, cancel, submitForm, handleUpdate, handleAdd } = useForm({
@@ -144,6 +148,11 @@
 			<el-form-item label="风窗ip">
 				<el-input v-model="queryParams.ip"></el-input>
 			</el-form-item>
+			<el-form-item label="风窗版本">
+				<el-select v-model="queryParams.devVersion" clearable>
+					<el-option v-for="i in window_version" :label="i.label" :value="i.value"></el-option>
+				</el-select>
+			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">查询</div>
 			</el-form-item>
@@ -167,6 +176,12 @@
 			/>
 			<el-table-column label="风窗长度" align="center" prop="length" />
 			<el-table-column label="风窗宽度" align="center" prop="width" />
+			<el-table-column
+				label="风窗版本"
+				align="center"
+				prop="devVersion"
+				:formatter="formatterVersion"
+			/>
 			<el-table-column label="操作" align="center" width="180">
 				<template #default="scope">
 					<el-button

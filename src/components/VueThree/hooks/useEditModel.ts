@@ -1,8 +1,23 @@
-import axios from 'axios'
-import { CatmullRomCurve3, Euler, Matrix4, Quaternion, Vector3 } from 'three'
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+import {
+	BufferAttribute,
+	CatmullRomCurve3,
+	DoubleSide,
+	Euler,
+	Matrix4,
+	Mesh,
+	MeshBasicMaterial,
+	Object3D,
+	PlaneGeometry,
+	Quaternion,
+	SRGBColorSpace,
+	TextureLoader,
+	Vector3,
+} from 'three'
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
-import * as XLSX from 'xlsx'
+import { BufferGeometry } from 'three/src/core/BufferGeometry'
+import wall1 from '@/components/VueThree/image/0002.jpg'
+
+import material1 from '@/components/VueThree/image/01.jpg'
 
 export interface IMoveTexture {
 	// 运动模型
@@ -36,7 +51,7 @@ const useEditModel = () => {
 
 			if (point && pointBox) {
 				data.obj.position.copy(point)
-				let toRot = getQuaternion(data.obj.position,pointBox,data.obj.up)
+				let toRot = getQuaternion(data.obj.position, pointBox, data.obj.up)
 				data.obj.quaternion.slerp(toRot, 0.2)
 			}
 
@@ -46,30 +61,29 @@ const useEditModel = () => {
 		}
 	}
 	// 计算朝向
-	function getQuaternion(startPosition:Vector3,endPosition:Vector3,Tup?:Vector3){
-		const up = Tup ?? new Vector3(0,1,0)
+	function getQuaternion(startPosition: Vector3, endPosition: Vector3, Tup?: Vector3) {
+		const up = Tup ?? new Vector3(0, 1, 0)
 		let offsetAngle = 0 //目标移动时的朝向偏移
 		//以下代码在多段路径时可重复执行
 		let mtx = new Matrix4() //创建一个4维矩阵
 		mtx.lookAt(startPosition, endPosition, up) //设置朝向
 		mtx.multiply(new Matrix4().makeRotationFromEuler(new Euler(0, offsetAngle, 0)))
-		 //计算出需要进行旋转的四元数值
+		//计算出需要进行旋转的四元数值
 		return new Quaternion().setFromRotationMatrix(mtx)
 	}
 
 	// 创建运动轨迹(三维样条曲线)
 	function createMotionTrack(
-		curvePoints: ICoordinates[],
+		curvePoints: ICoordinates[] | Vector3[],
 		parameter = {
 			curveType: 'catmullrom', //曲线类型
 			closed: false, //设置是否闭环
 			tension: 0, //设置线的张力，0为无弧度折线
 		} as CatmullRomCurve3,
 	) {
-		let curveList = []
+		let curveList: Vector3[] = []
 		for (let i = 0; i < curvePoints.length; i++) {
-			const point = curvePoints[i]
-			curveList.push(new Vector3(point.x, point.y, point.z))
+			curveList.push(new Vector3(curvePoints[i].x, curvePoints[i].y, curvePoints[i].z))
 		}
 		let curve: CatmullRomCurve3 = new CatmullRomCurve3(
 			curveList,
@@ -79,127 +93,10 @@ const useEditModel = () => {
 		)
 		return { curve }
 	}
-	// 读取Excel表格点位返回点位列表
-	async function readExcelFile(url: string): Promise<string[]> {
-		const res = await axios.get(url, { responseType: 'arraybuffer' })
-		let data = new Uint8Array(res.data)
-		let wb = XLSX.read(data, { type: 'array' })
-		let sheets = wb.Sheets // 获取文档数据
-		const content = transformSheets(sheets)
-		let names: string[] = []
-		for (let i = 0; i < content[0].length; i++) {
-			let obj: any = content[0][i]
-			for (const objElement in obj) {
-				names.push(objElement.trim())
-				names.push(obj[objElement].trim())
-			}
-		}
-		return [...new Set(names)]
-	}
-	function transformSheets(sheets: any) {
-		let content = []
-		for (let key in sheets) {
-			content.push(XLSX.utils.sheet_to_json(sheets[key]))
-		}
-		return content
-	}
-	async function loadModel(src: string, url: string) {
-		const names = await readExcelFile(url)
-
-		let nodes = {
-			geometry: {
-				radius: 6,
-			},
-			material: {
-				mapUrl: 'file/material/80.png',
-				transparent: true,
-				opacity: 1,
-			},
-		}
-		let tunnel: IMesh[] = [
-			{
-				geometry: {
-					radiusTop: 6,
-					radiusBottom: 6,
-					height: 1,
-					radialSegments: 4,
-					openEnded: true,
-				},
-				material: {
-					mapUrl: 'file/material/01.png',
-					transparent: true,
-					opacity: 1,
-				},
-			},
-			{
-				geometry: {
-					radiusTop: 3,
-					radiusBottom: 3,
-					height: 1,
-					radialSegments: 4,
-					openEnded: true,
-				},
-				material: {
-					type: 'MeshStandardMaterial',
-					mapUrl: 'file/material/02.png',
-					transparent: true,
-					opacity: 1,
-				},
-			},
-			{
-				geometry: {
-					radiusTop: 2,
-					radiusBottom: 2,
-					height: 1,
-					radialSegments: 4,
-					openEnded: false,
-				},
-				material: {
-					mapUrl: 'file/material/031.png',
-					transparent: false,
-					opacity: 0.8,
-				},
-			},
-		]
-		let models: IModelNode[] = []
-
-		const loader = new FBXLoader()
-		loader.load(src, (...args: any) => {
-			const object = { ...args }
-
-			for (let i = 0; i < names.length; i++) {
-				let name = names[i].split('-')
-				let model: IModelNode = {
-					nodeName: '',
-					nodePosition: new Vector3(),
-					nextNode: '',
-					nextNodePosition: new Vector3(),
-					nodes: nodes,
-					meshes: tunnel,
-					showNode: true,
-					showMesh: true,
-				}
-				object.traverse((child: any) => {
-					if (child.isMesh) {
-						if (child.name === name[0]) {
-							model.nodeName = child.name
-							model.nodePosition = child.position
-						}
-						if (child.name === name[1]) {
-							model.nextNode = child.name
-							model.nextNodePosition = child.position
-						}
-					}
-				})
-				models.push(model)
-			}
-		})
-		return models
-	}
 
 	// 添加Css2Dom
 	function addCss2DomList(labelList: LabelAttribute[], domKey = 'id') {
-		let Css2DomList = []
+		let Css2DomList: CSS2DObject[] = []
 		for (let i = 0; i < labelList.length; i++) {
 			let obj = labelList[i]
 			let dom: HTMLElement | null = document.getElementById(obj[domKey])
@@ -211,19 +108,113 @@ const useEditModel = () => {
 		}
 		return Css2DomList
 	}
-	// 计算两点中点
-	const getCenterPoint = (p1: ICoordinates | Vector3,p2:ICoordinates|Vector3) => {
-		return new Vector3((p1.x + p2.x)/2,(p1.y + p2.y)/2,(p1.z+p2.z) / 2)
+
+	/**
+	 * 计算两点中点
+	 * @param p1
+	 * @param p2
+	 */
+	const getCenterPoint = (p1: ICoordinates, p2: ICoordinates) => {
+		return new Vector3((p1.x + p2.x) / 2, (p1.y + p2.y) / 2, (p1.z + p2.z) / 2)
+	}
+	/**
+	 * 计算两点距离
+	 * @param p1
+	 * @param p2
+	 */
+	const getPointDistance = (p1: ICoordinates, p2: ICoordinates) => {
+		const dx = p1.x - p2.x
+		const dy = p1.y - p2.y
+		const dz = p1.z - p2.z
+		return Math.sqrt(dx * dx + dy * dy + dz * dz)
+	}
+
+	// 创建图片贴图平面
+	function createdImg(
+		width: number,
+		height: number,
+		url: string,
+		position: Vector3,
+		startPosition: Vector3,
+		endPosition: Vector3,
+	) {
+		const geometry = new PlaneGeometry(width, height)
+		// 水平翻转
+		geometry.rotateY(-Math.PI / 2)
+		geometry.rotateZ(-Math.PI / 2)
+		let texture = new TextureLoader().load(url)
+		texture.colorSpace = SRGBColorSpace
+		let material = new MeshBasicMaterial({ map: texture, side: DoubleSide, transparent: true })
+		const mesh = new Mesh(geometry, material)
+		mesh.position.copy(position)
+		const quaternion = useEditModel().getQuaternion(startPosition, endPosition)
+		mesh.quaternion.copy(quaternion)
+		return mesh
+	}
+
+	//生成平面
+	function createPlaneGeometry(points: Point[], scene: Object3D) {
+		let IMeshes: Mesh[] = []
+		for (let i = 0; i < points.length; i++) {
+			const c1 = points[i].points
+			const material = points[i].type === 1 ? '' : 1
+			// 生成两个三角形的顶点集合
+			const p1 = [c1[0], c1[1], c1[2]]
+			const p2 = [c1[0], c1[2], c1[3]]
+			IMeshes.push(createdMesh(p1, material))
+			IMeshes.push(createdMesh(p2, material))
+		}
+		scene.add(...IMeshes)
+	}
+
+	function createdMesh(points: number[][], IMaterial?: any) {
+		// 每一个三角形，需要三个顶点，每个顶点需要3个值
+		const geometry = new BufferGeometry()
+		const vertices = new Float32Array(9)
+		for (let j = 0; j < 9; j++) {
+			if (j < 3) {
+				vertices[j] = points[0][j]
+			} else if (j < 6) {
+				vertices[j] = points[1][j - 3]
+			} else if (j < 9) {
+				vertices[j] = points[2][j - 6]
+			}
+		}
+
+		geometry.setAttribute('position', new BufferAttribute(vertices, 3))
+
+		let material, texture
+		if (IMaterial) {
+			texture = new TextureLoader().load(material1)
+		} else {
+			texture = new TextureLoader().load(wall1)
+		}
+		if (texture) {
+			texture.colorSpace = SRGBColorSpace
+			material = new MeshBasicMaterial({ map: texture, side: DoubleSide })
+		}
+
+		//初始化存放颜色信息的序列化数组
+		const colors = new Float32Array([0.5, 0.3, 0.6, 0.5, 0.3, 0.6, 0.5, 0.3, 0.6])
+		geometry.setAttribute('color', new BufferAttribute(colors, 3))
+
+		const indexS = new Uint16Array([0, 1, 2])
+		geometry.index = new BufferAttribute(indexS, 1)
+		const uvs = new Uint16Array([0, 1, 1, 1, 1, 0, 0, 0])
+		geometry.setAttribute('uv', new BufferAttribute(uvs, 2))
+		return new Mesh(geometry, material)
 	}
 
 	return {
 		customAnimation,
 		texturesUpdate,
 		createMotionTrack,
-		loadModel,
 		addCss2DomList,
 		getQuaternion,
-		getCenterPoint
+		getCenterPoint,
+		getPointDistance,
+		createdImg,
+		createPlaneGeometry,
 	}
 }
 

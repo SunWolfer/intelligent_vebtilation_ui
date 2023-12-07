@@ -14,8 +14,6 @@
 		fullSecWindList,
 		dateRange,
 		queryForm,
-		showCharts,
-		resetCharts,
 		paramSettingVisible,
 		chooseParamSetting,
 		aneTableData,
@@ -32,6 +30,8 @@
 		playMod,
 		videoPath,
 		videoVisible,
+		chartOption,
+		initChart,
 	} = fullSecWindMeasurement()
 </script>
 
@@ -96,7 +96,9 @@
 								<div class="full_body_l1_bottom_item_right">
 									<div class="normal_btn" @click="chooseParamSetting(i)">参数设置</div>
 									<div class="full_body_l1_bottom_item_btn">
-										<div class="normal_4_btn" @click="startMeasuringTheWind(i)">开始测风</div>
+										<div class="normal_4_btn" @click="startMeasuringTheWind(i, index)">
+											开始测风
+										</div>
 									</div>
 								</div>
 							</div>
@@ -158,10 +160,10 @@
 					></el-date-picker>
 				</el-form-item>
 				<el-form-item>
-					<div class="normal_btn" @click="resetCharts">查询</div>
+					<div class="normal_btn" @click="initChart">查询</div>
 				</el-form-item>
 			</el-form>
-			<div v-if="showCharts" id="acc_chart_line" class="fullDom full_body_l4_chart"></div>
+			<BaseEchart :option="chartOption" class="fullDom full_body_l4_chart" />
 		</div>
 		<!--    参数设置弹窗-->
 		<parameter-setting

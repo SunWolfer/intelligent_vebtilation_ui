@@ -1,20 +1,18 @@
 <!--首页底部弹出菜单-->
 <script setup lang="ts">
-	interface ReqBorderBox {
-		backgroundColor?: string
-		// 动画时间
-		dur?: number
-	}
-
 	import { useAutoResize } from '@/components/BorderBox/borderUtils'
-
-	const props = withDefaults(defineProps<ReqBorderBox>(), {
-		backgroundColor: 'rgba(15,46,81,0.78)',
-		dur: 3,
+	defineProps({
+		backgroundColor: {
+			type: String,
+			default: 'rgba(15,46,81,0.78)',
+		},
+		dur: {
+			type: Number,
+			default: 3,
+		},
 	})
+
 	const { domRef, width, height } = useAutoResize()
-	//   折线偏转距离
-	const r = 7
 	//   折线点位
 	const linePoints = computed(() => {
 		const h = height.value

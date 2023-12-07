@@ -9,13 +9,13 @@
 		rotationalSpeedList,
 		bladeAngleList,
 		handleQuery,
-		showCharts,
 		dataList,
 		chooseRow,
 		addOrUpdateVisible,
 		handleAdd,
 		handleUpdate,
 		handleDelete,
+		chartOption1,
 	} = fanCharCurveManagement()
 </script>
 
@@ -52,7 +52,7 @@
 			</el-form>
 		</div>
 		<div class="fullDom fan_management_l3">
-			<div id="fan_curve_chart_1" v-if="showCharts" class="fullDom"></div>
+			<BaseEchart :option="chartOption1" />
 		</div>
 		<div class="fullDom fan_management_l4">
 			<el-table :data="dataList" border height="100%">

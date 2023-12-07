@@ -14,12 +14,10 @@
 	font-family: 'Source Han Sans CN';
 	src: url("@/assets/fonts/bb4171.ttf");
 }
-@import 'variables.module';
-@import 'mixin';
-@import "defaultMinix";
 @import 'transition';
 @import 'sidebar';
 @import 'btn';
+@import "defaultMinix";
 @import 'ruoyi';
 @import 'scrollStyle';
 @import 'custBtn';
@@ -315,3 +313,91 @@ aside {
 	align-items: center;
 	font-size: 1px;
 }
+
+//节点标签
+.node_label_bg{
+	position: absolute;
+	top: vh(-50);
+}
+.node_three_label{
+	display: grid;
+	grid-template-columns: vh(50);
+	grid-template-rows: vh(50) vh(45);
+	grid-template-areas:
+			'header'
+			'footer';
+	justify-items: center;
+}
+.node_label_header{
+	grid-area: header;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	box-shadow: 0 0 vh(10) vh(5) #009fde inset;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+@mixin IWave {
+	content: '';
+	position: absolute;
+	left: -50%;
+	width: vh(50);
+	height: vh(50);
+	border-radius: 50%;
+	transform: translateY(50%) translateX(-50%) rotateX(50deg);
+	opacity: 0;
+}
+@mixin threeLabelFooter {
+	position: relative;
+	grid-area: footer;
+	width: 1px;
+	height: 100%;
+
+	animation: toHeight 4s infinite forwards;
+	&:after {
+		@include IWave;
+		animation: wave 4s infinite;
+	}
+	&:before {
+		@include IWave;
+		animation: wave 4s infinite 0.5s;
+	}
+}
+.node_label_footer{
+	@include threeLabelFooter;
+	background: #00ffff;
+	&:after {
+		background: rgba(53, 180, 254, 0.6);
+		border: 1px solid #00ffff;
+	}
+	&:before {
+		background: rgba(53, 180, 254, 0.6);
+		border: 1px solid #00ffff;
+	}
+}
+@keyframes toHeight {
+	0% {
+		height: 0;
+	}
+	25% {
+		height: vh(50);
+	}
+}
+@keyframes wave {
+	0% {
+		opacity: 0;
+	}
+	25% {
+		transform: translateY(50%) translateX(-50%) rotateX(50deg) scale(0);
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(50%) translateX(-50%) rotateX(50deg) scale(1.5);
+		opacity: 0;
+	}
+}
+

@@ -110,7 +110,7 @@
 				type: 'warning',
 			})
 		} else {
-			await useCommitForm(props.tagsType === '1' ? addDoorTags : windowTagSet, {
+			await useCommitForm(props.tagsType === 'door' ? addDoorTags : windowTagSet, {
 				queryParams: {
 					devId: dataForm.value.id,
 					tags: selectedList.value,

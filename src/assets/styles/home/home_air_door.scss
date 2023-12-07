@@ -18,10 +18,6 @@
 		grid-row-start: 1;
 		grid-row-end: 3;
 	}
-	.home_air_door_body_c1_l1 {
-	}
-	.home_air_door_body_c1_l2 {
-	}
 }
 
 .home_air_door_body_c2 {
@@ -82,7 +78,6 @@
 	.home_air_door_body_c2_item3 {
 		width: 100%;
 		height: 100%;
-
 		display: grid;
 		grid-template-columns: repeat(2, 1fr) 6px repeat(2, 1fr);
 		grid-template-rows: 1fr 1fr 1fr;
@@ -254,7 +249,8 @@
 	height: 100%;
 	padding: vh(15) vw(50);
 	display: grid;
-	grid-template-rows: vh(35) vh(23) 1fr 1fr;
+	//grid-template-rows: vh(35) vh(23) 1fr 1fr;
+	grid-template-rows: vh(35) 1fr 1fr;
 	grid-row-gap: vh(24);
 }
 .door_param_title {
@@ -387,7 +383,7 @@
 }
 @mixin largeLight {
 	width: vw(40);
-	height: vh(40);
+	height: vw(40);
 	background-size: 100% 100%;
 }
 .large_light_1 {
@@ -397,6 +393,10 @@
 .large_light_2 {
 	@include largeLight;
 	background-image: url('@/assets/images/equipment/large_light_2.png');
+}
+.large_light_3{
+	@include largeLight;
+	background-image: url('@/assets/images/equipment/small_light_2.png');
 }
 
 @mixin doorIcon {

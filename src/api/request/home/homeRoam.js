@@ -1,5 +1,5 @@
 import useEquipmentData from '@/hooks/useEquipmentData'
-import { MenuTypes } from '@/api/request/menuType'
+import { MenuTypes } from '@/types/menuType'
 import useHomeMenu from '@/hooks/useHomeMenu'
 import { infoPath, infoPathList } from '@/api/api/home'
 import { useGainList } from '@/hooks/useGainList'
@@ -58,6 +58,7 @@ export const homeRoam = (emits) => {
 				const point = allDataList.value.find((item) => {
 					return item.id === res.data[i].devId && item.devType === res.data[i].devType
 				})
+				if (!point) continue
 				equipmentPathList.value.push({
 					...res.data[i],
 					uniqueCode: point.uniqueCode,

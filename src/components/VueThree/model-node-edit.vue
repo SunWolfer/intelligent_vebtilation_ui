@@ -4,8 +4,7 @@
 	import { OperateModel } from '@/components/VueThree/IModelOperate'
 	import mixin from '@/components/VueThree/model-mixin.vue'
 	import { EditType } from '@/components/VueThree/types/editType'
-	import { getCenter, setMovePosition } from '@/components/VueThree/utils'
-	import threeModel from '@/store/modules/threeModel'
+	import { threeModel } from '@/store/modules/threeModel'
 	import {
 		Box3,
 		DoubleSide,
@@ -36,7 +35,7 @@
 			},
 		},
 		watch: {
-			editType(val, old) {
+			editType(_val, old) {
 				// 重置节点连接
 				if (old === EditType.CONNECT) {
 					this.tunnelMesh.resetConnectNode()
@@ -105,15 +104,15 @@
 				)
 				this.$emit('on-model', this.operateModel)
 
-				const center = getCenter(this.object)
-
-				this.cameraAniPosition.removeLookAt = center
-				this.cameraAniPosition.removePosition = setMovePosition(this.camera.position, center)
-				this.cameraReset(
-					this.cameraAniPosition.removePosition,
-					this.cameraAniPosition.removeLookAt,
-					3,
-				)
+				// const center = getCenter(this.object)
+				//
+				// this.cameraAniPosition.removeLookAt = center
+				// this.cameraAniPosition.removePosition = setMovePosition(this.camera.position, center)
+				// this.cameraReset(
+				// 	this.cameraAniPosition.removePosition,
+				// 	this.cameraAniPosition.removeLookAt,
+				// 	3,
+				// )
 
 				this.addWind()
 				if (this.planeVisible) this.setNewPlane()
@@ -144,22 +143,24 @@
 				if (!this.windObject) return
 				this.windObject.remove(...this.windMeshList)
 				let models: IModelNode[] = this.modelData
-				let meshList = []
+				let meshList: any[] = []
 				for (let i = 0; i < models.length; i++) {
 					let modelNode = models[i]
 					if (modelNode.showWind && modelNode.windMesh) {
 						modelNode.windMesh.direction = direction
 						if (!modelNode.nodePosition && !modelNode.nextNodePosition) return
-						const moveModel = this.tunnelMesh.addWindMesh(modelNode)
-						const startNode = {
-							...modelNode.nodePosition,
+						let moveModel: any = this.tunnelMesh.addWindMesh(modelNode)
+						const startNode: ICoordinates = {
+							x: modelNode.nodePosition!.x,
 							y: modelNode.nodePosition!.y + (modelNode.windMesh.windPosition ?? 0),
+							z: modelNode.nodePosition!.z,
 						}
-						const endNode = {
-							...modelNode.nextNodePosition,
+						const endNode: ICoordinates = {
+							x: modelNode.nextNodePosition!.x,
 							y: modelNode.nextNodePosition!.y + (modelNode.windMesh.windPosition ?? 0),
+							z: modelNode.nextNodePosition!.z,
 						}
-						const coordinates: any[] = [startNode, endNode]
+						const coordinates: ICoordinates[] = [startNode, endNode]
 						let { curve } = useEditModel().createMotionTrack(coordinates)
 						const speed = modelNode.speed ? (modelNode.speed > 0 ? modelNode.speed : 0) : 0.01
 						let moveTexture: IMoveTexture = {

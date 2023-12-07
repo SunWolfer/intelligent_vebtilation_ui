@@ -1,7 +1,7 @@
 <!--一键测风弹窗-->
 <script setup>
 	import { Vue3SeamlessScroll } from 'vue3-seamless-scroll'
-	import { useSocket } from '@/hooks/useSocket'
+	import useSocket from '@/hooks/useSocket'
 	import { parseTime } from '@/utils/ruoyi'
 
 	const props = defineProps({
@@ -36,7 +36,7 @@
 	}
 	onMounted(() => {
 		initWindList?.()
-		clientSocket?.()
+		clientSocket?.('|fullwind|CollectAll')
 		timeout?.()
 	})
 	// 接收时间
@@ -47,7 +47,7 @@
 		clearInterval(receiveTimeInterval.value)
 		receiveTimeInterval.value = setInterval(() => {
 			receiveTime.value++
-			if (receiveTime.value > 5) {
+			if (receiveTime.value > 20) {
 				diaVisible.value = false
 			}
 		}, 1000)
@@ -67,7 +67,10 @@
 		}
 	}
 
-	const { clientSocket, socketData } = useSocket('|fullwind|CollectAll', dealWithData)
+	const { clientSocket, socketData, realTime } = useSocket('realTime')
+	watch(realTime, (value) => {
+		dealWithData(value)
+	})
 
 	onBeforeMount(() => {
 		clearInterval(receiveTimeInterval.value)

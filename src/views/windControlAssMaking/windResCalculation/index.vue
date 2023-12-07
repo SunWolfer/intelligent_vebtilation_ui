@@ -17,7 +17,7 @@
 					<el-table-column label="温度(℃)" align="center" prop="name"></el-table-column>
 					<el-table-column label="湿度(%RH)" align="center" prop="name"></el-table-column>
 					<el-table-column label="差压(Pa)" align="center" prop="name"></el-table-column>
-					<el-table-column label="绝压(Pa)" align="center" prop="name"></el-table-column>
+					<el-table-column label="绝压(kPa)" align="center" prop="name"></el-table-column>
 					<el-table-column label="高程(m)" align="center" prop="name"></el-table-column>
 					<el-table-column label="风量(m³/s)" align="center" prop="name"></el-table-column>
 				</el-table-column>
@@ -25,7 +25,7 @@
 					<el-table-column label="温度(℃)" align="center" prop="name"></el-table-column>
 					<el-table-column label="湿度(%RH)" align="center" prop="name"></el-table-column>
 					<el-table-column label="差压(Pa)" align="center" prop="name"></el-table-column>
-					<el-table-column label="绝压(Pa)" align="center" prop="name"></el-table-column>
+					<el-table-column label="绝压(kPa)" align="center" prop="name"></el-table-column>
 					<el-table-column label="高程(m)" align="center" prop="name"></el-table-column>
 					<el-table-column label="风量(m³/s)" align="center" prop="name"></el-table-column>
 				</el-table-column>

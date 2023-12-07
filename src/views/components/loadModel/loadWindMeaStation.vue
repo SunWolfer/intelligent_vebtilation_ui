@@ -62,9 +62,13 @@
 			default: [],
 		},
 	})
-
+	const hasReadyCamera = ref(false)
 	function readyCamera() {
+		hasReadyCamera.value = true
 		operateModel.value.initDefaultAnimation()
+		if (props.choose !== -1) {
+			nextFun()
+		}
 	}
 
 	watch(
@@ -81,7 +85,7 @@
 	watch(
 		() => props.choose,
 		() => {
-			nextFun()
+			hasReadyCamera.value && nextFun()
 		},
 	)
 	const domId = ref('cfz' + Math.random())

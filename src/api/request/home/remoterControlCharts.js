@@ -1,9 +1,7 @@
 import echarts from '@/utils/echarts/index'
-import useCharts from '@/hooks/useCharts'
 import { dynamicHeight } from '@/utils/ruoyi'
 
-export function getChart1(domId, value) {
-	const { option } = useCharts(domId)
+export function getChart1(value) {
 	const colorLeftAlpha = ['#00FCF788', '#00FCF70c']
 	const color1 = {
 		type: 'linear',
@@ -42,7 +40,7 @@ export function getChart1(domId, value) {
 		global: false,
 	}
 
-	option.value = {
+	return {
 		series: [
 			// 外侧灰色轴线
 			{
@@ -357,11 +355,10 @@ export function getChart1(domId, value) {
 	}
 }
 
-export function getChart2(domId, value) {
-	const { option } = useCharts(domId)
+export function getChart2(value) {
 	const dataArr = value
 	const startAngle = -120
-	option.value = {
+	return {
 		series: [
 			{
 				type: 'gauge',
@@ -428,21 +425,12 @@ export function getChart2(domId, value) {
 	}
 }
 
-export function getChart3(domId, value, title, title2) {
-	const { option } = useCharts(domId)
+export function getChart3(value, title, title2, unit) {
 	const dataArr = value
-	option.value = {
+	return {
 		title: [
 			{
-				text:
-					'{title|' +
-					title2 +
-					'}' +
-					'\n{range|(324-610)}' +
-					'\n{num|' +
-					dataArr +
-					'}' +
-					'{icon|m³/min}',
+				text: '{title|' + title2 + '}' + '\n{num|' + dataArr + '}' + '{icon|' + unit + '}',
 				x: '50%',
 				y: '30%',
 				textAlign: 'center',
@@ -622,11 +610,10 @@ export function getChart3(domId, value, title, title2) {
 	}
 }
 
-export function getChart4(domId, value, title) {
-	const { option } = useCharts(domId)
+export function getChart4(value, title, unit) {
 	const dataArr = value
 	const colorLeftAlpha = ['#00FCF788', '#00FCF70c']
-	option.value = {
+	return {
 		title: [
 			{
 				text: title,
@@ -688,7 +675,7 @@ export function getChart4(domId, value, title) {
 					fontSize: dynamicHeight(16),
 					offsetCenter: [0, '70%'],
 					valueAnimation: true,
-					formatter: '{value} km/h',
+					formatter: '{value}' + unit + '',
 					color: '#ffffff',
 				},
 				data: [
@@ -701,11 +688,35 @@ export function getChart4(domId, value, title) {
 	}
 }
 //湿度温度
-export function getChart5(domId, type, value, title) {
-	let myChart = echarts.init(document.getElementById(domId))
+export function getChart5(type, value, title) {
 	const colors =
 		type === '1' ? ['#22baf8', '#173c5e', '#0a92f6'] : ['#fbc573', '#7f7177', '#fab777']
-	let option = {
+	function _dashed() {
+		let dataArr = []
+		for (let i = 0; i < 100; i++) {
+			if (i % 2 === 0) {
+				dataArr.push({
+					name: (i + 1).toString(),
+					value: 10,
+					itemStyle: {
+						color: colors[1],
+					},
+				})
+			} else {
+				dataArr.push({
+					name: (i + 1).toString(),
+					value: 50,
+					itemStyle: {
+						color: 'rgb(0,0,0,0)',
+						borderWidth: 1,
+						borderColor: colors[2],
+					},
+				})
+			}
+		}
+		return dataArr
+	}
+	return {
 		title: {
 			text: '{a|' + value + '}',
 			x: 'center',
@@ -876,49 +887,6 @@ export function getChart5(domId, type, value, title) {
 			},
 		],
 	}
-
-	myChart.setOption(option)
-	// 自适应
-	window.addEventListener('resize', () => {
-		myChart.resize()
-	})
-
-	function _dashed() {
-		let dataArr = []
-		for (let i = 0; i < 100; i++) {
-			if (i % 2 === 0) {
-				dataArr.push({
-					name: (i + 1).toString(),
-					value: 10,
-					itemStyle: {
-						color: colors[1],
-					},
-				})
-			} else {
-				dataArr.push({
-					name: (i + 1).toString(),
-					value: 50,
-					itemStyle: {
-						color: 'rgb(0,0,0,0)',
-						borderWidth: 1,
-						borderColor: colors[2],
-					},
-				})
-			}
-		}
-		return dataArr
-	}
-
-	function doing() {
-		let option = myChart.getOption()
-		option.series[1].startAngle = option.series[1].startAngle - 1
-		myChart.setOption(option)
-	}
-	let timer
-	function startTimer() {
-		timer = setInterval(doing, 100)
-	}
-	setTimeout(startTimer, 1000)
 }
 // 监测曲线
 export function getLineChartOption(names, lineX, value) {

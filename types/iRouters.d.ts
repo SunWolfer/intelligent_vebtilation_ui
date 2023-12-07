@@ -1,3 +1,5 @@
+import type { RouteMeta, RouteRecordRaw } from 'vue-router'
+
 /**
  * Note: 路由配置项
  *
@@ -19,3 +21,30 @@
     activeMenu: '/system/user'      // 当路由设置了该属性，则会高亮相对应的侧边栏。
   }
  */
+
+type Component<T = any> =
+	| ReturnType<typeof defineComponent>
+	| (() => Promise<typeof import('*.vue')>)
+	| (() => Promise<T>)
+
+declare global {
+	declare interface IRouteMeta extends Record<string | number | symbol, unknown> {
+		breadcrumb?: boolean
+		activeMenu?: string
+		isCache?: boolean
+		title?: string
+		icon?: string
+	}
+
+	declare interface IRouteRecordRaw extends Omit<RouteRecordRaw, 'meta' | 'children'> {
+		hidden?: boolean
+		alwaysShow?: boolean
+		permissions?: string[]
+		roles?: string[]
+		component?: Component | string
+		meta?: IRouteMeta
+		children?: IRouteRecordRaw[]
+		noShowingChildren?: boolean
+		redirect?: string
+	}
+}

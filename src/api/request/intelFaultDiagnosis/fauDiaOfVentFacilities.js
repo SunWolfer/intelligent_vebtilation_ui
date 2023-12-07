@@ -1,5 +1,4 @@
 import { colors, getCrosswiseBarChart } from '@/api/request/intelFaultDiagnosis/chartsUtils'
-import useResetCharts from '@/hooks/useResetCharts'
 import { useGainList } from '@/hooks/useGainList'
 import {
 	delWarn,
@@ -26,16 +25,13 @@ export const fauDiaOfVentFacilities = () => {
 					name: i.yjmc,
 				}
 			})
-			resetCharts1?.()
+			initDoorWarnChart?.()
 		},
 	})
+	const chartOption1 = ref({})
 	const initDoorWarnChart = () => {
-		getCrosswiseBarChart('fau_fac_chart_1', doorWarnTypeList.value)
+		chartOption1.value = getCrosswiseBarChart(doorWarnTypeList.value)
 	}
-	const { showCharts: showCharts1, resetCharts: resetCharts1 } = useResetCharts(
-		initDoorWarnChart,
-		false,
-	)
 
 	// 风窗预警类型
 	const windowWarnTypeList = ref([])
@@ -51,16 +47,13 @@ export const fauDiaOfVentFacilities = () => {
 					name: i.yjmc,
 				}
 			})
-			resetCharts2?.()
+			initWindowWarnChart?.()
 		},
 	})
+	const chartOption2 = ref({})
 	const initWindowWarnChart = () => {
-		getCrosswiseBarChart('fau_fac_chart_2', windowWarnTypeList.value)
+		chartOption2.value = getCrosswiseBarChart(windowWarnTypeList.value)
 	}
-	const { showCharts: showCharts2, resetCharts: resetCharts2 } = useResetCharts(
-		initWindowWarnChart,
-		false,
-	)
 
 	const warnLevelList = new Map([
 		[1, [colors[0], '1级']],
@@ -118,8 +111,6 @@ export const fauDiaOfVentFacilities = () => {
 	}
 
 	return {
-		showCharts1,
-		showCharts2,
 		warnLevelList,
 		dateRange,
 		dataList,
@@ -131,5 +122,7 @@ export const fauDiaOfVentFacilities = () => {
 		devTypeList,
 		YJLXList,
 		formatterDevType,
+		chartOption1,
+		chartOption2,
 	}
 }

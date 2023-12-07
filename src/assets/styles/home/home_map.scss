@@ -1,4 +1,3 @@
-@import "@/assets/styles/three/sensor_icon";
 .three_label {
 	//position: absolute;
 	display: grid;
@@ -116,7 +115,7 @@
 		height: max-content;
 		max-width: vw(197);
 		min-height: vh(40);
-		padding: vh(8) vw(5);
+		padding: vh(8) vw(10);
 		.three_label_content_bg_text {
 			font-size: vw(14);
 			font-family:

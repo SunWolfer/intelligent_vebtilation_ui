@@ -233,12 +233,23 @@
 	.local_fan_body_l3_l6 {
 		width: 100%;
 		height: 100%;
-		background-image: url('@/assets/images/venEqMonitoring/fans/border_2.svg');
-		background-size: 100% 100%;
-		padding-top: vh(40);
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: vh(68) 1fr;
+	}
+	.local_fan_body_l3_l6_top{
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: vh(22) vh(42) vh(42) vh(68);
+		justify-content: center;
+		place-items: center;
+	}
+	.local_fan_body_l3_l6_bottom{
+		background-image: url('@/assets/images/venEqMonitoring/fans/border_1.svg');
+		background-size: 100% 100%;
+		padding-top: vh(20);
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: vh(22) vh(42) vh(42);
 		grid-row-gap: vh(21);
 		grid-auto-flow: column;
 		justify-content: center;
@@ -246,8 +257,7 @@
 		grid-template-areas:
 			'l6_1 l6_2'
 			'l6_3 l6_4'
-			'l6_5 l6_6'
-			'l6_7 l6_7';
+			'l6_5 l6_6';
 	}
 	@mixin l6Title {
 		font-size: vw(22);
@@ -311,13 +321,21 @@
 		}
 	}
 	.local_fan_body_l3_l6_btn_3 {
-		grid-area: l6_7;
 		span {
 			background: linear-gradient(180deg, #feecea 29.6875%, #b44f50 100%);
 		}
 		@include l6Btn;
 		&:before {
 			background-image: url('@/assets/images/venEqMonitoring/fans/btn2.png');
+		}
+	}
+	.local_fan_body_l3_l6_btn_4{
+		span {
+			background: linear-gradient(180deg, #feecea 29.6875%, #00FF00 100%);
+		}
+		@include l6Btn;
+		&:before {
+			background-image: url('@/assets/images/venEqMonitoring/fans/btn1.png');
 		}
 	}
 }

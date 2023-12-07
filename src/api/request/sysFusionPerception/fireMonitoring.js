@@ -1,5 +1,4 @@
 import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
-import useResetCharts from '@/hooks/useResetCharts'
 import {
 	temperatureDict,
 	temperatureRealTime,
@@ -27,15 +26,15 @@ export const fireMonitoring = () => {
 
 	watch(
 		() => dataForm1.value.code,
-		() => {
-			getBeamTubeData()
-			resetLeftCharts?.()
+		async () => {
+			await getBeamTubeData()
+			await initChartLeft?.()
 		},
 	)
 	watch(
 		() => dataForm1.value.timeType,
-		() => {
-			resetLeftCharts?.()
+		async () => {
+			await initChartLeft?.()
 		},
 	)
 	// 束管监测列表数据
@@ -96,11 +95,13 @@ export const fireMonitoring = () => {
 		dataForm1.value.timeType = type
 	}
 
+	const chartOption1 = ref({})
+	const chartOption2 = ref({})
+
 	const initChartLeft = async () => {
 		const { data } = await tubeTrend(dataForm1.value)
 		const { one, two } = data
-		defaultLineChart({
-			domId: 'fire-charts-1',
+		chartOption1.value = defaultLineChart({
 			xData: one.lineX ?? [],
 			yDataList: one.value ?? [],
 			legends: one.names ?? [],
@@ -113,8 +114,7 @@ export const fireMonitoring = () => {
 			],
 			smooth: false,
 		})
-		defaultLineChart({
-			domId: 'fire-charts-2',
+		chartOption2.value = defaultLineChart({
 			xData: two.lineX ?? [],
 			yDataList: two.value ?? [],
 			legends: two.names ?? [],
@@ -130,12 +130,6 @@ export const fireMonitoring = () => {
 			showYSplitLine: true,
 		})
 	}
-
-	const { showCharts: showLeftCharts, resetCharts: resetLeftCharts } = useResetCharts(
-		initChartLeft,
-		false,
-	)
-
 	//   光纤测温表单
 	const dataForm2 = ref({
 		channel: '',
@@ -176,14 +170,14 @@ export const fireMonitoring = () => {
 		dataForm2.value.timeType = type
 	}
 	// 光纤测温实时监测查询
+	const chartOption3 = ref({})
 	const initChartRight = async () => {
 		const { data } = await temperatureRealTime(dataForm2.value.channel)
 		dataForm2.value.min = data.min
 		dataForm2.value.max = data.max
 		dataForm2.value.avg = data.avg
 
-		defaultLineChart({
-			domId: 'fire-charts-3',
+		chartOption3.value = defaultLineChart({
 			xData: data.lineX,
 			yDataList: [data.value],
 			legends: ['温度'],
@@ -193,19 +187,15 @@ export const fireMonitoring = () => {
 			showXSplitLine: true,
 		})
 	}
-	const { showCharts: showRightCharts, resetCharts: resetRightCharts } = useResetCharts(
-		initChartRight,
-		false,
-	)
 
 	// 光纤测温趋势监测查询
+	const chartOption4 = ref({})
 	const initChartRight2 = async () => {
 		const { data } = await temperatureTrend({
 			channel: dataForm2.value.channel,
 			timeType: dataForm2.value.timeType,
 		})
-		defaultLineChart({
-			domId: 'fire-charts-4',
+		chartOption4.value = defaultLineChart({
 			xData: data.lineX,
 			yDataList: data.value,
 			legends: data.names,
@@ -220,21 +210,18 @@ export const fireMonitoring = () => {
 			showXSplitLine: true,
 		})
 	}
-	const { showCharts: showRightCharts2, resetCharts: resetRightCharts2 } = useResetCharts(
-		initChartRight2,
-		false,
-	)
+
 	watch(
 		() => dataForm2.value.channel,
-		() => {
-			resetRightCharts?.()
-			resetRightCharts2?.()
+		async () => {
+			await initChartRight?.()
+			await initChartRight2?.()
 		},
 	)
 	watch(
 		() => dataForm2.value.timeType,
-		() => {
-			resetRightCharts2?.()
+		async () => {
+			await initChartRight2?.()
 		},
 	)
 
@@ -245,10 +232,11 @@ export const fireMonitoring = () => {
 		dataForm2,
 		beamTubeMonitoringData,
 		chooseForm1Date,
-		showLeftCharts,
 		optFibTemMeaList,
 		chooseForm2Date,
-		showRightCharts,
-		showRightCharts2,
+		chartOption1,
+		chartOption2,
+		chartOption3,
+		chartOption4,
 	}
 }

@@ -1,16 +1,13 @@
 import echarts from '@/utils/echarts/index'
-import useCharts from '@/hooks/useCharts'
 import { dynamicWidth } from '@/utils/ruoyi'
 
 export const colors = ['#E93654', '#F36C04', '#F8D364', '#10D2F0', '#10A1F0']
 
 //饼图
-export function getType1PieChart(domId, data) {
-	const { option } = useCharts(domId)
-
+export function getType1PieChart(data) {
 	const legends = data.map((i) => i.name)
 
-	option.value = {
+	return {
 		color: ['#EAEA4B', '#FFAD58', '#3DD1F9', '#27E17E', '#FE5656', '#906BF9'],
 		grid: {
 			left: 0,
@@ -156,12 +153,10 @@ export function getType1PieChart(domId, data) {
 	}
 }
 
-export function getType2PieChart(domId, data) {
-	const { option } = useCharts(domId)
-
+export function getType2PieChart(data) {
 	const legends = data.map((i) => i.name)
 
-	option.value = {
+	return {
 		color: ['#EAEA4B', '#FFAD58', '#3DD1F9', '#27E17E', '#FE5656', '#906BF9'],
 		grid: {
 			left: 0,
@@ -217,9 +212,7 @@ export function getType2PieChart(domId, data) {
 }
 
 // 横向渐变柱图
-export function getCrosswiseBarChart(domId, data) {
-	const { option } = useCharts(domId)
-
+export function getCrosswiseBarChart(data) {
 	const dataName = data.map((i) => {
 		return i.name
 	})
@@ -251,7 +244,7 @@ export function getCrosswiseBarChart(domId, data) {
 			},
 		})
 	})
-	option.value = {
+	return {
 		grid: {
 			left: 0,
 			right: 0,

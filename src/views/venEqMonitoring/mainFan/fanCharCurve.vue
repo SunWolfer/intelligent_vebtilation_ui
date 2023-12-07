@@ -1,6 +1,5 @@
 <!--风机特性曲线-->
 <script setup>
-	import useResetCharts from '@/hooks/useResetCharts'
 	import { fanChart1 } from '@/api/request/venEqMonitoring/fansCharts'
 	import { useGainList } from '@/hooks/useGainList'
 	import { fanLineDict, findFanLines } from '@/api/api/mainFan'
@@ -47,6 +46,7 @@
 	})
 
 	//  风机曲线
+	const chartOption = ref(undefined)
 	const initFanChart = async () => {
 		const res = await findFanLines({
 			devId: props.fanInfo.id,
@@ -59,16 +59,13 @@
 			const yData = [tongfengzuli, xiaolv, gonglv, quanya]
 			const legends = ['通风阻力', '全压', '效率', '功率']
 
-			fanChart1({
-				domId: 'fan_curve_chart_1',
+			chartOption.value = fanChart1({
 				xData: xData,
 				yData: yData,
 				legends: legends,
 			})
 		}
 	}
-
-	const { showCharts, resetCharts } = useResetCharts(initFanChart, false)
 </script>
 
 <template>
@@ -86,10 +83,10 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item>
-					<div class="normal_btn" @click="resetCharts">查询</div>
+					<div class="normal_btn" @click="initFanChart">查询</div>
 				</el-form-item>
 			</el-form>
-			<div id="fan_curve_chart_1" v-if="showCharts" class="fullDom"></div>
+			<BaseEchart :option="chartOption" />
 		</div>
 	</dia-log>
 </template>

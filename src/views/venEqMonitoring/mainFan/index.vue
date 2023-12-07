@@ -9,6 +9,7 @@
 	import { selectDictLabel } from '@/utils/ruoyi'
 	import WarnTableRecord from '@/views/components/warnTableRecord'
 	import FanHisRecord from '@/views/venEqMonitoring/mainFan/fanHisRecord.vue'
+	import { usePermission } from '@/hooks/usePermission'
 
 	const {
 		dataList,
@@ -32,7 +33,8 @@
 		standbyReverseStartMainHandle,
 		videoVisible,
 		videoHandle,
-		intelligentWindControlMainHandle,
+		openIntelWindControl,
+		closeIntelWindControl,
 		oneCustomizedParameters1,
 		oneCustomizedParameters2,
 		twoCustomizedParameters1,
@@ -51,6 +53,8 @@
 		volumeControlHandle2,
 	} = mainFan()
 	const { fan_work_status } = useDict('fan_work_status')
+
+	const { validateFun } = usePermission()
 </script>
 
 <template>
@@ -96,32 +100,32 @@
 			</div>
 			<border-box name="border2" title="远程控制"></border-box>
 			<div class="main_fan_body_l2_l4">
-				<div class="main_fan_body_l2_btn_1" @click="backWindHandle">
+				<div class="main_fan_body_l2_btn_1" @click="validateFun(backWindHandle)">
 					<span class="btn_text_1">一键反风</span>
 				</div>
-				<div class="main_fan_body_l2_btn_2" @click="switchHandle">
+				<div class="main_fan_body_l2_btn_2" @click="validateFun(switchHandle)">
 					<span class="btn_text_2">一键倒机</span>
 				</div>
 			</div>
 			<div class="main_fan_body_l2_l5">
 				<div class="main_fan_body_l2_l5_title_1">一号风机</div>
-				<div class="main_fan_body_l2_btn_3" @click="activeForwardStartMainHandle">
+				<div class="main_fan_body_l2_btn_3" @click="validateFun(activeForwardStartMainHandle)">
 					<span class="btn_text_3">一键正向启动</span>
 				</div>
-				<div class="main_fan_body_l2_btn_4" @click="activeStopMainHandle">
+				<div class="main_fan_body_l2_btn_4" @click="validateFun(activeStopMainHandle)">
 					<span class="btn_text_4">一键停止</span>
 				</div>
-				<div class="main_fan_body_l2_btn_5" @click="activeReverseStartMainHandle">
+				<div class="main_fan_body_l2_btn_5" @click="validateFun(activeReverseStartMainHandle)">
 					<span class="btn_text_5">一键反向启动</span>
 				</div>
 				<div class="main_fan_body_l2_l5_title_2">二号风机</div>
-				<div class="main_fan_body_l2_btn_3" @click="standbyForwardStartMainHandle">
+				<div class="main_fan_body_l2_btn_3" @click="validateFun(standbyForwardStartMainHandle)">
 					<span class="btn_text_3">一键正向启动</span>
 				</div>
-				<div class="main_fan_body_l2_btn_4" @click="standbyStopMainHandle">
+				<div class="main_fan_body_l2_btn_4" @click="validateFun(standbyStopMainHandle)">
 					<span class="btn_text_4">一键停止</span>
 				</div>
-				<div class="main_fan_body_l2_btn_5" @click="standbyReverseStartMainHandle">
+				<div class="main_fan_body_l2_btn_5" @click="validateFun(standbyReverseStartMainHandle)">
 					<span class="btn_text_5">一键反向启动</span>
 				</div>
 			</div>
@@ -135,7 +139,7 @@
 					<el-input v-model="quControlAirVolumeForm.movingBladeAngle1" />
 					<div class="main_fan_body_l2_l7_label">频率(hz)</div>
 					<el-input v-model="quControlAirVolumeForm.frequency1" />
-					<div class="normal_btn" @click="volumeControlHandle1">设置</div>
+					<div class="normal_btn" @click="validateFun(volumeControlHandle1)">设置</div>
 				</div>
 				<div class="main_fan_body_l2_l7_body">
 					<div class="main_fan_body_l2_l7_body_title set_btn_default">
@@ -145,7 +149,7 @@
 					<el-input v-model="quControlAirVolumeForm.movingBladeAngle2" />
 					<div class="main_fan_body_l2_l7_label">频率(hz)</div>
 					<el-input v-model="quControlAirVolumeForm.frequency2" />
-					<div class="normal_btn" @click="volumeControlHandle2">设置</div>
+					<div class="normal_btn" @click="validateFun(volumeControlHandle2)">设置</div>
 				</div>
 			</div>
 		</div>
@@ -268,8 +272,8 @@
 								: 'main_fan_body_l5_body_l2'
 						"
 					></div>
-					<div class="normal_2_btn" @click="intelligentWindControlMainHandle('1')">开启</div>
-					<div class="normal_btn" @click="intelligentWindControlMainHandle('0')">关闭</div>
+					<div class="normal_2_btn" @click="validateFun(openIntelWindControl)">开启</div>
+					<div class="normal_btn" @click="validateFun(closeIntelWindControl)">关闭</div>
 				</div>
 			</border-box>
 		</div>
@@ -286,8 +290,12 @@
 		/>
 		<!--    风机特性曲线-->
 		<fan-char-curve v-if="fanCharCurveVisible" v-model="fanCharCurveVisible" :fan-info="dataForm" />
-		<!--    温振图谱分析-->
-		<mon-and-analysis v-if="monAndAnalysisVisible" v-model="monAndAnalysisVisible" />
+		<!--    温振监测分析-->
+		<mon-and-analysis
+			v-if="monAndAnalysisVisible"
+			v-model="monAndAnalysisVisible"
+			:data-form="dataForm"
+		/>
 		<!--    温振图谱分析-->
 		<the-spectrum v-if="theSpectrumVisible" v-model="theSpectrumVisible" />
 		<!--    操作记录-->

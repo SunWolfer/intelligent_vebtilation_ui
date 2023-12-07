@@ -1,4 +1,4 @@
-import { DisasterTypes } from '@/api/request/menuType'
+import { DisasterTypes } from '@/types/menuType'
 import useHomeMenu from '@/hooks/useHomeMenu'
 import useEquipmentData from '@/hooks/useEquipmentData'
 import useCurrentInstance from '@/hooks/useCurrentInstance'
@@ -31,6 +31,9 @@ export const homeDisPreRoute = (emits) => {
 		personLocation,
 		personPosition,
 	} = useEquipmentData()
+	watch([disasterPosition, personPosition], async (value) => {
+		await imitateRoute()
+	})
 	// 点击模拟生成避灾路线
 	const imitateRoute = async () => {
 		if (!disasterPosition.value) {

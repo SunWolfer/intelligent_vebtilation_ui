@@ -6,7 +6,7 @@ import { stateTotal, windowHomeList } from '@/api/api/windWindowMonitoring'
 
 export const windWindowMonitoring = () => {
 	//   顶部预警表单
-	const { dataFrom, getDataForm } = useGainForm({
+	const { dataFrom } = useGainForm({
 		apiFun: stateTotal,
 		dataArgs: {
 			airWarn: 0,

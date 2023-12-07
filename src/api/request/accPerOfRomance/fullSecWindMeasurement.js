@@ -1,5 +1,4 @@
 import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
-import useResetCharts from '@/hooks/useResetCharts'
 import { useGainList } from '@/hooks/useGainList'
 import {
 	getBoard,
@@ -10,7 +9,7 @@ import {
 } from '@/api/api/fullSecWindMeasurement'
 import { useCommitForm } from '@/hooks/useForm'
 import { addDateRange, getRandomColor, parseTime, selectDictLabel } from '@/utils/ruoyi'
-import { useSocket } from '@/hooks/useSocket'
+import useSocket from '@/hooks/useSocket'
 import useEquipmentParams from '@/hooks/useEquipmentParams'
 
 export const fullSecWindMeasurement = () => {
@@ -31,23 +30,27 @@ export const fullSecWindMeasurement = () => {
 			if (tDataIndex !== -1) {
 				choose.value = tDataIndex
 			} else {
-				resetCharts?.()
+				initChart()
 			}
 		},
 	})
 	// 测风站socket
-	const { socketData:socketFullData,clientSocket: clientFullWindSocket } = useSocket('|fullwind|adjustAll', getFullSocketMsg)
+	const { socketData: socketFullData, clientSocket: clientFullWindSocket, info } = useSocket('info')
+
+	watch(info, (value) => {
+		getFullSocketMsg(value)
+	})
 
 	function getFullSocketMsg(data) {
 		// 测风站数据
 		const fullData = data.info
 		const tIndex = ref(-1)
-		fullSecWindList.value.forEach((i,index) => {
+		fullSecWindList.value.forEach((i, index) => {
 			if (fullData.id === i.id) {
 				tIndex.value = index
 			}
 		})
-		if (tIndex.value !==-1) fullSecWindList.value[tIndex.value] = fullData
+		if (tIndex.value !== -1) fullSecWindList.value[tIndex.value] = fullData
 		//自动测风站记录
 		const boardList = data.board
 
@@ -81,7 +84,7 @@ export const fullSecWindMeasurement = () => {
 	}
 
 	onMounted(() => {
-		clientFullWindSocket?.()
+		clientFullWindSocket?.('|fullwind|adjustAll')
 	})
 	// 当前选中
 	const choose = ref(-1)
@@ -151,29 +154,23 @@ export const fullSecWindMeasurement = () => {
 		clearInterval(startWindInterval.value)
 		startWindInterval.value = setInterval(() => {
 			receiveTime.value++
-			if (receiveTime.value > 5) {
+			if (receiveTime.value > 20) {
 				playMod.value = false
 				receiveTime.value = 0
 			}
 		}, 1000)
 	}
 	// 单个测风socket
-	const oneWindSocketData = ref()
+	const { clientSocket: clientOneWind, socketData, realTime } = useSocket('realTime')
 	// 开始测风
-	const startMeasuringTheWind = async (data) => {
-		oneWindSocketData.value?.close()
-		realWindDataList.value = []
+	const startMeasuringTheWind = async (data, index) => {
+		choose.value = index
 		await useCommitForm(startWindDev, {
 			queryParams: data.id,
 		})
-		const { clientSocket: clientOneWind, socketData } = useSocket(
-			data.id + '|fullwind|adjust',
-			oneWindSocketDataNext,
-		)
 
-		clientOneWind?.()
+		clientOneWind?.(data.id + '|fullwind|adjust')
 		timeout?.()
-		oneWindSocketData.value = socketData.value
 		playMod.value = true
 	}
 	// 实时测风数据
@@ -186,6 +183,20 @@ export const fullSecWindMeasurement = () => {
 			value: data.windSpeed,
 			time: parseTime(new Date()),
 		})
+		if (data.status === '0') {
+			cleanOneWindData()
+		}
+	}
+	watch(realTime, (value) => {
+		oneWindSocketDataNext(value)
+	})
+	// 清除单个测风相关逻辑
+	const cleanOneWindData = () => {
+		socketData.value?.close()
+		realWindDataList.value = []
+		clearInterval(startWindInterval.value)
+		playMod.value = false
+		receiveTime.value = 0
 	}
 
 	// 自动测风站记录表
@@ -247,7 +258,7 @@ export const fullSecWindMeasurement = () => {
 		beginTime: '',
 		endTime: '',
 	})
-
+	const chartOption = ref({})
 	// 生成折线图
 	const initChart = async () => {
 		let query =
@@ -268,8 +279,7 @@ export const fullSecWindMeasurement = () => {
 				const color = '#' + getRandomColor()
 				colors.push([color, color])
 			}
-			defaultLineChart({
-				domId: 'acc_chart_line',
+			chartOption.value = defaultLineChart({
 				xData: res.data.lineX,
 				yDataList: res.data.value,
 				legends: res.data.names,
@@ -282,18 +292,17 @@ export const fullSecWindMeasurement = () => {
 		}
 	}
 
-	const { showCharts, resetCharts } = useResetCharts(initChart, false)
-
 	watch(
 		() => choose.value,
-		() => {
-			resetCharts?.()
-			getAneTableDara()
+		async () => {
+			cleanOneWindData?.()
+			await initChart()
+			await getAneTableDara()
 		},
 	)
 
 	onBeforeUnmount(() => {
-		clearInterval(startWindInterval.value)
+		cleanOneWindData?.()
 		socketFullData.value.close()
 	})
 	return {
@@ -302,8 +311,7 @@ export const fullSecWindMeasurement = () => {
 		fullSecWindList,
 		dateRange,
 		queryForm,
-		showCharts,
-		resetCharts,
+		initChart,
 		paramSettingVisible,
 		chooseParamSetting,
 		aneTableData,
@@ -320,5 +328,6 @@ export const fullSecWindMeasurement = () => {
 		playMod,
 		videoPath,
 		videoVisible,
+		chartOption,
 	}
 }

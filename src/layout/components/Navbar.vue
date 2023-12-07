@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 	import useCurrentInstance from '@/hooks/useCurrentInstance'
-	import useUserStore from '@/store/modules/user'
+	import { useUserStore } from '@/store/modules/user'
 
 	const userStore = useUserStore()
 

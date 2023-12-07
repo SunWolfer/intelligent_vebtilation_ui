@@ -1,6 +1,6 @@
 // 避灾路线
-import { DisasterTypes } from '@/api/request/menuType'
-import usePoint from '@/components/VueThree/ModelEdit/IPoint'
+import { DisasterTypes } from '@/types/menuType'
+import usePoint from './IPoint'
 import {
 	AnimationMixer,
 	CatmullRomCurve3,
@@ -27,6 +27,9 @@ interface disasterTexture {
 	showIndex: number
 	length: number
 }
+
+const { distance } = usePoint()
+
 export class DisasterPreventionRoute {
 	// 跑动模型
 	runObject: GLTF | undefined
@@ -97,27 +100,39 @@ export class DisasterPreventionRoute {
 	}
 	// 加载灾害模拟纹理图片
 	loadDisasterTextureImg() {
-		let firesTexture = []
+		let firesTexture: Texture[] = []
 		// 	加载火焰图片资源
 		for (let i = 0; i < 14; i++) {
 			let texture = loadLineTexture(import.meta.env.BASE_URL + 'file/material/fires2/' + i + '.png')
 			firesTexture.push(texture)
 		}
-		let waterTexture = []
+		let waterTexture: Texture[] = []
 		//加载水灾图片资源
 		for (let i = 0; i < 1; i++) {
 			let texture = loadLineTexture(import.meta.env.BASE_URL + 'file/material/water/' + i + '.jpg')
 			waterTexture.push(texture)
 		}
+		// 瓦斯
+		let gasTexture: Texture[] = []
+		for (let i = 0; i < 13; i++) {
+			let texture = loadLineTexture(import.meta.env.BASE_URL + 'file/material/smoke/' + i + '.png')
+			gasTexture.push(texture)
+		}
+		// 粉尘
+		let dustTexture: Texture[] = []
+		for (let i = 0; i < 13; i++) {
+			let texture = loadLineTexture(import.meta.env.BASE_URL + 'file/material/dust/' + i + '.png')
+			dustTexture.push(texture)
+		}
 		this.disasterTextureImg = [
 			{ type: DisasterTypes.ONE, texture: firesTexture, showIndex: 0, length: 13 },
-			{ type: DisasterTypes.TWO, texture: [], showIndex: 0, length: 0 },
-			{ type: DisasterTypes.THREE, texture: [], showIndex: 0, length: 0 },
+			{ type: DisasterTypes.TWO, texture: gasTexture, showIndex: 0, length: 11 },
+			{ type: DisasterTypes.THREE, texture: dustTexture, showIndex: 0, length: 11 },
 			{ type: DisasterTypes.FOUR, texture: waterTexture, showIndex: 0, length: 0 },
 		]
 	}
 	// 创建灾害蔓延
-	createdDisasterSpread(positions: Vector3[], size = 20, type: DisasterTypes) {
+	createdDisasterSpread(positions: Vector3[], _size = 20, type: DisasterTypes) {
 		// 查找Texture
 		const iTexture = this.disasterTextureImg.find((i) => {
 			return i.type === type
@@ -137,6 +152,14 @@ export class DisasterPreventionRoute {
 		if (DisasterTypes.ONE === type) {
 			this.createdFireSpread(material, curve, iTexture)
 		}
+		// 瓦斯
+		if (DisasterTypes.TWO === type) {
+			this.createdFireSpread(material, curve, iTexture)
+		}
+		// 粉尘
+		if (DisasterTypes.THREE === type) {
+			this.createdFireSpread(material, curve, iTexture)
+		}
 
 		// 	水灾蔓延
 		if (DisasterTypes.FOUR === type) this.createdWaterSpread(material, curve, iTexture)
@@ -152,8 +175,6 @@ export class DisasterPreventionRoute {
 		const mesh = new Mesh(geometry, material)
 		let cloneMesh = depthCloneMesh(mesh)
 		cloneMesh.geometry.rotateY(Math.PI / (Math.random() * 10))
-
-		this.extraObject.add(cloneMesh)
 
 		this.disasterObjList.push({
 			obj: cloneMesh,
@@ -171,7 +192,7 @@ export class DisasterPreventionRoute {
 				if (this.disasterObjList[0].counter < 1) useEditModel().texturesUpdate(tMesh)
 			}
 			if (this.disasterObjList[0].counter < 1) {
-				let obj = depthCloneMesh(mesh)
+				let obj = depthCloneMesh(cloneMesh)
 				obj.geometry.rotateY(Math.PI / (Math.random() * 10))
 				this.disasterObjList.push({
 					obj: obj,
@@ -186,9 +207,9 @@ export class DisasterPreventionRoute {
 	}
 	// 创建水灾
 	createdWaterSpread(
-		material: MeshBasicMaterial,
-		curve: CatmullRomCurve3,
-		iTexture: disasterTexture,
+		_material: MeshBasicMaterial,
+		_curve: CatmullRomCurve3,
+		_iTexture: disasterTexture,
 	) {}
 	// 创建起点标识
 	createdMark(labelList: LabelAttribute[]) {
@@ -239,7 +260,7 @@ export class DisasterPreventionRoute {
 
 		let len = 0
 		for (let i = 0; i < points.length - 1; i++) {
-			len += usePoint().distance(points[i], points[i + 1])
+			len += distance(points[i], points[i + 1])
 		}
 		// 设置x方向的重复数(沿着管道路径方向)
 		texture.repeat.x = parseInt(String(len / 30))

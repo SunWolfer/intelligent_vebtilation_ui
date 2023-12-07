@@ -1,10 +1,9 @@
 import useInterceptList from '@/hooks/useInterceptList'
-import useResetCharts from '@/hooks/useResetCharts'
 import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
 import { listView, windSensorLines } from '@/api/api/accurateWindMeasurement'
 import { useGainList } from '@/hooks/useGainList'
 import { addDateRange, getRandomColor } from '@/utils/ruoyi'
-import { useSocket } from '@/hooks/useSocket'
+import useSocket from '@/hooks/useSocket'
 
 export const accurateWindMeasurement = () => {
 	//   精准测风列表
@@ -23,8 +22,8 @@ export const accurateWindMeasurement = () => {
 		}
 		choose.value = index
 	}
-	watch(choose, () => {
-		resetCharts?.()
+	watch(choose, async () => {
+		await initChart()
 	})
 
 	// 获取图标样式
@@ -55,7 +54,7 @@ export const accurateWindMeasurement = () => {
 		beginTime: '',
 		endTime: '',
 	})
-
+	const chartOption = ref({})
 	// 生成折线图
 	const initChart = async () => {
 		let query =
@@ -76,8 +75,7 @@ export const accurateWindMeasurement = () => {
 				const color = '#' + getRandomColor()
 				colors.push([color, color])
 			}
-			defaultLineChart({
-				domId: 'acc_chart_line',
+			chartOption.value = defaultLineChart({
 				xData: res.data.lineX,
 				yDataList: res.data.value,
 				legends: res.data.names,
@@ -89,8 +87,6 @@ export const accurateWindMeasurement = () => {
 			})
 		}
 	}
-
-	const { showCharts, resetCharts } = useResetCharts(initChart)
 
 	// 记录选中数据
 	const chooseData = ref({})
@@ -108,8 +104,10 @@ export const accurateWindMeasurement = () => {
 	}
 
 	// 连接socket
-	const { clientSocket, socketData } = useSocket(`|windsensor|adjustAll`, getSocketMsg)
-
+	const { clientSocket, socketData, info } = useSocket('info')
+	watch(info, (value) => {
+		getSocketMsg(value)
+	})
 	function getSocketMsg(data) {
 		const tIndex = ref(-1)
 		windList.value.forEach((i, index) => {
@@ -120,8 +118,9 @@ export const accurateWindMeasurement = () => {
 		tIndex.value !== -1 && (windList.value[tIndex] = data)
 	}
 
-	onMounted(() => {
-		clientSocket?.()
+	onMounted(async () => {
+		clientSocket?.(`|windsensor|adjustAll`)
+		await initChart()
 	})
 	onBeforeUnmount(() => {
 		socketData.value?.close()
@@ -137,16 +136,16 @@ export const accurateWindMeasurement = () => {
 		getTextStyle,
 		dateRange,
 		queryForm,
-		showCharts,
 		choose,
 		chooseItem,
 		default_color,
 		choose_color,
-		resetCharts,
 		hisRecordVisible,
 		hisRecordHandle,
 		warnRecordVisible,
 		warnRecordHandle,
 		chooseData,
+		chartOption,
+		initChart,
 	}
 }

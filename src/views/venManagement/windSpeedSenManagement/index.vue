@@ -96,6 +96,7 @@
 	//   关联多参传感器
 	const corSensorVisible = ref(false)
 	const showCorSensorVisible = (row) => {
+		chooseRow.value = row
 		corSensorVisible.value = true
 	}
 	//   测风传感器配置
@@ -274,7 +275,11 @@
 			</el-form>
 		</dia-log>
 		<!--    关联多参传感器-->
-		<cor-multi-par-sensor v-if="corSensorVisible" v-model="corSensorVisible" />
+		<cor-multi-par-sensor
+			v-if="corSensorVisible"
+			v-model="corSensorVisible"
+			:choose-data="chooseRow"
+		/>
 		<!--    传感器配置-->
 		<WindSpeedConfig
 			v-if="configVisible"

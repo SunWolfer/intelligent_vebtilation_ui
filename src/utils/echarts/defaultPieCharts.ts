@@ -1,8 +1,6 @@
-import useCharts from '@/hooks/useCharts'
 import { dynamicWidth } from '@/utils/ruoyi'
 
 export interface PieChartData {
-	domId: string
 	data: any[]
 	colors: string[]
 	title?: string
@@ -10,16 +8,13 @@ export interface PieChartData {
 	unit?: string
 }
 export function defaultPieChart({
-	domId,
 	data = [],
 	colors,
 	title = '',
 	subtext = '',
 	unit = '',
 }: PieChartData) {
-	const { option } = useCharts(domId)
-
-	option.value = {
+	return {
 		tooltip: {
 			show: false,
 		},

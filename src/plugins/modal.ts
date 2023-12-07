@@ -1,4 +1,5 @@
 import PromptBox from '@/components/PromptBox/index.vue'
+import PermissionBox from '@/components/PromptBox/permissionBox.vue'
 import { ElLoading, ElMessage, ElMessageBox, ElNotification } from 'element-plus'
 import { createVNode, render } from 'vue'
 
@@ -101,6 +102,23 @@ export default {
 	closeLoading() {
 		loadingInstance.close()
 	},
+	// 风机权限认证
+	permission() {
+		return new Promise<void>((resolve, reject) => {
+			getCustomizeModel({
+				title: '控制权限认证',
+				message: '',
+				confirmButtonText: '提交',
+				cancelButtonText: '取消',
+				width: 900,
+				height: 400,
+				icon: '',
+				resolve: resolve,
+				reject: reject,
+				type: PermissionBox,
+			})
+		})
+	},
 }
 
 function getCustomizeModel({
@@ -111,10 +129,11 @@ function getCustomizeModel({
 	width = 900,
 	height = 300,
 	icon = '',
-	resolve = (val: any) => {},
-	reject = (reason?: any) => {},
+	resolve = (_val: any) => {},
+	reject = (_reason?: any) => {},
+	type = PromptBox,
 }) {
-	const _vm = createVNode(PromptBox, {
+	const _vm = createVNode(type, {
 		title: title,
 		message: message,
 		btn: [confirmButtonText, cancelButtonText],

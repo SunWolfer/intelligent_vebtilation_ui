@@ -70,12 +70,18 @@
 		otherThreeMod,
 		controlsOptions,
 		lights,
-		onLoad,
 		onModel,
 		onClick,
 		operateModel,
 		intersected,
+		removePosition,
+		removeLookAt,
 	} = useThree()
+
+	const onLoad = () => {
+		operateModel.value.traMovement(removePosition, removeLookAt, 3, readyCamera)
+	}
+
 	// 显示全部设备图标
 	const { equipTypeImgClass } = useEquipmentData()
 
@@ -228,6 +234,7 @@
 </template>
 
 <style scoped lang="scss">
+	@import '@/assets/styles/three/sensor_icon';
 	@import '@/assets/styles/home/home_map';
 	.wind_label_bg {
 		position: absolute;

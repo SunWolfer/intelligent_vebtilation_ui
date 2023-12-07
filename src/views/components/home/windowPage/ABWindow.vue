@@ -1,7 +1,7 @@
 <!--AB风窗-->
 <script setup>
-	import ABWindowForm from '@/views/components/home/windowPage/ABWindowForm.vue'
-	import useResetCharts from '@/hooks/useResetCharts'
+	import ABWindowFormA from '@/views/components/home/windowPage/ABWindowForm.vue'
+	import ABWindowFormB from '@/views/components/home/windowPage/ABWindowForm.vue'
 	import { getChart3, getChart4, getChart5 } from '@/api/request/home/remoterControlCharts'
 	import ABWindowLine from '@/views/components/home/windowPage/ABWindowLine.vue'
 
@@ -26,7 +26,7 @@
 		() => props.formA,
 		(val) => {
 			dataFormA.value = val
-			resetCharts?.()
+			initChart3?.()
 		},
 		{ deep: true },
 	)
@@ -38,6 +38,20 @@
 		},
 		{ deep: true },
 	)
+
+	// 气源动力样式
+	const airStatusClass = computed(() => {
+		let dev_class = 'large_light_1'
+		if (dataFormA.value.airStatus === '0') {
+			dev_class = 'large_light_2'
+		} else if (dataFormA.value.airStatus === '1') {
+			dev_class = 'large_light_1'
+		} else if (dataFormA.value.airStatus === '2') {
+			dev_class = 'large_light_3'
+		}
+
+		return dev_class
+	})
 
 	//   更多
 	const moreVisibleHandle = () => {
@@ -73,55 +87,74 @@
 		['3', ['当前风压', '风压范围', '当前绝压', '当前湿度', '当前温度']],
 		['4', ['当前风压', '风压范围', '当前绝压', '当前湿度(未接入)', '当前温度(未接入)']],
 	])
+
+	const option1 = ref({})
+	const option2 = ref({})
+	const option3 = ref({})
+	const option4 = ref({})
+
+	let timer
 	const initChart3 = () => {
-		getChart3(
-			'window_chart_form_5',
-			['1', '2'].includes(domType.value)
-				? dataFormA.value.volume ?? 0
-				: dataFormA.value.pressure ?? 0,
+		const dataType = ['1', '2'].includes(domType.value)
+		option1.value = getChart3(
+			dataType ? dataFormA.value.volume ?? 0 : dataFormA.value.pressure ?? 0,
 			chartTitleMap.get(domType.value)[0],
 			chartTitleMap.get(domType.value)[1],
+			dataType ? 'm³/min' : 'Pa',
 		)
-		getChart4(
-			'window_chart_form_6',
-			['1', '2'].includes(domType.value)
-				? dataFormA.value.speed ?? 0
-				: dataFormA.value.absolutePressure ?? 0,
+		option2.value = getChart4(
+			dataType ? dataFormA.value.speed ?? 0 : dataFormA.value.absolutePressure ?? 0,
 			chartTitleMap.get(domType.value)[2],
+			dataType ? 'm/s' : 'Pa',
 		)
 		if (!['1', '2'].includes(domType.value)) {
-			getChart5(
-				'window_chart_form_7',
+			option3.value = getChart5(
 				'1',
 				dataFormA.value.humidity ?? 0,
 				chartTitleMap.get(domType.value)[3],
 			)
-			getChart5(
-				'window_chart_form_7',
+			option4.value = getChart5(
 				'2',
 				dataFormA.value.temperature ?? 0,
 				chartTitleMap.get(domType.value)[4],
 			)
+
+			timer && clearInterval(timer)
+
+			function doing() {
+				option3.value.series[1].startAngle = option3.value.series[1].startAngle - 1
+				option4.value.series[1].startAngle = option4.value.series[1].startAngle - 1
+			}
+			function startTimer() {
+				timer = setInterval(doing, 100)
+			}
+			setTimeout(startTimer, 1000)
 		}
 	}
-	const { showCharts, resetCharts } = useResetCharts(initChart3, false)
+
 	//  当前选中风窗
 	const chooseWindow = ref(0)
 	const windowHandle = (data) => {
 		if (chooseWindow.value === data) return
 		chooseWindow.value = data
 	}
+
+	onBeforeUnmount(() => {
+		clearInterval(timer)
+	})
 </script>
 
 <template>
 	<div class="a_b_window">
-		<ABWindowForm
+		<ABWindowFormA
+			:key="'formA'"
 			:form="formA"
 			:data-list="dataList"
 			@change-window="changeWindow"
 			@hisRecordHandle="hisRecordHandle"
 		/>
-		<ABWindowForm
+		<ABWindowFormB
+			:key="'formB'"
 			:form="formB"
 			:data-list="dataList"
 			@change-window="changeWindow"
@@ -136,11 +169,11 @@
 				<div class="window_more_btn" @click="moreVisibleHandle">更多</div>
 			</div>
 			<div class="home_air_window_body_l2_item_5">
-				<div v-if="showCharts" class="fullDom" id="window_chart_form_5" />
-				<div v-if="showCharts" class="fullDom" id="window_chart_form_6" />
+				<BaseEchart :option="option1" />
+				<BaseEchart :option="option2" />
 				<template v-if="!['1', '2'].includes(domType)">
-					<div v-if="showCharts" class="fullDom" id="window_chart_form_7" />
-					<div v-if="showCharts" class="fullDom" id="window_chart_form_8" />
+					<BaseEchart :option="option3" />
+					<BaseEchart :option="option4" />
 				</template>
 			</div>
 
@@ -153,7 +186,7 @@
 				<div class="home_air_window_body_l2_item_6_item">
 					<div class="door_icon_2"></div>
 					<span>气源动力</span>
-					<div :class="dataFormA.airStatus === '1' ? 'large_light_1' : 'large_light_2'"></div>
+					<div :class="airStatusClass"></div>
 				</div>
 				<div class="home_air_window_body_l2_item_6_item">
 					<div class="door_icon_4"></div>

@@ -50,3 +50,11 @@ export function setSensor(data) {
 		data: data,
 	})
 }
+// 查询关联表
+export function relevancyWindList(query) {
+	return request({
+		url: '/api/multiparameter/relevancyWindList',
+		method: 'get',
+		params: query,
+	})
+}

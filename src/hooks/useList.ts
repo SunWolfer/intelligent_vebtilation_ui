@@ -22,7 +22,7 @@ interface ExportParams {
 
 export interface commonList<TData, Params> {
 	automatic?: boolean
-	apiFun: (params?: any) => Promise<ITableApiResponseData<TData>>
+	apiFun: (params?: Params) => Promise<ITableApiResponseData<TData>>
 	params?: FullParams
 	beforeReadyListFun?: () => boolean
 	afterReadyListFun?: (data: ITableApiResponseData<TData>) => void

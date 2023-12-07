@@ -1,9 +1,5 @@
-import {
-  createRouter,
-  createWebHashHistory,
-  RouteMeta,
-  RouteRecordRaw,
-} from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 /* Layout */
 export const Layout = () => import('@/layout/index.vue')
 
@@ -28,22 +24,6 @@ export const Layout = () => import('@/layout/index.vue')
     activeMenu: '/system/user'      // 当路由设置了该属性，则会高亮相对应的侧边栏。
   }
  */
-
-export declare type IRouteMeta = {
-	breadcrumb?: boolean
-	activeMenu?: string
-} & RouteMeta
-
-export declare type IRouteRecordRaw = {
-	hidden?: boolean
-	alwaysShow?: boolean
-	permissions?: string[]
-	roles?: string[]
-	component?: any
-	meta?: IRouteMeta
-	children?: IRouteRecordRaw[]
-	noShowingChildren?: boolean
-} & RouteRecordRaw
 
 // 公共路由
 export const constantRoutes: IRouteRecordRaw[] = [
@@ -156,8 +136,8 @@ export const dynamicRoutes: IRouteRecordRaw[] = [
 const router = createRouter({
 	// history: createWebHistory(),
 	history: createWebHashHistory(), // hash模式：createWebHashHistory
-	routes: constantRoutes,
-	scrollBehavior(to, from, savedPosition) {
+	routes: constantRoutes as RouteRecordRaw[],
+	scrollBehavior(_to, _from, savedPosition) {
 		if (savedPosition) {
 			return savedPosition
 		} else {

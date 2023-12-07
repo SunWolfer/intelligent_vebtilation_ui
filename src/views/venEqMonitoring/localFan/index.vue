@@ -9,6 +9,7 @@
 	import WarnTableRecord from '@/views/components/warnTableRecord/index.vue'
 	import FanCharCurve from '@/views/venEqMonitoring/mainFan/fanCharCurve.vue'
 	import useDict from '@/hooks/useDict'
+	import { usePermission } from '@/hooks/usePermission'
 
 	const {
 		inShowList,
@@ -55,8 +56,11 @@
 		gasOutLocalHandle,
 		gasElectricBlockLocalHandle,
 		windElectricBlockLocalHandle,
+		gasStartLocalHandle,
 	} = localFan()
 	const { fan_work_status } = useDict('fan_work_status')
+
+	const { validateFun } = usePermission()
 </script>
 
 <template>
@@ -153,7 +157,7 @@
 					<div class="local_fan_body_l3_l5_item_body">
 						频率(HZ)
 						<el-input v-model="freReControlForm.frequency1" />
-						<div class="normal_btn" @click="volumeControlHandle1">设置</div>
+						<div class="normal_btn" @click="validateFun(volumeControlHandle1)">设置</div>
 					</div>
 				</div>
 				<div class="local_fan_body_l3_l5_item">
@@ -163,27 +167,34 @@
 					<div class="local_fan_body_l3_l5_item_body">
 						频率(HZ)
 						<el-input v-model="freReControlForm.frequency2" />
-						<div class="normal_btn" @click="volumeControlHandle2">设置</div>
+						<div class="normal_btn" @click="validateFun(volumeControlHandle2)">设置</div>
 					</div>
 				</div>
 			</div>
 			<div class="local_fan_body_l3_l6">
-				<div class="local_fan_body_l3_l6_title_1">一号风机</div>
-				<div class="local_fan_body_l3_l6_btn_1" @click="activeStartLocalHandle">
-					<span>一键启动</span>
+				<div class="local_fan_body_l3_l6_top">
+					<div class="local_fan_body_l3_l6_btn_3" @click="validateFun(switchAsLocalHandle)">
+						<span>一键倒机</span>
+					</div>
+					<div class="local_fan_body_l3_l6_btn_4" @click="validateFun(gasStartLocalHandle)">
+						<span>一键排放瓦斯</span>
+					</div>
 				</div>
-				<div class="local_fan_body_l3_l6_btn_2" @click="activeStopLocalHandle">
-					<span>一键停止</span>
-				</div>
-				<div class="local_fan_body_l3_l6_btn_3" @click="switchAsLocalHandle">
-					<span>一键倒机</span>
-				</div>
-				<div class="local_fan_body_l3_l6_title_1">二号风机</div>
-				<div class="local_fan_body_l3_l6_btn_1" @click="standbyStartLocalHandle">
-					<span>一键启动</span>
-				</div>
-				<div class="local_fan_body_l3_l6_btn_2" @click="standbyStopLocalHandle">
-					<span>一键停止</span>
+				<div class="local_fan_body_l3_l6_bottom">
+					<div class="local_fan_body_l3_l6_title_1">一号风机</div>
+					<div class="local_fan_body_l3_l6_btn_1" @click="validateFun(activeStartLocalHandle)">
+						<span>一键启动</span>
+					</div>
+					<div class="local_fan_body_l3_l6_btn_2" @click="validateFun(activeStopLocalHandle)">
+						<span>一键停止</span>
+					</div>
+					<div class="local_fan_body_l3_l6_title_1">二号风机</div>
+					<div class="local_fan_body_l3_l6_btn_1" @click="validateFun(standbyStartLocalHandle)">
+						<span>一键启动</span>
+					</div>
+					<div class="local_fan_body_l3_l6_btn_2" @click="validateFun(standbyStopLocalHandle)">
+						<span>一键停止</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -300,7 +311,7 @@
 				<div class="local_fan_body_l6_body">
 					<div class="local_fan_body_l6_label">自动瓦斯排放</div>
 					<div
-						@click="gasOutLocalHandle"
+						@click="validateFun(gasOutLocalHandle)"
 						class="local_fan_body_l6_icon"
 						:class="
 							dataForm.autoGasDischange === '1'
@@ -310,7 +321,7 @@
 					></div>
 					<div class="local_fan_body_l6_label">瓦斯电闭锁</div>
 					<div
-						@click="gasElectricBlockLocalHandle"
+						@click="validateFun(gasElectricBlockLocalHandle)"
 						class="local_fan_body_l6_icon"
 						:class="
 							dataForm.gasElectricBlock === '1'
@@ -320,7 +331,7 @@
 					></div>
 					<div class="local_fan_body_l6_label">风电闭锁</div>
 					<div
-						@click="windElectricBlockLocalHandle"
+						@click="validateFun(windElectricBlockLocalHandle)"
 						class="local_fan_body_l6_icon"
 						:class="
 							dataForm.windElectricBlock === '1'
@@ -345,8 +356,12 @@
 		/>
 		<!--    风机特性曲线-->
 		<fan-char-curve v-if="fanCharCurveVisible" v-model="fanCharCurveVisible" :fan-info="dataForm" />
-		<!--    温振图谱分析-->
-		<mon-and-analysis v-if="monAndAnalysisVisible" v-model="monAndAnalysisVisible" />
+		<!--    温振监测分析-->
+		<mon-and-analysis
+			v-if="monAndAnalysisVisible"
+			v-model="monAndAnalysisVisible"
+			:data-form="dataForm"
+		/>
 		<!--    温振图谱分析-->
 		<the-spectrum v-if="theSpectrumVisible" v-model="theSpectrumVisible" />
 		<!--    操作记录-->

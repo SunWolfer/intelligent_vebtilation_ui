@@ -6,7 +6,7 @@ const useInterceptList = (list: Ref<any[]>, maxIndex: number) => {
 
 	//   可显示列表
 	const inShowList = computed(() => {
-		return list.value.filter((i, index) => {
+		return list.value.filter((_i, index) => {
 			return index >= startStep.value && index < maxIndex + startStep.value
 		})
 	})

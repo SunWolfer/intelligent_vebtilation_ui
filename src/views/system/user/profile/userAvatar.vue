@@ -4,7 +4,7 @@
 
 <script setup>
 	import { uploadAvatar } from '@/api/system/user'
-	import useUserStore from '@/store/modules/user'
+	import { useUserStore } from '@/store/modules/user'
 
 	const userStore = useUserStore()
 	const { proxy } = getCurrentInstance()

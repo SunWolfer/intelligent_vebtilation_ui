@@ -175,7 +175,7 @@
 	</div>
 </template>
 
-<script setup>
+<script setup name="Config">
 	import {
 		addConfig,
 		delConfig,

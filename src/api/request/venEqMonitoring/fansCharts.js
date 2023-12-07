@@ -1,18 +1,14 @@
-import useCharts from '@/hooks/useCharts'
-import {dynamicHeight} from '@/utils/ruoyi'
-import {getSeriesData} from '@/utils/echarts/defaultLineCharts'
+import { dynamicHeight } from '@/utils/ruoyi'
+import { getSeriesData } from '@/utils/echarts/defaultLineCharts'
 
 // 风机特性曲线
 export function fanChart1({
-	domId,
 	xData,
 	yData,
 	legends,
 	colors = ['#00FF00', '#00FFFF', '#FF00FF', '#FB9401'],
 }) {
-	const { option } = useCharts(domId)
-
-	option.value = {
+	return {
 		legend: {
 			data: legends,
 			right: 5,
@@ -204,7 +200,6 @@ export function fanChart1({
 }
 //温振监测分析
 export function fanChart2({
-	domId,
 	xData,
 	yDataList,
 	legends,

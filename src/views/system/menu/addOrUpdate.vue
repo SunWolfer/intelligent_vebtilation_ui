@@ -77,7 +77,7 @@
 
 	async function handleAdd(row) {
 		reset()
-		await getTreeselect()
+		await getTreeSelect()
 		if (row != null && row.menuId) {
 			form.value.parentId = row.menuId
 		} else {
@@ -87,7 +87,7 @@
 
 	const menuOptions = ref([])
 	/** 查询菜单下拉树结构 */
-	function getTreeselect() {
+	async function getTreeSelect() {
 		menuOptions.value = []
 		listMenu().then((response) => {
 			const menu = { menuId: 0, menuName: '主类目', children: [] }
@@ -99,7 +99,7 @@
 	/** 修改按钮操作 */
 	async function handleUpdate(row) {
 		reset()
-		await getTreeselect()
+		await getTreeSelect()
 		getMenu(row.menuId).then((response) => {
 			form.value = response.data
 		})
@@ -139,7 +139,7 @@
 		:title="title"
 		v-model="showDiaLog"
 		:width="800"
-		:height="550"
+		:height="600"
 		has-bottom-btn
 		@submit="submitForm"
 		@cancel="closeDia"
@@ -178,7 +178,7 @@
 						<el-popover
 							:teleported="false"
 							placement="bottom-start"
-							:width="540"
+							width="100%"
 							v-model:visible="showChooseIcon"
 							trigger="click"
 						>

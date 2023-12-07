@@ -3,7 +3,7 @@
 	import useHomeMenu from '@/hooks/useHomeMenu'
 	import { homeDisaster } from '@/api/request/home/homeDisaster'
 	import { homeDisPreRoute } from '@/api/request/home/homeDisPreRoute'
-	import { DisasterTypes } from '@/api/request/menuType'
+	import { DisasterTypes } from '@/types/menuType'
 
 	const props = defineProps({
 		domLeft: {
@@ -20,10 +20,19 @@
 
 	const emits = defineEmits(['changeDisasterType', 'setDisaster', 'generateDisaster'])
 
-	const { dislodgeDomStyle } = useHomeMenu()
-	const { disaster } = useHomeMenu()
+	const { disaster, dislodgeDomStyle } = useHomeMenu()
 	const { generateDisaster, quit } = homeDisaster(emits)
-	const { changeDisaster, setDisaster } = homeDisPreRoute(emits)
+	// 灾变类型
+	const disasterType = ref(DisasterTypes.ONE)
+	// 改变灾变类型
+	const changeDisaster = (type) => {
+		disasterType.value = type
+		emits('changeDisasterType', disasterType.value)
+	}
+	// 点击生成灾变地点
+	const setDisaster = () => {
+		emits('setDisaster', disasterType.value)
+	}
 </script>
 
 <template>
@@ -41,10 +50,10 @@
 				<div class="home_title_route_btn_icon home_route_icon_3"></div>
 				<div class="home_route_text">粉尘</div>
 			</div>
-			<div class="home_title_route_btn" @click="changeDisaster(DisasterTypes.FOUR)">
-				<div class="home_title_route_btn_icon home_route_icon_4"></div>
-				<div class="home_route_text">水灾</div>
-			</div>
+			<!--			<div class="home_title_route_btn" @click="changeDisaster(DisasterTypes.FOUR)">-->
+			<!--				<div class="home_title_route_btn_icon home_route_icon_4"></div>-->
+			<!--				<div class="home_route_text">水灾</div>-->
+			<!--			</div>-->
 		</div>
 		<div class="home_title_route_right">
 			<div class="home_title_route_top">

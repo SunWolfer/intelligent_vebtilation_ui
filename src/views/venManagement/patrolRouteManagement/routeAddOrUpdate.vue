@@ -10,6 +10,7 @@
 	} from '@/api/api/patrolRouteManagement'
 	import { isNull } from '@/utils/ruoyi'
 	import { useCommitForm } from '@/hooks/useForm'
+	import { useCustomList } from '@/hooks/useCustomList'
 
 	const props = defineProps({
 		chooseRow: {
@@ -67,44 +68,15 @@
 		row.devName = chooseData?.name
 	}
 
-	const dataList = ref([])
-
-	//   新增列表行
-	const addTableRow = () => {
-		dataList.value.push({
-			orderNum: dataList.value.length + 1,
-			devId: '',
-			devType: '',
-			devName: '',
-			devLocation: '',
-			// 设备列表
-			devChildren: [],
-		})
-	}
-	//   删除行
-	const minusTableRow = (index) => {
-		dataList.value.splice(index, 1)
-	}
-	//   下移
-	const downRow = (index) => {
-		if (index === dataList.value.length - 1) return
-		let temp = dataList.value[index]
-		dataList.value[index] = {
-			...dataList.value[index + 1],
-			orderNum: temp.orderNum++,
-		}
-		dataList.value[index + 1] = temp
-	}
-	//   上移
-	const upRow = (index) => {
-		if (index === 0) return
-		let temp = dataList.value[index]
-		dataList.value[index] = {
-			...dataList.value[index - 1],
-			orderNum: temp.orderNum--,
-		}
-		dataList.value[index - 1] = temp
-	}
+	const { dataList, addTableRow, minusTableRow, downRow, upRow } = useCustomList({
+		orderNum: 0,
+		devId: '',
+		devType: '',
+		devName: '',
+		devLocation: '',
+		// 设备列表
+		devChildren: [],
+	})
 
 	const initData = async () => {
 		if (props.chooseRow.id) {

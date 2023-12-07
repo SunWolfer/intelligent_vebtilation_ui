@@ -11,7 +11,7 @@
 	import LocalFanMsg from '@/views/components/equiptmentMsg/LocalFanMsg.vue'
 	import WindSpeedMsg from '@/views/components/equiptmentMsg/WindSpeedMsg.vue'
 	import { threeDisasterRoute } from '@/api/request/home/homeThree/threeDisasterRoute'
-	import { deviceTypes } from '@/api/request/menuType'
+	import { deviceTypes } from '@/types/menuType'
 	import TunnelMessage from '@/views/components/equiptmentMsg/TunnelMessage.vue'
 	import { homeMenu } from '@/api/request/home/homeMenu'
 
@@ -107,11 +107,12 @@
 		otherThreeMod,
 		controlsOptions,
 		lights,
-		onLoad,
 		onModel,
 		onClick,
 		dblclick,
 		createdLabelList,
+		removePosition,
+		removeLookAt,
 		operateModel,
 		intersected,
 		intersectedPosition,
@@ -147,11 +148,13 @@
 		changeDisasterType,
 		disasterRoute,
 		isShowDisaster,
-		disasterWarnList,
+		disasterWarn,
 		disasterClass,
 		isShowDisasterPeople,
 		disasterPeopleList,
 		createdDisasterSpread,
+		cleanDisasterRoute,
+		cleanDisasterPrevent,
 	} = threeDisasterRoute(operateModel, intersectedPosition, intersected)
 
 	// 设置选中
@@ -166,8 +169,49 @@
 		changeDisasterType,
 		disasterRoute,
 		createdDisasterSpread,
+		cleanDisasterRoute,
+		cleanDisasterPrevent,
 	})
 	const { showTunnelMesVisible } = homeMenu()
+
+	const onLoad = () => {
+		let heatmapDataList = [
+			{
+				instanceConfig: {
+					container: null,
+					minOpacity: 0.4,
+				},
+				pointData: {
+					data: [
+						{
+							x: 1,
+							y: 1.5,
+							value: 0.01,
+							radius: 6,
+						},
+					],
+					min: 0,
+					max: 0.1,
+				},
+				startPosition: {
+					x: 85.81099169848055,
+					y: 12.851789414585241,
+					z: -456.4779191710116,
+				},
+				endPosition: {
+					x: 83.59465064530022,
+					y: 20.2521227101344,
+					z: -156.57412641652905,
+				},
+				heatmapWidth: 6,
+				heatmapHeight: 3,
+				tunnelWidth: 120,
+				tunnelHeight: 30,
+			},
+		]
+		operateModel.value?.createdHeatmap(heatmapDataList)
+		operateModel.value?.traMovement(removePosition, removeLookAt, 3, readyCamera)
+	}
 </script>
 
 <template>
@@ -184,9 +228,9 @@
 			@onModel="onModel"
 			@onClick="onClick"
 			@onDblclick="dblclick"
-			@ready-camera="readyCamera"
 		>
 			<template #label v-if="isReady">
+				<!--        设备巡检-->
 				<template v-if="roam">
 					<div
 						v-for="(i, index) in equipmentPathList"
@@ -197,6 +241,7 @@
 						<component :is="chooseTab(i.devType)" :data="i" :index="index" />
 					</div>
 				</template>
+				<!--        设备-->
 				<template v-else>
 					<div
 						v-for="(i, index) in showTypeList"
@@ -211,8 +256,8 @@
 			<!--      避灾路线相关-->
 			<template #warn>
 				<template v-if="isShowDisaster">
-					<div v-for="i in disasterWarnList" :key="i.id" :id="i.id" class="disaster_warn">
-						<div :class="disasterClass(i.type)"></div>
+					<div :id="disasterWarn.id" class="disaster_warn">
+						<div :class="disasterClass"></div>
 					</div>
 				</template>
 
@@ -262,6 +307,20 @@
 		width: 100%;
 		height: 100%;
 		background-image: url('@/assets/images/home/home_dis_pre_route/fire.gif');
+		background-size: 100% 100%;
+	}
+	.disaster_warn_gas {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background-image: url('@/assets/images/home/home_dis_pre_route/gas.png');
+		background-size: 100% 100%;
+	}
+	.disaster_warn_dust {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background-image: url('@/assets/images/home/home_dis_pre_route/dust.png');
 		background-size: 100% 100%;
 	}
 </style>

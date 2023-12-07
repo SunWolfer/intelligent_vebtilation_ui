@@ -14,17 +14,17 @@
 		getTextStyle,
 		dateRange,
 		queryForm,
-		showCharts,
 		choose,
 		chooseItem,
 		default_color,
 		choose_color,
-		resetCharts,
 		hisRecordVisible,
 		hisRecordHandle,
 		warnRecordVisible,
 		warnRecordHandle,
 		chooseData,
+		chartOption,
+		initChart,
 	} = accurateWindMeasurement()
 </script>
 
@@ -77,7 +77,7 @@
 									<span class="l_content">{{ i.airHumidity }}</span>
 								</div>
 								<div>
-									<span class="l_title">[ 绝压(Pa) ] </span>
+									<span class="l_title">[ 绝压(kPa) ] </span>
 									<span class="l_content">{{ i.absolutePressure }}</span>
 								</div>
 							</div>
@@ -113,10 +113,10 @@
 					></el-date-picker>
 				</el-form-item>
 				<el-form-item>
-					<div class="normal_btn" @click="resetCharts">查询</div>
+					<div class="normal_btn" @click="initChart">查询</div>
 				</el-form-item>
 			</el-form>
-			<div v-if="showCharts" id="acc_chart_line" class="fullDom acc_body_bottom_chart"></div>
+			<BaseEchart class="fullDom acc_body_bottom_chart" :option="chartOption" />
 		</div>
 		<!--    历史记录-->
 		<his-record v-if="hisRecordVisible" v-model="hisRecordVisible" :data-form="chooseData" />

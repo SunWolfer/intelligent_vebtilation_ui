@@ -3,7 +3,7 @@ import { useGainList } from '@/hooks/useGainList'
 import { havaAbId, monitorInfo, windowListAll } from '@/api/api/airWindow'
 import NormalWindow from '@/views/components/home/windowPage/NormalWindow.vue'
 import ABWindow from '@/views/components/home/windowPage/ABWindow.vue'
-import { useSocket } from '@/hooks/useSocket'
+import useSocket from '@/hooks/useSocket'
 
 export const homeAirWindow = () => {
 	// 风窗下拉列表
@@ -18,7 +18,7 @@ export const homeAirWindow = () => {
 			devId: id,
 		})
 		if (res.code === 200) {
-			abTagId.value = res.msg
+			abTagId.value = res.data
 		}
 	}
 	// 风窗信息
@@ -49,7 +49,10 @@ export const homeAirWindow = () => {
 
 	// 监听socket信息
 	// socket监听风窗信息
-	const { clientSocket } = useSocket('|adjust', dealWithData)
+	const { clientSocket, socketData, windowInfo } = useSocket('windowInfo')
+	watch(windowInfo, (value) => {
+		dealWithData(value)
+	})
 	// 接收socket信息
 	function dealWithData(data) {
 		if (data.id === dataForm.value.id && data.ip === dataForm.value.ip) {
@@ -65,17 +68,6 @@ export const homeAirWindow = () => {
 			}
 		}
 	}
-
-	// 页面传参查询
-	const equipmentParams = useEquipmentParams()
-	onMounted(async () => {
-		const params = equipmentParams?.dataParams
-		await changeWindow(params?.id)
-		clientSocket?.()
-	})
-	onBeforeUnmount(() => {
-		equipmentParams.cleanParams()
-	})
 
 	// 改变选中风窗
 	const changeWindow = async (id) => {
@@ -115,6 +107,18 @@ export const homeAirWindow = () => {
 	const hisRecordHandle = () => {
 		hisRecordVisible.value = true
 	}
+
+	// 页面传参查询
+	const equipmentParams = useEquipmentParams()
+	onMounted(async () => {
+		const params = equipmentParams?.dataParams
+		await changeWindow(params?.id)
+		clientSocket?.('|adjust')
+	})
+	onBeforeUnmount(() => {
+		equipmentParams.cleanParams()
+		socketData.value?.close()
+	})
 
 	return {
 		dataList,

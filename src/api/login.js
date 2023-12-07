@@ -45,3 +45,11 @@ export function getCodeImg() {
 		timeout: 20000,
 	})
 }
+// 校验
+export function permissionControl(data) {
+	return request({
+		url: '/permissionControl',
+		method: 'post',
+		data: data,
+	})
+}
