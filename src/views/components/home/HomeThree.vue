@@ -15,6 +15,13 @@
 	import TunnelMessage from '@/views/components/equiptmentMsg/TunnelMessage.vue'
 	import { homeMenu } from '@/api/request/home/homeMenu'
 
+	const props = defineProps({
+		optionalEquipment: {
+			type: Boolean,
+			default: true,
+		},
+	})
+
 	const tabs = reactive([
 		{
 			name: '默认显示',
@@ -70,7 +77,11 @@
 		}
 	}
 
-	const { showTypeList, equipmentPathList } = useEquipmentData()
+	const { optionalDataList, equipmentPathList, allDataList } = useEquipmentData()
+
+	const showTypeList = computed(() => {
+		return props.optionalEquipment ? optionalDataList.value : allDataList.value
+	})
 
 	const isReady = ref(false)
 
@@ -93,6 +104,7 @@
 	)
 
 	const nextFun = (list) => {
+		if (!loading.value) return
 		isReady.value = false
 		nextTick().then(() => {
 			isReady.value = true
@@ -118,7 +130,10 @@
 		intersectedPosition,
 	} = useThree()
 
+	const loading = ref(false)
+
 	const readyCamera = () => {
+		loading.value = true
 		operateModel.value?.createdImgPlane()
 		if (showTypeList.value) {
 			nextFun?.(showTypeList.value)
@@ -175,41 +190,6 @@
 	const { showTunnelMesVisible } = homeMenu()
 
 	const onLoad = () => {
-		let heatmapDataList = [
-			{
-				instanceConfig: {
-					container: null,
-					minOpacity: 0.4,
-				},
-				pointData: {
-					data: [
-						{
-							x: 1,
-							y: 1.5,
-							value: 0.01,
-							radius: 6,
-						},
-					],
-					min: 0,
-					max: 0.1,
-				},
-				startPosition: {
-					x: 85.81099169848055,
-					y: 12.851789414585241,
-					z: -456.4779191710116,
-				},
-				endPosition: {
-					x: 83.59465064530022,
-					y: 20.2521227101344,
-					z: -156.57412641652905,
-				},
-				heatmapWidth: 6,
-				heatmapHeight: 3,
-				tunnelWidth: 120,
-				tunnelHeight: 30,
-			},
-		]
-		operateModel.value?.createdHeatmap(heatmapDataList)
 		operateModel.value?.traMovement(removePosition, removeLookAt, 3, readyCamera)
 	}
 </script>

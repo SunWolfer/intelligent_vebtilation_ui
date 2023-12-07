@@ -204,7 +204,7 @@
 				<el-form-item label="风门ip" prop="ip">
 					<el-input v-model="form.ip"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;风门端口" prop="port">
+				<el-form-item label="风门端口" prop="port">
 					<el-input v-model="form.port"></el-input>
 				</el-form-item>
 				<el-form-item label="风门长度" prop="length">
@@ -221,13 +221,13 @@
 						<el-option v-for="i in door_type" :label="i.label" :value="i.value"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="&ensp;X坐标" prop="pointX">
+				<el-form-item label="X坐标" prop="pointX">
 					<el-input v-model="form.pointX"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;Y坐标" prop="pointY">
+				<el-form-item label="Y坐标" prop="pointY">
 					<el-input v-model="form.pointY"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;Z坐标" prop="pointZ">
+				<el-form-item label="Z坐标" prop="pointZ">
 					<el-input v-model="form.pointZ"></el-input>
 				</el-form-item>
 				<el-form-item label="风门版本" prop="devVersion">
@@ -235,7 +235,7 @@
 						<el-option v-for="i in door_version" :label="i.label" :value="i.value"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="&ensp;视频地址" prop="videoUrl" class="table_page_form_row">
+				<el-form-item label="视频地址" prop="videoUrl" class="table_page_form_row">
 					<el-input v-model="form.videoUrl"></el-input>
 				</el-form-item>
 			</el-form>
@@ -281,7 +281,7 @@
 				<el-form-item label="Y坐标" prop="pointY">
 					<el-input disabled v-model="examineForm.pointY"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;Z坐标" prop="pointZ">
+				<el-form-item label="Z坐标" prop="pointZ">
 					<el-input v-model="examineForm.pointZ"></el-input>
 				</el-form-item>
 				<el-form-item label="风门版本" prop="version">

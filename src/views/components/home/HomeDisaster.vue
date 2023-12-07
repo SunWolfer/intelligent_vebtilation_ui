@@ -83,6 +83,6 @@
 	@import '@/assets/styles/home/home_reverse_wind';
 	.home_title_route_right {
 		display: grid;
-		grid-template-rows: repeat(2, 1fr);
+		grid-template-rows: repeat(2, vh(80));
 	}
 </style>

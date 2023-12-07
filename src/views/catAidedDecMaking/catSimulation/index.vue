@@ -12,7 +12,7 @@
 
 <template>
 	<div class="fullDom">
-		<HomeThree v-if="refreshModel" ref="threeRef" />
+		<HomeThree v-if="refreshModel" ref="threeRef" :optional-equipment="false" />
 		<!--    灾害模拟-->
 		<home-disaster
 			:dom-left="72"

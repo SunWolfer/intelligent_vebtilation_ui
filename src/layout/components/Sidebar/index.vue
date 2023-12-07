@@ -3,7 +3,7 @@
 	import SecondaryMenu from '@/layout/components/Sidebar/secondaryMenu.vue'
 	import AppLink from './Link.vue'
 	//标题
-	const sysTitle = import.meta.env.VITE_APP_TITLE
+	const sysTitle = window.SITE_CONFIG.APP_TITLE
 	const {
 		leftSidebarRouters,
 		rightSidebarRouters,

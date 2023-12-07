@@ -33,7 +33,8 @@
 		return selectDictLabel(trigger_conditions.value, data.triggerConditions)
 	}
 
-	const { devType, actionType, actionDirection, doorType } = useDictionary()
+	const { formatterDevType, formatterActionType, formatterActionDirection, formatterDoorType } =
+		useDictionary()
 
 	queryTriggerTypeList?.()
 	queryDetailTypeList?.()
@@ -90,26 +91,21 @@
 							<div class="fullDom aux_body_rule_list_item_body">
 								<div class="aux_body_rule_list_item_body_line">
 									<span>动作设备类型：</span>
-									<span>{{ selectDictLabel(devType, item.devType) }}</span>
+									<span>{{ formatterDevType(item) }}</span>
 								</div>
 								<div class="aux_body_rule_list_item_body_line">
 									<span>动作设备名称：</span>
-									<span>{{
-										item.devName +
-										(item.devType === deviceTypes.DOOR
-											? selectDictLabel(doorType, item.doorName)
-											: '')
+									<span class="overText" :title="formatterDoorType(item)">{{
+										formatterDoorType(item)
 									}}</span>
 								</div>
 								<div class="aux_body_rule_list_item_body_line">
 									<span>动作类型：</span>
-									<span>{{ selectDictLabel(actionType(item.devType), item.actionType) }}</span>
+									<span>{{ formatterActionType(item) }}</span>
 								</div>
 								<div class="aux_body_rule_list_item_body_line">
 									<span>动作方向：</span>
-									<span>{{
-										selectDictLabel(actionDirection(item.devType), item.actionDirection)
-									}}</span>
+									<span>{{ formatterActionDirection(item) }}</span>
 								</div>
 								<div class="aux_body_rule_list_item_body_line">
 									<span>动作值：</span>

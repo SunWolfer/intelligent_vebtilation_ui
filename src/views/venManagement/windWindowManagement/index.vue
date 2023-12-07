@@ -234,7 +234,7 @@
 				<el-form-item label="风门ip" prop="ip">
 					<el-input v-model="form.ip"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;A/B风窗" prop="abTag">
+				<el-form-item label="A/B风窗" prop="abTag">
 					<el-select v-model="form.abTag" clearable>
 						<el-option v-for="i in windowTypeList" :label="i.label" :value="i.value"></el-option>
 					</el-select>
@@ -258,22 +258,22 @@
 						<el-option v-for="i in window_version" :label="i.label" :value="i.value"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="&ensp;风窗巷道断面积" label-width="auto" prop="roadArea">
+				<el-form-item label="风窗巷道断面积" label-width="auto" prop="roadArea">
 					<el-input v-model="form.roadArea"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;风速巷道断面积" label-width="auto" prop="windRoadArea">
+				<el-form-item label="风速巷道断面积" label-width="auto" prop="windRoadArea">
 					<el-input v-model="form.windRoadArea"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;X坐标" prop="pointX">
+				<el-form-item label="X坐标" prop="pointX">
 					<el-input v-model="form.pointX"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;Y坐标" prop="pointY">
+				<el-form-item label="Y坐标" prop="pointY">
 					<el-input v-model="form.pointY"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;Z坐标" prop="pointZ">
+				<el-form-item label="Z坐标" prop="pointZ">
 					<el-input v-model="form.pointZ"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;视频地址" prop="videoUrl" class="table_page_form_row">
+				<el-form-item label="视频地址" prop="videoUrl" class="table_page_form_row">
 					<el-input v-model="form.videoUrl"></el-input>
 				</el-form-item>
 			</el-form>

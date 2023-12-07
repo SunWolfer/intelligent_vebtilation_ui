@@ -57,7 +57,7 @@ const useEquipmentData = () => {
 		return childes
 	})
 	// 可显示设备
-	const showTypeList = computed(() => {
+	const optionalDataList = computed(() => {
 		let childes = []
 		for (let i = 0; i < equipmentList.value.length; i++) {
 			let child = equipmentList.value[i]
@@ -178,7 +178,7 @@ const useEquipmentData = () => {
 		equipTypeList,
 		setAllType,
 		allTypeList,
-		showTypeList,
+		optionalDataList,
 		toPosition,
 		allDataList,
 		disasterPreventionRoute,

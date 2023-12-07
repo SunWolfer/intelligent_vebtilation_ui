@@ -41,3 +41,24 @@ declare interface ITableApiResponseData<T = any> {
 	msg: string
 }
 declare var h337
+
+interface siteConfig {
+	// 地图服务
+	mapUrl: string
+	// socket
+	socketip: string
+	// 视频模式
+	videoMode: string
+	// webRtc地址
+	webrtcServer: string
+	// 免登陆用户名
+	noValidUser: string
+	// 免登陆密码
+	noValidPass: string
+	// 系统标题
+	APP_TITLE: string
+}
+
+declare interface Window {
+	SITE_CONFIG: siteConfig //全局变量名
+}

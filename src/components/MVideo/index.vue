@@ -1,17 +1,6 @@
 <template>
-	<div v-if="showVideoDialog" :ref="'video' + domid" :id="'video' + domid" class="fullDom">
-		<object
-			type="application/x-vlc-plugin"
-			:ref="`liveplayer_` + domid"
-			:id="`liveplayer_` + domid"
-			class="videoFull"
-		>
-			<param name="volume" value="0" />
-			<param name="mrl" :value="videoPath" />
-			<param name="autoplay" value="true" />
-			<param name="loop" value="false" />
-			<param name="fullscreen" value="false" />
-		</object>
+	<div v-if="showVideoDialog" class="fullDom">
+		<component :is="chooseTabs" :videoPath="videoPath" />
 	</div>
 	<div v-else class="fullDom">
 		<div class="fullDom" :class="videoDefaultBg"></div>
@@ -19,13 +8,9 @@
 </template>
 
 <script setup>
+	import videoVlc from './videoVlc.vue'
+	import videoWebrtc from './videoWebrtc.vue'
 	const props = defineProps({
-		domid: {
-			type: String,
-			default() {
-				return 'xg'
-			},
-		},
 		videoPath: {
 			type: String,
 		},
@@ -49,14 +34,24 @@
 	const videoDefaultBg = computed(() => {
 		return videoBgUrl.get(props.type) ?? ''
 	})
+
+	const tabs = reactive([
+		{
+			name: 'vlc',
+			domName: markRaw(videoVlc),
+		},
+		{
+			name: 'webrtc',
+			domName: markRaw(videoWebrtc),
+		},
+	])
+
+	const chooseTabs = computed(() => {
+		return window.SITE_CONFIG.videoMode === 'webrtc' ? tabs[1].domName : tabs[0].domName
+	})
 </script>
 
 <style scoped lang="scss">
-	.videoFull {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-	}
 	.fullDom {
 		padding: 12px;
 	}

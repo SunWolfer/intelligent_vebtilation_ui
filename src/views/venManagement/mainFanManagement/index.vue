@@ -256,10 +256,10 @@
 				<el-form-item label="备机效率" prop="efficiency2">
 					<el-input v-model="form.efficiency2"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;视频地址" prop="videoUrl" class="table_page_form_row">
+				<el-form-item label="视频地址" prop="videoUrl" class="table_page_form_row">
 					<el-input v-model="form.videoUrl"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;备注" prop="remark" class="table_page_form_row">
+				<el-form-item label="备注" prop="remark" class="table_page_form_row">
 					<el-input v-model="form.remark"></el-input>
 				</el-form-item>
 			</el-form>

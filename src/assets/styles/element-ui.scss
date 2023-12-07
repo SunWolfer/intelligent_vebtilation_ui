@@ -73,6 +73,7 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 		margin-bottom: vh(3);
 		align-items: center;
 		.el-form-item__label {
+			position: relative;
 			color: #ffffff;
 			font-size: #{$form-font-size};
 			height: #{$form-input-height};
@@ -102,7 +103,17 @@ $input-hover-insert: 0 0 10px 0 rgba(14, 252, 255, 0.77) inset;
 			}
 		}
 	}
+	.el-form-item.is-required:not(.is-no-asterisk).asterisk-left{
+		.el-form-item__label-wrap{
+			.el-form-item__label:before{
+				margin-right: 0;
+				position: absolute;
+				left: -6px;
+			}
+		}
+	}
 }
+
 //时间选择器
 .el-date-editor {
 	--el-input-bg-color: 'rgba(19, 133, 224, 1)';

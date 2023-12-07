@@ -91,7 +91,7 @@ export const useOpenLayers = () => {
 			} else if (tData.type === 'wms') {
 				let temLayer = new Tile({
 					source: new TileWMS({
-						url: import.meta.env.VITE_APP_MAP_URL + '/geoserver/coalmap/wms',
+						url: window.SITE_CONFIG.mapUrl + '/geoserver/coalmap/wms',
 						params: {
 							LAYERS: tData.paramlayer,
 							TILED: false,

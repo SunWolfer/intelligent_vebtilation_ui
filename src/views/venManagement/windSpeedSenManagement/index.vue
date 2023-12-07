@@ -190,7 +190,7 @@
 				<el-form-item label="风速传感器IP" prop="ipAddr">
 					<el-input v-model="form.ipAddr"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;端口" prop="port">
+				<el-form-item label="端口" prop="port">
 					<el-input v-model="form.port"></el-input>
 				</el-form-item>
 				<el-form-item label="监测巷道" prop="windArea">
@@ -203,22 +203,22 @@
 					<el-input v-model="form.code"></el-input>
 				</el-form-item>
 				<el-form-item></el-form-item>
-				<el-form-item label="&ensp;风速上限" prop="maxSpeed">
+				<el-form-item label="风速上限" prop="maxSpeed">
 					<el-input v-model="form.maxSpeed"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;风速下限" prop="minSpeed">
+				<el-form-item label="风速下限" prop="minSpeed">
 					<el-input v-model="form.minSpeed"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;X坐标" prop="pointX">
+				<el-form-item label="X坐标" prop="pointX">
 					<el-input v-model="form.pointX"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;Y坐标" prop="pointY">
+				<el-form-item label="Y坐标" prop="pointY">
 					<el-input v-model="form.pointY"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;Z坐标" prop="pointZ">
+				<el-form-item label="Z坐标" prop="pointZ">
 					<el-input v-model="form.pointZ"></el-input>
 				</el-form-item>
-				<el-form-item label="&ensp;视频地址" prop="videoUrl" class="table_page_form_row">
+				<el-form-item label="视频地址" prop="videoUrl" class="table_page_form_row">
 					<el-input v-model="form.videoUrl"></el-input>
 				</el-form-item>
 			</el-form>

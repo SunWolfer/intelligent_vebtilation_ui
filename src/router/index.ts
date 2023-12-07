@@ -34,6 +34,12 @@ export const constantRoutes: IRouteRecordRaw[] = [
 		name: 'login',
 	},
 	{
+		path: '/noLoadingLogin',
+		component: () => import('@/views/noLoadingLogin.vue'),
+		hidden: true,
+		name: 'noLoadingLogin',
+	},
+	{
 		path: '/:pathMatch(.*)*',
 		component: () => import('@/views/error/404.vue'),
 		hidden: true,

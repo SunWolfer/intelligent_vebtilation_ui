@@ -213,26 +213,28 @@
 //预警列表
 .home_right_message_body4 {
 	width: vw(412);
-	height: max-content;
+	height: vh(240);
 }
 :deep(.el-carousel) {
+	height: 100%;
 	.el-carousel__container {
-		height: vh(240);
-		max-height: vh(240);
+		height: 100%;
 		i {
 			display: none;
 		}
 		.el-carousel__arrow--left {
-			width: vh(46);
-			height: vh(67);
+			width: vw(60);
+			height: vw(60);
 			background-image: url('@/assets/images/home/home_right/warn_list_btn_left.png');
+			background-size: 100% 100%;
 			left: 0;
 			background-color: rgba(0, 0, 0, 0);
 		}
 		.el-carousel__arrow--right {
-			width: vh(46);
-			height: vh(67);
+			width: vw(60);
+			height: vw(60);
 			background-image: url('@/assets/images/home/home_right/warn_list_btn_right.png');
+			background-size: 100% 100%;
 			right: 0;
 			background-color: rgba(0, 0, 0, 0);
 		}

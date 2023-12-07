@@ -6,7 +6,7 @@ export interface ISocketData {
 }
 const useSocket = (...args: string[]) => {
 	const socketData = ref<ReconnectingWebSocket>()
-	const socketIP = import.meta.env.VITE_APP_SOCKETIP
+	const socketIP = window.SITE_CONFIG.socketip
 	const dataMsg = ref<ISocketData | undefined>()
 	const dataRes = reactive({})
 	args.forEach((dictType) => {

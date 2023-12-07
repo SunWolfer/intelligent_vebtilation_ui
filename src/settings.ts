@@ -2,7 +2,7 @@ export default {
 	/**
 	 * 网页标题
 	 */
-	title: import.meta.env.VITE_APP_TITLE,
+	title: window.SITE_CONFIG.APP_TITLE,
 
 	/**
 	 * 是否显示动态标题

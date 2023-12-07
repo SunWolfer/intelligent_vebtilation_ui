@@ -87,7 +87,12 @@ export const ventResistanceMonitoring = () => {
 			id: inShowList.value[choose],
 			...query,
 		})
-		let colors = []
+		let colors = [
+			['#ff00ff', '#ff00ff'],
+			['#00ff00', '#00ff00'],
+			['#ffff00', '#ffff00'],
+			['#ff0000', '#ff0000'],
+		]
 		for (let i = 0; i < res.data.names.length; i++) {
 			const color = '#' + getRandomColor()
 			colors.push([color, color])

@@ -47,5 +47,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
+    VideoVlc: typeof import('./src/components/MVideo/videoVlc.vue')['default']
+    VideoWebrtc: typeof import('./src/components/MVideo/videoWebrtc.vue')['default']
   }
 }

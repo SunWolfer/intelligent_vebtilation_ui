@@ -25,7 +25,8 @@
 		cancelDetails,
 	} = useAssMakingChild()
 
-	const { devType, actionType, actionDirection, doorType } = useDictionary()
+	const { formatterDevType, formatterActionType, formatterActionDirection, formatterDoorType } =
+		useDictionary()
 	// 权限认证
 	const { validateFun, confirmFun } = usePermission()
 	// 执行调控认证
@@ -127,17 +128,12 @@
 							<div class="details_form_child_body fullDom">
 								<div class="details_form_child_body_line">
 									<span>调控设备类型：</span>
-									<span>{{ selectDictLabel(devType, item.devType) }}</span>
+									<span>{{ formatterDevType(item) }}</span>
 								</div>
 								<div class="details_form_child_body_line">
 									<span>调控设备名称： </span>
-									<span
-										>{{
-											item.devName +
-											(item.devType === deviceTypes.DOOR
-												? selectDictLabel(doorType, item.doorName)
-												: '')
-										}}
+									<span class="overText" :title="formatterDoorType(item)"
+										>{{ formatterDoorType(item) }}
 									</span>
 								</div>
 								<div class="details_form_child_body_line">
@@ -150,13 +146,11 @@
 								</div>
 								<div class="details_form_child_body_line">
 									<span>调控类型：</span>
-									<span>{{ selectDictLabel(actionType(item.devType), item.actionType) }}</span>
+									<span>{{ formatterActionType(item) }}</span>
 								</div>
 								<div class="details_form_child_body_line">
 									<span>调控方向：</span>
-									<span>{{
-										selectDictLabel(actionDirection(item.devType), item.actionDirection)
-									}}</span>
+									<span>{{ formatterActionDirection(item) }}</span>
 								</div>
 								<div class="details_form_child_body_line">
 									<span>调控值：</span>

@@ -1,4 +1,5 @@
 import { deviceTypes } from '@/types/menuType'
+import { selectDictLabel } from '@/utils/ruoyi'
 
 export const useDictionary = () => {
 	// 设备类型
@@ -16,6 +17,11 @@ export const useDictionary = () => {
 			value: deviceTypes.LOCALFAN,
 		},
 	])
+	// 格式化设备类型
+	const formatterDevType = (item) => {
+		return selectDictLabel(devType.value, item.devType)
+	}
+
 	//   动作类型开度
 	const actionTypeOpen = ref([
 		{
@@ -33,6 +39,10 @@ export const useDictionary = () => {
 	//动作类型
 	const actionType = (devTypeData) => {
 		return devTypeData === deviceTypes.LOCALFAN ? actionTypeFrequency.value : actionTypeOpen.value
+	}
+	// 格式化动作类型
+	const formatterActionType = (item) => {
+		return selectDictLabel(actionType(item.devType), item.actionType)
 	}
 
 	// 动作方向开度
@@ -63,6 +73,10 @@ export const useDictionary = () => {
 			? actionDirectionFrequency.value
 			: actionDirectionOpen.value
 	}
+	// 格式化动作方向
+	const formatterActionDirection = (item) => {
+		return selectDictLabel(actionDirection(item.devType), item.actionDirection)
+	}
 
 	// 风门
 	const doorType = ref([
@@ -75,11 +89,22 @@ export const useDictionary = () => {
 			value: '1',
 		},
 	])
+	// 格式化设备名称显示
+	const formatterDoorType = (item) => {
+		return (
+			item.devName +
+			(item.devType === deviceTypes.DOOR ? selectDictLabel(doorType.value, item.doorName) : '')
+		)
+	}
 
 	return {
 		devType,
+		formatterDevType,
 		actionType,
+		formatterActionType,
 		actionDirection,
+		formatterActionDirection,
 		doorType,
+		formatterDoorType,
 	}
 }
