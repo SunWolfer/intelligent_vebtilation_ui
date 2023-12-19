@@ -96,10 +96,10 @@
 	<div class="table_page_default_no_btn">
 		<el-form :model="queryParams" inline>
 			<el-form-item label="巷道名称 ">
-				<el-input v-model="queryParams.name"></el-input>
+				<el-input v-model="queryParams.name" />
 			</el-form-item>
 			<el-form-item label="巷道编号 ">
-				<el-input v-model="queryParams.code"></el-input>
+				<el-input v-model="queryParams.code" />
 			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">查询</div>
@@ -107,7 +107,7 @@
 				<div class="normal_3_btn" @click="handleDelete">删除</div>
 			</el-form-item>
 		</el-form>
-		<el-table :data="dataList" border @selectionChange="handleSelectionChange">
+		<el-table :data="dataList" border @selection-change="handleSelectionChange">
 			<el-table-column type="selection" width="55" align="center" />
 			<el-table-column label="巷道名称" align="center" prop="name" />
 			<el-table-column label="巷道编号" align="center" prop="code" />
@@ -186,21 +186,22 @@
 					</el-form-item>
 					<el-form-item label="巷道形状">
 						<el-select v-model="form.ventShape" clearable style="width: 100%">
-							<el-option v-for="i in vent_shape" :label="i.label" :value="i.value"></el-option>
+							<el-option v-for="i in vent_shape" :key="i.value" :label="i.label" :value="i.value" />
 						</el-select>
 					</el-form-item>
 					<el-form-item label="巷道支护类型">
 						<el-select v-model="form.shoreType" clearable style="width: 100%">
-							<el-option v-for="i in shore_type" :label="i.label" :value="i.value"></el-option>
+							<el-option v-for="i in shore_type" :key="i.value" :label="i.label" :value="i.value" />
 						</el-select>
 					</el-form-item>
 					<el-form-item label="进回风类型">
 						<el-select v-model="form.venAirDirection" clearable style="width: 100%">
 							<el-option
 								v-for="i in ven_air_direction"
+								:key="i.value"
 								:label="i.label"
 								:value="i.value"
-							></el-option>
+							/>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="起始高程(m)">
@@ -211,31 +212,61 @@
 					</el-form-item>
 					<el-form-item label="需风量计算类型">
 						<el-select v-model="form.needCalType" clearable>
-							<el-option v-for="i in need_cal_type" :label="i.label" :value="i.value"></el-option>
+							<el-option
+								v-for="i in need_cal_type"
+								:key="i.value"
+								:label="i.label"
+								:value="i.value"
+							/>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="是否显示风流方向">
 						<el-select v-model="form.directionShow" clearable>
-							<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+							<el-option
+								v-for="i in confirmList"
+								:key="i.value"
+								:label="i.label"
+								:value="i.value"
+							/>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="是否有密闭墙">
 						<el-select v-model="form.wallExists" clearable>
-							<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+							<el-option
+								v-for="i in confirmList"
+								:key="i.value"
+								:label="i.label"
+								:value="i.value"
+							/>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="是否连通地面">
 						<el-select v-model="form.groundFlag" clearable>
-							<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+							<el-option
+								v-for="i in confirmList"
+								:key="i.value"
+								:label="i.label"
+								:value="i.value"
+							/>
 						</el-select>
 					</el-form-item>
 					<el-form-item label="是否显示巷道名称">
 						<el-select v-model="form.roadNameShow" clearable>
-							<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+							<el-option
+								v-for="i in confirmList"
+								:key="i.value"
+								:label="i.label"
+								:value="i.value"
+							/>
 						</el-select> </el-form-item
 					><el-form-item label="是否显示风量标签">
 						<el-select v-model="form.modelWindShow" clearable>
-							<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+							<el-option
+								v-for="i in confirmList"
+								:key="i.value"
+								:label="i.label"
+								:value="i.value"
+							/>
 						</el-select>
 					</el-form-item>
 				</el-form>
@@ -252,7 +283,7 @@
 							type="datetime"
 							placeholder="选择日期"
 							prefix-icon="Calendar"
-						></el-date-picker>
+						/>
 					</el-form-item>
 					<el-form-item label="风阻(N·s2/m8)"> <el-input v-model="form.ventR" /> </el-form-item
 					><el-form-item label="摩擦系数(N·s2/m4)">
@@ -260,7 +291,12 @@
 					><el-form-item label="局部风阻"> <el-input v-model="form.ventPartR" /> </el-form-item
 					><el-form-item label="风阻测定来源">
 						<el-select v-model="form.ventSource" clearable style="width: 100%">
-							<el-option v-for="i in vent_source" :label="i.label" :value="i.value"></el-option>
+							<el-option
+								v-for="i in vent_source"
+								:key="i.value"
+								:label="i.label"
+								:value="i.value"
+							/>
 						</el-select> </el-form-item
 					><el-form-item label="人工测定风阻时间">
 						<el-date-picker
@@ -269,14 +305,15 @@
 							type="datetime"
 							placeholder="选择日期"
 							prefix-icon="Calendar"
-						></el-date-picker> </el-form-item
+						/> </el-form-item
 					><el-form-item label="风路分支图区域">
 						<el-select v-model="form.windMapRegion" clearable style="width: 100%">
 							<el-option
 								v-for="i in regionList"
+								:key="i.value"
 								:label="i.region"
 								:value="i.region"
-							></el-option> </el-select
+							/> </el-select
 					></el-form-item>
 					<el-form-item label="起始节点">
 						<el-input disabled v-model="form.startNode" /> </el-form-item

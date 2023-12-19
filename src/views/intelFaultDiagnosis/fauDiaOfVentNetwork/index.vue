@@ -45,11 +45,11 @@
 			<el-form :model="queryParams" inline>
 				<el-form-item label="预警类型">
 					<el-select v-model="queryParams.yjlx" clearable>
-						<el-option v-for="i in YJLXList" :label="i.yjmc" :value="i.yjlx"></el-option>
+						<el-option v-for="i in YJLXList" :key="i.yjlx" :label="i.yjmc" :value="i.yjlx" />
 					</el-select>
 				</el-form-item>
 				<el-form-item label="预警巷道">
-					<el-input v-model="queryParams.devName"></el-input>
+					<el-input v-model="queryParams.devName" />
 				</el-form-item>
 				<el-form-item label="时间区间">
 					<el-date-picker

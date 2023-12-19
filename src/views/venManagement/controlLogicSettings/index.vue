@@ -169,7 +169,7 @@
 			<div class="door_control fullDom">
 				<div class="door_control_top"></div>
 				<div class="door_control_bottom">
-					<template v-for="i in processSteps">
+					<template v-for="i in processSteps" :key="i.status">
 						<div class="door_control_bottom_body fullDom">
 							<gradual-title :title="i.status" style="width: 40px" />
 							<el-input v-model="i.content" type="textarea" />

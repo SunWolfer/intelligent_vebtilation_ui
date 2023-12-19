@@ -5,7 +5,9 @@
 	const props = defineProps({
 		dataList: {
 			type: Array,
-			default: [],
+			default() {
+				return []
+			},
 		},
 		chooseData: {
 			type: String,
@@ -36,7 +38,8 @@
 			</div>
 			<ul class="controller-ul">
 				<li
-					v-for="i in dataList"
+					v-for="(i, index) in dataList"
+					:key="index"
 					:class="chooseData === i.ip ? 'chooseLiText' : ''"
 					@click="chooseController(i)"
 				>

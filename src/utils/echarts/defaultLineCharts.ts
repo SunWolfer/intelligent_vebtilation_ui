@@ -42,11 +42,11 @@ export function getSeriesData({
 	markLineList,
 	symbolItemStyle,
 }: any) {
-	let seriesData: any = []
+	const seriesData: any = []
 	for (let i = 0; i < yDataList.length; i++) {
-		let yData = yDataList[i]
-		let lineType = lineTypes[i] ?? 'solid'
-		let series: any = {
+		const yData = yDataList[i]
+		const lineType = lineTypes[i] ?? 'solid'
+		const series: any = {
 			name: legends[i],
 			type: 'line',
 			smooth: smooth,
@@ -95,7 +95,7 @@ export function getSeriesData({
 	}
 	if (markLineList.length > 0) {
 		for (let i = 0; i < markLineList.length; i++) {
-			let data = markLineList[i]
+			const data = markLineList[i]
 			seriesData.push({
 				type: 'line',
 				markLine: {
@@ -141,7 +141,7 @@ export function defaultLineChart({
 	markLineList = [],
 	lineTypes = [],
 }: lineData) {
-	let seriesData = getSeriesData({
+	const seriesData = getSeriesData({
 		yDataList: yDataList,
 		lineTypes: lineTypes,
 		legends: legends,
@@ -288,7 +288,7 @@ export function gradualLineChart({
 	tooltip = { line1Title: '时间', unit: '' },
 	symbolItemStyle = {},
 }: gradualLineData) {
-	let seriesData = getSeriesData({
+	const seriesData = getSeriesData({
 		yDataList: yDataList,
 		lineTypes: lineTypes,
 		legends: legends,

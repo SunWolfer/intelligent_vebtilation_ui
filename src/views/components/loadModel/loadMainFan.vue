@@ -191,7 +191,7 @@
 						...defaultData,
 						...props.fanThreeInfo,
 					},
-			  ]
+				]
 			: []
 		isReady.value = false
 		nextTick(() => {
@@ -206,7 +206,7 @@
 					{
 						...defaultWind,
 					},
-			  ]
+				]
 			: []
 		isWindReady.value = false
 		nextTick(() => {
@@ -232,12 +232,12 @@
 			:camera-size="0.1"
 			:backgroundAlpha="0"
 			@load="onLoad"
-			@onClick="onClick"
-			@onModel="onModel"
-			@readyCamera="readyCamera"
+			@on-click="onClick"
+			@on-model="onModel"
+			@ready-camera="readyCamera"
 		>
 			<template #label v-if="isReady">
-				<div v-for="i in labelList" :id="i.id" class="model_label_1">
+				<div v-for="i in labelList" :id="i.id" class="model_label_1" :key="i.id">
 					<div class="model_label_1_body">
 						<span>{{ i.type }}#蝶阀开度：{{ i.aperture }}</span>
 						<div class="label_text_value">
@@ -248,7 +248,7 @@
 				</div>
 			</template>
 			<template v-if="isWindReady">
-				<div v-for="i in windAnimationList" :id="i.id" class="model_wind_1"></div>
+				<div v-for="i in windAnimationList" :id="i.id" :key="i.id" class="model_wind_1"></div>
 			</template>
 		</model-fbx>
 	</div>

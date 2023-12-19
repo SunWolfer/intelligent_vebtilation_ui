@@ -5,7 +5,7 @@
 	import mixin from './model-mixin.vue'
 
 	export default defineComponent({
-		name: 'model-gltf',
+		name: 'ModelGltf',
 		mixins: [mixin],
 		props: {
 			lights: {

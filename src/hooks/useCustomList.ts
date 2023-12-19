@@ -15,7 +15,7 @@ export const useCustomList = (defaultData: any) => {
 	//   下移
 	const downRow = (index: number) => {
 		if (index === dataList.value.length - 1) return
-		let temp = dataList.value[index]
+		const temp = dataList.value[index]
 		dataList.value[index] = {
 			...dataList.value[index + 1],
 			orderNum: temp.orderNum++,
@@ -25,7 +25,7 @@ export const useCustomList = (defaultData: any) => {
 	//   上移
 	const upRow = (index: number) => {
 		if (index === 0) return
-		let temp = dataList.value[index]
+		const temp = dataList.value[index]
 		dataList.value[index] = {
 			...dataList.value[index - 1],
 			orderNum: temp.orderNum--,

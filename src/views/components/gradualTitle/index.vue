@@ -1,6 +1,9 @@
 <script setup>
 	const props = defineProps({
-		title: '',
+		title: {
+			type: String,
+			default: '',
+		},
 		hasLine: {
 			type: Boolean,
 			default: true,

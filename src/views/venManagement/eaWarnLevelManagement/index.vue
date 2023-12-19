@@ -45,7 +45,7 @@
 <template>
 	<div class="ea_warn_manage">
 		<div class="cal_air_body_top_left">
-			<template v-for="i in tabs">
+			<template v-for="i in tabs" :key="i.domType">
 				<div
 					:class="i.domType === chooseDom ? 'cal_air_btn_1_active' : 'cal_air_btn_1'"
 					@click="changeChooseDom(i.domType)"
@@ -57,7 +57,7 @@
 		<div class="fullDom">
 			<border-box name="border3">
 				<div class="ea_warn_manage_child">
-					<component :is="loadDom"></component>
+					<component :is="loadDom" />
 				</div>
 			</border-box>
 		</div>

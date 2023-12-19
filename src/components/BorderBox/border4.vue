@@ -120,22 +120,22 @@
 		<svg v-if="width" class="bv-border-svg-container" :width="width" :height="height">
 			<defs>
 				<linearGradient id="border4-grad1" x1="0" y1="0" x2="0" y2="100%">
-					<stop offset="0%" stop-color="rgba(8, 20, 120, 1)"></stop>
-					<stop offset="50%" stop-color="rgba(19, 101, 237, 1)"></stop>
-					<stop offset="100%" stop-color="rgba(8, 20, 120, 1)"></stop>
+					<stop offset="0%" stop-color="rgba(8, 20, 120, 1)" />
+					<stop offset="50%" stop-color="rgba(19, 101, 237, 1)" />
+					<stop offset="100%" stop-color="rgba(8, 20, 120, 1)" />
 				</linearGradient>
 				<linearGradient id="border4-grad2" x1="0" y1="0" x2="0" y2="100%">
-					<stop offset="0%" stop-color="#c2f9fe"></stop>
-					<stop offset="100%" stop-color="#3deafe"></stop>
+					<stop offset="0%" stop-color="#c2f9fe" />
+					<stop offset="100%" stop-color="#3deafe" />
 				</linearGradient>
 				<linearGradient id="border4-grad3" x1="0" y1="0" x2="100%" y2="100%">
-					<stop offset="0%" stop-color="#1cd8fe"></stop>
-					<stop offset="100%" stop-color="#2d6ee6"></stop>
+					<stop offset="0%" stop-color="#1cd8fe" />
+					<stop offset="100%" stop-color="#2d6ee6" />
 				</linearGradient>
 				<filter id="border4-grad4" height="150%" width="150%" x="0" y="0">
 					<feMorphology operator="dilate" radius="7" in="SourceAlpha" result="thicken" />
 					<feGaussianBlur in="thicken" stdDeviation="10" result="blurred" />
-					<feFlood flood-color="#1affff" result="glowColor"></feFlood>
+					<feFlood flood-color="#1affff" result="glowColor" />
 					<feComposite in="glowColor" in2="blurred" operator="in" result="softGlowColored" />
 					<feMerge>
 						<feMergeNode in="softGlowColored" />
@@ -143,7 +143,7 @@
 					</feMerge>
 				</filter>
 			</defs>
-			<polyline :points="titleBgPoints" fill="url(#border4-grad1)" style="opacity: 0.61"></polyline>
+			<polyline :points="titleBgPoints" fill="url(#border4-grad1)" style="opacity: 0.61" />
 			<text class="border-4-text" :x="width / 2" y="28" fill="url(#border4-grad2)">
 				{{ title }}
 			</text>
@@ -152,17 +152,17 @@
 				stroke-width="1px"
 				stroke="#1D83F2"
 				fill="rgba(23, 49, 76, 0.85)"
-			></polyline>
+			/>
 			<g fill="url(#border4-grad3)" stroke="url(#border4-grad3)">
-				<polyline :points="linePoint3" stroke-width="2px" fill="rgba(22, 81, 142, 0.12)"></polyline>
-				<polyline :points="linePoint1" stroke-width="2px" fill="none"></polyline>
-				<polyline :points="linePoint2" stroke-width="2px" fill="none"></polyline>
-				<rect width="5" height="5" :x="width / 2 - titleLength - 10" y="22.5"></rect>
-				<rect width="5" height="5" :x="width / 2 + titleLength + 10" y="22.5"></rect>
-				<rect width="5" height="5" :x="width / 2 - titleLength - 10" y="31.5"></rect>
-				<rect width="5" height="5" :x="width / 2 + titleLength + 10" y="31.5"></rect>
-				<polyline :points="squarePoints"></polyline>
-				<polyline :points="squarePoints2"></polyline>
+				<polyline :points="linePoint3" stroke-width="2px" fill="rgba(22, 81, 142, 0.12)" />
+				<polyline :points="linePoint1" stroke-width="2px" fill="none" />
+				<polyline :points="linePoint2" stroke-width="2px" fill="none" />
+				<rect width="5" height="5" :x="width / 2 - titleLength - 10" y="22.5" />
+				<rect width="5" height="5" :x="width / 2 + titleLength + 10" y="22.5" />
+				<rect width="5" height="5" :x="width / 2 - titleLength - 10" y="31.5" />
+				<rect width="5" height="5" :x="width / 2 + titleLength + 10" y="31.5" />
+				<polyline :points="squarePoints" />
+				<polyline :points="squarePoints2" />
 				<polyline :points="linePoint4" fill="none" stroke-width="2px" />
 				<rect
 					:width="width / 2 - 105 - titleLength - exw"
@@ -170,26 +170,34 @@
 					:x="width / 2 + titleLength + 65"
 					:y="height - 5"
 					stroke-width="0"
-				></rect>
+				/>
 
 				<g>
-					<rect width="1" :height="height - 284" :x="2 + exw" y="155"></rect>
-					<rect width="3" :height="10" :x="1 + exw" y="155"></rect>
-					<rect width="3" :height="10" :x="1 + exw" :y="height - 140"></rect>
-					<rect v-for="i in leftRects" width="10" height="2" :x="10 + exw" :y="163 + i * 6"></rect>
+					<rect width="1" :height="height - 284" :x="2 + exw" y="155" />
+					<rect width="3" :height="10" :x="1 + exw" y="155" />
+					<rect width="3" :height="10" :x="1 + exw" :y="height - 140" />
+					<rect
+						v-for="i in leftRects"
+						:key="i"
+						width="10"
+						height="2"
+						:x="10 + exw"
+						:y="163 + i * 6"
+					/>
 				</g>
 
 				<g>
-					<rect width="1" :height="height - 284" :x="width - 3 - exw" y="155"></rect>
-					<rect width="3" :height="10" :x="width - 4 - exw" y="155"></rect>
-					<rect width="3" :height="10" :x="width - 4 - exw" :y="height - 140"></rect>
+					<rect width="1" :height="height - 284" :x="width - 3 - exw" y="155" />
+					<rect width="3" :height="10" :x="width - 4 - exw" y="155" />
+					<rect width="3" :height="10" :x="width - 4 - exw" :y="height - 140" />
 					<rect
 						v-for="i in rightRects"
+						:key="i"
 						width="10"
 						height="2"
 						:x="width - 20 - exw"
 						:y="height - 144 - i * 6"
-					></rect>
+					/>
 				</g>
 				<g>
 					<polyline
@@ -216,16 +224,16 @@
 						stroke-width="8"
 						fill="none"
 					/>
-					<rect width="8" :height="height / 2 - 157" :x="width - 38 - exw" :y="170"></rect>
+					<rect width="8" :height="height / 2 - 157" :x="width - 38 - exw" :y="170" />
 				</g>
 			</g>
 
 			<g fill="#1affff" filter="url(#border4-grad4)">
-				<rect width="2" height="2" x="0" y="110" fill="none"></rect>
-				<circle :cx="15 + exw" cy="110" r="4" fill="#1affff"></circle>
-				<ellipse :cx="width / 2" cy="46" rx="20" ry="1" fill="#1affff"></ellipse>
-				<ellipse :cx="width / 2" :cy="height - 12" rx="20" ry="1" fill="#1affff"></ellipse>
-				<circle :cx="width - 15 - exw" :cy="height - 50" r="4" fill="#1affff"></circle>
+				<rect width="2" height="2" x="0" y="110" fill="none" />
+				<circle :cx="15 + exw" cy="110" r="4" fill="#1affff" />
+				<ellipse :cx="width / 2" cy="46" rx="20" ry="1" fill="#1affff" />
+				<ellipse :cx="width / 2" :cy="height - 12" rx="20" ry="1" fill="#1affff" />
+				<circle :cx="width - 15 - exw" :cy="height - 50" r="4" fill="#1affff" />
 			</g>
 		</svg>
 		<div class="border-box-content">

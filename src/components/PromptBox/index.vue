@@ -14,7 +14,9 @@
 		},
 		btn: {
 			type: Array,
-			default: ['确认', '取消'],
+			default() {
+				return ['确认', '取消']
+			},
 		},
 		ok: {
 			type: Function,
@@ -73,7 +75,7 @@
 				</div>
 				<div class="sd-dialog-border-body">
 					<div class="sd-closeTitle">
-						<svg-icon v-if="icon" :icon-class="icon" class-name="el-icon"></svg-icon>
+						<svg-icon v-if="icon" :icon-class="icon" class-name="el-icon" />
 						{{ message }}
 					</div>
 					<div class="sd-closeBtn">

@@ -12,8 +12,10 @@
 		},
 		chooseData: {
 			type: Object,
-			default: {
-				id: 0,
+			default: () => {
+				return {
+					id: 0,
+				}
 			},
 		},
 	})
@@ -77,8 +79,7 @@
 			:titles="['多参传感器', '关联多参传感器']"
 			:button-texts="['移除', '关联']"
 			filterable
-		>
-		</el-transfer>
+		/>
 	</dia-log>
 </template>
 

@@ -20,7 +20,7 @@
 	import { defineComponent } from 'vue'
 
 	export default defineComponent({
-		name: 'model-node-edit',
+		name: 'ModelNodeEdit',
 		mixins: [mixin],
 		props: {
 			//   编辑类型
@@ -32,6 +32,27 @@
 			planeVisible: {
 				type: Boolean,
 				default: false,
+			},
+		},
+		data() {
+			const tunnelMesh = new ITunnelMesh()
+			const loader = new GLTFLoader()
+			return {
+				tunnelMesh,
+				content: [] as unknown[][],
+				loader,
+				//   初始化相机移动位置
+				initCameraPosition: new Vector3(),
+				//   平面高度
+				planeHei: 0,
+			}
+		},
+		computed: {
+			modelData() {
+				return this.customize ? this.customizeData : threeModel().data
+			},
+			maxNodeNum() {
+				return this.customize ? this.customizeMaxNodeNum : threeModel().maxNode
 			},
 		},
 		watch: {
@@ -52,27 +73,6 @@
 				this.planeModel.position.y = val ? val : 0
 				this.$emit('planeHeight', val)
 			},
-		},
-		computed: {
-			modelData() {
-				return this.customize ? this.customizeData : threeModel().data
-			},
-			maxNodeNum() {
-				return this.customize ? this.customizeMaxNodeNum : threeModel().maxNode
-			},
-		},
-		data() {
-			const tunnelMesh = new ITunnelMesh()
-			const loader = new GLTFLoader()
-			return {
-				tunnelMesh,
-				content: [] as unknown[][],
-				loader,
-				//   初始化相机移动位置
-				initCameraPosition: new Vector3(),
-				//   平面高度
-				planeHei: 0,
-			}
 		},
 		methods: {
 			load() {

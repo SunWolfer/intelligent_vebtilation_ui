@@ -26,21 +26,22 @@
 			<el-form :model="queryParams" inline>
 				<el-form-item label="风机">
 					<el-select v-model="queryParams.devId" clearable>
-						<el-option v-for="i in fanList" :label="i.name" :value="i.id"></el-option>
+						<el-option v-for="i in fanList" :key="i.id" :label="i.name" :value="i.id" />
 					</el-select>
 				</el-form-item>
 				<el-form-item label="转速(r/min)">
 					<el-select v-model="queryParams.zhuansu" clearable>
 						<el-option
 							v-for="i in rotationalSpeedList"
+							:key="i.zhuansu"
 							:label="i.zhuansu"
 							:value="i.zhuansu"
-						></el-option>
+						/>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="叶片角度">
 					<el-select v-model="queryParams.jiaodu" clearable>
-						<el-option v-for="i in bladeAngleList" :value="i" :label="i"></el-option>
+						<el-option v-for="i in bladeAngleList" :key="i" :value="i" :label="i" />
 					</el-select>
 				</el-form-item>
 				<el-form-item>

@@ -4,7 +4,9 @@
 	defineProps({
 		dataForm: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 		playmod: {
 			type: String,

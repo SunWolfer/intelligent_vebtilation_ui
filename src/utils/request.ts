@@ -9,7 +9,7 @@ import { ElLoading, ElMessage, ElNotification } from 'element-plus'
 import { saveAs } from 'file-saver'
 
 // 是否显示重新登录
-export let isReLogin = { show: false }
+export const isReLogin = { show: false }
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // 创建axios实例

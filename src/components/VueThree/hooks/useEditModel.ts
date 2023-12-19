@@ -37,7 +37,7 @@ const useEditModel = () => {
 	function customAnimation(funList: any[]) {
 		for (let i = 0; i < funList.length; i++) {
 			if (typeof funList[i] === 'function') {
-				let animate = funList[i]
+				const animate = funList[i]
 				animate()
 			}
 		}
@@ -51,7 +51,7 @@ const useEditModel = () => {
 
 			if (point && pointBox) {
 				data.obj.position.copy(point)
-				let toRot = getQuaternion(data.obj.position, pointBox, data.obj.up)
+				const toRot = getQuaternion(data.obj.position, pointBox, data.obj.up)
 				data.obj.quaternion.slerp(toRot, 0.2)
 			}
 
@@ -63,9 +63,9 @@ const useEditModel = () => {
 	// 计算朝向
 	function getQuaternion(startPosition: Vector3, endPosition: Vector3, Tup?: Vector3) {
 		const up = Tup ?? new Vector3(0, 1, 0)
-		let offsetAngle = 0 //目标移动时的朝向偏移
+		const offsetAngle = 0 //目标移动时的朝向偏移
 		//以下代码在多段路径时可重复执行
-		let mtx = new Matrix4() //创建一个4维矩阵
+		const mtx = new Matrix4() //创建一个4维矩阵
 		mtx.lookAt(startPosition, endPosition, up) //设置朝向
 		mtx.multiply(new Matrix4().makeRotationFromEuler(new Euler(0, offsetAngle, 0)))
 		//计算出需要进行旋转的四元数值
@@ -81,11 +81,11 @@ const useEditModel = () => {
 			tension: 0, //设置线的张力，0为无弧度折线
 		} as CatmullRomCurve3,
 	) {
-		let curveList: Vector3[] = []
+		const curveList: Vector3[] = []
 		for (let i = 0; i < curvePoints.length; i++) {
 			curveList.push(new Vector3(curvePoints[i].x, curvePoints[i].y, curvePoints[i].z))
 		}
-		let curve: CatmullRomCurve3 = new CatmullRomCurve3(
+		const curve: CatmullRomCurve3 = new CatmullRomCurve3(
 			curveList,
 			parameter.closed,
 			parameter.curveType,
@@ -96,10 +96,10 @@ const useEditModel = () => {
 
 	// 添加Css2Dom
 	function addCss2DomList(labelList: LabelAttribute[], domKey = 'id') {
-		let Css2DomList: CSS2DObject[] = []
+		const Css2DomList: CSS2DObject[] = []
 		for (let i = 0; i < labelList.length; i++) {
-			let obj = labelList[i]
-			let dom: HTMLElement | null = document.getElementById(obj[domKey])
+			const obj = labelList[i]
+			const dom: HTMLElement | null = document.getElementById(obj[domKey])
 			if (!dom) return
 			const Css2Dom = new CSS2DObject(dom)
 			const { x, y, z } = obj.point
@@ -142,9 +142,9 @@ const useEditModel = () => {
 		// 水平翻转
 		geometry.rotateY(-Math.PI / 2)
 		geometry.rotateZ(-Math.PI / 2)
-		let texture = new TextureLoader().load(url)
+		const texture = new TextureLoader().load(url)
 		texture.colorSpace = SRGBColorSpace
-		let material = new MeshBasicMaterial({ map: texture, side: DoubleSide, transparent: true })
+		const material = new MeshBasicMaterial({ map: texture, side: DoubleSide, transparent: true })
 		const mesh = new Mesh(geometry, material)
 		mesh.position.copy(position)
 		const quaternion = useEditModel().getQuaternion(startPosition, endPosition)
@@ -154,7 +154,7 @@ const useEditModel = () => {
 
 	//生成平面
 	function createPlaneGeometry(points: Point[], scene: Object3D) {
-		let IMeshes: Mesh[] = []
+		const IMeshes: Mesh[] = []
 		for (let i = 0; i < points.length; i++) {
 			const c1 = points[i].points
 			const material = points[i].type === 1 ? '' : 1

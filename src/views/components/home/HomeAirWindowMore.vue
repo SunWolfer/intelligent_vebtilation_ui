@@ -52,7 +52,7 @@
 		<div class="air_more_body">
 			<div class="air_more_body_title">DI</div>
 			<div class="air_more_body_row">
-				<template v-for="i in DIList">
+				<template v-for="(i, index) in DIList" :key="'di' + index">
 					<div class="air_more_body_item">
 						<div class="air_more_body_item_line">
 							{{ i.diNum }}:<span :class="i.warnType === '预警' ? 'warn_text' : 'normal_text'">{{
@@ -66,7 +66,7 @@
 
 			<div class="air_more_body_title">AI</div>
 			<div class="air_more_body_row">
-				<template v-for="i in AIList">
+				<template v-for="(i, index) in AIList" :key="'ai' + index">
 					<div class="air_more_body_item" style="grid-template-rows: repeat(3, 1fr)">
 						<div class="air_more_body_item_line">
 							{{ i.aiNum }}:<span :class="i.warnType === '预警' ? 'warn_text' : 'normal_text'">{{

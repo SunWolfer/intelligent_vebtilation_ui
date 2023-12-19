@@ -1,4 +1,5 @@
 <script setup lang="ts">
+	import { useVModel } from '@vueuse/core'
 	interface IData {
 		gridArea: any
 		bodyClass?: string
@@ -12,11 +13,14 @@
 		dataList: IData[]
 	}
 
-	defineProps<ITableItem>()
+	const props = withDefaults(defineProps<ITableItem>(), {})
+	const emit = defineEmits(['update:dataForm'])
+
+	const uDataForm = useVModel(props, 'dataForm', emit)
 </script>
 
 <template>
-	<template v-for="i in dataList">
+	<template v-for="i in dataList" :key="i.formKey">
 		<div
 			v-if="i.isHtml"
 			:class="i.bodyClass ?? ''"
@@ -28,7 +32,7 @@
 			:class="i.bodyClass ?? 'table_item_body'"
 			:style="{ 'grid-area': i.gridArea }"
 		>
-			<el-input v-model="dataForm[i.formKey]" />
+			<el-input v-model="uDataForm[i.formKey]" />
 		</div>
 	</template>
 </template>

@@ -190,7 +190,7 @@
 		<div class="ven_sys_sensor" v-if="bindSensorVisible">
 			<border-box name="border3">
 				<div class="ven_sys_sensor_body fullDom">
-					<template v-for="item in equipmentTypeList">
+					<template v-for="(item, index) in equipmentTypeList" :key="index">
 						<div
 							@click="chooseSensorType(item)"
 							class="c-center"
@@ -203,7 +203,7 @@
 						<el-form :model="dataForm">
 							<el-form-item :label="sensorLabel">
 								<el-select v-model="dataForm.devId" clearable>
-									<el-option v-for="i in sensorList" :label="i.name" :value="i.id"></el-option>
+									<el-option v-for="i in sensorList" :key="i.id" :label="i.name" :value="i.id" />
 								</el-select>
 							</el-form-item>
 						</el-form>
@@ -253,21 +253,32 @@
 							</el-form-item>
 							<el-form-item label="巷道形状">
 								<el-select v-model="tunnelForm.ventShape" clearable>
-									<el-option v-for="i in vent_shape" :label="i.label" :value="i.value"></el-option>
+									<el-option
+										v-for="i in vent_shape"
+										:key="i.value"
+										:label="i.label"
+										:value="i.value"
+									/>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="巷道支护类型">
 								<el-select v-model="tunnelForm.shoreType" clearable>
-									<el-option v-for="i in shore_type" :label="i.label" :value="i.value"></el-option>
+									<el-option
+										v-for="i in shore_type"
+										:key="i.value"
+										:label="i.label"
+										:value="i.value"
+									/>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="进回风类型">
 								<el-select v-model="tunnelForm.venAirDirection" clearable>
 									<el-option
 										v-for="i in ven_air_direction"
+										:key="i.value"
 										:label="i.label"
 										:value="i.value"
-									></el-option>
+									/>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="起始高程(m)">
@@ -280,34 +291,60 @@
 								<el-select v-model="tunnelForm.needCalType" clearable>
 									<el-option
 										v-for="i in need_cal_type"
+										:key="i.value"
 										:label="i.label"
 										:value="i.value"
-									></el-option>
+									/>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="是否显示风流方向">
 								<el-select v-model="tunnelForm.directionShow" clearable>
-									<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+									<el-option
+										v-for="i in confirmList"
+										:key="i.value"
+										:label="i.label"
+										:value="i.value"
+									/>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="是否有密闭墙">
 								<el-select v-model="tunnelForm.wallExists" clearable>
-									<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+									<el-option
+										v-for="i in confirmList"
+										:key="i.value"
+										:label="i.label"
+										:value="i.value"
+									/>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="是否连通地面">
 								<el-select v-model="tunnelForm.groundFlag" clearable>
-									<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+									<el-option
+										v-for="i in confirmList"
+										:key="i.value"
+										:label="i.label"
+										:value="i.value"
+									/>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="是否显示巷道名称">
 								<el-select v-model="tunnelForm.roadNameShow" clearable>
-									<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+									<el-option
+										v-for="i in confirmList"
+										:key="i.value"
+										:label="i.label"
+										:value="i.value"
+									/>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="是否显示风量标签">
 								<el-select v-model="tunnelForm.modelWindShow" clearable>
-									<el-option v-for="i in confirmList" :label="i.label" :value="i.value"></el-option>
+									<el-option
+										v-for="i in confirmList"
+										:key="i.value"
+										:label="i.label"
+										:value="i.value"
+									/>
 								</el-select>
 							</el-form-item>
 						</el-form>
@@ -346,14 +383,20 @@
 								<el-select v-model="tunnelForm.windMapRegion" clearable>
 									<el-option
 										v-for="i in regionList"
+										:key="i.value"
 										:label="i.region"
 										:value="i.region"
-									></el-option>
+									/>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="风阻测定来源">
 								<el-select v-model="tunnelForm.ventSource">
-									<el-option v-for="i in vent_source" :label="i.label" :value="i.value"></el-option>
+									<el-option
+										v-for="i in vent_source"
+										:key="i.value"
+										:label="i.label"
+										:value="i.value"
+									/>
 								</el-select>
 							</el-form-item>
 							<el-form-item label="人工测定风阻时间">

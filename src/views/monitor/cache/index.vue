@@ -121,7 +121,7 @@
 				<el-card>
 					<template #header><span>命令统计</span></template>
 					<div class="el-table el-table--enable-row-hover el-table--medium">
-						<div ref="commandstats" style="height: 420px" />
+						<div ref="commandstats" style="height: 420px"></div>
 					</div>
 				</el-card>
 			</el-col>
@@ -132,7 +132,7 @@
 						<span>内存信息</span>
 					</template>
 					<div class="el-table el-table--enable-row-hover el-table--medium">
-						<div ref="usedmemory" style="height: 420px" />
+						<div ref="usedmemory" style="height: 420px"></div>
 					</div>
 				</el-card>
 			</el-col>

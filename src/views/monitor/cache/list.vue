@@ -11,7 +11,7 @@
 							link
 							icon="Refresh"
 							@click="refreshCacheNames()"
-						></el-button>
+						/>
 					</template>
 					<el-table
 						v-loading="loading"
@@ -21,7 +21,7 @@
 						@row-click="getCacheKeys"
 						style="width: 100%"
 					>
-						<el-table-column label="序号" width="60" type="index"></el-table-column>
+						<el-table-column label="序号" width="60" type="index" />
 
 						<el-table-column
 							label="缓存名称"
@@ -29,7 +29,7 @@
 							prop="cacheName"
 							:show-overflow-tooltip="true"
 							:formatter="nameFormatter"
-						></el-table-column>
+						/>
 
 						<el-table-column
 							label="备注"
@@ -49,7 +49,7 @@
 									link
 									icon="Delete"
 									@click="handleClearCacheName(scope.row)"
-								></el-button>
+								/>
 							</template>
 						</el-table-column>
 					</el-table>
@@ -66,7 +66,7 @@
 							link
 							icon="Refresh"
 							@click="refreshCacheKeys()"
-						></el-button>
+						/>
 					</template>
 					<el-table
 						v-loading="subLoading"
@@ -76,14 +76,13 @@
 						@row-click="handleCacheValue"
 						style="width: 100%"
 					>
-						<el-table-column label="序号" width="60" type="index"></el-table-column>
+						<el-table-column label="序号" width="60" type="index" />
 						<el-table-column
 							label="缓存键名"
 							align="center"
 							:show-overflow-tooltip="true"
 							:formatter="keyFormatter"
-						>
-						</el-table-column>
+						/>
 						<el-table-column
 							label="操作"
 							width="60"
@@ -96,7 +95,7 @@
 									link
 									icon="Delete"
 									@click="handleClearCacheKey(scope.row)"
-								></el-button>
+								/>
 							</template>
 						</el-table-column>
 					</el-table>

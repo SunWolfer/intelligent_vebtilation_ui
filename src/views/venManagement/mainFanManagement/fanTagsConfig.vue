@@ -16,7 +16,9 @@
 		},
 		chooseRow: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 		fanType: {
 			type: String,
@@ -126,7 +128,12 @@
 				>
 					<template #default="scope">
 						<el-select disabled v-model="scope.row.devAs" clearable>
-							<el-option v-for="i in dev_as_type" :label="i.label" :value="i.value"></el-option>
+							<el-option
+								v-for="i in dev_as_type"
+								:key="i.value"
+								:label="i.label"
+								:value="i.value"
+							/>
 						</el-select>
 					</template>
 				</el-table-column>
@@ -141,9 +148,10 @@
 						<el-select disabled v-model="scope.row.electricMachine" clearable>
 							<el-option
 								v-for="i in electric_machine_type"
+								:key="i.value"
 								:label="i.label"
 								:value="i.value"
-							></el-option>
+							/>
 						</el-select>
 					</template>
 				</el-table-column>

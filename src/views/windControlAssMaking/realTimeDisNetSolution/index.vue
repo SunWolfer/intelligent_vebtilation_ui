@@ -67,7 +67,7 @@
 		<div class="real_time_body_bottom">
 			<div class="real_time_body_bottom_body">
 				<div class="real_time_body_bottom_body_title">
-					<border-box name="border2" title="实时解算"></border-box>
+					<border-box name="border2" title="实时解算" />
 				</div>
 				<div class="real_time_body_bottom_center">
 					<div class="real_time_body_bottom_center_left">
@@ -109,12 +109,8 @@
 						highlight-current-row
 						@row-click="getSelectionRows"
 					>
-						<el-table-column label="巷道" align="center" prop="name"></el-table-column>
-						<el-table-column
-							label="解算风量(m³/min)"
-							align="center"
-							prop="airVolume"
-						></el-table-column>
+						<el-table-column label="巷道" align="center" prop="name" />
+						<el-table-column label="解算风量(m³/min)" align="center" prop="airVolume" />
 						<el-table-column label="实时风量(m³/min)" align="center" prop="windSensorAirVolume">
 							<template #default="scope">
 								<span class="full_table_cell_bg" :class="cellStyle(scope.row.calSensorDeviation)">{{
@@ -129,34 +125,14 @@
 								}}</span>
 							</template>
 						</el-table-column>
-						<el-table-column label="目标风量(m³/min)" align="center" prop="minQ"></el-table-column>
-						<el-table-column
-							label="解算/设备误差率(%)"
-							align="center"
-							prop="calSensorDeviation"
-						></el-table-column>
-						<el-table-column
-							label="解算/人工误差率(%)"
-							align="center"
-							prop="calPersonDeviation"
-						></el-table-column>
-						<el-table-column
-							label="解算风速(m/s)"
-							align="center"
-							prop="windSpeed"
-						></el-table-column>
-						<el-table-column label="风阻" align="center" prop="ventR"></el-table-column>
-						<el-table-column
-							label="解算风压(Pa)"
-							align="center"
-							prop="airPressure"
-						></el-table-column>
-						<el-table-column label="解算时间" align="center" prop="calculateTime"></el-table-column>
-						<el-table-column
-							label="人工实测时间"
-							align="center"
-							prop="personQTime"
-						></el-table-column>
+						<el-table-column label="目标风量(m³/min)" align="center" prop="minQ" />
+						<el-table-column label="解算/设备误差率(%)" align="center" prop="calSensorDeviation" />
+						<el-table-column label="解算/人工误差率(%)" align="center" prop="calPersonDeviation" />
+						<el-table-column label="解算风速(m/s)" align="center" prop="windSpeed" />
+						<el-table-column label="风阻" align="center" prop="ventR" />
+						<el-table-column label="解算风压(Pa)" align="center" prop="airPressure" />
+						<el-table-column label="解算时间" align="center" prop="calculateTime" />
+						<el-table-column label="人工实测时间" align="center" prop="personQTime" />
 					</el-table>
 				</div>
 			</div>

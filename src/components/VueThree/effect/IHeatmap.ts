@@ -46,10 +46,10 @@ export class IHeatmap {
 				pointData.heatmapWidth,
 				pointData.heatmapHeight,
 			)
-			let heatmapInstance = h337.create(pointData.instanceConfig)
+			const heatmapInstance = h337.create(pointData.instanceConfig)
 			heatmapInstance.setData(pointData.pointData)
 			this.heatmapInstances.push(heatmapInstance)
-			let imgUrl = heatmapInstance.getDataURL()
+			const imgUrl = heatmapInstance.getDataURL()
 
 			const position = getCenterPoint(pointData.startPosition, pointData.endPosition)
 
@@ -77,7 +77,7 @@ export class IHeatmap {
 		this.wrapper.add(this.imgGroup)
 	}
 	createdHeatmapDom(width: number, height: number) {
-		let element = document.createElement('div')
+		const element = document.createElement('div')
 		element.style.width = width + 'px'
 		element.style.height = height + 'px'
 		element.style.display = 'none'

@@ -11,7 +11,9 @@
 		// 解算列表
 		dataList: {
 			type: Array,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 		// 显示风路分支图
 		showWindBranch: {
@@ -21,7 +23,9 @@
 		// 风路分支图列表
 		windBranchList: {
 			type: Array,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 		// 显示通风网络图
 		showVentilationNetwork: {
@@ -134,7 +138,7 @@
 										class="fullDom"
 										:style="{ backgroundColor: scope.row?.isFixed ? '#87B827' : 'transparent' }"
 									>
-										<span style="color: #ffffff">
+										<span style="color: #fff">
 											{{ scope.row.name }}
 										</span>
 									</div>
@@ -150,8 +154,7 @@
 									>
 								</template>
 							</el-table-column>
-							<el-table-column label="实时风量(m³/min)" align="center" prop="windSensorAirVolume">
-							</el-table-column>
+							<el-table-column label="实时风量(m³/min)" align="center" prop="windSensorAirVolume" />
 							<el-table-column label="目标风量(m³/min)" align="center" prop="minQ" />
 							<el-table-column label="人工实测风量(m³/min)" align="center" prop="personQ" />
 							<el-table-column label="解算风速(m/s)" align="center" prop="windSpeed" />

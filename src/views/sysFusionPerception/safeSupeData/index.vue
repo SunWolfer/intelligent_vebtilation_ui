@@ -78,7 +78,7 @@
 				</el-form-item>
 				<el-form-item label="点位类型">
 					<el-select v-model="queryParams.type" clearable>
-						<el-option v-for="i in typeList" :label="i.typeName" :value="i.type"></el-option>
+						<el-option v-for="i in typeList" :key="i.type" :label="i.typeName" :value="i.type" />
 					</el-select>
 				</el-form-item>
 				<el-form-item>
@@ -88,7 +88,7 @@
 		</div>
 
 		<div class="safe_data_body_center">
-			<template v-for="item in dataList">
+			<template v-for="(item, dataIndex) in dataList" :key="'data' + dataIndex">
 				<border-box name="border1">
 					<div class="safe_data_table_item">
 						<div

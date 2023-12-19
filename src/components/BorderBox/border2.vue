@@ -45,7 +45,7 @@
 				stroke-width="1"
 				fill="none"
 				filter="url(#border-box-2-filterId)"
-			></polyline>
+			/>
 			<text class="border-box-2-title" x="0" :y="textPosition" fill="#ffffff">
 				{{ title }}
 			</text>

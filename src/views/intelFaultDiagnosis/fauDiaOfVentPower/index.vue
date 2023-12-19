@@ -37,9 +37,10 @@
 					<el-select v-model="queryParams.devType" clearable>
 						<el-option
 							v-for="i in devTypeList"
+							:key="i.dictValue"
 							:label="i.dictLabel"
 							:value="i.dictValue"
-						></el-option>
+						/>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="预警设备">
@@ -47,7 +48,7 @@
 				</el-form-item>
 				<el-form-item label="预警类型">
 					<el-select v-model="queryParams.yjlx" clearable>
-						<el-option v-for="i in YJLXList" :label="i.yjmc" :value="i.yjlx"></el-option>
+						<el-option v-for="i in YJLXList" :key="i.yjlx" :label="i.yjmc" :value="i.yjlx" />
 					</el-select>
 				</el-form-item>
 				<el-form-item label="时间区间">

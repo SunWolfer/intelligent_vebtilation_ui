@@ -12,12 +12,12 @@
 			:customize-data="customizeData"
 			:customize-max-node-num="maxNodeNum"
 			@load="onLoad"
-			@onModel="onModel"
-			@onClick="onClick"
-			@onDblclick="dblclick"
+			@on-model="onModel"
+			@on-click="onClick"
+			@on-dblclick="dblclick"
 		>
 			<template #label v-if="isReady">
-				<div v-for="i in labelList" :id="i.id" class="label_bg">
+				<div v-for="i in labelList" :id="i.id" class="label_bg" :key="i.id">
 					<EnvLabel :data="i" />
 				</div>
 			</template>
@@ -40,11 +40,15 @@
 		},
 		cloudDataList: {
 			type: Array as PropType<pointConfig[]>,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 		labelList: {
 			type: Array as PropType<LabelAttribute[]>,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 	})
 	watch(

@@ -5,8 +5,10 @@
 	const props = defineProps({
 		chooseRow: {
 			type: Object,
-			default: {
-				id: undefined,
+			default: () => {
+				return {
+					id: undefined,
+				}
 			},
 		},
 		modelValue: {
@@ -15,11 +17,15 @@
 		},
 		triggerTypeList: {
 			type: Array,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 		detailTypeList: {
 			type: Array,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 	})
 	const emits = defineEmits(['update:modelValue', 'refresh'])
@@ -77,21 +83,22 @@
 			<div class="aux_add_update_line">
 				<el-form-item label="触发点类型" prop="triggerType">
 					<el-select v-model="dataForm.triggerType" clearable @change="changeQueryTriggerType">
-						<el-option v-for="i in triggerTypeList" :label="i.name" :value="i.code"></el-option>
+						<el-option v-for="i in triggerTypeList" :key="i.code" :label="i.name" :value="i.code" />
 					</el-select>
 				</el-form-item>
 				<el-form-item label="触发点位" prop="triggerPointCode">
 					<el-select v-model="dataForm.triggerPointCode" clearable @change="changeParam">
-						<el-option v-for="i in queryParamList" :label="i.name" :value="i.code" />
+						<el-option v-for="i in queryParamList" :key="i.code" :label="i.name" :value="i.code" />
 					</el-select>
 				</el-form-item>
 				<el-form-item label="触发条件" prop="triggerConditions">
 					<el-select v-model="dataForm.triggerConditions" clearable>
 						<el-option
 							v-for="i in trigger_conditions"
+							:key="i.value"
 							:label="i.label"
 							:value="i.value"
-						></el-option>
+						/>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="触发值" prop="triggerValue">
@@ -107,7 +114,12 @@
 				<el-table-column label="动作设备类型" align="center" prop="devType">
 					<template #default="scoped">
 						<el-select v-model="scoped.row.devType" clearable @change="changeDevType(scoped.row)">
-							<el-option v-for="i in detailTypeList" :label="i.name" :value="i.code" />
+							<el-option
+								v-for="i in detailTypeList"
+								:key="i.code"
+								:label="i.name"
+								:value="i.code"
+							/>
 						</el-select>
 					</template>
 				</el-table-column>
@@ -116,9 +128,10 @@
 						<el-select v-model="scoped.row.actionType" clearable>
 							<el-option
 								v-for="i in scoped.row.actionTypeList"
+								:key="i.value"
 								:label="i.label"
 								:value="i.value"
-							></el-option>
+							/>
 						</el-select>
 					</template>
 				</el-table-column>
@@ -127,16 +140,17 @@
 						<el-select v-model="scoped.row.devId" clearable>
 							<el-option
 								v-for="i in scoped.row.devList"
+								:key="i.code"
 								:label="i.name"
 								:value="i.code"
-							></el-option>
+							/>
 						</el-select>
 						<el-select
 							v-if="scoped.row.devType === deviceTypes.DOOR"
 							v-model="scoped.row.doorName"
 							clearable
 						>
-							<el-option v-for="i in doorType" :label="i.label" :value="i.value"></el-option>
+							<el-option v-for="i in doorType" :key="i.value" :label="i.label" :value="i.value" />
 						</el-select>
 					</template>
 				</el-table-column>
@@ -145,9 +159,10 @@
 						<el-select v-model="scoped.row.actionDirection" clearable>
 							<el-option
 								v-for="i in scoped.row.actionDirectionList"
+								:key="i.value"
 								:label="i.label"
 								:value="i.value"
-							></el-option>
+							/>
 						</el-select>
 					</template>
 				</el-table-column>

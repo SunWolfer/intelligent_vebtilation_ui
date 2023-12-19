@@ -1,6 +1,7 @@
 import { addResizeListener, removeResizeListener } from '@/utils/border-box/resize-event'
-import { debounce, deepCopy, deepMerge } from '@/utils/border-box/util'
+import { deepCopy, deepMerge } from '@/utils/border-box/util'
 import { ComputedRef, Ref } from 'vue'
+import { useDebounceFn } from '@vueuse/core'
 
 export function useAutoResize(afterResizeFun?: () => void) {
 	const domRef = ref(null) // dorm容器，默认设置为domRef
@@ -27,7 +28,7 @@ export function useAutoResize(afterResizeFun?: () => void) {
 
 	onMounted(() => {
 		resize()
-		__resizeHandler = debounce(resize, 100)
+		__resizeHandler = useDebounceFn(resize, 100)
 		addResizeListener(domRef.value, __resizeHandler)
 	})
 	onBeforeUnmount(() => {
@@ -88,7 +89,7 @@ export function getPath(Point: ComputedRef<number[][]> | Ref<number[][]>) {
 	return computed(() => {
 		let path = ''
 		for (let i = 0; i < Point.value.length; i++) {
-			let item = Point.value[i]
+			const item = Point.value[i]
 			if (i === 0) path += 'M' + item.join(' ')
 			path += ' L' + item.join(' ')
 		}
@@ -100,7 +101,7 @@ export function getPathNZ(Point: ComputedRef<number[][]> | Ref<number[][]>) {
 	return computed(() => {
 		let path = ''
 		for (let i = 0; i < Point.value.length; i++) {
-			let item = Point.value[i]
+			const item = Point.value[i]
 			if (i === 0) {
 				path += 'M' + item.join(' ')
 			} else {

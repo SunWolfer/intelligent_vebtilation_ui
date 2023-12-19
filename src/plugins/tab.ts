@@ -48,7 +48,7 @@ export default {
 	},
 	// 添加tab页签
 	openPage(title: string, url: string) {
-		let obj: any = { path: url, meta: { title: title } }
+		const obj: any = { path: url, meta: { title: title } }
 		useTagsViewStore().addView(obj)
 		return router.push(url)
 	},

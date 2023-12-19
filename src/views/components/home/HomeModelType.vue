@@ -39,7 +39,7 @@
 
 <template>
 	<div class="home_model_type" :style="domStyle">
-		<div v-for="i in typeList" class="home_model_type_item">
+		<div v-for="i in typeList" :key="i.label" class="home_model_type_item">
 			<span
 				class="pointer"
 				:class="modelType === i.value ? 'text_active' : 'text_default'"

@@ -32,7 +32,7 @@
 	<div class="acc_body">
 		<div class="acc_body_icon_1" v-show="showLast" @click="toLast"></div>
 		<div class="acc_body_top">
-			<template v-for="(i, index) in inShowList">
+			<template v-for="(i, index) in inShowList" :key="i.id">
 				<border-box
 					name="border1"
 					:color="choose === index ? choose_color : default_color"
@@ -98,7 +98,7 @@
 		</div>
 		<div class="acc_body_icon_2" v-show="showNext" @click="toNext"></div>
 		<div class="acc_body_bottom">
-			<border-box name="border2" title="风量趋势分析"></border-box>
+			<border-box name="border2" title="风量趋势分析" />
 			<el-form v-show="choose !== -1" :model="queryForm" inline style="margin-left: 50px">
 				<el-form-item label="时间区间：">
 					<el-date-picker
@@ -110,7 +110,7 @@
 						start-placeholder="开始日期"
 						end-placeholder="结束日期"
 						prefix-icon="Calendar"
-					></el-date-picker>
+					/>
 				</el-form-item>
 				<el-form-item>
 					<div class="normal_btn" @click="initChart">查询</div>

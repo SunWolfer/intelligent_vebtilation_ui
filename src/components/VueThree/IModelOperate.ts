@@ -75,7 +75,7 @@ export class OperateModel {
 		this.slotLabelList = []
 		this.slotLabelList = []
 
-		let Css2DomList = addCss2DomList(labelList, domKey)
+		const Css2DomList = addCss2DomList(labelList, domKey)
 		if (!Css2DomList?.length) return
 		this.slotLabelList.push(...Css2DomList)
 		IObj.add(...Css2DomList)
@@ -89,7 +89,7 @@ export class OperateModel {
 		this.wrapper.remove(...this.otherLabelList)
 		this.otherLabelList = []
 		if (!labelList?.length) return
-		let Css2DomList = addCss2DomList(labelList)
+		const Css2DomList = addCss2DomList(labelList)
 		if (!Css2DomList?.length) return
 		this.otherLabelList.push(...Css2DomList)
 		this.wrapper.add(...Css2DomList)
@@ -99,7 +99,7 @@ export class OperateModel {
 		this.wrapper.remove(...this.temporaryLabelList)
 		this.temporaryLabelList = []
 		if (!labelList.length) return
-		let Css2DomList = addCss2DomList(labelList)
+		const Css2DomList = addCss2DomList(labelList)
 		if (!Css2DomList?.length) return
 		this.temporaryLabelList.push(...Css2DomList)
 		this.wrapper.add(...Css2DomList)
@@ -143,8 +143,7 @@ export class OperateModel {
 	}
 	// 相机轨迹移动
 	traMovement(position: ICoordinates, lookAt: ICoordinates, time = 1, nextTick = () => {}) {
-		const { camera, controls }: any = this
-		gsap.to(camera.position, {
+		gsap.to(this.camera.position, {
 			x: position.x,
 			y: position.y,
 			z: position.z,
@@ -155,7 +154,7 @@ export class OperateModel {
 				nextTick()
 			},
 		})
-		gsap.to(controls.target, {
+		gsap.to(this.controls.target, {
 			x: lookAt.x,
 			y: lookAt.y,
 			z: lookAt.z,
@@ -169,14 +168,14 @@ export class OperateModel {
 		for (let i = 0; i < fontDataList.length; i++) {
 			const font = fontDataList[i]
 			if (font.text.length === 2) return
-			let fontData: IFontType = {
+			const fontData: IFontType = {
 				...font,
 				position: new Vector3(0, 0, 0),
 				quaternion: new Vector3(0, 0, 0),
 			}
 			this.object.traverse((child: any) => {
 				if (child.name === font.parent) {
-					let chooseChild = child.isGroup ? child.children[0] : child
+					const chooseChild = child.isGroup ? child.children[0] : child
 					fontData.position = chooseChild.position
 					fontData.quaternion = chooseChild.quaternion
 				}
@@ -189,7 +188,7 @@ export class OperateModel {
 	// 创建图片贴图
 	createdImgPlane() {
 		const threeModelData: IModelNode[] = threeModel().data
-		let imgGroup = new Group()
+		const imgGroup = new Group()
 		for (let i = 0; i < threeModelData.length; i++) {
 			const child = threeModelData[i]
 			if (child.imgUrl && child.nodePosition && child.nextNodePosition && child.imgSize) {

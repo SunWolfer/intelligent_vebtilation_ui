@@ -97,7 +97,7 @@
 	<div class="cal_air_body">
 		<div class="cal_air_body_top">
 			<div class="cal_air_body_top_left">
-				<template v-for="i in tabs">
+				<template v-for="i in tabs" :key="i.domType">
 					<div
 						:class="i.domType === chooseDom ? 'cal_air_btn_1_active' : 'cal_air_btn_1'"
 						@click="changeChooseDom(i.domType)"
@@ -110,9 +110,9 @@
 				<component
 					:is="loadDom"
 					:chooseRow="chooseRow"
-					@changeTunnel="changeTunnel"
-					@clearRow="clearRow"
-				></component>
+					@change-tunnel="changeTunnel"
+					@clear-row="clearRow"
+				/>
 			</div>
 		</div>
 		<div class="cal_air_body_center">配风巷道</div>

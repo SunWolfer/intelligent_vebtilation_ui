@@ -75,12 +75,11 @@
 			:controlsOptions="controlsOptions"
 			:choose-group="true"
 			@load="onLoad"
-			@onModel="onModel"
-			@onClick="onClick"
-			@onDblclick="dblclick"
+			@on-model="onModel"
+			@on-click="onClick"
+			@on-dblclick="dblclick"
 			@ready-camera="readyCamera"
-		>
-		</model-generation>
+		/>
 		<!--    模式切换-->
 		<HomeModelType :top="40" :right="40" />
 	</div>

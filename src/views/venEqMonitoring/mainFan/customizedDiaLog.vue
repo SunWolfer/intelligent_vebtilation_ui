@@ -109,9 +109,9 @@
 					</div>
 					<div class="dia_body_body_table_body">
 						<div class="dia_body_body_table_body_item">
-							<template v-for="i in fanCustomizedOneParams">
+							<template v-for="i in fanCustomizedOneParams" :key="i.orderNum">
 								<span>{{ i.propertyName }}</span>
-								<el-checkbox true-label="0" false-label="1" v-model="i.showFlag"></el-checkbox>
+								<el-checkbox true-label="0" false-label="1" v-model="i.showFlag" />
 								<el-input v-model="i.orderNum" />
 							</template>
 						</div>
@@ -136,9 +136,9 @@
 					</div>
 					<div class="dia_body_body_table_body">
 						<div class="dia_body_body_table_body_item">
-							<template v-for="i in fanCustomizedTwoParams">
+							<template v-for="i in fanCustomizedTwoParams" :key="i.orderNum">
 								<span>{{ i.propertyName }}</span>
-								<el-checkbox true-label="0" false-label="1" v-model="i.showFlag"></el-checkbox>
+								<el-checkbox true-label="0" false-label="1" v-model="i.showFlag" />
 								<el-input v-model="i.orderNum" />
 							</template>
 						</div>

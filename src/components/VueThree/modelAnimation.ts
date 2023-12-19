@@ -18,10 +18,10 @@ export class ModelAnimation {
 		this.renderAnimation()
 	}
 	_initList() {
-		let modList:any[] = []
-		this.object.traverse(childObj => {
+		const modList: any[] = []
+		this.object.traverse((childObj) => {
 			for (let j = 0; j < childObj.animations.length; j++) {
-				let obj = childObj.animations[j]
+				const obj = childObj.animations[j]
 				const animation = this.mixer.clipAction(obj) // 返回动画操作对象
 				animation.timeScale = 1 // 设置动画播放速度
 				modList.push({
@@ -43,7 +43,7 @@ export class ModelAnimation {
 	_playCartoon(playName = '', isOnce = false, stopOther = true) {
 		// 播放动画
 		if (!playName) {
-			for (let argument of this.cartoonList) {
+			for (const argument of this.cartoonList) {
 				argument.value.play()
 				argument.value.paused = false
 			}
@@ -128,7 +128,7 @@ export class ModelAnimation {
 	}
 	renderAnimation() {
 		this.animationReqId = requestAnimationFrame(this.renderAnimation.bind(this))
-		let time = this.clock.getDelta()
+		const time = this.clock.getDelta()
 		if (this.mixer) {
 			this.mixer.update(time)
 		}

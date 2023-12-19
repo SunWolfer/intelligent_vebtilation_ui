@@ -35,3 +35,20 @@ export enum deviceTypes {
 	LOCALFAN = 'localfan',
 	All = 'all',
 }
+//风门类型
+export enum DoorTypes {
+	// 无压风门
+	nonPressureDamper = '1',
+	// 调节风门
+	adjustingTheAirDamper = '2',
+}
+//风门版本
+export enum DoorVersion {
+	oldVersion = 'V0.1',
+	newVersion = 'V1.0',
+}
+//风门上风窗个数
+export enum DoorWindowTypes {
+	one = '1',
+	two = '2',
+}

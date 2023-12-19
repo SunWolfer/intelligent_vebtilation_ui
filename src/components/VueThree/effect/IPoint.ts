@@ -48,7 +48,7 @@ const usePoint = () => {
 	}
 	// 获取夹角,返回的是弧度
 	function getRadian(v1: ICoordinates, v2: ICoordinates) {
-		let m1 = getMod(v1),
+		const m1 = getMod(v1),
 			m2 = getMod(v2)
 		if (m1 == 0 || m2 == 0) {
 			return 0

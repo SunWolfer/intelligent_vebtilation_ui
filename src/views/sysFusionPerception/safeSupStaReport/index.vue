@@ -51,12 +51,12 @@
 		<el-form :model="queryParams" inline>
 			<el-form-item label="统计类型">
 				<el-select v-model="queryParams.reportType" clearable>
-					<el-option v-for="i in report_type" :label="i.label" :value="i.value"></el-option>
+					<el-option v-for="i in report_type" :key="i.value" :label="i.label" :value="i.value" />
 				</el-select>
 			</el-form-item>
 			<el-form-item label="设备类型">
 				<el-select v-model="queryParams.type" clearable>
-					<el-option v-for="i in typeList" :label="i.typeName" :value="i.type"></el-option>
+					<el-option v-for="i in typeList" :key="i.type" :label="i.typeName" :value="i.type" />
 				</el-select>
 			</el-form-item>
 			<el-form-item label="日期：">
@@ -67,7 +67,7 @@
 					type="date"
 					placeholder="选择日期"
 					prefix-icon="Calendar"
-				></el-date-picker>
+				/>
 				<el-date-picker
 					v-model="dateRange"
 					v-else
@@ -75,7 +75,7 @@
 					type="month"
 					placeholder="选择日期"
 					prefix-icon="Calendar"
-				></el-date-picker>
+				/>
 			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">查询</div>

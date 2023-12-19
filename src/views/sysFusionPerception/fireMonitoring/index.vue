@@ -26,13 +26,13 @@
 				<el-form :model="dataForm1">
 					<el-form-item label="区域">
 						<el-select v-model="dataForm1.code" clearable>
-							<el-option v-for="i in tubeDataList" :label="i.name" :value="i.code"></el-option>
+							<el-option v-for="i in tubeDataList" :key="i.code" :label="i.name" :value="i.code" />
 						</el-select>
 					</el-form-item>
 				</el-form>
 			</div>
 			<div class="fire_left_l2">
-				<template v-for="item in beamTubeMonitoringData">
+				<template v-for="(item, beamIndex) in beamTubeMonitoringData" :key="'beam' + beamIndex">
 					<div class="fire_left_l2_item">
 						<div class="fire-text">{{ item.value }}</div>
 						<span>{{ item.label }}</span>
@@ -71,13 +71,18 @@
 				<el-form :model="dataForm2">
 					<el-form-item label="通道">
 						<el-select v-model="dataForm2.channel" clearable>
-							<el-option v-for="i in optList" :label="i.channel" :value="i.channel"></el-option>
+							<el-option
+								v-for="i in optList"
+								:key="i.channel"
+								:label="i.channel"
+								:value="i.channel"
+							/>
 						</el-select>
 					</el-form-item>
 				</el-form>
 			</div>
 			<div class="fire_right_l2">
-				<template v-for="item in optFibTemMeaList">
+				<template v-for="(item, optIndex) in optFibTemMeaList" :key="'opt' + optIndex">
 					<div class="fire_right_l2_item">
 						<div class="fire_right_l2_item_label">{{ item.label }}</div>
 						<div class="fire_right_l2_item_value">{{ item.value }}</div>

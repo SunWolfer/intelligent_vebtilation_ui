@@ -485,7 +485,7 @@
 				</el-button>
 			</div>
 			<div class="dia_voice_body">
-				<template v-for="item in controlRegisterList">
+				<template v-for="(item, itemIndex) in controlRegisterList" :key="itemIndex">
 					<div class="dia_voice_body_item">
 						<div class="dia_voice_body_item_line">
 							<span>{{ item.label }}</span>
@@ -499,11 +499,11 @@
 										:key="i.value"
 										:label="i.label"
 										:value="i.value"
-									></el-option>
+									/>
 								</el-select>
 							</template>
 							<template v-else-if="item.type === 'input'">
-								<el-input v-model="controlRegisterForm[item.key]"></el-input>
+								<el-input v-model="controlRegisterForm[item.key]" />
 							</template>
 						</div>
 					</div>

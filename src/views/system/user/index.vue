@@ -60,7 +60,7 @@
 						range-separator="-"
 						start-placeholder="开始日期"
 						end-placeholder="结束日期"
-					></el-date-picker>
+					/>
 				</el-form-item>
 				<el-form-item>
 					<el-button class="ordinary-btn" type="primary" icon="Search" @click="handleQuery"
@@ -161,7 +161,7 @@
 							active-value="0"
 							inactive-value="1"
 							@change="handleStatusChange(scope.row)"
-						></el-switch>
+						/>
 					</template>
 				</el-table-column>
 				<el-table-column label="创建时间" align="center" prop="createTime" :min-width="120">
@@ -183,7 +183,7 @@
 								icon="Edit"
 								@click="handleUpdate(scope.row)"
 								v-hasPermi="['system:user:edit']"
-							></el-button>
+							/>
 						</el-tooltip>
 						<el-tooltip content="删除" placement="top" v-if="scope.row.userId !== 1">
 							<el-button
@@ -192,7 +192,7 @@
 								icon="Delete"
 								@click="handleDelete(scope.row)"
 								v-hasPermi="['system:user:remove']"
-							></el-button>
+							/>
 						</el-tooltip>
 						<el-tooltip content="重置密码" placement="top" v-if="scope.row.userId !== 1">
 							<el-button
@@ -201,7 +201,7 @@
 								icon="Key"
 								@click="handleResetPwd(scope.row)"
 								v-hasPermi="['system:user:resetPwd']"
-							></el-button>
+							/>
 						</el-tooltip>
 						<!--								<el-tooltip content="分配角色" placement="top" v-if="scope.row.userId !== 1">-->
 						<!--									<el-button type="primary" link icon="CircleCheck" @click="handleAuthRole(scope.row)" v-hasPermi="['system:user:edit']"></el-button>-->
@@ -299,7 +299,7 @@
 									:key="dict.value"
 									:label="dict.label"
 									:value="dict.value"
-								></el-option>
+								/>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -334,7 +334,7 @@
 									:label="item.postName"
 									:value="item.postId"
 									:disabled="item.status === 1"
-								></el-option>
+								/>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -355,7 +355,7 @@
 									:label="item.roleName"
 									:value="item.roleId"
 									:disabled="item.status === 1"
-								></el-option>
+								/>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -363,7 +363,7 @@
 				<el-row>
 					<el-col :span="24">
 						<el-form-item label="备注">
-							<el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
+							<el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -394,10 +394,10 @@
 				<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 				<template #tip>
 					<div class="el-upload__tip text-center">
-						<div class="el-upload__tip" style="color: #ffffff">
+						<div class="el-upload__tip" style="color: #fff">
 							<el-checkbox v-model="upload.updateSupport" />是否更新已经存在的用户数据
 						</div>
-						<span style="color: #ffffff">仅允许导入xls、xlsx格式文件。</span>
+						<span style="color: #fff">仅允许导入xls、xlsx格式文件。</span>
 						<!--						<el-link type="primary" :underline="false" style="font-size: 12px; vertical-align: baseline" @click="importTemplate">下载模板</el-link>-->
 					</div>
 				</template>

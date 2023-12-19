@@ -100,16 +100,16 @@
 	<div class="table_page_default">
 		<el-form :model="queryParams" inline>
 			<el-form-item label="多参名称">
-				<el-input v-model="queryParams.name"></el-input>
+				<el-input v-model="queryParams.name" />
 			</el-form-item>
 			<el-form-item label="多参编码">
-				<el-input v-model="queryParams.code"></el-input>
+				<el-input v-model="queryParams.code" />
 			</el-form-item>
 			<el-form-item label="安装位置">
-				<el-input v-model="queryParams.location"></el-input>
+				<el-input v-model="queryParams.location" />
 			</el-form-item>
 			<el-form-item label="IP地址">
-				<el-input v-model="queryParams.ipAddress"></el-input>
+				<el-input v-model="queryParams.ipAddress" />
 			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">查询</div>
@@ -119,7 +119,7 @@
 			<div class="normal_4_btn" @click="handleAdd">新增</div>
 			<div class="normal_3_btn" @click="handleDelete">删除</div>
 		</div>
-		<el-table :data="dataList" border @selectionChange="handleSelectionChange">
+		<el-table :data="dataList" border @selection-change="handleSelectionChange">
 			<el-table-column type="selection" width="55" align="center" />
 			<el-table-column label="多参编码" align="center" prop="code" />
 			<el-table-column label="多参名称" align="center" prop="name" />
@@ -168,37 +168,37 @@
 				label-position="left"
 			>
 				<el-form-item label="多参传感器名称" prop="name">
-					<el-input v-model="form.name"></el-input>
+					<el-input v-model="form.name" />
 				</el-form-item>
 				<el-form-item label="安装位置" prop="location">
-					<el-input v-model="form.location"></el-input>
+					<el-input v-model="form.location" />
 				</el-form-item>
 				<el-form-item label="IP地址" prop="ipAddress">
-					<el-input v-model="form.ipAddress"></el-input>
+					<el-input v-model="form.ipAddress" />
 				</el-form-item>
 				<el-form-item label="端口" prop="port">
-					<el-input v-model="form.port"></el-input>
+					<el-input v-model="form.port" />
 				</el-form-item>
 				<el-form-item label="监测巷道" prop="monitoringTunnels">
-					<el-input v-model="form.monitoringTunnels"></el-input>
+					<el-input v-model="form.monitoringTunnels" />
 				</el-form-item>
 				<el-form-item label="高程" prop="elevation"
-					><el-input v-model="form.elevation"></el-input
-				></el-form-item>
+					><el-input v-model="form.elevation"
+				/></el-form-item>
 				<el-form-item label="多参编码" prop="code">
-					<el-input v-model="form.code"></el-input>
+					<el-input v-model="form.code" />
 				</el-form-item>
 				<el-form-item label="X坐标" prop="pointX">
-					<el-input v-model="form.pointX"></el-input>
+					<el-input v-model="form.pointX" />
 				</el-form-item>
 				<el-form-item label="Y坐标" prop="pointY">
-					<el-input v-model="form.pointY"></el-input>
+					<el-input v-model="form.pointY" />
 				</el-form-item>
 				<el-form-item label="Z坐标" prop="pointZ">
-					<el-input v-model="form.pointZ"></el-input>
+					<el-input v-model="form.pointZ" />
 				</el-form-item>
 				<el-form-item label="视频地址" prop="videoLocation" class="table_page_form_row">
-					<el-input v-model="form.videoLocation"></el-input>
+					<el-input v-model="form.videoLocation" />
 				</el-form-item>
 			</el-form>
 		</dia-log>
@@ -212,37 +212,37 @@
 				label-position="left"
 			>
 				<el-form-item label="多参传感器名称" prop="name">
-					<el-input v-model="examineForm.name"></el-input>
+					<el-input v-model="examineForm.name" />
 				</el-form-item>
 				<el-form-item label="安装位置" prop="location">
-					<el-input disabled v-model="examineForm.location"></el-input>
+					<el-input disabled v-model="examineForm.location" />
 				</el-form-item>
 				<el-form-item label="IP地址" prop="ipAddress">
-					<el-input v-model="examineForm.ipAddress"></el-input>
+					<el-input v-model="examineForm.ipAddress" />
 				</el-form-item>
 				<el-form-item label="端口" prop="port">
-					<el-input disabled v-model="examineForm.port"></el-input>
+					<el-input disabled v-model="examineForm.port" />
 				</el-form-item>
 				<el-form-item label="监测巷道" prop="monitoringTunnels">
-					<el-input disabled v-model="examineForm.monitoringTunnels"></el-input>
+					<el-input disabled v-model="examineForm.monitoringTunnels" />
 				</el-form-item>
 				<el-form-item label="高程" prop="elevation"
-					><el-input v-model="examineForm.elevation"></el-input
-				></el-form-item>
+					><el-input v-model="examineForm.elevation"
+				/></el-form-item>
 				<el-form-item label="多参编码" prop="code">
-					<el-input v-model="examineForm.code"></el-input>
+					<el-input v-model="examineForm.code" />
 				</el-form-item>
 				<el-form-item label="X坐标" prop="pointX">
-					<el-input disabled v-model="examineForm.pointX"></el-input>
+					<el-input disabled v-model="examineForm.pointX" />
 				</el-form-item>
 				<el-form-item label="Y坐标" prop="pointY">
-					<el-input disabled v-model="examineForm.pointY"></el-input>
+					<el-input disabled v-model="examineForm.pointY" />
 				</el-form-item>
 				<el-form-item label="Z坐标" prop="pointZ">
-					<el-input disabled v-model="examineForm.pointZ"></el-input>
+					<el-input disabled v-model="examineForm.pointZ" />
 				</el-form-item>
 				<el-form-item label="视频地址" prop="videoLocation" class="table_page_form_row">
-					<el-input disabled v-model="examineForm.videoLocation"></el-input>
+					<el-input disabled v-model="examineForm.videoLocation" />
 				</el-form-item>
 			</el-form>
 		</dia-log>

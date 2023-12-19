@@ -34,7 +34,7 @@
 					start-placeholder="开始日期"
 					end-placeholder="结束日期"
 					prefix-icon="Calendar"
-				></el-date-picker>
+				/>
 			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">生成</div>
@@ -42,17 +42,13 @@
 			</el-form-item>
 		</el-form>
 		<div class="wind_report_body_content">
-			<template v-for="i in dataList">
+			<template v-for="i in dataList" :key="i.id">
 				<div class="wind_report_body_item">
 					<div class="wind_report_body_item_label">{{ i.timeLine }}</div>
 					<el-table :data="i.children" border>
-						<el-table-column prop="name" label="测风地点" align="center"></el-table-column>
-						<el-table-column prop="minQ" label="需要风量(m³/min)" align="center"></el-table-column>
-						<el-table-column
-							prop="windSensorAirVolume"
-							label="有效风量(m³/min)"
-							align="center"
-						></el-table-column>
+						<el-table-column prop="name" label="测风地点" align="center" />
+						<el-table-column prop="minQ" label="需要风量(m³/min)" align="center" />
+						<el-table-column prop="windSensorAirVolume" label="有效风量(m³/min)" align="center" />
 					</el-table>
 				</div>
 			</template>

@@ -88,7 +88,7 @@ export class IFires {
 		scene_.add(this._scene)
 		this._camera = camera_
 		this._controls = controls_
-		let _parameters = {
+		const _parameters = {
 			minFilter: LinearFilter,
 			magFilter: LinearFilter,
 			format: RGBAFormat,
@@ -104,7 +104,7 @@ export class IFires {
 	// 显示火焰
 	showFire() {
 		for (let i = 0; i < this.positionList.length; i++) {
-			let pos = this.positionList[i]
+			const pos = this.positionList[i]
 			this.addOneFire(pos)
 		}
 		this._isShow = true
@@ -116,7 +116,7 @@ export class IFires {
 		this.initHaze(pos)
 
 		//点光源
-		let point = new PointLight(0x961800, 10, pos.size * 3)
+		const point = new PointLight(0x961800, 10, pos.size * 3)
 		point.position.set(pos.x, pos.y, pos.z) //点光源位置
 		this.objs.push(point)
 		this._scene.add(point) //点光源添加到场景中
@@ -154,7 +154,7 @@ export class IFires {
 		this.showFire()
 	}
 	random(min: number, max: number, precision: number) {
-		let p = Math.pow(10, precision)
+		const p = Math.pow(10, precision)
 		return Math.round((min + Math.random() * (max - min)) * p) / p
 	}
 	initFire(pos: IFiresPosition) {
@@ -162,13 +162,13 @@ export class IFires {
 			useFire(this._scene, this.objs, pos.size)
 
 		this.loop.push(() => {
-			let e = 100
+			const e = 100
 			_shader!.uniforms.uTime.value = e * 0.001
 
-			let life = _geometry?.attributes.life
-			let orientation = _geometry?.attributes.orientation
-			let scale = _geometry?.attributes.scale
-			let randoms = _geometry?.attributes.random
+			const life = _geometry?.attributes.life
+			const orientation = _geometry?.attributes.orientation
+			const scale = _geometry?.attributes.scale
+			const randoms = _geometry?.attributes.random
 			for (let i = 0; i < _num; i++) {
 				let value = life!.array[i]
 				value += 0.04
@@ -198,7 +198,7 @@ export class IFires {
 			_group!.position.y = (pos.y ?? 0) + (pos.size ?? 0) / 2 //Math.cos(e * 0.0014) * 0.2;
 			_group!.position.z = pos.z ?? 0 //Math.cos(e * 0.0014) * 0.5;
 
-			let tipOffset = 0.4
+			const tipOffset = 0.4
 			_tipTarget.copy(_group!.position)
 			_tipTarget.y += tipOffset
 			_tip.lerp(_tipTarget, 0.1)
@@ -215,10 +215,10 @@ export class IFires {
 		this.loop2.push(() => {
 			{
 				if (!_geometry || !pos.size) return
-				let life = _geometry.attributes.life
-				let position = _geometry.attributes.position
-				let size = _geometry.attributes.size
-				let offset = _geometry.attributes.offset
+				const life = _geometry.attributes.life
+				const position = _geometry.attributes.position
+				const size = _geometry.attributes.size
+				const offset = _geometry.attributes.offset
 				for (let i = 0; i < _num; i++) {
 					let value = life.array[i]
 					value += 0.02
@@ -263,12 +263,12 @@ export class IFires {
 			this._renderer.setRenderTarget(this._rtt)
 			_mesh.visible = true
 
-			let life = _geometry.attributes.life
-			let base = _geometry.attributes.base
-			let offset = _geometry.attributes.offset
-			let scale = _geometry.attributes.scale
-			let orientation = _geometry.attributes.orientation
-			let rotation = _geometry.attributes.rotation
+			const life = _geometry.attributes.life
+			const base = _geometry.attributes.base
+			const offset = _geometry.attributes.offset
+			const scale = _geometry.attributes.scale
+			const orientation = _geometry.attributes.orientation
+			const rotation = _geometry.attributes.rotation
 			for (let i = 0; i < _num; i++) {
 				let value = life.array[i]
 				value += 0.008
@@ -328,28 +328,28 @@ const useFire = (_scene: Object3D, objs: any[], _size: number) => {
 		_shader: ShaderMaterial | undefined,
 		_mesh: Mesh | undefined,
 		_group: Group | undefined
-	let _num = 50
+	const _num = 50
 
-	let _x = new Vector3(1, 0, 0)
-	let _y = new Vector3(0, 1, 0)
-	let _z = new Vector3(0, 0, 1)
+	const _x = new Vector3(1, 0, 0)
+	const _y = new Vector3(0, 1, 0)
+	const _z = new Vector3(0, 0, 1)
 
-	let _tipTarget = new Vector3()
-	let _tip = new Vector3()
-	let _diff = new Vector3()
+	const _tipTarget = new Vector3()
+	const _tip = new Vector3()
+	const _diff = new Vector3()
 
-	let _quat = new Quaternion()
-	let _quat2 = new Quaternion()
+	const _quat = new Quaternion()
+	const _quat2 = new Quaternion()
 
 	function initGeometry() {
 		_geometry = useGeometry(_size as number)
 	}
 
 	function initInstances() {
-		let orientation = new InstancedBufferAttribute(new Float32Array(_num * 4), 4)
-		let randoms = new InstancedBufferAttribute(new Float32Array(_num), 1)
-		let scale = new InstancedBufferAttribute(new Float32Array(_num * 2), 2)
-		let life = new InstancedBufferAttribute(new Float32Array(_num), 1)
+		const orientation = new InstancedBufferAttribute(new Float32Array(_num * 4), 4)
+		const randoms = new InstancedBufferAttribute(new Float32Array(_num), 1)
+		const scale = new InstancedBufferAttribute(new Float32Array(_num * 2), 2)
+		const life = new InstancedBufferAttribute(new Float32Array(_num), 1)
 
 		for (let i = 0; i < _num; i++) {
 			orientation.setXYZW(i, 0, 0, 0, 1)
@@ -363,7 +363,7 @@ const useFire = (_scene: Object3D, objs: any[], _size: number) => {
 	}
 
 	function initShader() {
-		let uniforms = {
+		const uniforms = {
 			uMap: {
 				type: 't',
 				value: null,
@@ -392,7 +392,7 @@ const useFire = (_scene: Object3D, objs: any[], _size: number) => {
 			side: DoubleSide,
 		})
 
-		let textureLoader = new TextureLoader()
+		const textureLoader = new TextureLoader()
 		textureLoader.load(flame, (t) => (_shader!.uniforms.uMap.value = t))
 	}
 
@@ -431,7 +431,7 @@ const useEmbers = (_scene: Object3D, objs: any[], _size: number, random: Functio
 	let _geometry: BufferGeometry | undefined,
 		_shader: ShaderMaterial | undefined,
 		_points: Points | undefined
-	let _num = 8
+	const _num = 8
 
 	;(function () {
 		initGeometry()
@@ -454,7 +454,7 @@ const useEmbers = (_scene: Object3D, objs: any[], _size: number, random: Functio
 	}
 
 	function initShader() {
-		let uniforms = {
+		const uniforms = {
 			uMap: {
 				type: 't',
 				value: null,
@@ -474,7 +474,7 @@ const useEmbers = (_scene: Object3D, objs: any[], _size: number, random: Functio
 			depthTest: false,
 		})
 
-		let textureLoader = new TextureLoader()
+		const textureLoader = new TextureLoader()
 		textureLoader.load(ember, (t) => (_shader!.uniforms.uMap.value = t))
 	}
 
@@ -506,11 +506,11 @@ const useHaze = (
 		_shader: ShaderMaterial | undefined,
 		_mesh: Mesh | undefined
 
-	let _num = 4
+	const _num = 4
 
-	let _z = new Vector3(0, 0, 1)
-	let _quat = new Quaternion()
-	let _quat2 = new Quaternion()
+	const _z = new Vector3(0, 0, 1)
+	const _quat = new Quaternion()
+	const _quat2 = new Quaternion()
 
 	;(function () {
 		initGeometry()
@@ -524,12 +524,12 @@ const useHaze = (
 	}
 
 	function initInstances() {
-		let base = new InstancedBufferAttribute(new Float32Array(_num * 3), 3)
-		let offset = new InstancedBufferAttribute(new Float32Array(_num * 3), 3)
-		let orientation = new InstancedBufferAttribute(new Float32Array(_num * 4), 4)
-		let scale = new InstancedBufferAttribute(new Float32Array(_num * 2), 2)
-		let rotation = new InstancedBufferAttribute(new Float32Array(_num), 1)
-		let life = new InstancedBufferAttribute(new Float32Array(_num), 1)
+		const base = new InstancedBufferAttribute(new Float32Array(_num * 3), 3)
+		const offset = new InstancedBufferAttribute(new Float32Array(_num * 3), 3)
+		const orientation = new InstancedBufferAttribute(new Float32Array(_num * 4), 4)
+		const scale = new InstancedBufferAttribute(new Float32Array(_num * 2), 2)
+		const rotation = new InstancedBufferAttribute(new Float32Array(_num), 1)
+		const life = new InstancedBufferAttribute(new Float32Array(_num), 1)
 
 		for (let i = 0; i < _num; i++) {
 			orientation.setXYZW(i, 0, 0, 0, 1)
@@ -545,8 +545,8 @@ const useHaze = (
 	}
 
 	function initShader() {
-		let dpr = _renderer.getPixelRatio()
-		let uniforms = {
+		const dpr = _renderer.getPixelRatio()
+		const uniforms = {
 			uMap: {
 				type: 't',
 				value: _rtt.texture,
@@ -569,7 +569,7 @@ const useHaze = (
 			depthTest: false,
 		})
 
-		let textureLoader = new TextureLoader()
+		const textureLoader = new TextureLoader()
 		textureLoader.load(haze, (t) => (_shader!.uniforms.uMask.value = t))
 	}
 
@@ -592,10 +592,10 @@ const useHaze = (
 }
 
 const useGeometry = (_size: number) => {
-	let _geometry = new InstancedBufferGeometry()
+	const _geometry = new InstancedBufferGeometry()
 
-	let shape = new PlaneGeometry(_size, _size)
-	let data = shape.attributes
+	const shape = new PlaneGeometry(_size, _size)
+	const data = shape.attributes
 	_geometry.setAttribute('position', new BufferAttribute(new Float32Array(data.position.array), 3))
 	_geometry.setAttribute('uv', new BufferAttribute(new Float32Array(data.uv.array), 2))
 	_geometry.setAttribute('normal', new BufferAttribute(new Float32Array(data.normal.array), 3))

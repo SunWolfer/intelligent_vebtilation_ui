@@ -64,7 +64,7 @@
 		<div class="area_manage_l1">
 			<el-form :model="queryParams" inline>
 				<el-form-item label="区域名称">
-					<el-input v-model="queryParams.region"></el-input>
+					<el-input v-model="queryParams.region" />
 				</el-form-item>
 				<el-form-item>
 					<div class="normal_btn" @click="handleQuery">查询</div>
@@ -75,7 +75,7 @@
 			</el-form>
 		</div>
 		<div class="fullDom area_manage_l2">
-			<template v-for="i in dataList">
+			<template v-for="i in dataList" :key="i.id">
 				<border-box name="border1" :color="i.checked ? choose_color : default_color">
 					<div
 						class="fullDom c-center area_manage_l2_text pointer"
@@ -112,7 +112,7 @@
 						<template #label>
 							<span class="area_manage_l2_text">区域名称</span>
 						</template>
-						<el-input class="area_manage_input ml10" v-model="form.region"></el-input>
+						<el-input class="area_manage_input ml10" v-model="form.region" />
 					</el-form-item>
 				</el-form>
 			</div>

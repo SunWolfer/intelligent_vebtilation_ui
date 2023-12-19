@@ -47,7 +47,7 @@
 				</div>
 			</border-box>
 			<div class="full_body_l1_bottom">
-				<template v-for="(i, index) in fullSecWindList">
+				<template v-for="(i, index) in fullSecWindList" :key="i.id">
 					<border-box name="Border1" background-color="rgba(36, 38, 83, 0.54)">
 						<div class="full_body_l1_bottom_item">
 							<div
@@ -115,7 +115,7 @@
 					<span>{{ fullSecWindList[choose]?.name }}</span>
 					<div class="full_body_l2_item_text_body">
 						<vue3-seamless-scroll :list="realWindDataList" :step="0.5" :count="1">
-							<div v-for="i in realWindDataList">
+							<div v-for="i in realWindDataList" :key="'wind' + i.time">
 								<div>风速：{{ i.value }} m/s</div>
 								<div>时间：{{ i.time }}</div>
 							</div>
@@ -140,12 +140,12 @@
 			</border-box>
 			<border-box name="border1">
 				<template v-if="videoVisible">
-					<m-video :video-path="videoPath" type="cfz"></m-video>
+					<m-video :video-path="videoPath" type="cfz" />
 				</template>
 			</border-box>
 		</div>
 		<div class="full_body_l4">
-			<border-box name="border2" title="风量趋势分析"></border-box>
+			<border-box name="border2" title="风量趋势分析" />
 			<el-form v-show="choose !== -1" :model="queryForm" inline style="margin-left: 50px">
 				<el-form-item label="时间区间：">
 					<el-date-picker
@@ -157,7 +157,7 @@
 						start-placeholder="开始日期"
 						end-placeholder="结束日期"
 						prefix-icon="Calendar"
-					></el-date-picker>
+					/>
 				</el-form-item>
 				<el-form-item>
 					<div class="normal_btn" @click="initChart">查询</div>

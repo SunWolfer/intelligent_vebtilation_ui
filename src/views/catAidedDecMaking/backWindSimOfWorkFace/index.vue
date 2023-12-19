@@ -12,17 +12,17 @@
 			<load-back-wind-plane-map />
 		</div>
 		<div class="back_wind_body_right">
-			<border-box name="border2" title="监测点风量"></border-box>
+			<border-box name="border2" title="监测点风量" />
 			<div class="back_wind_body_right_l2 fullDom">
-				<template v-for="item in windList">
+				<template v-for="(item, index) in windList" :key="'wind' + index">
 					<span>{{ item.label }}</span>
 					<el-input v-model="item.value" />
 					<span>m3/min</span>
 				</template>
 			</div>
-			<border-box name="border2" title="远控风门状态"></border-box>
+			<border-box name="border2" title="远控风门状态" />
 			<div class="back_wind_body_right_l4 fullDom">
-				<template v-for="item in windStatusList">
+				<template v-for="(item, index) in windStatusList" :key="'windStatus' + index">
 					<span>{{ item.name }}</span>
 					<div
 						:class="item.status === '1' ? 'back_wind_body_btn_open' : 'back_wind_body_btn_close'"
@@ -30,12 +30,12 @@
 						{{ item.status === '1' ? '打开' : '关闭' }}
 					</div>
 
-					<div />
+					<div></div>
 				</template>
 			</div>
-			<border-box name="border2" title="远控风窗状态"></border-box>
+			<border-box name="border2" title="远控风窗状态" />
 			<div class="back_wind_body_right_l6 fullDom">
-				<template v-for="item in windowStatusList">
+				<template v-for="(item, index) in windowStatusList" :key="'window' + index">
 					<span>{{ item.name }}</span>
 					<div
 						:class="item.status === '1' ? 'back_wind_body_btn_open' : 'back_wind_body_btn_close'"

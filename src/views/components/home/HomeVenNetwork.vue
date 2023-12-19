@@ -36,9 +36,9 @@
 
 <template>
 	<div class="fullDom ven_network_body">
-		<span class="other_title"> <border-box name="border2" title="通风网络图"></border-box></span>
+		<span class="other_title"> <border-box name="border2" title="通风网络图" /></span>
 		<div ref="netWorkRef" class="fullDom">
-			<iframe v-if="hlUrl" :src="hlUrl" style="width: 100%; height: 100%" />
+			<iframe v-if="hlUrl" :src="hlUrl" style="width: 100%; height: 100%"></iframe>
 		</div>
 	</div>
 </template>

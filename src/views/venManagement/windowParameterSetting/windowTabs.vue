@@ -62,7 +62,7 @@
 <template>
 	<div class="tabs-bg">
 		<div class="tabs-bg-body"></div>
-		<template v-for="i in tabList">
+		<template v-for="i in tabList" :key="i.value">
 			<div
 				class="tabs-one c-center"
 				@click="changeTab(i.value)"

@@ -12,8 +12,10 @@
 		},
 		dataForm: {
 			type: Object,
-			default: {
-				id: 0,
+			default: () => {
+				return {
+					id: 0,
+				}
 			},
 		},
 	})
@@ -142,7 +144,7 @@
 				<el-form v-model="queryParams" inline>
 					<el-form-item label="传感器：">
 						<el-select v-model="queryParams.sensorId" clearable>
-							<el-option v-for="i in dataList" :value="i.id" :label="i.name"></el-option>
+							<el-option v-for="i in dataList" :key="i.id" :value="i.id" :label="i.name" />
 						</el-select>
 					</el-form-item>
 					<el-form-item label="时间">
@@ -154,7 +156,7 @@
 							start-placeholder="开始日期"
 							end-placeholder="结束日期"
 							prefix-icon="Calendar"
-						></el-date-picker>
+						/>
 					</el-form-item>
 					<el-form-item>
 						<div class="normal_btn" @click="queryCharts">查询</div>

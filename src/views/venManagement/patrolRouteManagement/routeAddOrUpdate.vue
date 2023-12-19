@@ -15,8 +15,10 @@
 	const props = defineProps({
 		chooseRow: {
 			type: Object,
-			default: {
-				id: undefined,
+			default: () => {
+				return {
+					id: undefined,
+				}
 			},
 		},
 		modelValue: {
@@ -140,10 +142,10 @@
 			<div class="fullDom c-center">
 				<el-form :model="dataForm" inline>
 					<el-form-item label="巡检路线名称">
-						<el-input class="route_body_input" v-model="dataForm.name"></el-input>
+						<el-input class="route_body_input" v-model="dataForm.name" />
 					</el-form-item>
 					<el-form-item label="排序">
-						<el-input class="route_body_input" v-model="dataForm.orderNum"></el-input>
+						<el-input class="route_body_input" v-model="dataForm.orderNum" />
 					</el-form-item>
 				</el-form>
 			</div>
@@ -157,9 +159,10 @@
 						<el-select v-model="scoped.row.devType" @change="changeDevType(scoped.row)" clearable>
 							<el-option
 								v-for="item in devTypeList"
+								:key="item.dictValue"
 								:label="item.dictLabel"
 								:value="item.dictValue"
-							></el-option>
+							/>
 						</el-select>
 					</template>
 				</el-table-column>
@@ -168,9 +171,10 @@
 						<el-select v-model="scoped.row.devId" @change="chooseDevData(scoped.row)" clearable>
 							<el-option
 								v-for="i in scoped.row.devChildren"
+								:key="i.id"
 								:label="i.name"
 								:value="i.id"
-							></el-option>
+							/>
 						</el-select>
 					</template>
 				</el-table-column>

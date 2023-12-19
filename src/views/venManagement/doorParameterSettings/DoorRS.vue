@@ -7,7 +7,9 @@
 	const props = defineProps({
 		dataFrom: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 	})
 	const emit = defineEmits(['update:dataFrom', 'setParam'])
@@ -17,7 +19,7 @@
 
 <template>
 	<div class="rs_setting">
-		<template v-for="data in dataList">
+		<template v-for="data in dataList" :key="data.id">
 			<div class="rs_setting_item">
 				<el-row>
 					<el-col :span="20">
@@ -34,7 +36,7 @@
 										:key="item.value"
 										:label="item.label"
 										:value="item.value"
-									></el-option>
+									/>
 								</el-select>
 							</el-form-item>
 							<el-form-item :label="data.label2">
@@ -49,7 +51,7 @@
 										:key="item.value"
 										:label="item.label"
 										:value="item.value"
-									></el-option>
+									/>
 								</el-select>
 							</el-form-item>
 							<el-form-item :label="data.label3">
@@ -64,7 +66,7 @@
 										:key="item.value"
 										:label="item.label"
 										:value="item.value"
-									></el-option>
+									/>
 								</el-select>
 							</el-form-item>
 						</el-form>

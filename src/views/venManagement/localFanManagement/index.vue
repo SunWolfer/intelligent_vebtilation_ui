@@ -100,13 +100,13 @@
 	<div class="table_page_default">
 		<el-form :model="queryParams" inline>
 			<el-form-item label="风机名称 ">
-				<el-input v-model="queryParams.name"></el-input>
+				<el-input v-model="queryParams.name" />
 			</el-form-item>
 			<el-form-item label="风机编码 ">
-				<el-input v-model="queryParams.code"></el-input>
+				<el-input v-model="queryParams.code" />
 			</el-form-item>
 			<el-form-item label="安装位置">
-				<el-input v-model="queryParams.location"></el-input>
+				<el-input v-model="queryParams.location" />
 			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">查询</div>
@@ -116,7 +116,7 @@
 			<div class="normal_4_btn" @click="handleAdd">新增</div>
 			<div class="normal_3_btn" @click="handleDelete">删除</div>
 		</div>
-		<el-table :data="dataList" border @selectionChange="handleSelectionChange">
+		<el-table :data="dataList" border @selection-change="handleSelectionChange">
 			<el-table-column type="selection" width="55" align="center" />
 			<el-table-column label="风机名称" align="center" prop="name" />
 			<el-table-column label="风机编码" align="center" prop="code" />
@@ -206,64 +206,64 @@
 				label-position="left"
 			>
 				<el-form-item label="风机编码" prop="code">
-					<el-input v-model="form.code"></el-input>
+					<el-input v-model="form.code" />
 				</el-form-item>
 				<el-form-item label="风机名称" prop="name">
-					<el-input v-model="form.name"></el-input>
+					<el-input v-model="form.name" />
 				</el-form-item>
 				<el-form-item label="风机位置" prop="location">
-					<el-input v-model="form.location"></el-input>
+					<el-input v-model="form.location" />
 				</el-form-item>
 				<el-form-item label="额定电压(V)" prop="ratedVoltage1">
-					<el-input v-model="form.ratedVoltage1"></el-input>
+					<el-input v-model="form.ratedVoltage1" />
 				</el-form-item>
 				<el-form-item label="额定电流(A)" prop="ratedCurrent1">
-					<el-input v-model="form.ratedCurrent1"></el-input>
+					<el-input v-model="form.ratedCurrent1" />
 				</el-form-item>
 				<el-form-item label="额定功率(KW)" prop="ratedPower1">
-					<el-input v-model="form.ratedPower1"></el-input>
+					<el-input v-model="form.ratedPower1" />
 				</el-form-item>
 				<el-form-item label="风量" prop="airVolume1">
-					<el-input v-model="form.airVolume1"></el-input>
+					<el-input v-model="form.airVolume1" />
 				</el-form-item>
 				<el-form-item label="全压" prop="fullPressure1">
-					<el-input v-model="form.fullPressure1"></el-input>
+					<el-input v-model="form.fullPressure1" />
 				</el-form-item>
 				<el-form-item label="静压" prop="negativePressure1">
-					<el-input v-model="form.negativePressure1"></el-input>
+					<el-input v-model="form.negativePressure1" />
 				</el-form-item>
 				<el-form-item label="效率" prop="efficiency1">
-					<el-input v-model="form.efficiency1"></el-input>
+					<el-input v-model="form.efficiency1" />
 				</el-form-item>
 				<el-form-item label="备机电压" prop="ratedVoltage2">
-					<el-input v-model="form.ratedVoltage2"></el-input>
+					<el-input v-model="form.ratedVoltage2" />
 				</el-form-item>
 				<el-form-item label="备机电流" prop="ratedCurrent2">
-					<el-input v-model="form.ratedCurrent2"></el-input>
+					<el-input v-model="form.ratedCurrent2" />
 				</el-form-item>
 				<el-form-item label="备机功率" prop="ratedPower2">
-					<el-input v-model="form.ratedPower2"></el-input>
+					<el-input v-model="form.ratedPower2" />
 				</el-form-item>
 				<el-form-item label="备机风量" prop="airVolume2">
-					<el-input v-model="form.airVolume2"></el-input>
+					<el-input v-model="form.airVolume2" />
 				</el-form-item>
 				<el-form-item label="备机全压" prop="fullPressure2">
-					<el-input v-model="form.fullPressure2"></el-input>
+					<el-input v-model="form.fullPressure2" />
 				</el-form-item>
 				<el-form-item label="备机静压" prop="negativePressure2">
-					<el-input v-model="form.negativePressure2"></el-input>
+					<el-input v-model="form.negativePressure2" />
 				</el-form-item>
 				<el-form-item label="备机效率" prop="efficiency2">
-					<el-input v-model="form.efficiency2"></el-input>
+					<el-input v-model="form.efficiency2" />
 				</el-form-item>
 				<el-form-item label="供风区域" prop="supplyArea">
-					<el-input v-model="form.supplyArea"></el-input>
+					<el-input v-model="form.supplyArea" />
 				</el-form-item>
 				<el-form-item label="视频地址" prop="videoUrl" class="table_page_form_row">
-					<el-input v-model="form.videoUrl"></el-input>
+					<el-input v-model="form.videoUrl" />
 				</el-form-item>
 				<el-form-item label="备注" prop="remark" class="table_page_form_row">
-					<el-input v-model="form.remark"></el-input>
+					<el-input v-model="form.remark" />
 				</el-form-item>
 			</el-form>
 		</dia-log>

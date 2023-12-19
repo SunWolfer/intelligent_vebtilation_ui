@@ -71,6 +71,7 @@
 		for (let i = 0; i < lines; i++) {
 			for (let j = 0; j < number; j++) {
 				points.push({
+					id: i + j + Math.random(),
 					cx: startW + r / 2 + j * sp + (r / 2) * j,
 					cy: startH + r / 2 + i * sp + (r / 2) * i,
 					cr: r,
@@ -147,27 +148,27 @@
 		<svg class="bv-border-svg-container" :width="width" :height="height">
 			<defs>
 				<linearGradient id="border-box-2-grad2" x1="0%" y1="0%" x2="100%" y2="0%">
-					<stop offset="0%" stop-color="#049ae9"></stop>
-					<stop offset="50%" stop-color="#00e6fc"></stop>
-					<stop offset="100%" stop-color="#049ae9"></stop>
-					<animate attributeName="x2" from="0" to="5" :dur="dur" repeatCount="indefinite"></animate>
+					<stop offset="0%" stop-color="#049ae9" />
+					<stop offset="50%" stop-color="#00e6fc" />
+					<stop offset="100%" stop-color="#049ae9" />
+					<animate attributeName="x2" from="0" to="5" :dur="dur" repeatCount="indefinite" />
 				</linearGradient>
 				<linearGradient id="border3-grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-					<stop offset="0%" stop-color="rgb(58,98,202)"></stop>
-					<stop offset="100%" stop-color="rgb(0,0,0)"></stop>
+					<stop offset="0%" stop-color="rgb(58,98,202)" />
+					<stop offset="100%" stop-color="rgb(0,0,0)" />
 				</linearGradient>
 			</defs>
-			<path :stroke="color[0]" :d="line1" :fill="backgroundColor" stroke-width="2"></path>
+			<path :stroke="color[0]" :d="line1" :fill="backgroundColor" stroke-width="2" />
 			<path
 				class="bv-bb2-line-1"
 				:stroke="color[1]"
 				:d="line1"
 				fill="transparent"
 				:stroke-dasharray="line1Length / 6"
-			></path>
+			/>
 
 			<g v-if="titleWidth > -1">
-				<template v-for="point in decoratorPoint1">
+				<template v-for="point in decoratorPoint1" :key="point.id">
 					<circle
 						:cx="point.cx"
 						:cy="point.cy"
@@ -180,7 +181,7 @@
 			</g>
 			<!--			标题边框-->
 			<g v-if="titleWidth > 5">
-				<path :d="line2" :stroke="color[1]" fill="transparent"></path>
+				<path :d="line2" :stroke="color[1]" fill="transparent" />
 				<text
 					class="bv-border-box-2-title1"
 					:x="startPoint + trainLineH + 10"
@@ -203,7 +204,7 @@
 						repeatCount="indefinite"
 					/>
 				</polyline>
-				<template v-for="point in decoratorPoint2">
+				<template v-for="point in decoratorPoint2" :key="point.id">
 					<circle
 						:cx="point.cx"
 						:cy="point.cy"

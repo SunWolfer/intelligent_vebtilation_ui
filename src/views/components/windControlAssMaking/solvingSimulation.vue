@@ -195,7 +195,7 @@
 			<div class="imitate_body">
 				<div class="imitate_body_border">
 					<div class="imitate_body_border_body">
-						<template v-for="(i, index) in TOperationStepsList">
+						<template v-for="(i, index) in TOperationStepsList" :key="'opera' + index">
 							<div class="imitate_body_border_item">
 								<div class="imitate_body_border_text_index">{{ index + 1 }}</div>
 								<div class="imitate_body_border_text overText">{{ i.name }}</div>
@@ -208,11 +208,11 @@
 				<div class="imitate_body_branch">
 					<div class="imitate_body_branch_item">
 						<div class="imitate_body_branch_item_label">风路分支图</div>
-						<el-checkbox v-model="showWindBranch"></el-checkbox>
+						<el-checkbox v-model="showWindBranch" />
 					</div>
 					<div class="imitate_body_branch_item">
 						<div class="imitate_body_branch_item_label">通风网络图</div>
-						<el-checkbox v-model="showVentilationNetwork"></el-checkbox>
+						<el-checkbox v-model="showVentilationNetwork" />
 					</div>
 				</div>
 			</div>
@@ -236,7 +236,7 @@
 		:reload-net-work-url="reloadNetWorkUrl"
 		:select-code="selectCode"
 		@cancel="cancelAfterCalVisible"
-		@getSelectionRows="getSelectionRows"
+		@get-selection-rows="getSelectionRows"
 	/>
 </template>
 

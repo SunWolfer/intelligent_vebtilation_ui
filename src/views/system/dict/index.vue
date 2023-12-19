@@ -35,7 +35,7 @@
 					range-separator="-"
 					start-placeholder="开始日期"
 					end-placeholder="结束日期"
-				></el-date-picker>
+				/>
 			</el-form-item>
 			<el-form-item>
 				<el-button class="ordinary-btn" type="primary" icon="Search" @click="handleQuery"
@@ -156,7 +156,7 @@
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="备注" prop="remark">
-					<el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
+					<el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
 				</el-form-item>
 			</el-form>
 		</dia-log>

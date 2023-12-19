@@ -15,7 +15,9 @@
 		},
 		chooseRow: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 	})
 	const emits = defineEmits(['update:modelValue'])

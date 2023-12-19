@@ -78,32 +78,26 @@
 		<svg v-if="width" class="bv-border-svg-container" :width="width" :height="height">
 			<defs>
 				<linearGradient id="border1-grad1" x1="0" y1="0" x2="0" y2="100%">
-					<stop offset="0%" stop-color="rgba(255,255,255,0)"></stop>
-					<stop offset="100%" stop-color="rgba(255,255,255,1)"></stop>
+					<stop offset="0%" stop-color="rgba(255,255,255,0)" />
+					<stop offset="100%" stop-color="rgba(255,255,255,1)" />
 				</linearGradient>
 				<linearGradient id="border1-grad2" x1="0" y1="0" x2="0" y2="100%">
-					<stop offset="0%" stop-color="rgba(255,255,255,1)"></stop>
-					<stop offset="100%" stop-color="rgba(255,255,255,0)"></stop>
+					<stop offset="0%" stop-color="rgba(255,255,255,1)" />
+					<stop offset="100%" stop-color="rgba(255,255,255,0)" />
 				</linearGradient>
 				<linearGradient id="border1-grad3" x1="0" y1="0" x2="100%" y2="0">
-					<stop offset="0%" stop-color="rgba(255,255,255,1)"></stop>
-					<stop offset="100%" stop-color="rgba(255,255,255,0)"></stop>
+					<stop offset="0%" stop-color="rgba(255,255,255,1)" />
+					<stop offset="100%" stop-color="rgba(255,255,255,0)" />
 				</linearGradient>
 				<linearGradient id="border1-grad4" x1="0" y1="0" x2="100%" y2="0">
-					<stop offset="0%" stop-color="rgba(255,255,255,0)"></stop>
-					<stop offset="100%" stop-color="rgba(255,255,255,1)"></stop>
+					<stop offset="0%" stop-color="rgba(255,255,255,0)" />
+					<stop offset="100%" stop-color="rgba(255,255,255,1)" />
 				</linearGradient>
 				<linearGradient id="border1-grad5" x1="0" y1="0" x2="0" y2="100%">
-					<stop offset="0%" stop-color="#1cffff"></stop>
-					<stop offset="100%" stop-color="#1d738a"></stop>
-					<stop offset="0%" stop-color="#1cffff"></stop>
-					<animate
-						attributeName="y2"
-						from="-100%"
-						to="200%"
-						:dur="dur"
-						repeatCount="indefinite"
-					></animate>
+					<stop offset="0%" stop-color="#1cffff" />
+					<stop offset="100%" stop-color="#1d738a" />
+					<stop offset="0%" stop-color="#1cffff" />
+					<animate attributeName="y2" from="-100%" to="200%" :dur="dur" repeatCount="indefinite" />
 				</linearGradient>
 			</defs>
 			<g>
@@ -120,7 +114,7 @@
 						:to="height"
 						:dur="dur"
 						repeatCount="indefinite"
-					></animate>
+					/>
 				</rect>
 				<rect width="1.5" :height="height / 2" :x="width - reduce" y="0" fill="url(#border1-grad2)">
 					<animate
@@ -129,7 +123,7 @@
 						:to="-height / 2"
 						:dur="dur"
 						repeatCount="indefinite"
-					></animate>
+					/>
 				</rect>
 				<rect
 					:width="width / 3"
@@ -144,7 +138,7 @@
 						:to="-width / 3"
 						:dur="dur"
 						repeatCount="indefinite"
-					></animate>
+					/>
 				</rect>
 				<rect
 					:width="width / 3"
@@ -159,7 +153,7 @@
 						:to="width"
 						:dur="dur"
 						repeatCount="indefinite"
-					></animate>
+					/>
 				</rect>
 			</g>
 			<g>
@@ -198,9 +192,9 @@
 				/>
 			</g>
 			<g fill="url(#border1-grad5)">
-				<polygon :points="decoratePoints"></polygon>
-				<polygon :points="decoratePoints2"></polygon>
-				<polygon :points="decoratePoints3"></polygon>
+				<polygon :points="decoratePoints" />
+				<polygon :points="decoratePoints2" />
+				<polygon :points="decoratePoints3" />
 			</g>
 		</svg>
 		<div class="border-box-content">

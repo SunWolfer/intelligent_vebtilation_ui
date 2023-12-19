@@ -70,6 +70,7 @@
 		for (let i = 0; i < lines; i++) {
 			for (let j = 0; j < number; j++) {
 				points.push({
+					id: i + j + Math.random(),
 					cx: startW + r / 2 + j * sp + (r / 2) * j,
 					cy: startH + r / 2 + i * sp + (r / 2) * i,
 					cr: r,
@@ -97,16 +98,17 @@
 <template>
 	<div class="border-box-11" ref="domRef">
 		<svg class="bv-border-svg-container" :width="width" :height="height">
-			<path :stroke="color[0]" :d="line1" :fill="backgroundColor" stroke-width="2"></path>
+			<path :stroke="color[0]" :d="line1" :fill="backgroundColor" stroke-width="2" />
 			<path
 				class="bv-bb2-line-1"
 				:stroke="color[1]"
 				:d="line1"
 				fill="transparent"
 				:stroke-dasharray="line1Length / 10"
-			></path>
+			/>
 			<circle
 				v-for="point in decoratorPoint1"
+				:key="point.id"
 				:cx="point.cx"
 				:cy="point.cy"
 				:r="point.cr"
@@ -116,6 +118,7 @@
 			/>
 			<circle
 				v-for="point in decoratorPoint2"
+				:key="point.id"
 				:cx="point.cx"
 				:cy="point.cy"
 				:r="point.cr"

@@ -7,6 +7,8 @@
 	import DoorHisRecord from '@/views/venEqMonitoring/throttleMonitoring/doorHisRecord.vue'
 	import NormalDoor from '@/views/components/home/doorPage/NormalDoor.vue'
 	import FourWindowDoor from '@/views/components/home/doorPage/FourWindowDoor.vue'
+	import TwoWindowDoor from '@/views/components/home/doorPage/TwoWindowDoor.vue'
+	import { DoorTypes, DoorVersion, DoorWindowTypes } from '@/types/menuType'
 
 	const {
 		dataList,
@@ -37,11 +39,26 @@
 			name: '一拖四风门',
 			domName: markRaw(FourWindowDoor),
 		},
+		{
+			name: '一拖二风门',
+			domName: markRaw(TwoWindowDoor),
+		},
 	])
 	const showDoorDom = computed(() => {
 		let domName = tabs[0].domName
-		if (dataForm.value?.doorFlag === '1') {
+		if (
+			dataForm.value.type === DoorTypes.adjustingTheAirDamper &&
+			dataForm.value.devVersion === DoorVersion.oldVersion &&
+			dataForm.value.doorFlag === DoorWindowTypes.two
+		) {
 			domName = tabs[1].domName
+		}
+		if (
+			dataForm.value.type === DoorTypes.adjustingTheAirDamper &&
+			dataForm.value.devVersion === DoorVersion.oldVersion &&
+			dataForm.value.doorFlag === DoorWindowTypes.one
+		) {
+			domName = tabs[2].domName
 		}
 		return domName
 	})
@@ -52,12 +69,13 @@
 <template>
 	<div class="home_air_door_body">
 		<component
+			v-if="dataForm.id"
 			:is="showDoorDom"
 			:dataForm="dataForm"
 			:playmod="playmod"
 			:videoUrl1="videoUrl1"
 			:videoUrl2="videoUrl2"
-		></component>
+		/>
 
 		<div class="home_air_door_body_c2">
 			<div class="home_air_door_body_c2_item1">
@@ -71,7 +89,7 @@
 						<el-icon><CaretBottom /></el-icon>
 						<template #dropdown>
 							<el-dropdown-menu>
-								<el-dropdown-item v-for="i in dataList" :command="i.id">{{
+								<el-dropdown-item v-for="i in dataList" :key="i.id" :command="i.id">{{
 									i.name
 								}}</el-dropdown-item>
 							</el-dropdown-menu>
@@ -150,7 +168,7 @@
 				</div>
 			</div>
 			<div class="home_air_door_body_c2_item5">
-				<border-box name="border2" title="远程控制"></border-box>
+				<border-box name="border2" title="远程控制" />
 			</div>
 			<div class="home_air_door_body_c2_item6">
 				<div class="home_air_door_body_c2_item6_l1 operation_btn" @click="hisRecordHandle">
@@ -196,7 +214,7 @@
 				</div>
 			</div>
 			<div class="home_air_door_body_c2_item7">
-				<border-box name="border2" title="模式切换"></border-box>
+				<border-box name="border2" title="模式切换" />
 			</div>
 			<div class="modeSwitching">
 				<div class="item_bg"></div>
@@ -206,9 +224,8 @@
 					<div class="item_text_dec">
 						<decorator2
 							title="manual手动"
-							:color="[dataForm.workModel === WorkStatus.ONE ? '#010000' : '#81bde3']"
-							color="['#81bde3]"
-						></decorator2>
+							:color="['#81bde3', dataForm.workModel === WorkStatus.ONE ? '#010000' : '#81bde3']"
+						/>
 					</div>
 				</div>
 				<!-- 远程 -->
@@ -216,9 +233,8 @@
 					<div class="item_text_dec">
 						<decorator2
 							title="remote远程"
-							:color="[dataForm.workModel === WorkStatus.TWO ? '#010000' : '#81bde3']"
-							color="['#81bde3]"
-						></decorator2>
+							:color="['#81bde3', dataForm.workModel === WorkStatus.TWO ? '#010000' : '#81bde3']"
+						/>
 					</div>
 				</div>
 				<!-- 自动 -->
@@ -226,9 +242,8 @@
 					<div class="item_text_dec">
 						<decorator2
 							title="auto自动"
-							:color="[dataForm.workModel === WorkStatus.ZERO ? '#010000' : '#81bde3']"
-							color="['#81bde3]"
-						></decorator2>
+							:color="['#81bde3', dataForm.workModel === WorkStatus.ZERO ? '#010000' : '#81bde3']"
+						/>
 					</div>
 				</div>
 				<div class="item_bottom_line"></div>

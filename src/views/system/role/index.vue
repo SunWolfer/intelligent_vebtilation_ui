@@ -42,7 +42,7 @@
 					range-separator="-"
 					start-placeholder="开始日期"
 					end-placeholder="结束日期"
-				></el-date-picker>
+				/>
 			</el-form-item>
 			<el-form-item>
 				<el-button class="ordinary-btn" type="primary" icon="Search" @click="handleQuery"
@@ -112,7 +112,7 @@
 						active-value="0"
 						inactive-value="1"
 						@change="handleStatusChange(scope.row)"
-					></el-switch>
+					/>
 				</template>
 			</el-table-column>
 			<el-table-column label="创建时间" align="center" prop="createTime" />
@@ -125,7 +125,7 @@
 							icon="Edit"
 							@click="handleUpdate(scope.row)"
 							v-hasPermi="['system:role:edit']"
-						></el-button>
+						/>
 					</el-tooltip>
 					<el-tooltip content="删除" placement="top" v-if="scope.row.roleId !== 1">
 						<el-button
@@ -134,7 +134,7 @@
 							icon="Delete"
 							@click="handleDelete(scope.row)"
 							v-hasPermi="['system:role:remove']"
-						></el-button>
+						/>
 					</el-tooltip>
 					<el-tooltip content="数据权限" placement="top" v-if="scope.row.roleId !== 1">
 						<el-button
@@ -143,7 +143,7 @@
 							icon="CircleCheck"
 							@click="handleDataScope(scope.row)"
 							v-hasPermi="['system:role:edit']"
-						></el-button>
+						/>
 					</el-tooltip>
 				</template>
 			</el-table-column>
@@ -195,13 +195,13 @@
 				</el-form-item>
 				<el-form-item label="菜单权限">
 					<el-checkbox
-						style="color: #ffffff; height: 30px"
+						style="height: 30px; color: #fff"
 						v-model="menuExpand"
 						@change="handleCheckedTreeExpand($event, 'menu')"
 						>展开/折叠</el-checkbox
 					>
 					<el-checkbox
-						style="color: #ffffff; height: 30px"
+						style="height: 30px; color: #fff"
 						v-model="menuNodeAll"
 						@change="handleCheckedTreeNodeAll($event, 'menu')"
 						>全选/全不选</el-checkbox
@@ -215,10 +215,10 @@
 						node-key="id"
 						empty-text="加载中，请稍候"
 						:props="{ label: 'label', children: 'children' }"
-					></el-tree>
+					/>
 				</el-form-item>
 				<el-form-item label="备注">
-					<el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
+					<el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
 				</el-form-item>
 			</el-form>
 		</dia-log>
@@ -247,18 +247,18 @@
 							:key="item.value"
 							:label="item.label"
 							:value="item.value"
-						></el-option>
+						/>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="数据权限" v-show="form.dataScope === '2'">
 					<el-checkbox
-						style="color: #ffffff; height: 30px"
+						style="height: 30px; color: #fff"
 						v-model="deptExpand"
 						@change="handleCheckedTreeExpand($event, 'dept')"
 						>展开/折叠</el-checkbox
 					>
 					<el-checkbox
-						style="color: #ffffff; height: 30px"
+						style="height: 30px; color: #fff"
 						v-model="deptNodeAll"
 						@change="handleCheckedTreeNodeAll($event, 'dept')"
 						>全选/全不选</el-checkbox
@@ -273,7 +273,7 @@
 						node-key="id"
 						empty-text="加载中，请稍候"
 						:props="{ label: 'label', children: 'children' }"
-					></el-tree>
+					/>
 				</el-form-item>
 			</el-form>
 		</dia-log>

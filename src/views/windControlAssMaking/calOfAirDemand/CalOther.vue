@@ -77,9 +77,10 @@
 					<el-select v-model="dataForm.roadCode" @change="changeRoad" clearable>
 						<el-option
 							v-for="i in dataList"
+							:key="i.code"
 							:label="i.name + '  ' + i.code"
 							:value="i.code"
-						></el-option>
+						/>
 					</el-select>
 				</el-form-item>
 			</el-form>
@@ -93,7 +94,8 @@
 						</div>
 						<div class="child_body_item_t2">
 							<div
-								v-for="i in wind_predict_type"
+								v-for="(i, index) in wind_predict_type"
+								:key="index"
 								:class="
 									dataForm.gasPredictType === i.value
 										? 'child_body_item_t2_active'
@@ -109,13 +111,18 @@
 								<div class="child_body_item_t3_line">
 									<span>瓦斯传感器</span>
 									<el-select v-model="dataForm.gasSneosrCode" @change="chooseGasList" clearable>
-										<el-option v-for="i in gasList" :label="i.name" :value="i.code"></el-option>
+										<el-option v-for="i in gasList" :key="i.code" :label="i.name" :value="i.code" />
 									</el-select>
 								</div>
 								<div class="child_body_item_t3_line">
 									<span>风速传感器 </span>
 									<el-select v-model="dataForm.gasWindSensor" @change="chooseWindList" clearable>
-										<el-option v-for="i in windList" :label="i.name" :value="i.code"></el-option>
+										<el-option
+											v-for="i in windList"
+											:key="i.code"
+											:label="i.name"
+											:value="i.code"
+										/>
 									</el-select>
 								</div>
 								<div class="child_body_item_t3_line">

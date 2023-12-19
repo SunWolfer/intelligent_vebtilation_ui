@@ -5,7 +5,9 @@
 	const props = defineProps({
 		dataFrom: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 	})
 	const emit = defineEmits(['update:dataFrom', 'setParam'])
@@ -95,7 +97,7 @@
 
 <template>
 	<div class="fullDom do_dom">
-		<template v-for="obj in dataList">
+		<template v-for="obj in dataList" :key="obj.id">
 			<div class="do_dom_item">
 				<span>{{ obj.label1 }}</span>
 				<el-select :teleported="false" filterable v-model="controlForm[obj.value1]" clearable>
@@ -104,7 +106,7 @@
 						:key="item.value"
 						:label="item.label"
 						:value="item.value"
-					></el-option>
+					/>
 				</el-select>
 				<el-button class="add-btn" icon="Setting" @click="setParams(obj.value1)">设置</el-button>
 			</div>

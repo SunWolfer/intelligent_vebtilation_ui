@@ -60,7 +60,7 @@ export const resetForm = (formRef: FormInstance | undefined) => {
 
 // 添加日期范围
 export function addDateRange(params?: any, dateRange?: any[], propName?: string | undefined) {
-	let search = params
+	const search = params
 	// search.params = typeof search.params === 'object' && search.params !== null && !Array.isArray(search.params) ? search.params : {}
 	dateRange = Array.isArray(dateRange) ? dateRange : []
 	if (typeof propName === 'undefined') {
@@ -78,7 +78,7 @@ export function selectDictLabel(datas: any, value: string | undefined) {
 	if (value === undefined) {
 		return ''
 	}
-	let actions: any[] = []
+	const actions: any[] = []
 	Object.keys(datas).some((key) => {
 		if (datas[key].value === '' + value) {
 			actions.push(datas[key].label)
@@ -114,22 +114,6 @@ export function selectDictLabels(datas: any, value?: string | undefined, separat
 	return actions.join('').substring(0, actions.join('').length - 1)
 }
 
-// 字符串格式化(%s )
-export function sprintf(str: string) {
-	let args = arguments,
-		flag = true,
-		i = 1
-	str = str.replace(/%s/g, function () {
-		let arg = args[i++]
-		if (typeof arg === 'undefined') {
-			flag = false
-			return ''
-		}
-		return arg
-	})
-	return flag ? str : ''
-}
-
 // 转换字符串，undefined,null等转化为""
 export function parseStrEmpty(str: string | number) {
 	if (!str || str === 'undefined' || str === 'null') {
@@ -162,7 +146,7 @@ export function mergeRecursive(source: { [x: string]: any }, target: { [x: strin
  * @param {*} children 孩子节点字段 默认 'children'
  */
 export function handleTree(data: any, id = 'id', parentId = 'parentId', children = 'children') {
-	let config = {
+	const config = {
 		id: id,
 		parentId: parentId,
 		childrenList: children,
@@ -172,8 +156,8 @@ export function handleTree(data: any, id = 'id', parentId = 'parentId', children
 	const nodeIds: any = {}
 	const tree: any[] = []
 
-	for (let d of data) {
-		let parentId = d[config.parentId]
+	for (const d of data) {
+		const parentId = d[config.parentId]
 		if (childrenListMap[parentId] == null) {
 			childrenListMap[parentId] = []
 		}
@@ -181,14 +165,14 @@ export function handleTree(data: any, id = 'id', parentId = 'parentId', children
 		childrenListMap[parentId].push(d)
 	}
 
-	for (let d of data) {
-		let parentId = d[config.parentId]
+	for (const d of data) {
+		const parentId = d[config.parentId]
 		if (nodeIds[parentId] == null) {
 			tree.push(d)
 		}
 	}
 
-	for (let t of tree) {
+	for (const t of tree) {
 		adaptToChildrenList(t)
 	}
 
@@ -197,7 +181,7 @@ export function handleTree(data: any, id = 'id', parentId = 'parentId', children
 			o[config.childrenList] = childrenListMap[o[config.id]]
 		}
 		if (o[config.childrenList]) {
-			for (let c of o[config.childrenList]) {
+			for (const c of o[config.childrenList]) {
 				adaptToChildrenList(c)
 			}
 		}
@@ -213,13 +197,13 @@ export function tansParams(params: any) {
 	let result = ''
 	for (const propName of Object.keys(params)) {
 		const value = params[propName]
-		let part = encodeURIComponent(propName) + '='
+		const part = encodeURIComponent(propName) + '='
 		if (value !== null && value !== '' && typeof value !== 'undefined') {
 			if (typeof value === 'object') {
 				for (const key of Object.keys(value)) {
 					if (value[key] !== null && value[key] !== '' && typeof value[key] !== 'undefined') {
-						let params = propName + '[' + key + ']'
-						let subPart = encodeURIComponent(params) + '='
+						const params = propName + '[' + key + ']'
+						const subPart = encodeURIComponent(params) + '='
 						result += subPart + encodeURIComponent(value[key]) + '&'
 					}
 				}
@@ -236,7 +220,7 @@ export function getNormalPath(p: string) {
 	if (p.length === 0 || !p || p === 'undefined') {
 		return p
 	}
-	let res = p.replace('//', '/')
+	const res = p.replace('//', '/')
 	if (res[res.length - 1] === '/') {
 		return res.slice(0, res.length - 1)
 	}

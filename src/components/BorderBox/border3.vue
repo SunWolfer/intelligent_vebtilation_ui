@@ -46,13 +46,8 @@
 					<feComposite operator="over" in="shadow" in2="SourceGraphic" />
 				</filter>
 			</defs>
-			<polyline :points="points" fill="rgb(15, 46, 81)" class="polyline_1"></polyline>
-			<polyline
-				:points="linePoints"
-				fill="none"
-				stroke-width="2"
-				stroke="rgba(6, 134, 216, 1)"
-			></polyline>
+			<polyline :points="points" fill="rgb(15, 46, 81)" class="polyline_1" />
+			<polyline :points="linePoints" fill="none" stroke-width="2" stroke="rgba(6, 134, 216, 1)" />
 			<rect width="8" height="4" x="13" y="3" fill="rgba(44, 202, 235, 0.4)" class="skewRect">
 				<animate
 					attributeName="opacity"

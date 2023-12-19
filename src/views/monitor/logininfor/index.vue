@@ -166,7 +166,7 @@
 					range-separator="-"
 					start-placeholder="开始日期"
 					end-placeholder="结束日期"
-				></el-date-picker>
+				/>
 			</el-form-item>
 			<el-form-item>
 				<el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>

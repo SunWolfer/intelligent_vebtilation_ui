@@ -5,7 +5,9 @@
 	const props = defineProps({
 		dataFrom: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 	})
 	const emit = defineEmits(['update:dataFrom', 'setParam'])
@@ -168,31 +170,31 @@
 		label-width="auto"
 	>
 		<el-form-item label="心跳周期(s)：" prop="heatBeatPeriod">
-			<el-input v-model="controlForm.heatBeatPeriod"></el-input>
+			<el-input v-model="controlForm.heatBeatPeriod" />
 			<el-button class="add-btn" icon="Setting" @click="setParams('heatBeatPeriod')"
 				>设置</el-button
 			>
 		</el-form-item>
 		<el-form-item label="上报周期(s)：" prop="reportPeriod">
-			<el-input v-model="controlForm.reportPeriod"></el-input>
+			<el-input v-model="controlForm.reportPeriod" />
 			<el-button class="add-btn" icon="Setting" @click="setParams('reportPeriod')">设置</el-button>
 		</el-form-item>
 		<el-form-item />
 		<el-form-item />
 		<el-form-item label="超时时间(s)：" prop="timeOut">
-			<el-input v-model="controlForm.timeOut"></el-input>
+			<el-input v-model="controlForm.timeOut" />
 			<el-button class="add-btn" icon="Setting" @click="setParams('timeOut')">设置</el-button>
 		</el-form-item>
 		<el-form-item label="总调节时间(s)：" prop="controlTime">
-			<el-input v-model="controlForm.controlTime"></el-input>
+			<el-input v-model="controlForm.controlTime" />
 			<el-button class="add-btn" icon="Setting" @click="setParams('controlTime')">设置</el-button>
 		</el-form-item>
 		<el-form-item label="调节误差(%)：" prop="controlError">
-			<el-input v-model="controlForm.controlError"></el-input>
+			<el-input v-model="controlForm.controlError" />
 			<el-button class="add-btn" icon="Setting" @click="setParams('controlError')">设置</el-button>
 		</el-form-item>
 		<el-form-item label="A窗风速目标值(m/s)：" prop="controlSpeedA">
-			<el-input v-model="controlForm.controlSpeedA"></el-input>
+			<el-input v-model="controlForm.controlSpeedA" />
 			<el-button
 				class="add-btn"
 				icon="Setting"
@@ -201,7 +203,7 @@
 			>
 		</el-form-item>
 		<el-form-item label="A窗风压目标值(Pa)：" prop="controlPressureA">
-			<el-input v-model="controlForm.controlPressureA"></el-input>
+			<el-input v-model="controlForm.controlPressureA" />
 			<el-button
 				class="add-btn"
 				icon="Setting"
@@ -210,7 +212,7 @@
 			>
 		</el-form-item>
 		<el-form-item label="A窗风量目标值(m^3/min)：" prop="controlVolumeA">
-			<el-input v-model="controlForm.controlVolumeA"></el-input>
+			<el-input v-model="controlForm.controlVolumeA" />
 			<el-button
 				class="add-btn"
 				icon="Setting"
@@ -219,13 +221,13 @@
 			>
 		</el-form-item>
 		<el-form-item label="A窗开度调节(%)：" prop="openDegreeTargetA">
-			<el-input v-model="controlForm.openDegreeTargetA"></el-input>
+			<el-input v-model="controlForm.openDegreeTargetA" />
 			<el-button class="add-btn" icon="Setting" @click="setParams('openDegreeTargetA')"
 				>设置</el-button
 			>
 		</el-form-item>
 		<el-form-item label="B窗风速目标值(m/s)：" prop="controlSpeedB">
-			<el-input v-model="controlForm.controlSpeedB"></el-input>
+			<el-input v-model="controlForm.controlSpeedB" />
 			<el-button
 				class="add-btn"
 				icon="Setting"
@@ -234,7 +236,7 @@
 			>
 		</el-form-item>
 		<el-form-item label="B窗风压目标值(Pa)：" prop="controlPressureB">
-			<el-input v-model="controlForm.controlPressureB"></el-input>
+			<el-input v-model="controlForm.controlPressureB" />
 			<el-button
 				class="add-btn"
 				icon="Setting"
@@ -243,7 +245,7 @@
 			>
 		</el-form-item>
 		<el-form-item label="B窗风量目标值(m^3/min)：" prop="controlVolumeB">
-			<el-input v-model="controlForm.controlVolumeB"></el-input>
+			<el-input v-model="controlForm.controlVolumeB" />
 			<el-button
 				class="add-btn"
 				icon="Setting"
@@ -252,7 +254,7 @@
 			>
 		</el-form-item>
 		<el-form-item label="B窗开度调节(%)：" prop="openDegreeTargetB">
-			<el-input v-model="controlForm.openDegreeTargetB"></el-input>
+			<el-input v-model="controlForm.openDegreeTargetB" />
 			<el-button class="add-btn" icon="Setting" @click="setParams('openDegreeTargetB')"
 				>设置</el-button
 			>

@@ -51,11 +51,11 @@
 <template>
 	<div class="home_right_message" :style="dislodgeDomStyle">
 		<div class="home_right_message_title">
-			<border-box name="border2" title="矿井总风量"></border-box>
+			<border-box name="border2" title="矿井总风量" />
 		</div>
 		<div class="home_right_message_l2">
 			<el-carousel indicator-position="none" :height="dynamicHeight(163) + 'px'">
-				<el-carousel-item v-for="item in airVolumeList">
+				<el-carousel-item v-for="item in airVolumeList" :key="item.id">
 					<div class="home_right_message_body1">
 						<div class="home_right_message_body1_left"></div>
 						<div class="home_right_message_body1_right">
@@ -85,11 +85,11 @@
 
 		<!--    区域风量-->
 		<div class="home_right_message_title">
-			<border-box name="border2" title="区域风量"></border-box>
+			<border-box name="border2" title="区域风量" />
 		</div>
 		<div class="home_right_message_body2">
 			<div class="fullDom">
-				<template v-for="(item, index) in regionalAirVolumeList">
+				<template v-for="(item, index) in regionalAirVolumeList" :key="'region' + index">
 					<div class="home_right_message_body2_bg">
 						<div class="home_body2_index">{{ index + 1 }}</div>
 						<div class="home_body2_text">{{ item.name }}</div>
@@ -101,7 +101,7 @@
 		</div>
 		<!--    预警总览-->
 		<div class="home_right_message_title">
-			<border-box name="border2" title="预警总览"></border-box>
+			<border-box name="border2" title="预警总览" />
 		</div>
 		<div class="home_right_message_body3">
 			<div class="home_body3_top_left">
@@ -134,9 +134,9 @@
 		<!--    预警列表-->
 		<div class="home_right_message_body4">
 			<el-carousel indicator-position="none">
-				<el-carousel-item v-for="item in showWarnList">
+				<el-carousel-item v-for="(item, index) in showWarnList" :key="'warn' + index">
 					<div class="home_body4_item">
-						<template v-for="child in item">
+						<template v-for="child in item" :key="child.id">
 							<div class="home_body4_item_body">
 								<div class="home_body4_item_body_A" :class="'warn_level_bg_' + child.warnLevel">
 									{{ child.warnName }}

@@ -15,7 +15,9 @@
 		},
 		chooseRow: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 	})
 	const emits = defineEmits(['update:modelValue'])
@@ -66,17 +68,17 @@
 			label-position="left"
 		>
 			<el-form-item label="面对面距离" prop="length1">
-				<el-input v-model="dataForm.length1"></el-input>
+				<el-input v-model="dataForm.length1" />
 			</el-form-item>
 			<el-form-item label="基线距离" prop="length2">
-				<el-input v-model="dataForm.length2"></el-input>
+				<el-input v-model="dataForm.length2" />
 			</el-form-item>
 			<el-form-item label="断面积" prop="surface">
-				<el-input v-model="dataForm.surface"></el-input> </el-form-item
+				<el-input v-model="dataForm.surface" /> </el-form-item
 			><el-form-item label="A柱运行时间" prop="setTimea">
-				<el-input v-model="dataForm.setTimea"></el-input> </el-form-item
+				<el-input v-model="dataForm.setTimea" /> </el-form-item
 			><el-form-item label="B柱运行时间" prop="setTimeb">
-				<el-input v-model="dataForm.setTimeb"></el-input>
+				<el-input v-model="dataForm.setTimeb" />
 			</el-form-item>
 		</el-form>
 	</dia-log>

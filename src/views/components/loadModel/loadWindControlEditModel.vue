@@ -188,11 +188,11 @@
 			:choose-group="true"
 			:edit-type="editType"
 			@load="onLoad"
-			@onModel="onModel"
-			@onClick="onClick"
-			@onDblclick="dblclick"
+			@on-model="onModel"
+			@on-click="onClick"
+			@on-dblclick="dblclick"
 			@ready-camera="readyCamera"
-			@readyConnect="readyConnect"
+			@ready-connect="readyConnect"
 		>
 			<!--			显示全部设备图标-->
 			<template #label v-if="isReady">

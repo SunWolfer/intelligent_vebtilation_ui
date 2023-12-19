@@ -41,7 +41,7 @@
 					<span>{{ detailsData.actionCount }}</span>
 				</div>
 				<div class="details_form_child_list fullDom">
-					<template v-for="item in detailsChildDataList">
+					<template v-for="(item, index) in detailsChildDataList" :key="index">
 						<border-box class="details_form_child" name="border1">
 							<div class="details_form_child_body fullDom">
 								<div class="details_form_child_body_line">
@@ -85,7 +85,7 @@
 		</template>
 		<template v-else>
 			<div class="second_step fullDom">
-				<template v-for="data in dataList">
+				<template v-for="(data, index) in dataList" :key="index">
 					<border-box name="border1" class="second_step_item">
 						<div class="second_step_item_body fullDom">
 							<span>调控原因：</span>

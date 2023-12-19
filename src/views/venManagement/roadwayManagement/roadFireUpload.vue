@@ -84,10 +84,10 @@
 			<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 			<template #tip>
 				<div class="el-upload__tip text-center">
-					<div class="el-upload__tip" style="color: #ffffff">
+					<div class="el-upload__tip" style="color: #fff">
 						<el-checkbox v-model="upload.updateSupport" />是否更新已存在的巷道数据
 					</div>
-					<span style="color: #ffffff">仅允许导入xls、xlsx格式文件。</span>
+					<span style="color: #fff">仅允许导入xls、xlsx格式文件。</span>
 					<el-link
 						type="primary"
 						:underline="false"

@@ -28,21 +28,16 @@
 	<div class="table_page_default_no_btn">
 		<el-form :model="queryParams" ref="queryRef" :inline="true" label-width="auto">
 			<el-form-item label="名称" prop="sensorName">
-				<el-input
-					v-model="queryParams.sensorName"
-					placeholder="请输入传感器名称"
-					clearable
-					@keyup.enter.native="handleQuery"
-				/>
+				<el-input v-model="queryParams.sensorName" placeholder="请输入传感器名称" clearable />
 			</el-form-item>
-			<el-form-item style="margin-bottom: 0px" label="状态" prop="offLine">
+			<el-form-item style="margin-bottom: 0" label="状态" prop="offLine">
 				<el-select v-model="queryParams.offLine" placeholder="请选择状态" clearable>
 					<el-option
 						v-for="(item, index) in offline_type"
 						:key="index"
 						:label="item.label"
 						:value="item.value"
-					></el-option>
+					/>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="操作时间">
@@ -53,7 +48,7 @@
 					range-separator="-"
 					start-placeholder="开始日期"
 					end-placeholder="结束日期"
-				></el-date-picker>
+				/>
 			</el-form-item>
 			<el-form-item>
 				<el-button class="ordinary-btn" type="primary" icon="Search" @click="handleQuery"

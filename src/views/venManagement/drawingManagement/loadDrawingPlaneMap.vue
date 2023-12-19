@@ -8,7 +8,9 @@
 		},
 		extent: {
 			type: Array,
-			default: [0, 0, 12000, 18000],
+			default: () => {
+				return [0, 0, 12000, 18000]
+			},
 		},
 	})
 

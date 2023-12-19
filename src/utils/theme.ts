@@ -1,5 +1,5 @@
 // 处理主题样式
-export function handleThemeStyle(theme:string):void {
+export function handleThemeStyle(theme: string): void {
 	document.documentElement.style.setProperty('--el-color-primary', theme)
 	for (let i = 1; i <= 9; i++) {
 		document.documentElement.style.setProperty(
@@ -16,17 +16,17 @@ export function handleThemeStyle(theme:string):void {
 }
 
 // hex颜色转rgb颜色
-export function hexToRgb(str:any) {
-	let hexes: any = "";
-	str = str.replace("#", "");
-	hexes = str.match(/../g);
-	for (let i = 0; i < 3; i++) hexes[i] = parseInt(hexes[i], 16);
-	return hexes;
+export function hexToRgb(str: any) {
+	let hexes: any = ''
+	str = str.replace('#', '')
+	hexes = str.match(/../g)
+	for (let i = 0; i < 3; i++) hexes[i] = parseInt(hexes[i], 16)
+	return hexes
 }
 
 // rgb颜色转Hex颜色
-export function rgbToHex(r:any, g:any, b:any) {
-	let hexes = [r.toString(16), g.toString(16), b.toString(16)]
+export function rgbToHex(r: any, g: any, b: any) {
+	const hexes = [r.toString(16), g.toString(16), b.toString(16)]
 	for (let i = 0; i < 3; i++) {
 		if (hexes[i].length == 1) {
 			hexes[i] = `0${hexes[i]}`
@@ -36,8 +36,8 @@ export function rgbToHex(r:any, g:any, b:any) {
 }
 
 // 变浅颜色值
-export function getLightColor(color:string, level:number) {
-	let rgb = hexToRgb(color)
+export function getLightColor(color: string, level: number) {
+	const rgb = hexToRgb(color)
 	for (let i = 0; i < 3; i++) {
 		rgb[i] = Math.floor((255 - rgb[i]) * level + rgb[i])
 	}
@@ -45,8 +45,8 @@ export function getLightColor(color:string, level:number) {
 }
 
 // 变深颜色值
-export function getDarkColor(color:string, level:number) {
-	let rgb = hexToRgb(color)
+export function getDarkColor(color: string, level: number) {
+	const rgb = hexToRgb(color)
 	for (let i = 0; i < 3; i++) {
 		rgb[i] = Math.floor(rgb[i] * (1 - level))
 	}

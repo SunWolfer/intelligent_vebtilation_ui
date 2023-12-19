@@ -26,7 +26,7 @@
 <template>
 	<div class="ven_body">
 		<div class="ven_body_top">
-			<template v-for="item in defaultStatusList">
+			<template v-for="(item, itemIndex) in defaultStatusList" :key="itemIndex">
 				<div :class="item.class">
 					<div class="status_title">{{ item.label }}</div>
 					<div class="status_value">{{ item.value }}</div>
@@ -37,7 +37,7 @@
 			</template>
 		</div>
 		<div class="ven_body_center">
-			<template v-for="item in dataList">
+			<template v-for="item in dataList" :key="item.id">
 				<div class="ven_body_center_item">
 					<border-box
 						name="border6"
@@ -61,9 +61,9 @@
 							<div class="fullDom ven_body_center_item_body_icon">
 								<div class="ven_icon_control"></div>
 								<span @click="toControlPage(item)">控制</span>
-								<div class="ven_icon_monitor" />
+								<div class="ven_icon_monitor"></div>
 								<span @click="showVideoVisible(item)">监控</span>
-								<div class="ven_icon_warning" />
+								<div class="ven_icon_warning"></div>
 								<span @click="showWarnDetailsVisible(item)">预警</span>
 							</div>
 						</div>
@@ -87,7 +87,7 @@
 			:height="663"
 			:title="chooseRow?.name"
 		>
-			<m-video type="fc" :video-path="chooseRow.videoUrl"></m-video>
+			<m-video type="fc" :video-path="chooseRow.videoUrl" />
 		</dia-log>
 		<!--    预警详情-->
 		<WarnTableRecord

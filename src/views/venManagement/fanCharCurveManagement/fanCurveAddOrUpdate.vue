@@ -8,12 +8,14 @@
 	const props = defineProps({
 		chooseRow: {
 			type: Object,
-			default: {
-				devId: undefined,
-				// 	转速
-				zhuansu: '',
-				// 	角度
-				jiaodu: '',
+			default: () => {
+				return {
+					devId: undefined,
+					// 	转速
+					zhuansu: '',
+					// 	角度
+					jiaodu: '',
+				}
 			},
 		},
 		modelValue: {
@@ -148,7 +150,7 @@
 							class="fan_curve_input"
 							v-model="queryParams.devId"
 						>
-							<el-option v-for="i in fanList" :label="i.name" :value="i.id"></el-option>
+							<el-option v-for="i in fanList" :key="i.id" :label="i.name" :value="i.id" />
 						</el-select>
 					</el-form-item>
 					<el-form-item label="转速(r/min)">

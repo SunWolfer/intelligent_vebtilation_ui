@@ -114,15 +114,19 @@ const useList = <TData = any, Params = any>({
 
 		dataList.value = []
 		loading.value = true
-		const res = await apiFun(addDateRange(queryParams.value, dateRange.value))
-		if (!res) return
-		loading.value = false
-		if (typeof resetReadyListFun === 'function') {
-			resetReadyListFun(res)
-		} else {
-			dataList.value = res.rows
-			total.value = res.total
-			if (typeof afterReadyListFun === 'function') afterReadyListFun(res)
+		try {
+			const res = await apiFun(addDateRange(queryParams.value, dateRange.value))
+			loading.value = false
+			if (!res) return
+			if (typeof resetReadyListFun === 'function') {
+				resetReadyListFun(res)
+			} else {
+				dataList.value = res.rows
+				total.value = res.total
+				if (typeof afterReadyListFun === 'function') afterReadyListFun(res)
+			}
+		} catch (error) {
+			loading.value = false
 		}
 	}
 

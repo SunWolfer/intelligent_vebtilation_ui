@@ -12,6 +12,7 @@
 	} from '@/api/api/throttleManagement'
 	import useDict from '@/hooks/useDict'
 	import DoorTags from '@/views/venEqMonitoring/throttleMonitoring/doorTags.vue'
+	import { DoorTypes, DoorVersion } from '@/types/menuType'
 
 	const {
 		queryParams,
@@ -34,7 +35,11 @@
 		deleteFun: delThrottle,
 	})
 
-	const { door_type, door_version } = useDict('door_type', 'door_version')
+	const { door_type, door_version, door_window_type } = useDict(
+		'door_type',
+		'door_version',
+		'door_window_type',
+	)
 	const formatterDoorType = (row) => {
 		return selectDictLabel(door_type.value, row.type)
 	}
@@ -51,6 +56,7 @@
 		code: [{ required: true, message: '风门编码不能为空', trigger: 'blur' }],
 		type: [{ required: true, message: '风门类型不能为空', trigger: 'blur' }],
 		devVersion: [{ required: true, message: '风门版本不能为空', trigger: 'blur' }],
+		doorFlag: [{ required: true, message: '风窗个数不能为空', trigger: 'blur' }],
 	})
 	// 新增修改操作
 	const { formRef, form, title, open, submitForm, handleUpdate, handleAdd } = useForm({
@@ -69,6 +75,7 @@
 			pointZ: undefined,
 			devVersion: undefined,
 			videoUrl: undefined,
+			doorFlag: undefined,
 		},
 		titleMes: '风门',
 		initApi: getThrottle,
@@ -100,6 +107,7 @@
 			pointZ: undefined,
 			devVersion: undefined,
 			videoUrl: undefined,
+			doorFlag: undefined,
 		},
 		titleMes: '风门',
 		initApi: getThrottle,
@@ -111,23 +119,37 @@
 		chooseData.value = row
 		editingVisible.value = true
 	}
+
+	//   设置显示风窗个数
+	const hasWindowNum = computed(() => {
+		return (
+			form.value.type === DoorTypes.adjustingTheAirDamper &&
+			form.value.devVersion === DoorVersion.oldVersion
+		)
+	})
+	const hasWindowNumExamine = computed(() => {
+		return (
+			examineForm.value.type === DoorTypes.adjustingTheAirDamper &&
+			examineForm.value.devVersion === DoorVersion.oldVersion
+		)
+	})
 </script>
 
 <template>
 	<div class="table_page_default">
 		<el-form :model="queryParams" inline>
 			<el-form-item label="风门名称">
-				<el-input v-model="queryParams.name"></el-input>
+				<el-input v-model="queryParams.name" />
 			</el-form-item>
 			<el-form-item label="风门位置">
-				<el-input v-model="queryParams.location"></el-input>
+				<el-input v-model="queryParams.location" />
 			</el-form-item>
 			<el-form-item label="风门ip">
-				<el-input v-model="queryParams.ip"></el-input>
+				<el-input v-model="queryParams.ip" />
 			</el-form-item>
 			<el-form-item label="风门版本">
 				<el-select v-model="queryParams.devVersion" clearable>
-					<el-option v-for="i in door_version" :label="i.label" :value="i.value"></el-option>
+					<el-option v-for="i in door_version" :key="i.value" :label="i.label" :value="i.value" />
 				</el-select>
 			</el-form-item>
 			<el-form-item>
@@ -138,7 +160,7 @@
 			<div class="normal_4_btn" @click="handleAdd">新增</div>
 			<div class="normal_3_btn" @click="handleDelete">删除</div>
 		</div>
-		<el-table :data="dataList" border @selectionChange="handleSelectionChange">
+		<el-table :data="dataList" border @selection-change="handleSelectionChange">
 			<el-table-column type="selection" width="55" align="center" />
 			<el-table-column label="风门编码" align="center" prop="code" />
 			<el-table-column label="风门名称" align="center" prop="name" />
@@ -196,47 +218,57 @@
 				label-position="left"
 			>
 				<el-form-item label="风门名称" prop="name">
-					<el-input v-model="form.name"></el-input>
+					<el-input v-model="form.name" />
 				</el-form-item>
 				<el-form-item label="风门位置" prop="location">
-					<el-input v-model="form.location"></el-input>
+					<el-input v-model="form.location" />
 				</el-form-item>
 				<el-form-item label="风门ip" prop="ip">
-					<el-input v-model="form.ip"></el-input>
+					<el-input v-model="form.ip" />
 				</el-form-item>
 				<el-form-item label="风门端口" prop="port">
-					<el-input v-model="form.port"></el-input>
+					<el-input v-model="form.port" />
 				</el-form-item>
 				<el-form-item label="风门长度" prop="length">
-					<el-input v-model="form.length"></el-input>
+					<el-input v-model="form.length" />
 				</el-form-item>
 				<el-form-item label="风门宽度" prop="width">
-					<el-input v-model="form.width"></el-input>
+					<el-input v-model="form.width" />
 				</el-form-item>
 				<el-form-item label="风门编码" prop="code">
-					<el-input v-model="form.code"></el-input>
+					<el-input v-model="form.code" />
 				</el-form-item>
 				<el-form-item label="风门类型" prop="type">
 					<el-select v-model="form.type" clearable>
-						<el-option v-for="i in door_type" :label="i.label" :value="i.value"></el-option>
+						<el-option v-for="i in door_type" :key="i.value" :label="i.label" :value="i.value" />
 					</el-select>
 				</el-form-item>
 				<el-form-item label="X坐标" prop="pointX">
-					<el-input v-model="form.pointX"></el-input>
+					<el-input v-model="form.pointX" />
 				</el-form-item>
 				<el-form-item label="Y坐标" prop="pointY">
-					<el-input v-model="form.pointY"></el-input>
+					<el-input v-model="form.pointY" />
 				</el-form-item>
 				<el-form-item label="Z坐标" prop="pointZ">
-					<el-input v-model="form.pointZ"></el-input>
+					<el-input v-model="form.pointZ" />
 				</el-form-item>
 				<el-form-item label="风门版本" prop="devVersion">
 					<el-select v-model="form.devVersion" clearable>
-						<el-option v-for="i in door_version" :label="i.label" :value="i.value"></el-option>
+						<el-option v-for="i in door_version" :key="i.value" :label="i.label" :value="i.value" />
+					</el-select>
+				</el-form-item>
+				<el-form-item label="风窗个数" prop="doorFlag" v-if="hasWindowNum">
+					<el-select v-model="form.doorFlag" clearable>
+						<el-option
+							v-for="i in door_window_type"
+							:key="i.value"
+							:label="i.label"
+							:value="i.value"
+						/>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="视频地址" prop="videoUrl" class="table_page_form_row">
-					<el-input v-model="form.videoUrl"></el-input>
+					<el-input v-model="form.videoUrl" />
 				</el-form-item>
 			</el-form>
 		</dia-log>
@@ -250,47 +282,57 @@
 				label-position="left"
 			>
 				<el-form-item label="风门名称" prop="name">
-					<el-input disabled v-model="examineForm.name"></el-input>
+					<el-input disabled v-model="examineForm.name" />
 				</el-form-item>
 				<el-form-item label="风门位置" prop="location">
-					<el-input disabled v-model="examineForm.location"></el-input>
+					<el-input disabled v-model="examineForm.location" />
 				</el-form-item>
 				<el-form-item label="风门ip" prop="ip">
-					<el-input disabled v-model="examineForm.ip"></el-input>
+					<el-input disabled v-model="examineForm.ip" />
 				</el-form-item>
 				<el-form-item label="风门端口" prop="port">
-					<el-input disabled v-model="examineForm.port"></el-input>
+					<el-input disabled v-model="examineForm.port" />
 				</el-form-item>
 				<el-form-item label="风门长度" prop="length">
-					<el-input disabled v-model="examineForm.length"></el-input>
+					<el-input disabled v-model="examineForm.length" />
 				</el-form-item>
 				<el-form-item label="风门宽度" prop="width">
-					<el-input disabled v-model="examineForm.width"></el-input>
+					<el-input disabled v-model="examineForm.width" />
 				</el-form-item>
 				<el-form-item label="风门编码" prop="code">
-					<el-input disabled v-model="examineForm.code"></el-input>
+					<el-input disabled v-model="examineForm.code" />
 				</el-form-item>
 				<el-form-item label="风门类型" prop="type">
 					<el-select disabled v-model="examineForm.type" clearable>
-						<el-option v-for="i in door_type" :label="i.label" :value="i.value"></el-option>
+						<el-option v-for="i in door_type" :key="i.value" :label="i.label" :value="i.value" />
 					</el-select>
 				</el-form-item>
 				<el-form-item label="X坐标" prop="pointX">
-					<el-input disabled v-model="examineForm.pointX"></el-input>
+					<el-input disabled v-model="examineForm.pointX" />
 				</el-form-item>
 				<el-form-item label="Y坐标" prop="pointY">
-					<el-input disabled v-model="examineForm.pointY"></el-input>
+					<el-input disabled v-model="examineForm.pointY" />
 				</el-form-item>
 				<el-form-item label="Z坐标" prop="pointZ">
-					<el-input v-model="examineForm.pointZ"></el-input>
+					<el-input v-model="examineForm.pointZ" />
 				</el-form-item>
 				<el-form-item label="风门版本" prop="version">
 					<el-select disabled v-model="examineForm.devVersion" clearable>
-						<el-option v-for="i in door_version" :label="i.label" :value="i.value"></el-option>
+						<el-option v-for="i in door_version" :key="i.value" :label="i.label" :value="i.value" />
+					</el-select>
+				</el-form-item>
+				<el-form-item label="风窗个数" prop="doorFlag" v-if="hasWindowNumExamine">
+					<el-select disabled v-model="examineForm.doorFlag" clearable>
+						<el-option
+							v-for="i in door_window_type"
+							:key="i.value"
+							:label="i.label"
+							:value="i.value"
+						/>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="视频地址" prop="videoUrl" class="table_page_form_row">
-					<el-input disabled v-model="examineForm.videoUrl"></el-input>
+					<el-input disabled v-model="examineForm.videoUrl" />
 				</el-form-item>
 			</el-form>
 		</dia-log>

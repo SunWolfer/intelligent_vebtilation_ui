@@ -37,14 +37,14 @@ export const useOpenLayers = () => {
 
 	// 初始化地图图层
 	function initMap() {
-		let layers = getLayers()
+		const layers = getLayers()
 		iconLayer.value = newLayers()
 		layerOne.value = newLayers()
 		layerTwo.value = newLayers()
 		layerThree.value = newLayers()
 		layers.push(iconLayer.value, layerOne.value, layerTwo.value, layerThree.value)
 
-		let mapProjection = new Projection({
+		const mapProjection = new Projection({
 			code: 'EPSG:404000',
 			units: 'degrees',
 			extent: textExtent.value,
@@ -71,16 +71,16 @@ export const useOpenLayers = () => {
 
 	//   获取初始化图层列表
 	function getLayers() {
-		let layers: Layer[] = []
+		const layers: Layer[] = []
 		for (let i = 0; i < datalayerList.value.length; i++) {
-			let tData = datalayerList.value[i]
+			const tData = datalayerList.value[i]
 			if (tData.type === 'img') {
-				let projection = new Projection({
+				const projection = new Projection({
 					code: 'static-image',
 					units: 'pixels',
 					extent: textExtent.value,
 				})
-				let temLayer = new Image({
+				const temLayer = new Image({
 					source: new ImageStatic({
 						url: tData.paramlayer,
 						projection: projection,
@@ -89,7 +89,7 @@ export const useOpenLayers = () => {
 				})
 				layers.push(temLayer)
 			} else if (tData.type === 'wms') {
-				let temLayer = new Tile({
+				const temLayer = new Tile({
 					source: new TileWMS({
 						url: window.SITE_CONFIG.mapUrl + '/geoserver/coalmap/wms',
 						params: {
@@ -125,11 +125,11 @@ export const useOpenLayers = () => {
 	}
 
 	function setFeature({ data = {}, point = [], url }) {
-		let feature = new Feature({
+		const feature = new Feature({
 			value: JSON.stringify(data),
 			geometry: new Point(point),
 		})
-		let style = setStyle(url)
+		const style = setStyle(url)
 		feature.setStyle(style)
 		return feature
 	}

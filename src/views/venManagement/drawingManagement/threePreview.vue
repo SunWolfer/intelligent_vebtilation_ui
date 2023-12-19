@@ -60,7 +60,7 @@
 			:customize-max-node-num="customizeMaxNodeNum"
 		/>
 		<div class="home_model_type">
-			<div v-for="i in typeList" class="home_model_type_item">
+			<div v-for="(i, index) in typeList" :key="index" class="home_model_type_item">
 				<span
 					class="pointer"
 					:class="dataForm.type === i.value ? 'text_active' : 'text_default'"
@@ -77,7 +77,7 @@
 			<border-box name="border3">
 				<div class="debug_model_body">
 					<span>输入节点</span>
-					<el-input v-model="debugNode"></el-input>
+					<el-input v-model="debugNode" />
 					<div class="normal_btn" @click="setNode">确定</div>
 				</div>
 			</border-box>

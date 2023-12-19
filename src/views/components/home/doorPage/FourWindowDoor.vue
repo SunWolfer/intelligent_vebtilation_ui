@@ -1,11 +1,13 @@
 <script setup>
 	import { useCommitForm } from '@/hooks/useForm'
-	import { setDoorParam } from '@/api/api/airDoor'
+	import { controlDoor } from '@/api/api/airDoor'
 
 	const props = defineProps({
 		dataForm: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 		videoUrl1: {
 			type: String,
@@ -27,41 +29,45 @@
 	const tabList = [
 		{
 			name: 'A门左侧风窗',
-			closeKey: 'door1LeftWinCloseFlag', // 关到位key
-			openKey: 'door1LeftWinOpenFlag', // 开到位key
-			openRebackKey: 'door1LeftWinReback', // 当前开度key
+			closeKey: 'windowStatusA1', // 关到位key
+			openKey: 'windowStatusA1', // 开到位key
+			openRebackKey: 'openDegreeNowA1', // 当前开度key
 			openSetKey: 'door1LeftWinSet', // 设置开度key
+			type: '21',
 		},
 		{
 			name: 'A门右侧风窗',
-			closeKey: 'door1RightWinCloseFlag', // 关到位key
-			openKey: 'door1RightWinOpenFlag', // 开到位key
-			openRebackKey: 'door1RightWinReback', // 当前开度key
+			closeKey: 'windowStatusA2', // 关到位key
+			openKey: 'windowStatusA2', // 开到位key
+			openRebackKey: 'openDegreeNowA2', // 当前开度key
 			openSetKey: 'door1RightWinSet', // 设置开度key
+			type: '22',
 		},
 		{
 			name: 'B门左侧风窗',
-			closeKey: 'door2LeftWinCloseFlag', // 关到位key
-			openKey: 'door2LeftWinOpenFlag', // 开到位key
-			openRebackKey: 'door2LeftWinReback', // 当前开度key
+			closeKey: 'windowStatusB1', // 关到位key
+			openKey: 'windowStatusB1', // 开到位key
+			openRebackKey: 'openDegreeNowB1', // 当前开度key
 			openSetKey: 'door2LeftWinSet', // 设置开度key
+			type: '23',
 		},
 		{
 			name: 'B门右侧风窗',
-			closeKey: 'door2RightWinCloseFlag', // 关到位key
-			openKey: 'door2RightWinOpenFlag', // 开到位key
-			openRebackKey: 'door2RightWinReback', // 当前开度key
+			closeKey: 'windowStatusB2', // 关到位key
+			openKey: 'windowStatusB2', // 开到位key
+			openRebackKey: 'openDegreeNowB2', // 当前开度key
 			openSetKey: 'door2RightWinSet', // 设置开度key
+			type: '24',
 		},
 	]
 
-	const downBtn = async (key) => {
+	const downBtn = async (key, type) => {
 		if (parseInt(form.value[key]) >= 0 && parseInt(form.value[key]) <= 100) {
-			await useCommitForm(setDoorParam, {
+			await useCommitForm(controlDoor, {
 				queryParams: {
 					devId: props.dataForm.value.id,
-					paramType: key,
-					paramValue: form.value[key],
+					controlType: type,
+					controlValue: form.value[key],
 				},
 			})
 		}
@@ -80,7 +86,7 @@
 				<m-video type="fm" :video-path="videoUrl2" :domid="'mDevicePlayer4'" />
 			</border-box>
 		</div>
-		<template v-for="item in tabList">
+		<template v-for="(item, index) in tabList" :key="index">
 			<border-box name="border1" background-color="rgba(24, 25, 49, 0.54)">
 				<div class="four_window_door_form">
 					<div class="four_window_door_form_title">
@@ -92,7 +98,7 @@
 					</div>
 					<div class="four_window_door_form_line_1">
 						<span>关到位</span>
-						<div :class="[dataForm[item.closeKey] === '1' ? 'green_ball' : 'yellow_ball']"></div>
+						<div :class="[dataForm[item.closeKey] === '2' ? 'green_ball' : 'yellow_ball']"></div>
 						<span>开到位</span>
 						<div :class="[dataForm[item.openKey] === '1' ? 'green_ball' : 'yellow_ball']"></div>
 					</div>
@@ -102,9 +108,9 @@
 					</div>
 					<div class="four_window_door_form_line_3">
 						<span>设置开度</span>
-						<el-input v-model="form[item.openSetKey]"></el-input>
+						<el-input v-model="form[item.openSetKey]" />
 						<span>%</span>
-						<div class="normal_btn" @click="downBtn(item.openSetKey)">设置</div>
+						<div class="normal_btn" @click="downBtn(item.openSetKey, item.type)">设置</div>
 					</div>
 				</div>
 			</border-box>

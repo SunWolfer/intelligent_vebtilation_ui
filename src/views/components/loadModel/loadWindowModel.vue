@@ -158,9 +158,9 @@
 			:camera-size="0.1"
 			:backgroundAlpha="0"
 			@load="onLoad"
-			@onClick="onClick"
-			@onModel="onModel"
-		></model-fbx>
+			@on-click="onClick"
+			@on-model="onModel"
+		/>
 	</div>
 </template>
 

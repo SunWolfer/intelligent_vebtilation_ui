@@ -53,7 +53,7 @@ export const layout = () => {
 
 	//获取选中的二级菜单
 	const selectedSecondaryMenu = computed(() => {
-		let strList = activeMenu.value.split('/')
+		const strList = activeMenu.value.split('/')
 		return strList[strList.length - 1]
 	})
 	const chooseBasePath = ref('/')
@@ -67,7 +67,7 @@ export const layout = () => {
 			secondLevelMenu.value = item.children
 				? item.children.filter((item: IRouteRecordRaw) => {
 						return !item.hidden
-				  })
+					})
 				: []
 			chooseBasePath.value = item.path
 			nextTick().then(() => {

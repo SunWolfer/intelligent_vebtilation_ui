@@ -65,9 +65,10 @@
 					<el-select v-model="dataForm.roadCode" @change="changeRoad" clearable>
 						<el-option
 							v-for="i in dataList"
+							:key="i.code"
 							:label="i.name + '  ' + i.code"
 							:value="i.code"
-						></el-option>
+						/>
 					</el-select>
 				</el-form-item>
 			</el-form>

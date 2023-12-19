@@ -4,7 +4,7 @@
 	import mixin from './model-mixin.vue'
 
 	export default defineComponent({
-		name: 'model-fbx',
+		name: 'ModelFbx',
 		mixins: [mixin],
 		props: {
 			lights: {

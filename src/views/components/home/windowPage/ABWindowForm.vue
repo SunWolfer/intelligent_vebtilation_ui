@@ -98,7 +98,7 @@
 <template>
 	<div class="a_b_window_l1 fullDom">
 		<div class="window_li_l1">
-			<border-box name="border2" :title="dataForm?.name"></border-box>
+			<border-box name="border2" :title="dataForm?.name" />
 			<!--        选择按钮-->
 			<div
 				class="window_choose_icon"
@@ -108,7 +108,7 @@
 					<el-icon><CaretBottom /></el-icon>
 					<template #dropdown>
 						<el-dropdown-menu>
-							<el-dropdown-item v-for="item in dataList" :command="item.id">{{
+							<el-dropdown-item v-for="item in dataList" :key="item.id" :command="item.id">{{
 								item.name
 							}}</el-dropdown-item>
 						</el-dropdown-menu>

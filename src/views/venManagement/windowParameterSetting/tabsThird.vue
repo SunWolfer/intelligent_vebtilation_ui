@@ -13,7 +13,9 @@
 	const props = defineProps({
 		dataFrom: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 	})
 	const emit = defineEmits(['update:dataFrom', 'setParam'])
@@ -23,7 +25,7 @@
 
 <template>
 	<div class="ai_setting fullDom">
-		<template v-for="data in dataList">
+		<template v-for="data in dataList" :key="data.id">
 			<div class="ai_setting_item">
 				<el-form :model="data" label-width="auto" class="ai_setting_item_form">
 					<el-form-item :label="data.label1" prop="value1">
@@ -47,26 +49,26 @@
 								:key="item.value"
 								:label="item.label"
 								:value="item.value"
-							></el-option>
+							/>
 						</el-select>
 					</el-form-item>
 					<el-form-item :label="data.label2" prop="value2">
 						<el-input
 							v-model="controlForm[data.value2]"
 							:disabled="isDisable(controlForm[data.value1])"
-						></el-input>
+						/>
 					</el-form-item>
 					<el-form-item :label="data.label3" prop="value3">
 						<el-input
 							v-model="controlForm[data.value3]"
 							:disabled="isDisable(controlForm[data.value1])"
-						></el-input>
+						/>
 					</el-form-item>
 					<el-form-item :label="data.label4" prop="value4">
 						<el-input
 							v-model="controlForm[data.value4]"
 							:disabled="isDisable(controlForm[data.value1])"
-						></el-input>
+						/>
 					</el-form-item>
 					<el-form-item :label="data.label5" prop="value5">
 						<el-select
@@ -80,7 +82,7 @@
 								:key="item.value"
 								:label="item.label"
 								:value="item.value"
-							></el-option>
+							/>
 						</el-select>
 					</el-form-item>
 					<el-form-item :label="data.label6" prop="value6">
@@ -95,7 +97,7 @@
 								:key="item.value"
 								:label="item.label"
 								:value="item.value"
-							></el-option>
+							/>
 						</el-select>
 					</el-form-item>
 					<el-form-item :label="data.label7" prop="value7">
@@ -110,7 +112,7 @@
 								:key="item.value"
 								:label="item.label"
 								:value="item.value"
-							></el-option>
+							/>
 						</el-select>
 					</el-form-item>
 					<el-form-item label=" ">

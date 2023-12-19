@@ -1,17 +1,9 @@
-/*
- * @FilePath: \wind_management_ts\vite\plugins\compression.ts
- * @Author: ZHY
- * @Date: 2023-01-31 11:30:12
- * @LastEditors: ZHY
- * @LastEditTime: 2023-03-03 11:32:01
- * Copyright: 2023 xxxTech CO.,LTD. All Rights Reserved.
- * @Descripttion:
- */
 import compression from 'vite-plugin-compression'
+import { PluginOption } from 'vite'
 
 export default function createCompression(env: any) {
 	const { VITE_BUILD_COMPRESS } = env
-	const plugin = []
+	const plugin: PluginOption[] = []
 	if (VITE_BUILD_COMPRESS) {
 		const compressList = VITE_BUILD_COMPRESS.split(',')
 		if (compressList.includes('gzip')) {

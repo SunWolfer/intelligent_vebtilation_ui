@@ -91,7 +91,7 @@
 			</div>
 			<div v-show="cycleForm.autoCollectFlag === '1'" class="setting_input_type_2">
 				<div class="setting_input_label">测风周期</div>
-				<el-input v-model="cycleForm.collectPeriod"></el-input>
+				<el-input v-model="cycleForm.collectPeriod" />
 				<el-select v-model="cycleForm.collectUnit" placeholder="周期单位" clearable>
 					<el-option
 						v-for="dict in cycleUnits"

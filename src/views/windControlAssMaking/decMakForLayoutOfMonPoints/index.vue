@@ -10,10 +10,10 @@
 	<div class="dec_point">
 		<div class="dec_point_left">
 			<div class="dec_point_left_top">
-				<border-box name="border2" title="CAD文件版本"></border-box>
+				<border-box name="border2" title="CAD文件版本" />
 			</div>
 			<div class="dec_point_left_bottom">
-				<template v-for="(item, index) in versionList">
+				<template v-for="(item, index) in versionList" :key="'version' + index">
 					<div class="dec_point_left_bottom_icon">
 						<div
 							:class="

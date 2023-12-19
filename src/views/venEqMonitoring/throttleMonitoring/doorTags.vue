@@ -18,7 +18,9 @@
 		},
 		chooseRow: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 		//   风门风窗
 		tagsType: {
@@ -174,16 +176,14 @@
 					:show-overflow-tooltip="true"
 					label="数据类型"
 					:formatter="formatterSJLX"
-				>
-				</el-table-column>
+				/>
 				<el-table-column
 					prop="czlx"
 					align="center"
 					min-width="110"
 					label="操作类型"
 					:formatter="formatterCZLX"
-				>
-				</el-table-column>
+				/>
 				<el-table-column
 					prop="value"
 					align="center"

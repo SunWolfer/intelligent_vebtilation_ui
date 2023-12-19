@@ -87,7 +87,7 @@
 		<div class="fullDom the_spec">
 			<el-form :model="queryParams" inline>
 				<el-form-item label="传感器">
-					<el-select v-model="queryParams.sensor" clearable></el-select>
+					<el-select v-model="queryParams.sensor" clearable />
 				</el-form-item>
 				<el-form-item label="时间">
 					<el-date-picker
@@ -98,17 +98,17 @@
 						start-placeholder="开始日期"
 						end-placeholder="结束日期"
 						prefix-icon="Calendar"
-					></el-date-picker>
+					/>
 				</el-form-item>
 				<el-form-item label="振动波形">
-					<el-select v-model="queryParams.waveForm" clearable></el-select>
+					<el-select v-model="queryParams.waveForm" clearable />
 				</el-form-item>
 				<el-form-item>
 					<div class="normal_btn">查询</div>
 				</el-form-item>
 			</el-form>
 			<div class="the_spec_btns">
-				<template v-for="i in btnList">
+				<template v-for="(i, index) in btnList" :key="'btn' + index">
 					<div
 						:class="i.value === chooseItem ? 'the_spec_btns_item_choose' : 'the_spec_btns_item'"
 						@click="changeItem(i.value)"

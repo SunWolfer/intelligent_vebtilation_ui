@@ -66,7 +66,7 @@ export const accurateWindMeasurement = () => {
 							name: inShowList.value[choose.value].name,
 						},
 						dateRange.value,
-				  )
+					)
 
 		const res = await windSensorLines(query)
 		if (res && res.data) {

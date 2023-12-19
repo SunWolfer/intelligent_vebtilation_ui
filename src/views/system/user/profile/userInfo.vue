@@ -1,23 +1,23 @@
 <template>
 	<el-form
 		ref="userRef"
-		:model="user"
+		:model="uUser"
 		:rules="rules"
 		label-width="100px"
 		label-position="left"
 		class="userInfo-form"
 	>
 		<el-form-item label="用户昵称" prop="nickName">
-			<el-input v-model="user.nickName" maxlength="30" />
+			<el-input v-model="uUser.nickName" maxlength="30" />
 		</el-form-item>
 		<el-form-item label="手机号码" prop="phonenumber">
-			<el-input v-model="user.phonenumber" maxlength="11" />
+			<el-input v-model="uUser.phonenumber" maxlength="11" />
 		</el-form-item>
 		<el-form-item label="邮箱" prop="email">
-			<el-input v-model="user.email" maxlength="50" />
+			<el-input v-model="uUser.email" maxlength="50" />
 		</el-form-item>
 		<el-form-item label="性别" prop="sex">
-			<el-radio-group v-model="user.sex">
+			<el-radio-group v-model="uUser.sex">
 				<el-radio label="0">男</el-radio>
 				<el-radio label="1">女</el-radio>
 			</el-radio-group>
@@ -31,12 +31,15 @@
 
 <script setup>
 	import { updateUserProfile } from '@/api/system/user'
+	import { useVModel } from '@vueuse/core'
 
 	const props = defineProps({
 		user: {
 			type: Object,
 		},
 	})
+	const emits = defineEmits(['update:user'])
+	const uUser = useVModel(props, 'user', emits)
 
 	const { proxy } = getCurrentInstance()
 
@@ -65,7 +68,7 @@
 	function submit() {
 		proxy.$refs.userRef.validate((valid) => {
 			if (valid) {
-				updateUserProfile(props.user).then((response) => {
+				updateUserProfile(uUser.value).then((response) => {
 					proxy.$modal.msgSuccess('修改成功')
 				})
 			}

@@ -67,10 +67,10 @@
 		<!--    人员撤退计划-->
 		<div class="home_reverse_wind_people">
 			<div class="home_reverse_wind_people_title">
-				<border-box name="border2" title="人员撤退路线规划"></border-box>
+				<border-box name="border2" title="人员撤退路线规划" />
 			</div>
 			<div class="home_reverse_wind_people_bottom">
-				<template v-for="(i, index) in disasterRouteText">
+				<template v-for="(i, index) in disasterRouteText" :key="'disaster' + index">
 					<div class="home_reverse_wind_people_bottom_item fullDom">
 						<div class="home_reverse_wind_people_bottom_icon">{{ index + 1 }}</div>
 						<div class="home_reverse_wind_people_bottom_text">

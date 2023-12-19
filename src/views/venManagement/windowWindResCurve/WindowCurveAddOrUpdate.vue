@@ -8,9 +8,11 @@
 	const props = defineProps({
 		chooseRow: {
 			type: Object,
-			default: {
-				devId: undefined,
-				line: [],
+			default: () => {
+				return {
+					devId: undefined,
+					line: [],
+				}
 			},
 		},
 		modelValue: {
@@ -19,7 +21,9 @@
 		},
 		windowList: {
 			type: Array,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 	})
 
@@ -117,7 +121,7 @@
 				<el-form :model="queryParams" inline>
 					<el-form-item label="风窗">
 						<el-select :disabled="updateData" v-model="queryParams.devId" clearable>
-							<el-option v-for="i in windowList" :label="i.name" :value="i.id"></el-option>
+							<el-option v-for="i in windowList" :key="i.id" :label="i.name" :value="i.id" />
 						</el-select>
 					</el-form-item>
 				</el-form>

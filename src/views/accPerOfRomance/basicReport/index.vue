@@ -76,10 +76,10 @@
 		<div class="bas_report_body_c1_l1 pointer" @click="addHandle">新增</div>
 		<div class="bas_report_body_c1_l2">
 			<div class="bas_report_c1_l2_top">
-				<border-box name="border2" title="通风基础报表"></border-box>
+				<border-box name="border2" title="通风基础报表" />
 			</div>
 			<div class="bas_report_c1_l2_bottom">
-				<template v-for="(item, index) in versionList">
+				<template v-for="(item, index) in versionList" :key="item.id">
 					<div class="bas_report_c1_l2_bottom_icon">
 						<div
 							:class="
@@ -114,9 +114,10 @@
 					<el-select v-model="copyForm.reportTime" @change="chooseCopyData" clearable>
 						<el-option
 							v-for="i in versionList"
+							:key="i.id"
 							:label="i.reportTime"
 							:value="i.reportTime"
-						></el-option>
+						/>
 					</el-select>
 				</div>
 			</template>

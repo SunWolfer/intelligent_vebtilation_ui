@@ -135,10 +135,10 @@
 			:camera-size="0.1"
 			:backgroundAlpha="0"
 			@load="onLoad"
-			@onClick="onClick"
-			@onModel="onModel"
-			@readyCamera="readyCamera"
-		></model-fbx>
+			@on-click="onClick"
+			@on-model="onModel"
+			@ready-camera="readyCamera"
+		/>
 	</div>
 </template>
 

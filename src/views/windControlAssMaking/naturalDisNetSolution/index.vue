@@ -48,7 +48,7 @@
 			:confirm-add-window="confirmWindow"
 			:confirm-add-tunnel="confirmTunnel"
 			@add-window="showWindowVisibleVisible"
-			@readyConnect="tunnelHandle"
+			@ready-connect="tunnelHandle"
 			@choose-tunnel="getSelectionTunnel"
 		/>
 		<!--    自然分风网络测算-->
@@ -123,7 +123,7 @@
 		>
 			<div class="window_form_body">
 				<div class="window_form_body_label">风阻</div>
-				<el-input-number v-model="windowForm.windage"></el-input-number>
+				<el-input-number v-model="windowForm.windage" />
 				<div class="window_form_body_unit">N·s2/m8</div>
 			</div>
 		</dia-log>
@@ -140,7 +140,7 @@
 		>
 			<div class="window_form_body">
 				<div class="window_form_body_label">风阻</div>
-				<el-input-number v-model="tunnelForm.windage"></el-input-number>
+				<el-input-number v-model="tunnelForm.windage" />
 				<div class="window_form_body_unit">N·s2/m8</div>
 			</div>
 		</dia-log>
@@ -150,7 +150,7 @@
 			v-model:operation-steps-list="operationStepsList"
 			@show-cal-visible="showAfterCalVisible"
 			@cancel-cal-visible="cancelAirDisNetwork"
-			@getSelectionRows="getSelectionRows"
+			@get-selection-rows="getSelectionRows"
 			:select-code="selectCode"
 		/>
 	</div>

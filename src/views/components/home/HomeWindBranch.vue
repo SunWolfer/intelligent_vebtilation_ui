@@ -12,7 +12,9 @@
 		},
 		list: {
 			type: Array,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 		//   选中巷道code
 		selectCode: {
@@ -74,13 +76,13 @@
 
 <template>
 	<div class="fullDom wind_full">
-		<span class="other_title"><border-box name="border2" title="风路分支图"></border-box></span>
+		<span class="other_title"><border-box name="border2" title="风路分支图" /></span>
 		<div ref="otherPathRef" class="other_wind_path_body">
-			<template v-for="item in windPathList">
+			<template v-for="(item, index) in windPathList" :key="'path' + index">
 				<div class="other_wind_path_body_item">
 					<div class="other_wind_path_body_item_1">{{ item.regionName }}</div>
 					<div class="other_wind_path_body_item_4">
-						<template v-for="child in item.roadList">
+						<template v-for="child in item.roadList" :key="child.id">
 							<div class="other_wind_path_body_item_4_body">
 								<div
 									class="other_wind_path_body_item_4_bar"

@@ -62,11 +62,11 @@
 		<div class="main_fan_body_l1">
 			<div class="main_fan_body_l1_top">
 				<el-select v-model="mainFanId" @change="changeItem" clearable>
-					<el-option v-for="item in dataList" :label="item.name" :value="item.id"></el-option>
+					<el-option v-for="item in dataList" :key="item.id" :label="item.name" :value="item.id" />
 				</el-select>
 				<div class="top_icon"></div>
 				<div class="top_btn_border" @click="videoHandle">查看监控</div>
-				<div :class="dataForm.warnStatus !== '0' ? 'top_warn_icon' : ''" />
+				<div :class="dataForm.warnStatus !== '0' ? 'top_warn_icon' : ''"></div>
 				<div class="top_text">
 					1#风机<span :class="dataForm.workStatus1 === '1' ? 'top_open_text' : 'top_close_text'">{{
 						selectDictLabel(fan_work_status, dataForm.workStatus1)
@@ -88,9 +88,9 @@
 			</div>
 		</div>
 		<div class="main_fan_body_l2">
-			<border-box name="border2" :title="dataForm?.name"></border-box>
+			<border-box name="border2" :title="dataForm?.name" />
 			<div class="main_fan_body_l2_l2">
-				<template v-for="item in mainFanMes">
+				<template v-for="(item, mainIndex) in mainFanMes" :key="'main' + mainIndex">
 					<div class="main_fan_body_l2_l2_item">
 						<div :class="item.icon"></div>
 						<div class="main_fan_body_l2_l2_item_value">{{ item.value }}</div>
@@ -98,7 +98,7 @@
 					</div>
 				</template>
 			</div>
-			<border-box name="border2" title="远程控制"></border-box>
+			<border-box name="border2" title="远程控制" />
 			<div class="main_fan_body_l2_l4">
 				<div class="main_fan_body_l2_btn_1" @click="validateFun(backWindHandle)">
 					<span class="btn_text_1">一键反风</span>
@@ -129,7 +129,7 @@
 					<span class="btn_text_5">一键反向启动</span>
 				</div>
 			</div>
-			<border-box name="border2" title="风量定量调控"></border-box>
+			<border-box name="border2" title="风量定量调控" />
 			<div class="main_fan_body_l2_l7">
 				<div class="main_fan_body_l2_l7_body">
 					<div class="main_fan_body_l2_l7_body_title set_btn_default">
@@ -177,7 +177,7 @@
 							<span>一级电机</span>
 						</div>
 						<div class="main_fan_customized_body">
-							<template v-for="(item, index) in oneCustomizedParameters1">
+							<template v-for="(item, index) in oneCustomizedParameters1" :key="'one' + index">
 								<div
 									class="customized_item"
 									:class="Math.ceil((index + 1) / 2) % 2 === 0 ? 'item_bg' : 'item_bg_none'"
@@ -193,7 +193,10 @@
 							<span>二级电机</span>
 						</div>
 						<div class="main_fan_customized_body">
-							<template v-for="(item, index) in oneCustomizedParameters2">
+							<template
+								v-for="(item, index) in oneCustomizedParameters2"
+								:key="'oneCustom' + index"
+							>
 								<div
 									class="customized_item"
 									:class="Math.ceil((index + 1) / 2) % 2 === 0 ? 'item_bg' : 'item_bg_none'"
@@ -231,7 +234,10 @@
 							<span>一级电机</span>
 						</div>
 						<div class="main_fan_customized_body">
-							<template v-for="(item, index) in twoCustomizedParameters1">
+							<template
+								v-for="(item, index) in twoCustomizedParameters1"
+								:key="'twoCustom1' + index"
+							>
 								<div
 									class="customized_item"
 									:class="Math.ceil((index + 1) / 2) % 2 === 0 ? 'item_bg' : 'item_bg_none'"
@@ -247,7 +253,7 @@
 							<span>二级电机</span>
 						</div>
 						<div class="main_fan_customized_body">
-							<template v-for="(item, index) in twoCustomizedParameters2">
+							<template v-for="(item, index) in twoCustomizedParameters2" :key="'two2' + index">
 								<div
 									class="customized_item"
 									:class="Math.ceil((index + 1) / 2) % 2 === 0 ? 'item_bg' : 'item_bg_none'"
@@ -279,7 +285,7 @@
 		</div>
 		<!--    视频监控-->
 		<dia-log v-model="videoVisible" title="视频监控" :width="1280" :height="720">
-			<m-video type="fj" :video-path="dataForm.videoUrl"></m-video>
+			<m-video type="fj" :video-path="dataForm.videoUrl" />
 		</dia-log>
 		<customized-dia-log
 			v-if="customizedVisible"

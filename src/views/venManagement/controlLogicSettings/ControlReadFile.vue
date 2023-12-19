@@ -33,9 +33,7 @@
 		const fileExt = fileName[fileName.length - 1]
 		const isTypeOk = fileType.value.indexOf(fileExt) >= 0
 		if (!isTypeOk) {
-			proxy.$modal.msgError(
-				`文件格式不正确, 请上传${fileType.value.join('/')}格式文件!`,
-			)
+			proxy.$modal.msgError(`文件格式不正确, 请上传${fileType.value.join('/')}格式文件!`)
 			return false
 		}
 		return true

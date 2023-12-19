@@ -1,4 +1,4 @@
-import {Directive} from "vue";
+import { Directive } from 'vue'
 
 /**
  * v-copyText 复制文本内容
@@ -7,23 +7,23 @@ import {Directive} from "vue";
 
 const copyText: Directive = {
 	beforeMount(el, { value, arg }) {
-		if (arg === "callback") {
-			el.$copyCallback = value;
+		if (arg === 'callback') {
+			el.$copyCallback = value
 		} else {
-			el.$copyValue = value;
+			el.$copyValue = value
 			const handler = () => {
-				copyTextToClipboard(el.$copyValue);
+				copyTextToClipboard(el.$copyValue)
 				if (el.$copyCallback) {
-					el.$copyCallback(el.$copyValue);
+					el.$copyCallback(el.$copyValue)
 				}
-			};
-			el.addEventListener("click", handler);
-			el.$destroyCopy = () => el.removeEventListener("click", handler);
+			}
+			el.addEventListener('click', handler)
+			el.$destroyCopy = () => el.removeEventListener('click', handler)
 		}
 	},
-};
+}
 
-function copyTextToClipboard(input:any, { target = document.body } = {}) {
+function copyTextToClipboard(input: any, { target = document.body } = {}) {
 	const element = document.createElement('textarea')
 	const previouslyFocusedElement = document.activeElement as any
 
@@ -37,8 +37,8 @@ function copyTextToClipboard(input:any, { target = document.body } = {}) {
 	element.style.left = '-9999px'
 	element.style.fontSize = '12pt' // Prevent zooming on iOS
 
-	const selection = document.getSelection() as any;
-	const originalRange = selection.rangeCount > 0 && selection.getRangeAt(0);
+	const selection = document.getSelection() as any
+	const originalRange = selection.rangeCount > 0 && selection.getRangeAt(0)
 
 	target.append(element)
 	element.select()

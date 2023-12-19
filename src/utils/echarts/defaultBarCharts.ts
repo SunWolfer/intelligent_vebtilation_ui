@@ -50,11 +50,11 @@ export function defaultBarChart({
 	legendPosition = 'center',
 	showSplitArea = false,
 }: barData) {
-	let seriesData: any[] = []
+	const seriesData: any[] = []
 
 	for (let i = 0; i < yDataList.length; i++) {
-		let yData = yDataList[i]
-		let series: any = {
+		const yData = yDataList[i]
+		const series: any = {
 			name: legends && legends[i],
 			type: 'bar',
 			barWidth: barWidth,
@@ -112,7 +112,7 @@ export function defaultBarChart({
 	}
 	if (markLineList.length > 0) {
 		for (let i = 0; i < markLineList.length; i++) {
-			let data = markLineList[i]
+			const data = markLineList[i]
 			seriesData.push({
 				type: 'bar',
 				markLine: {

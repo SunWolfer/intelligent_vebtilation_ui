@@ -114,6 +114,7 @@
 				default: 1,
 			},
 			backgroundColor: {
+				type: Number as any,
 				default: 0xffffff,
 			},
 			backgroundAlpha: {
@@ -140,11 +141,15 @@
 			},
 			modelList: {
 				type: Array as PropType<modelLine[]>,
-				default: [],
+				default() {
+					return []
+				},
 			},
 			otherThreeMod: {
 				type: Array as PropType<IOtherThreeMod[]>,
-				default: [],
+				default() {
+					return []
+				},
 			},
 			//   自定义数据
 			customize: {
@@ -154,7 +159,9 @@
 			//   自定义数据
 			customizeData: {
 				type: Array as PropType<IModelNode[]>,
-				default: [],
+				default() {
+					return []
+				},
 			},
 			//   自定义数据最大值
 			customizeMaxNodeNum: {
@@ -249,6 +256,81 @@
 				return Math.min(1, this.progress.loaded / this.progress.total) * 100
 			},
 		},
+		watch: {
+			src() {
+				this.load()
+			},
+			rotation: {
+				deep: true,
+				handler(val) {
+					if (!this.object) return
+					this.object.rotation.set(val.x, val.y, val.z)
+				},
+			},
+			position: {
+				deep: true,
+				handler(val) {
+					if (!this.object) return
+					this.object.position.set(val.x, val.y, val.z)
+				},
+			},
+			scale: {
+				deep: true,
+				handler(val) {
+					if (!this.object) return
+					this.object.scale.set(val.x, val.y, val.z)
+				},
+			},
+			lights: {
+				deep: true,
+				handler() {
+					this.updateLights()
+				},
+			},
+			size: {
+				deep: true,
+				handler() {
+					this.updateCamera()
+					this.updateRenderer()
+				},
+			},
+			controlsOptions: {
+				deep: true,
+				handler() {
+					this.updateControls()
+				},
+			},
+			backgroundAlpha() {
+				this.updateRenderer()
+			},
+			backgroundColor() {
+				this.updateRenderer()
+			},
+			otherThreeMod: {
+				deep: true,
+				handler() {
+					this.loadOtherMods()
+				},
+			},
+			loadOtherLen(val) {
+				if (val === this.otherThreeMod?.length + 1) {
+					this.$nextTick(() => {
+						this.$emit('load')
+					})
+				} else {
+					let event = {
+						lengthComputable: false,
+						loaded: val,
+						total: this.otherThreeMod.length,
+					}
+					this.reportProgress('progress', event)
+					this.$emit('progress', event)
+				}
+			},
+			selectedObjects(val) {
+				if (this.outlinePass) this.outlinePass.selectedObjects = val
+			},
+		},
 		mounted() {
 			if (this.width === 0 || this.height === 0) {
 				this.size = {
@@ -328,81 +410,6 @@
 
 			window.removeEventListener('resize', this.onResize, false)
 		},
-		watch: {
-			src() {
-				this.load()
-			},
-			rotation: {
-				deep: true,
-				handler(val) {
-					if (!this.object) return
-					this.object.rotation.set(val.x, val.y, val.z)
-				},
-			},
-			position: {
-				deep: true,
-				handler(val) {
-					if (!this.object) return
-					this.object.position.set(val.x, val.y, val.z)
-				},
-			},
-			scale: {
-				deep: true,
-				handler(val) {
-					if (!this.object) return
-					this.object.scale.set(val.x, val.y, val.z)
-				},
-			},
-			lights: {
-				deep: true,
-				handler() {
-					this.updateLights()
-				},
-			},
-			size: {
-				deep: true,
-				handler() {
-					this.updateCamera()
-					this.updateRenderer()
-				},
-			},
-			controlsOptions: {
-				deep: true,
-				handler() {
-					this.updateControls()
-				},
-			},
-			backgroundAlpha() {
-				this.updateRenderer()
-			},
-			backgroundColor() {
-				this.updateRenderer()
-			},
-			otherThreeMod: {
-				deep: true,
-				handler() {
-					this.loadOtherMods()
-				},
-			},
-			loadOtherLen(val) {
-				if (val === this.otherThreeMod?.length + 1) {
-					this.$nextTick(() => {
-						this.$emit('load')
-					})
-				} else {
-					let event = {
-						lengthComputable: false,
-						loaded: val,
-						total: this.otherThreeMod.length,
-					}
-					this.reportProgress('progress', event)
-					this.$emit('progress', event)
-				}
-			},
-			selectedObjects(val) {
-				if (this.outlinePass) this.outlinePass.selectedObjects = val
-			},
-		},
 		methods: {
 			initEdit() {},
 			onResize() {
@@ -464,13 +471,13 @@
 				let rData: Intersection | null =
 					(intersects && intersects.length) > 0 ? intersects[0] : null
 				let rDataObject = rData
-				if (this.chooseGroup && rData) {
+				if (this.chooseGroup && rData && rDataObject) {
 					if (rData.object.parent) {
-						rDataObject!.object = (<Group>rData.object.parent)?.isGroup
+						rDataObject.object = (rData.object.parent as Group)?.isGroup
 							? rData.object.parent
 							: rData.object
 					} else {
-						rDataObject!.object = rData.object
+						rDataObject.object = rData.object
 					}
 				}
 				return rDataObject
@@ -483,56 +490,63 @@
 				this.updateClickDomColor()
 			},
 			updateModel() {
-				const { object } = this
+				if (!this.object) return
 
-				if (!object) return
-
-				const { position } = this
-				const { rotation } = this
-				const { scale } = this
-
-				object.position.set(position.x, position.y, position.z)
-				object.rotation.set(rotation.x, rotation.y, rotation.z)
-				object.scale.set(scale.x, scale.y, scale.z)
+				this.object.position.set(this.position.x, this.position.y, this.position.z)
+				this.object.rotation.set(this.rotation.x, this.rotation.y, this.rotation.z)
+				this.object.scale.set(this.scale.x, this.scale.y, this.scale.z)
 			},
 			updateRenderer() {
-				const { renderer } = this
-
-				renderer!.setSize(this.size.width!, this.size.height!)
-				renderer!.setPixelRatio(window.devicePixelRatio || 1)
-				renderer!.setClearColor(new Color(this.backgroundColor).getHex())
-				renderer!.setClearAlpha(this.backgroundAlpha)
+				this.renderer?.setSize(this.size.width!, this.size.height!)
+				this.renderer?.setPixelRatio(window.devicePixelRatio || 1)
+				this.renderer?.setClearColor(new Color(this.backgroundColor).getHex())
+				this.renderer?.setClearAlpha(this.backgroundAlpha)
 			},
 			updateCamera() {
-				const { camera } = this
-				const { object } = this
-
-				camera.aspect = this.size.width! / this.size.height!
-				camera.updateProjectionMatrix()
+				this.camera.aspect = this.size.width! / this.size.height!
+				this.camera.updateProjectionMatrix()
 
 				if (!this.cameraLookAt || !this.cameraUp) {
-					if (!object) return
+					if (!this.object) return
 
-					const distance = getSize(object).length()
+					const distance = getSize(this.object).length()
 
-					camera.position.set(this.cameraPosition.x, this.cameraPosition.y, this.cameraPosition.z)
-					camera.rotation.set(this.cameraRotation.x, this.cameraRotation.y, this.cameraRotation.z)
+					this.camera.position.set(
+						this.cameraPosition.x,
+						this.cameraPosition.y,
+						this.cameraPosition.z,
+					)
+					this.camera.rotation.set(
+						this.cameraRotation.x,
+						this.cameraRotation.y,
+						this.cameraRotation.z,
+					)
 
 					if (
 						this.cameraPosition.x === 0 &&
 						this.cameraPosition.y === 0 &&
 						this.cameraPosition.z === 0
 					) {
-						camera.position.y = distance
+						this.camera.position.y = distance
 					}
 
-					camera.lookAt(new Vector3())
+					this.camera.lookAt(new Vector3())
 				} else {
-					camera.position.set(this.cameraPosition.x, this.cameraPosition.y, this.cameraPosition.z)
-					camera.rotation.set(this.cameraRotation.x, this.cameraRotation.y, this.cameraRotation.z)
-					camera.up.set(this.cameraUp.x, this.cameraUp.y, this.cameraUp.z)
+					this.camera.position.set(
+						this.cameraPosition.x,
+						this.cameraPosition.y,
+						this.cameraPosition.z,
+					)
+					this.camera.rotation.set(
+						this.cameraRotation.x,
+						this.cameraRotation.y,
+						this.cameraRotation.z,
+					)
+					this.camera.up.set(this.cameraUp.x, this.cameraUp.y, this.cameraUp.z)
 
-					camera.lookAt(new Vector3(this.cameraLookAt.x, this.cameraLookAt.y, this.cameraLookAt.z))
+					this.camera.lookAt(
+						new Vector3(this.cameraLookAt.x, this.cameraLookAt.y, this.cameraLookAt.z),
+					)
 				}
 			},
 			updateLights() {
@@ -612,14 +626,13 @@
 				}
 			},
 			updateClickDomColor() {
-				const { renderer, scene, camera }: any = this
-				this.composer = new EffectComposer(renderer)
-				let renderPass = new RenderPass(scene, camera)
+				this.composer = new EffectComposer(this.renderer!)
+				let renderPass = new RenderPass(this.scene, this.camera)
 				this.composer.addPass(renderPass)
 				this.outlinePass = new OutlinePass(
 					new Vector2(window.innerWidth, window.innerHeight),
-					scene,
-					camera,
+					this.scene,
+					this.camera,
 				)
 
 				this.composer.addPass(this.outlinePass)
@@ -749,8 +762,8 @@
 			},
 			//轨迹运动
 			cameraReset(position: any, lookAt: any, time = 1) {
-				let _self = this
-				const { camera, controls }: any = this
+				let self: any = this
+				const { camera, controls }: any = self
 				gsap.to(camera.position, {
 					x: position.x,
 					y: position.y,
@@ -759,7 +772,7 @@
 					ease: 'circ.out',
 					//相机运动完成的回调
 					onComplete: function () {
-						_self.$emit('readyCamera')
+						self.$emit('readyCamera')
 					},
 				})
 				gsap.to(controls.target, {
@@ -773,7 +786,7 @@
 			// 	加载其他模型
 			loadOtherMods() {
 				if (this.otherThreeMod.length === 0) return
-				let _self = this
+				let self: any = this
 				this.reportProgress('start')
 				for (let i = 0; i < this.otherThreeMod.length; i++) {
 					let mod: any = this.otherThreeMod[i]
@@ -782,7 +795,7 @@
 						loader.setCrossOrigin(this.crossOrigin)
 						loader.setRequestHeader(this.requestHeader)
 						loader.load(mod.src, (data) => {
-							_self.wrapper.remove(data.scene)
+							self.wrapper.remove(data.scene)
 							data.scene.traverse(function (object: any) {
 								if (object.isMesh) {
 									object.castShadow = true //阴影
@@ -792,15 +805,15 @@
 									}
 								}
 							})
-							_self.wrapper.add(data.scene)
+							self.wrapper.add(data.scene)
 							this.loadOtherLen++
 						})
 					} else if (mod.type === 'FBX') {
 						let loader = new FBXLoader()
 						loader.load(mod.src, (...args) => {
-							const object = _self.getObject(...args)
-							_self.wrapper.remove(object)
-							_self.wrapper.add(object)
+							const object = self.getObject(...args)
+							self.wrapper.remove(object)
+							self.wrapper.add(object)
 							this.loadOtherLen++
 						})
 					}
@@ -870,9 +883,9 @@
 				style="
 					position: absolute;
 					z-index: 2;
-					height: 3px;
 					width: 100%;
-					background-color: rgba(0, 0, 0, 0.04);
+					height: 3px;
+					background-color: rgb(0 0 0 / 4%);
 				"
 			>
 				<div
@@ -882,14 +895,14 @@
 						backgroundColor: '#1890ff',
 						transition: 'width .2s',
 					}"
-				/>
+				></div>
 			</div>
 		</slot>
 		<div
 			v-if="progress.isComplete === false"
 			style="position: absolute; z-index: 1; width: 100%; height: 100%"
 		>
-			<slot name="poster" />
+			<slot name="poster"></slot>
 		</div>
 		<canvas ref="canvas" style="width: 100%; height: 100%"></canvas>
 		<slot name="label"></slot>
@@ -904,9 +917,9 @@
 		position: relative;
 		width: 100%;
 		height: 100%;
-		margin: 0;
-		border: 0;
 		padding: 0;
+		margin: 0;
 		overflow-y: hidden;
+		border: 0;
 	}
 </style>

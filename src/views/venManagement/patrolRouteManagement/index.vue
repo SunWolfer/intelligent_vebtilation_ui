@@ -52,7 +52,7 @@
 		<div class="patrol_manage_l1">
 			<el-form :model="queryParams" inline>
 				<el-form-item label="巡检路线名称">
-					<el-input v-model="queryParams.name"></el-input>
+					<el-input v-model="queryParams.name" />
 				</el-form-item>
 				<el-form-item>
 					<div class="normal_btn" @click="handleQuery">查询</div>
@@ -74,9 +74,9 @@
 		<div class="patrol_manage_l2_c2">
 			<div class="patrol_manage_l2_c2_title">路线图</div>
 			<div class="fullDom patrol_manage_l2_c2_body">
-				<template v-for="i in lineNum">
+				<template v-for="i in lineNum" :key="i">
 					<div class="patrol_manage_l2_c2_line">
-						<template v-for="(item, index) in routeList">
+						<template v-for="(item, index) in routeList" :key="'route' + index">
 							<template v-if="index >= (i - 1) * 6 && index < i * 6">
 								<div class="patrol_manage_l2_c2_body_item">
 									<div class="patrol_manage_label c-center">

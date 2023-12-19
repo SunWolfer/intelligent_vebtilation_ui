@@ -123,7 +123,7 @@
 					<el-input v-model="detailsData.actionCount" v-inputInt />
 				</div>
 				<div class="details_form_child_list fullDom">
-					<template v-for="item in detailsChildDataList">
+					<template v-for="(item, index) in detailsChildDataList" :key="index">
 						<border-box class="details_form_child" name="border1">
 							<div class="details_form_child_body fullDom">
 								<div class="details_form_child_body_line">
@@ -170,7 +170,7 @@
 		<!--    总列表-->
 		<template v-else>
 			<div class="first_step fullDom">
-				<template v-for="data in dataList">
+				<template v-for="(data, index) in dataList" :key="index">
 					<border-box name="border1" class="first_step_item">
 						<div class="first_step_item_body fullDom">
 							<span>调控原因：</span>

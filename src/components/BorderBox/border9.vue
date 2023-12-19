@@ -105,18 +105,18 @@
 <template>
 	<div class="border-box-9" ref="domRef">
 		<svg class="bv-border-svg-container" :width="width" :height="height">
-			<defs></defs>
-			<path :d="polygon1Path" :fill="backgroundColor" stroke-width="2" :stroke="color[0]"></path>
-			<path :d="polygon3Path" :fill="color[2]"></path>
+			<defs />
+			<path :d="polygon1Path" :fill="backgroundColor" stroke-width="2" :stroke="color[0]" />
+			<path :d="polygon3Path" :fill="color[2]" />
 		</svg>
-		<template v-for="i in lineList">
+		<template v-for="i in lineList" :key="'line' + i">
 			<svg class="bv-border-svg-container" :class="[i, 'bv-border-svg-container']">
-				<path :d="path1" stroke-width="3" fill="none" :stroke="color[1]"></path>
+				<path :d="path1" stroke-width="3" fill="none" :stroke="color[1]" />
 			</svg>
 		</template>
-		<template v-for="i in polygonList">
+		<template v-for="i in polygonList" :key="'polygon' + i">
 			<svg :class="[i, 'bv-border-svg-container']">
-				<path :d="polygon2Path" stroke-width="0" :fill="color[1]"></path>
+				<path :d="polygon2Path" stroke-width="0" :fill="color[1]" />
 			</svg>
 		</template>
 		<div class="border-box-content">

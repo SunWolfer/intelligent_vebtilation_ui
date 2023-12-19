@@ -42,7 +42,7 @@
 					<span>{{ detailsData.actionCount }}</span>
 				</div>
 				<div class="details_form_child_list fullDom">
-					<template v-for="item in detailsChildDataList">
+					<template v-for="(item, index) in detailsChildDataList" :key="index">
 						<border-box class="details_form_child" name="border1">
 							<div class="details_form_child_body fullDom">
 								<div class="details_form_child_body_line">
@@ -82,7 +82,7 @@
 				<div class="details_form_title">执行结果</div>
 				<span v-html="detailsData.executionResult"></span>
 				<div class="third_step_details_result_list fullDom">
-					<template v-for="item in detailsChildDataList">
+					<template v-for="(item, index) in detailsChildDataList" :key="index">
 						<border-box name="border1" class="third_step_details_result">
 							<div class="third_step_details_result_body fullDom">
 								<div class="details_form_child_body_line">
@@ -115,7 +115,7 @@
 		</template>
 		<template v-else>
 			<div class="third_step fullDom">
-				<template v-for="data in dataList">
+				<template v-for="(data, index) in dataList" :key="index">
 					<border-box name="border1" class="third_step_item">
 						<div class="third_step_item_body fullDom">
 							<span>调控原因：</span>

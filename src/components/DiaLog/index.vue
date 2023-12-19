@@ -26,7 +26,9 @@
 		},
 		btnList: {
 			type: Array,
-			default: ['确定', '取消'],
+			default: () => {
+				return ['确定', '取消']
+			},
 		},
 	})
 	const emits = defineEmits(['update:modelValue', 'submit', 'cancel'])

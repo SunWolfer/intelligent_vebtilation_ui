@@ -68,7 +68,7 @@
 		<div class="local_fan_body_l1">
 			<div class="local_fan_body_l1_t1" v-show="showLast" @click="toLast"></div>
 			<div class="local_fan_body_l1_t2">
-				<template v-for="item in inShowList">
+				<template v-for="item in inShowList" :key="item.id">
 					<div class="local_fan_body_l1_line"></div>
 					<div
 						class="local_fan_body_l1_item"
@@ -113,7 +113,7 @@
 			<div class="main_fan_body_l1_top">
 				<div class="top_icon"></div>
 				<div class="top_btn_border" @click="videoHandle">查看监控</div>
-				<div :class="dataForm.warnStatus !== '0' ? 'top_warn_icon' : ''" />
+				<div :class="dataForm.warnStatus !== '0' ? 'top_warn_icon' : ''"></div>
 				<div class="top_text">
 					1#风机<span :class="dataForm.workStatus1 === '1' ? 'top_open_text' : 'top_close_text'">{{
 						selectDictLabel(fan_work_status, dataForm.workStatus1)
@@ -135,9 +135,9 @@
 			</div>
 		</div>
 		<div class="local_fan_body_l3">
-			<border-box name="border2" :title="dataForm.name + `环境感知`"></border-box>
+			<border-box name="border2" :title="dataForm.name + `环境感知`" />
 			<div class="local_fan_body_l3_l2">
-				<template v-for="i in environmentList">
+				<template v-for="(i, envIndex) in environmentList" :key="'env' + envIndex">
 					<div :class="i.iconClass"></div>
 					<div class="local_fan_body_l3_l2_item">
 						<div class="local_fan_body_l3_l2_item_value">{{ i.propertyValue }}</div>
@@ -147,7 +147,7 @@
 					</div>
 				</template>
 			</div>
-			<border-box name="border2" title="远程控制"></border-box>
+			<border-box name="border2" title="远程控制" />
 			<div class="local_fan_body_l3_l4"></div>
 			<div class="local_fan_body_l3_l5">
 				<div class="local_fan_body_l3_l5_item">
@@ -222,7 +222,7 @@
 							<span>一级电机</span>
 						</div>
 						<div class="main_fan_customized_body">
-							<template v-for="(item, index) in oneCustomizedParameters1">
+							<template v-for="(item, index) in oneCustomizedParameters1" :key="'one' + index">
 								<div
 									class="customized_item"
 									:class="Math.ceil((index + 1) / 2) % 2 === 0 ? 'item_bg' : 'item_bg_none'"
@@ -238,7 +238,10 @@
 							<span>二级电机</span>
 						</div>
 						<div class="main_fan_customized_body">
-							<template v-for="(item, index) in oneCustomizedParameters2">
+							<template
+								v-for="(item, index) in oneCustomizedParameters2"
+								:key="'oneCustom' + index"
+							>
 								<div
 									class="customized_item"
 									:class="Math.ceil((index + 1) / 2) % 2 === 0 ? 'item_bg' : 'item_bg_none'"
@@ -276,7 +279,10 @@
 							<span>一级电机</span>
 						</div>
 						<div class="main_fan_customized_body">
-							<template v-for="(item, index) in twoCustomizedParameters1">
+							<template
+								v-for="(item, index) in twoCustomizedParameters1"
+								:key="'twoCustom' + index"
+							>
 								<div
 									class="customized_item"
 									:class="Math.ceil((index + 1) / 2) % 2 === 0 ? 'item_bg' : 'item_bg_none'"
@@ -292,7 +298,7 @@
 							<span>二级电机</span>
 						</div>
 						<div class="main_fan_customized_body">
-							<template v-for="(item, index) in twoCustomizedParameters2">
+							<template v-for="(item, index) in twoCustomizedParameters2" :key="'two' + index">
 								<div
 									class="customized_item"
 									:class="Math.ceil((index + 1) / 2) % 2 === 0 ? 'item_bg' : 'item_bg_none'"
@@ -345,7 +351,7 @@
 
 		<!--    视频监控-->
 		<dia-log v-model="videoVisible" title="视频监控" :width="1280" :height="720">
-			<m-video type="js" :video-path="dataForm.videoUrl"></m-video>
+			<m-video type="js" :video-path="dataForm.videoUrl" />
 		</dia-log>
 		<customized-dia-log
 			v-if="customizedVisible"

@@ -79,12 +79,17 @@
 	<el-form :model="queryParams" inline>
 		<el-form-item label="设备类型">
 			<el-select v-model="queryParams.devType" clearable>
-				<el-option v-for="i in devTypeList" :label="i.dictLabel" :value="i.dictValue"></el-option>
+				<el-option
+					v-for="i in devTypeList"
+					:key="i.dictValue"
+					:label="i.dictLabel"
+					:value="i.dictValue"
+				/>
 			</el-select>
 		</el-form-item>
 		<el-form-item label="预警等级">
 			<el-select v-model="queryParams.warnLevel" clearable>
-				<el-option v-for="i in warnLevelList" :label="i.label" :value="i.value"></el-option>
+				<el-option v-for="i in warnLevelList" :key="i.value" :label="i.label" :value="i.value" />
 			</el-select>
 		</el-form-item>
 		<el-form-item>
@@ -136,7 +141,7 @@
 			<div class="level_full_row c-center">
 				<div class="level_dia_text">预警等级：</div>
 				<el-select v-model="chooseRow.warnLevel" clearable>
-					<el-option v-for="i in warnLevelList" :label="i.label" :value="i.value"></el-option>
+					<el-option v-for="i in warnLevelList" :key="i.value" :label="i.label" :value="i.value" />
 				</el-select>
 			</div>
 		</div>

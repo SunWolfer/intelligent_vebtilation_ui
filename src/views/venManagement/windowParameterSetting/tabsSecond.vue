@@ -15,7 +15,9 @@
 	const props = defineProps({
 		dataFrom: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 	})
 	const emit = defineEmits(['update:dataFrom', 'setParam'])
@@ -184,7 +186,7 @@
 
 <template>
 	<div class="fullDom tab_second">
-		<template v-for="i in dataList">
+		<template v-for="i in dataList" :key="i.id">
 			<el-form :model="i" label-width="auto" class="tab_second_item" label-position="right">
 				<el-form-item :label="i.label1">
 					<el-select filterable v-model="controlForm[i.value1]" clearable @change="changeValue1(i)">
@@ -193,7 +195,7 @@
 							:key="item.value"
 							:label="item.label"
 							:value="item.value"
-						></el-option>
+						/>
 					</el-select>
 				</el-form-item>
 				<el-form-item :label="i.label2">
@@ -208,7 +210,7 @@
 							:key="item.value"
 							:label="item.label"
 							:value="item.value"
-						></el-option>
+						/>
 					</el-select>
 				</el-form-item>
 				<el-form-item :label="i.label3">
@@ -223,7 +225,7 @@
 							:key="item.value"
 							:label="item.label"
 							:value="item.value"
-						></el-option>
+						/>
 					</el-select>
 				</el-form-item>
 				<el-form-item label=" ">

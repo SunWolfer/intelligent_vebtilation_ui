@@ -16,7 +16,9 @@
 		},
 		chooseRow: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 		isAdd: {
 			type: Boolean,
@@ -189,9 +191,9 @@
 											v-if="form.icon"
 											:icon-class="form.icon"
 											class="el-input__icon"
-											style="height: 32px; width: 16px"
+											style="width: 16px; height: 32px"
 										/>
-										<el-icon v-else style="height: 32px; width: 16px"><search /></el-icon>
+										<el-icon v-else style="width: 16px; height: 32px"><search /></el-icon>
 									</template>
 								</el-input>
 							</template>
@@ -340,7 +342,7 @@
 
 <style lang="scss" scoped>
 	.el-form {
-		.el-form-item--default {
+		.el-form-item {
 			margin-bottom: vh(10);
 			.el-radio {
 				color: #ffffff;

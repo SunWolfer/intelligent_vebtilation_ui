@@ -7,7 +7,7 @@ const useEquipmentParams = () => {
 	const dataParams = equipmentParams.equipmentParams
 	//   退出页面清除设备参数
 	const cleanParams = () => {
-		equipmentParams.updateEquipmentParams(undefined)
+		equipmentParams.updateEquipmentParams({})
 	}
 	// 设置参数
 	const setParams = (data) => {

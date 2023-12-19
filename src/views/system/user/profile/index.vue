@@ -34,7 +34,7 @@
 		<!--    基本资料/修改密码-->
 		<div class="profile-basic">
 			<div class="profile-btn">
-				<template v-for="i in btnList">
+				<template v-for="i in btnList" :key="i.value">
 					<div
 						:class="chooseTabs === i.value ? 'real_btn_1_active' : 'real_btn_1'"
 						@click="changeTabs(i.value)"
@@ -46,8 +46,8 @@
 			<div class="profile-right-form">
 				<border-box name="border7" :color="['#00FFFF', 'rgba(0,0,0,0)']">
 					<div class="fullDom">
-						<user-info v-if="chooseTabs === 'First'" :user="state.user"></user-info>
-						<reset-pwd v-if="chooseTabs === 'Second'" :user="state.user"></reset-pwd>
+						<user-info v-if="chooseTabs === 'First'" :user="state.user" />
+						<reset-pwd v-if="chooseTabs === 'Second'" />
 					</div>
 				</border-box>
 			</div>

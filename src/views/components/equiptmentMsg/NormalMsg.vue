@@ -6,7 +6,9 @@
 	const props = defineProps({
 		data: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 		index: {
 			type: Number,

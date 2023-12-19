@@ -1,12 +1,3 @@
-/*
- * @FilePath: vite.config.ts
- * @Author: ZHY
- * @Date: 2023-01-31 11:22:10
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-01-31 13:20:52
- * Copyright: 2023 xxxTech CO.,LTD. All Rights Reserved.
- * @Descripttion:
- */
 import { defineConfig, loadEnv } from 'vite'
 import { resolve } from 'path'
 import createVitePlugins from './vite/plugins'

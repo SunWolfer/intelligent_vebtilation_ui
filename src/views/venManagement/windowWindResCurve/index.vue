@@ -24,7 +24,7 @@
 			<el-form :model="queryParams" inline>
 				<el-form-item label="风窗">
 					<el-select v-model="queryParams.devId" clearable>
-						<el-option v-for="i in windowList" :label="i.name" :value="i.id"></el-option>
+						<el-option v-for="i in windowList" :key="i.id" :label="i.name" :value="i.id" />
 					</el-select>
 				</el-form-item>
 				<el-form-item>

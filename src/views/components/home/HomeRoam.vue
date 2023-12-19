@@ -42,7 +42,7 @@
 			<div class="home_roam_title_2">操作</div>
 		</div>
 		<div class="home_title_roam_body">
-			<div class="home_roam_body" v-for="item in pathList">
+			<div class="home_roam_body" v-for="item in pathList" :key="item.id">
 				<div class="home_roam_body_1">{{ item.name }}</div>
 				<div
 					class="home_roam_body_2"
@@ -63,16 +63,16 @@
 	</div>
 	<div class="drive_bg" v-if="roam">
 		<div class="drive_title pointer" @click="changeBtn(0)"></div>
-		<video :src="videoUrl" class="video_bg" autoplay loop />
+		<video :src="videoUrl" class="video_bg" autoplay loop></video>
 		<div class="video_bg_border"></div>
 	</div>
 	<!--  巡检列表-->
 	<div class="home_roam_equipment" v-if="roam">
 		<div class="home_roam_equipment_title">
-			<border-box name="border2" title="巡检列表"></border-box>
+			<border-box name="border2" title="巡检列表" />
 		</div>
 		<div class="home_roam_equipment_bottom">
-			<template v-for="(i, index) in roamList">
+			<template v-for="(i, index) in roamList" :key="'roam' + index">
 				<div class="home_roam_equipment_bottom_body" :class="!i ? 'equipment_op' : ''">
 					<div class="home_roam_equipment_bottom_icon" :class="iconStyle(index)"></div>
 					<div class="home_roam_equipment_bottom_title_text" :class="textStyle(index)">

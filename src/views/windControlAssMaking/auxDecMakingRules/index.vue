@@ -47,11 +47,11 @@
 			<el-form :model="queryParams" inline>
 				<el-form-item label="触发点位类型">
 					<el-select v-model="queryParams.triggerType" clearable>
-						<el-option v-for="i in triggerTypeList" :label="i.name" :value="i.code"></el-option>
+						<el-option v-for="i in triggerTypeList" :key="i.code" :label="i.name" :value="i.code" />
 					</el-select>
 				</el-form-item>
 				<el-form-item label="触发点位">
-					<el-input clearable v-model="queryParams.triggerPoint"></el-input>
+					<el-input clearable v-model="queryParams.triggerPoint" />
 				</el-form-item>
 				<el-form-item>
 					<div class="normal_btn" @click="queryDataList">查询</div>
@@ -85,7 +85,7 @@
 				<span>{{ chooseRow.actionCount }}</span>
 			</div>
 			<div class="aux_body_rule_list">
-				<template v-for="item in ruleList">
+				<template v-for="(item, index) in ruleList" :key="index">
 					<div class="aux_body_rule_list_item">
 						<border-box name="border1" background-color="rgba(24, 25, 49, 0.54)">
 							<div class="fullDom aux_body_rule_list_item_body">

@@ -55,7 +55,7 @@
 						start-placeholder="开始日期"
 						end-placeholder="结束日期"
 						prefix-icon="Calendar"
-					></el-date-picker>
+					/>
 				</el-form-item>
 				<el-form-item>
 					<div class="normal_btn" @click="handleQuery">查询</div>

@@ -139,7 +139,7 @@
 									:key="dict.value"
 									:label="dict.label"
 									:value="dict.value"
-								></el-option>
+								/>
 							</el-select>
 						</el-form-item>
 					</el-col>

@@ -10,7 +10,9 @@
 		},
 		chooseRow: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 		requestIp: {
 			type: String,

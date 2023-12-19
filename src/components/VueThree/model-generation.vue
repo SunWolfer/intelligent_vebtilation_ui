@@ -10,7 +10,7 @@
 	import mixin from './model-mixin.vue'
 
 	export default defineComponent({
-		name: 'model-generation',
+		name: 'ModelGeneration',
 		mixins: [mixin],
 		data() {
 			const tunnelMesh = new ITunnelMesh()

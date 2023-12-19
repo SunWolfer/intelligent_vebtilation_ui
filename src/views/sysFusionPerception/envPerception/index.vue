@@ -48,11 +48,11 @@
 		</div>
 		<div class="home_right_message">
 			<div class="home_right_message_title">
-				<border-box name="border2" title="实时监测"></border-box>
+				<border-box name="border2" title="实时监测" />
 			</div>
 			<div class="dev_right_top_carousel">
 				<el-carousel indicator-position="none">
-					<el-carousel-item v-for="item in safeDataList">
+					<el-carousel-item v-for="(item, safeIndex) in safeDataList" :key="safeIndex">
 						<div class="dev_right_top">
 							<div class="dev_right_top_left" :class="iconMap.get(item.type)?.[1]"></div>
 							<border-box name="border5">
@@ -76,9 +76,9 @@
 			<!--    预警列表-->
 			<div class="home_right_message_body4">
 				<el-carousel indicator-position="none">
-					<el-carousel-item v-for="item in showWarnList">
+					<el-carousel-item v-for="(item, warnIndex) in showWarnList" :key="warnIndex">
 						<div class="home_body4_item">
-							<template v-for="child in item">
+							<template v-for="(child, childIndex) in item" :key="'child' + childIndex">
 								<div class="home_body4_item_body">
 									<div class="home_body4_item_body_A" :class="'warn_level_bg_' + child.warnLevel">
 										{{ child.warnName }}
@@ -112,7 +112,7 @@
 		<div class="ven_sys_sensor" v-if="pointDimensionVisible">
 			<border-box name="border3">
 				<div class="ven_sys_sensor_body fullDom">
-					<template v-for="item in tabsList">
+					<template v-for="(item, itemIndex) in tabsList" :key="'tab' + itemIndex">
 						<div
 							@click="chooseDataType(item.value)"
 							class="c-center"
@@ -129,7 +129,7 @@
 								:key="data.id"
 								:label="data.name"
 								:value="data.id"
-							></el-option>
+							/>
 						</el-select>
 					</div>
 					<div class="ven_btn_submit">

@@ -91,7 +91,7 @@
 
 <template>
 	<div class="fullDom server_body">
-		<template v-for="item in serverList">
+		<template v-for="(item, index) in serverList" :key="'server' + index">
 			<div :class="item.className">
 				<border-box
 					name="border9"
@@ -103,16 +103,18 @@
 						<div class="item-box-content-body">
 							<div class="item-header">
 								<div
-									v-for="head in item.headerList"
+									v-for="(head, hederIndex) in item.headerList"
+									:key="'header' + hederIndex"
 									class="text-center"
 									:style="getTableStyle(item.headerList)"
 								>
 									{{ head }}
 								</div>
 							</div>
-							<div class="item-row" v-for="row in item.rowList">
+							<div class="item-row" v-for="(row, rowIndex) in item.rowList" :key="'row' + rowIndex">
 								<div
-									v-for="col in row"
+									v-for="(col, colIndex) in row"
+									:key="'col' + colIndex"
 									class="text-center"
 									:style="getTableStyle(item.headerList)"
 									:title="col"

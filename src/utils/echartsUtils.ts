@@ -25,10 +25,10 @@ export function getMoreLineMap(
 	xName: string,
 ) {
 	const charEle = document.getElementById(domId) as HTMLElement
-	let myChart = echarts.init(charEle)
+	const myChart = echarts.init(charEle)
 	aName = !isNull(aName) ? aName : ''
 	xName = !isNull(xName) ? xName : ''
-	let seriesList: { name: any; type: string; data: any }[] = []
+	const seriesList: { name: any; type: string; data: any }[] = []
 	dataList.forEach((i: any, index: number) => {
 		seriesList.push({
 			name: LegendList[index],
@@ -36,7 +36,7 @@ export function getMoreLineMap(
 			data: i,
 		})
 	})
-	let option = {
+	const option = {
 		grid: {
 			top: '15%',
 			left: '2%',
@@ -121,9 +121,9 @@ export function getMoreLineMapMarkLine(
 	markLineData: string | any[],
 ) {
 	const charEle = document.getElementById(domId) as HTMLElement
-	let myChart = echarts.init(charEle)
+	const myChart = echarts.init(charEle)
 	aName = !isNull(aName) ? aName : ''
-	let seriesList: any[] = []
+	const seriesList: any[] = []
 	dataList.forEach((i: any, index: number) => {
 		seriesList.push({
 			name: LegendList[index],
@@ -132,15 +132,15 @@ export function getMoreLineMapMarkLine(
 		})
 	})
 	//处理竖线
-	let formattingMarkLine: any[] = []
+	const formattingMarkLine: any[] = []
 	for (let i = 0; i < markLineData.length; i++) {
-		let independentData = markLineData[i]
+		const independentData = markLineData[i]
 		for (let j = 0; j < independentData.length; j++) {
 			if (!formattingMarkLine[j]) formattingMarkLine.push([])
 			formattingMarkLine[j][i] = independentData[j]
 		}
 	}
-	let markLine: any = {
+	const markLine: any = {
 		symbol: 'none',
 		data: [],
 		lineStyle: {
@@ -173,7 +173,7 @@ export function getMoreLineMapMarkLine(
 		data: markLineData[1],
 		markLine: markLine,
 	})
-	let option = {
+	const option = {
 		grid: {
 			top: '5%',
 			left: '2%',
@@ -412,8 +412,8 @@ export function getMonitoringAndAnalysisLine({
 //首页饼状图
 export function getHomePieChart(domId: string, dataList: any[], deviceAll: any) {
 	const charEle = document.getElementById(domId) as HTMLElement
-	let myChart = echarts.init(charEle)
-	let option = {
+	const myChart = echarts.init(charEle)
+	const option = {
 		tooltip: {
 			show: false,
 			trigger: 'item',

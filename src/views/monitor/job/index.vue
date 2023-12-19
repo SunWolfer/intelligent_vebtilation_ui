@@ -231,7 +231,7 @@
 						active-value="0"
 						inactive-value="1"
 						@change="handleStatusChange(scope.row)"
-					></el-switch>
+					/>
 				</template>
 			</el-table-column>
 			<el-table-column
@@ -248,7 +248,7 @@
 							icon="Edit"
 							@click="handleUpdate(scope.row)"
 							v-hasPermi="['monitor:job:edit']"
-						></el-button>
+						/>
 					</el-tooltip>
 					<el-tooltip content="删除" placement="top">
 						<el-button
@@ -257,7 +257,7 @@
 							icon="Delete"
 							@click="handleDelete(scope.row)"
 							v-hasPermi="['monitor:job:remove']"
-						></el-button>
+						/>
 					</el-tooltip>
 					<el-tooltip content="执行一次" placement="top">
 						<el-button
@@ -266,7 +266,7 @@
 							icon="CaretRight"
 							@click="handleRun(scope.row)"
 							v-hasPermi="['monitor:job:changeStatus']"
-						></el-button>
+						/>
 					</el-tooltip>
 					<el-tooltip content="任务详细" placement="top">
 						<el-button
@@ -275,7 +275,7 @@
 							icon="View"
 							@click="handleView(scope.row)"
 							v-hasPermi="['monitor:job:query']"
-						></el-button>
+						/>
 					</el-tooltip>
 					<el-tooltip content="调度日志" placement="top">
 						<el-button
@@ -284,7 +284,7 @@
 							icon="Operation"
 							@click="handleJobLog(scope.row)"
 							v-hasPermi="['monitor:job:query']"
-						></el-button>
+						/>
 					</el-tooltip>
 				</template>
 			</el-table-column>
@@ -321,7 +321,7 @@
 									:key="dict.value"
 									:label="dict.label"
 									:value="dict.value"
-								></el-option>
+								/>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -347,8 +347,7 @@
 					</el-col>
 					<el-col :span="24">
 						<el-form-item label="cron表达式" prop="cronExpression">
-							<el-input v-model="form.cronExpression" placeholder="请输入cron执行表达式">
-							</el-input>
+							<el-input v-model="form.cronExpression" placeholder="请输入cron执行表达式" />
 						</el-form-item>
 					</el-col>
 					<el-col :span="24">

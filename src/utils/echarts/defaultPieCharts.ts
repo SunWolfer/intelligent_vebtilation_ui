@@ -70,7 +70,7 @@ export function defaultPieChart({
 						target = data[i].value
 					}
 				}
-				let arr = [
+				const arr = [
 					'{a|' + name + '}',
 					'{b|' + target + '个}',
 					'{c|' + ((target / total) * 100).toFixed(2) + '%}',

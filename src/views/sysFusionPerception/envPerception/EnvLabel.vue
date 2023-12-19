@@ -2,7 +2,9 @@
 	const props = defineProps({
 		data: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 	})
 	const iconMap = new Map([

@@ -92,10 +92,10 @@ export class ITunnelMesh {
 	// 添加
 	add(...model: IModelNode[]) {
 		if (!this.object) return
-		let models = [...model]
+		const models = [...model]
 		for (let i = 0; i < models.length; i++) {
-			let modelNode = models[i]
-			let geometryList: Object3D[] = []
+			const modelNode = models[i]
+			const geometryList: Object3D[] = []
 			if (modelNode.showNode) geometryList.push(...this.createdNodeMesh(modelNode))
 			if (modelNode.showMesh) geometryList.push(...this.createdTunnelMesh(modelNode))
 			this.object.add(...geometryList)
@@ -103,8 +103,8 @@ export class ITunnelMesh {
 	}
 	// 生成球模型
 	createdSphereGeometry(nodeMesh: INodeMesh) {
-		let nodeGeometry = nodeMesh.geometry
-		let geometry = new SphereGeometry(
+		const nodeGeometry = nodeMesh.geometry
+		const geometry = new SphereGeometry(
 			nodeGeometry.radius,
 			nodeGeometry.widthSegments ?? undefined,
 			nodeGeometry.heightSegments ?? undefined,
@@ -113,12 +113,12 @@ export class ITunnelMesh {
 			nodeGeometry.thetaStart ?? undefined,
 			nodeGeometry.thetaLength ?? undefined,
 		)
-		let material = this.setMaterial(nodeMesh.material)
+		const material = this.setMaterial(nodeMesh.material)
 		return new Mesh(geometry, material)
 	}
 	// 生成巷道模型
 	createdGeometry(mesh: IMesh) {
-		let meshGeometry = mesh.geometry
+		const meshGeometry = mesh.geometry
 		let geometry: BufferGeometry
 		if (meshGeometry.geometryType === 'Box') {
 			geometry = new BoxGeometry(
@@ -141,8 +141,8 @@ export class ITunnelMesh {
 			)
 		}
 		geometry.rotateX(-Math.PI / 2)
-		let material = this.setMaterial(mesh.material)
-		let CyMesh = new Mesh(geometry, material)
+		const material = this.setMaterial(mesh.material)
+		const CyMesh = new Mesh(geometry, material)
 		if (mesh.name) CyMesh.name = mesh.name
 		return CyMesh
 	}
@@ -198,7 +198,7 @@ export class ITunnelMesh {
 		if (!this.object) return []
 		let hasStart = false
 		let hasEnd = false
-		let geometryList: Mesh[] = []
+		const geometryList: Mesh[] = []
 		this.object.traverse((child) => {
 			if (child.name === modelNode.nodeName) {
 				hasStart = true
@@ -207,9 +207,9 @@ export class ITunnelMesh {
 				hasEnd = true
 			}
 		})
-		let sphereGeometry = this.createdSphereGeometry(modelNode.nodes)
+		const sphereGeometry = this.createdSphereGeometry(modelNode.nodes)
 		if (!hasStart) {
-			let startSphereGeometry = sphereGeometry.clone()
+			const startSphereGeometry = sphereGeometry.clone()
 			startSphereGeometry.name = modelNode.nodeName
 			startSphereGeometry.position.set(
 				modelNode.nodePosition.x,
@@ -219,7 +219,7 @@ export class ITunnelMesh {
 			geometryList.push(startSphereGeometry)
 		}
 		if (!hasEnd) {
-			let endSphereGeometry = sphereGeometry.clone()
+			const endSphereGeometry = sphereGeometry.clone()
 			endSphereGeometry.name = modelNode.nextNode
 			endSphereGeometry.position.set(
 				modelNode.nextNodePosition.x,
@@ -233,17 +233,17 @@ export class ITunnelMesh {
 	// 	创建巷道
 	createdTunnelMesh(modelNode: IModelNode) {
 		if (!modelNode.nodePosition || !modelNode.nextNodePosition) return []
-		let geometryList: Group[] = []
-		let meshGroup = new Group()
+		const geometryList: Group[] = []
+		const meshGroup = new Group()
 		for (let j = 0; j < modelNode.meshes.length; j++) {
-			let obj = modelNode?.meshes[j]
-			let cylinderGeometry = this.createdGeometry(obj)
-			let p1 = new Vector3(
+			const obj = modelNode?.meshes[j]
+			const cylinderGeometry = this.createdGeometry(obj)
+			const p1 = new Vector3(
 				modelNode.nodePosition.x,
 				modelNode.nodePosition.y,
 				modelNode.nodePosition.z,
 			)
-			let p2 = new Vector3(
+			const p2 = new Vector3(
 				modelNode.nextNodePosition.x,
 				modelNode.nextNodePosition.y,
 				modelNode.nextNodePosition.z,
@@ -259,9 +259,9 @@ export class ITunnelMesh {
 			cylinderGeometry.position.set(x, y, z)
 			cylinderGeometry.position.y = cylinderGeometry.position.y + (obj?.geometry?.offsetY ?? 0)
 
-			let mtx = new Matrix4() //创建一个4维矩阵
+			const mtx = new Matrix4() //创建一个4维矩阵
 			mtx.lookAt(p2, p1, cylinderGeometry.up) //设置朝向
-			let toRot = new Quaternion()
+			const toRot = new Quaternion()
 			toRot.setFromRotationMatrix(mtx) //计算出需要进行旋转的四元数值
 			cylinderGeometry.quaternion.set(toRot.x, toRot.y, toRot.z, toRot.w)
 			meshGroup.add(cylinderGeometry)
@@ -294,7 +294,7 @@ export class ITunnelMesh {
 	addWindMesh(modelNode: IModelNode) {
 		if (!modelNode.nodePosition || !modelNode.nextNodePosition) return []
 		if (!modelNode.windMesh) return []
-		let iMaterial: IMaterial = {
+		const iMaterial: IMaterial = {
 			mapUrl:
 				modelNode.windMesh.windType === 1
 					? 'file/material/no_icon_arrow.png'
@@ -302,8 +302,8 @@ export class ITunnelMesh {
 			side: 2,
 		}
 
-		let texture = this.loadTexture(iMaterial)
-		let material: MeshBasicMaterial = new MeshBasicMaterial({
+		const texture = this.loadTexture(iMaterial)
+		const material: MeshBasicMaterial = new MeshBasicMaterial({
 			map: texture,
 			side: DoubleSide,
 			transparent: true,
@@ -311,28 +311,28 @@ export class ITunnelMesh {
 		const geometry = new PlaneGeometry(15 * modelNode.windMesh.size, 54 * modelNode.windMesh.size)
 		geometry.rotateX(-Math.PI / 2)
 
-		let mesh = new Mesh(geometry, material)
+		const mesh = new Mesh(geometry, material)
 
-		let p1 = new Vector3(
+		const p1 = new Vector3(
 			modelNode.nodePosition.x,
 			modelNode.nodePosition.y,
 			modelNode.nodePosition.z,
 		)
-		let p2 = new Vector3(
+		const p2 = new Vector3(
 			modelNode.nextNodePosition.x,
 			modelNode.nextNodePosition.y,
 			modelNode.nextNodePosition.z,
 		)
 
 		mesh.position.set(p1.x, p1.y, p1.z)
-		let mtx = new Matrix4() //创建一个4维矩阵
+		const mtx = new Matrix4() //创建一个4维矩阵
 		if (!modelNode.windMesh.direction) {
 			mtx.lookAt(p2, p1, mesh.up) //设置朝向
 		} else {
 			mtx.lookAt(p1, p2, mesh.up) //设置朝向
 		}
 
-		let toRot = new Quaternion()
+		const toRot = new Quaternion()
 		toRot.setFromRotationMatrix(mtx) //计算出需要进行旋转的四元数值
 		mesh.quaternion.set(toRot.x, toRot.y, toRot.z, toRot.w)
 		return mesh
@@ -384,7 +384,7 @@ export class ITunnelMesh {
 	}
 	// 根据名称删除巷道
 	deleteTunnelByName(name: string) {
-		let removeList: any[] = []
+		const removeList: any[] = []
 		this.object?.traverse((child: any) => {
 			if (child.name === name) {
 				removeList.push(child)
@@ -421,12 +421,12 @@ export class ITunnelMesh {
 		// 	判断点击模型类型
 		if (names.length === 2) {
 			this.maxNodeNum++
-			let cThreeModel = this.threeModelData.find((i) => {
+			const cThreeModel = this.threeModelData.find((i) => {
 				return i.nodeName === names[0] && i.nextNode === names[1]
 			})
 			if (!cThreeModel) return
 			// 垂点
-			let retVal = getFootPoint(
+			const retVal = getFootPoint(
 				intersected.point,
 				cThreeModel?.nodePosition,
 				cThreeModel?.nextNodePosition,
@@ -480,13 +480,13 @@ export class ITunnelMesh {
 				// 添加改变/删除巷道
 				this.changeTunnel.push(nodeObj.splitTunnel)
 
-				let model1: IModelNode = setDefaultModel(
+				const model1: IModelNode = setDefaultModel(
 					nodeObj.splitTunnel.nodeName,
 					nodeObj.splitTunnel.nodePosition,
 					nodeObj.name,
 					nodeObj.position,
 				)
-				let model2: IModelNode = setDefaultModel(
+				const model2: IModelNode = setDefaultModel(
 					nodeObj.name,
 					nodeObj.position,
 					nodeObj.splitTunnel.nextNode,
@@ -525,13 +525,13 @@ export class ITunnelMesh {
 	}
 	// 	清空当前操作并返回已编辑数组
 	overEditHandle() {
-		let newTunnelList = this.newTunnel.map((item) => {
+		const newTunnelList = this.newTunnel.map((item) => {
 			return {
 				...item,
 				meshes: loadDefaultMesh,
 			}
 		})
-		let deleteTunnelList = this.changeTunnel.map((item) => {
+		const deleteTunnelList = this.changeTunnel.map((item) => {
 			return {
 				...item,
 				meshes: loadDefaultMesh,
@@ -562,17 +562,17 @@ export class ITunnelMesh {
 		)
 		// 	更新object
 		for (let i = 0; i < redrawList.newTunnel.length; i++) {
-			let obj = redrawList.newTunnel[i]
+			const obj = redrawList.newTunnel[i]
 			this.deleteTunnelByName(obj.nodeName + '-' + obj.nextNode)
 		}
 		this.add(...redrawList.newTunnel)
 	}
 	// 创建初始模型
 	createdUnitCylinder(position: ICoordinates) {
-		let geometry = new CylinderGeometry(2, 2, 1, 4)
+		const geometry = new CylinderGeometry(2, 2, 1, 4)
 		geometry.rotateX(Math.PI * 0.5)
-		let material = this.setMaterial(defaultMesh[1].material)
-		let cylinder = new Mesh(geometry, material)
+		const material = this.setMaterial(defaultMesh[1].material)
+		const cylinder = new Mesh(geometry, material)
 		cylinder.position.set(position.x, position.y, position.z)
 		cylinder.name = 'textCylinder'
 		this.cylinder = cylinder
@@ -581,9 +581,9 @@ export class ITunnelMesh {
 	// 	移动临时模型
 	mouseMoveCylinder(position: Vector3) {
 		if (!this.cylinder || !this.connectNode.nodePosition) return
-		let p1 = this.connectNode.nodePosition
-		let p2 = position
-		let len = distance(p1, p2)
+		const p1 = this.connectNode.nodePosition
+		const p2 = position
+		const len = distance(p1, p2)
 		this.cylinder.scale.set(1, 1, len)
 		this.cylinder.position.set(
 			p1.x + (p2.x - p1.x) / 2,
@@ -591,8 +591,8 @@ export class ITunnelMesh {
 			p1.z + (p2.z - p1.z) / 2,
 		)
 
-		let apos = p2.clone()
-		let toRod = setModelSpin(this.cylinder, apos)
+		const apos = p2.clone()
+		const toRod = setModelSpin(this.cylinder, apos)
 		this.cylinder.quaternion.set(toRod.x, toRod.y, toRod.z, toRod.w)
 	}
 	// 	删除初始新增巷道
@@ -644,9 +644,9 @@ function getFootPoint(
 	end: ICoordinates | undefined,
 ) {
 	if (!begin || !end) return
-	let dx = begin.x - end.x
-	let dy = begin.y - end.y
-	let dz = begin.z - end.z
+	const dx = begin.x - end.x
+	const dy = begin.y - end.y
+	const dz = begin.z - end.z
 
 	let u =
 		(p1.x - begin.x) * (begin.x - end.x) +
@@ -681,9 +681,9 @@ function setDefaultModel(
  */
 function setModelSpin(model: Object3D, lookPoint: Vector3) {
 	//以下代码在多段路径时可重复执行
-	let mtx = new Matrix4() //创建一个4维矩阵
+	const mtx = new Matrix4() //创建一个4维矩阵
 	mtx.lookAt(lookPoint, model.position, model.up) //设置朝向
-	let toRot = new Quaternion()
+	const toRot = new Quaternion()
 	toRot.setFromRotationMatrix(mtx) //计算出需要进行旋转的四元数值
 	return toRot
 }

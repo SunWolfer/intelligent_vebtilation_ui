@@ -54,10 +54,10 @@
 	<div class="table_page_default">
 		<el-form :model="queryParams" inline>
 			<el-form-item label="标签名称">
-				<el-input v-model="queryParams.propertyName"></el-input>
+				<el-input v-model="queryParams.propertyName" />
 			</el-form-item>
 			<el-form-item label="标签编码">
-				<el-input v-model="queryParams.propertyCode"></el-input>
+				<el-input v-model="queryParams.propertyCode" />
 			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">查询</div>
@@ -67,7 +67,7 @@
 			<div class="normal_btn" @click="handleAdd">新增</div>
 			<div class="normal_3_btn" @click="handleDelete">删除</div>
 		</div>
-		<el-table :data="dataList" border @selectionChange="handleSelectionChange">
+		<el-table :data="dataList" border @selection-change="handleSelectionChange">
 			<el-table-column type="selection" align="center" width="50" />
 			<el-table-column
 				prop="propertyName"

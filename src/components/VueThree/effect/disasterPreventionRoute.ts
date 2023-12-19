@@ -82,8 +82,8 @@ export class DisasterPreventionRoute {
 	}
 	// 加载跑动模型
 	loadRunMesh() {
-		let loader = new GLTFLoader()
-		let src = import.meta.env.BASE_URL + 'file/pao-02.glb'
+		const loader = new GLTFLoader()
+		const src = import.meta.env.BASE_URL + 'file/pao-02.glb'
 		loader.load(src, (data) => {
 			data.scene.scale.x = 50
 			data.scene.scale.y = 50
@@ -100,28 +100,34 @@ export class DisasterPreventionRoute {
 	}
 	// 加载灾害模拟纹理图片
 	loadDisasterTextureImg() {
-		let firesTexture: Texture[] = []
+		const firesTexture: Texture[] = []
 		// 	加载火焰图片资源
 		for (let i = 0; i < 14; i++) {
-			let texture = loadLineTexture(import.meta.env.BASE_URL + 'file/material/fires2/' + i + '.png')
+			const texture = loadLineTexture(
+				import.meta.env.BASE_URL + 'file/material/fires2/' + i + '.png',
+			)
 			firesTexture.push(texture)
 		}
-		let waterTexture: Texture[] = []
+		const waterTexture: Texture[] = []
 		//加载水灾图片资源
 		for (let i = 0; i < 1; i++) {
-			let texture = loadLineTexture(import.meta.env.BASE_URL + 'file/material/water/' + i + '.jpg')
+			const texture = loadLineTexture(
+				import.meta.env.BASE_URL + 'file/material/water/' + i + '.jpg',
+			)
 			waterTexture.push(texture)
 		}
 		// 瓦斯
-		let gasTexture: Texture[] = []
+		const gasTexture: Texture[] = []
 		for (let i = 0; i < 13; i++) {
-			let texture = loadLineTexture(import.meta.env.BASE_URL + 'file/material/smoke/' + i + '.png')
+			const texture = loadLineTexture(
+				import.meta.env.BASE_URL + 'file/material/smoke/' + i + '.png',
+			)
 			gasTexture.push(texture)
 		}
 		// 粉尘
-		let dustTexture: Texture[] = []
+		const dustTexture: Texture[] = []
 		for (let i = 0; i < 13; i++) {
-			let texture = loadLineTexture(import.meta.env.BASE_URL + 'file/material/dust/' + i + '.png')
+			const texture = loadLineTexture(import.meta.env.BASE_URL + 'file/material/dust/' + i + '.png')
 			dustTexture.push(texture)
 		}
 		this.disasterTextureImg = [
@@ -146,7 +152,7 @@ export class DisasterPreventionRoute {
 			depthWrite: false,
 			depthTest: false,
 		})
-		let { curve } = useEditModel().createMotionTrack(positions)
+		const { curve } = useEditModel().createMotionTrack(positions)
 
 		// 火焰蔓延
 		if (DisasterTypes.ONE === type) {
@@ -173,7 +179,7 @@ export class DisasterPreventionRoute {
 		// 	创建平面
 		const geometry = new PlaneGeometry(7, 8)
 		const mesh = new Mesh(geometry, material)
-		let cloneMesh = depthCloneMesh(mesh)
+		const cloneMesh = depthCloneMesh(mesh)
 		cloneMesh.geometry.rotateY(Math.PI / (Math.random() * 10))
 
 		this.disasterObjList.push({
@@ -187,12 +193,12 @@ export class DisasterPreventionRoute {
 		this.animateList.push(() => {
 			iTexture.showIndex = iTexture.showIndex + 1 > iTexture.length ? 0 : iTexture.showIndex + 1
 			for (let i = 0; i < this.disasterObjList.length; i++) {
-				let tMesh = this.disasterObjList[i]
+				const tMesh = this.disasterObjList[i]
 				tMesh.obj.material.map = iTexture.texture[iTexture.showIndex]
 				if (this.disasterObjList[0].counter < 1) useEditModel().texturesUpdate(tMesh)
 			}
 			if (this.disasterObjList[0].counter < 1) {
-				let obj = depthCloneMesh(cloneMesh)
+				const obj = depthCloneMesh(cloneMesh)
 				obj.geometry.rotateY(Math.PI / (Math.random() * 10))
 				this.disasterObjList.push({
 					obj: obj,
@@ -215,7 +221,7 @@ export class DisasterPreventionRoute {
 	createdMark(labelList: LabelAttribute[]) {
 		this.extraObject.remove(...this.startMark)
 		this.startMark = []
-		let Css2DomList = useEditModel().addCss2DomList(labelList)
+		const Css2DomList = useEditModel().addCss2DomList(labelList)
 		if (!Css2DomList?.length) return
 		this.extraObject.add(...Css2DomList)
 		this.startMark.push(...Css2DomList)
@@ -224,7 +230,7 @@ export class DisasterPreventionRoute {
 	createdDisaster(labelList: LabelAttribute[]) {
 		this.extraObject.remove(...this.disasterMeshList)
 		this.disasterMeshList = []
-		let Css2DomList = useEditModel().addCss2DomList(labelList)
+		const Css2DomList = useEditModel().addCss2DomList(labelList)
 		if (!Css2DomList?.length) return
 		this.extraObject.add(...Css2DomList)
 		this.disasterMeshList.push(...Css2DomList)
@@ -232,17 +238,17 @@ export class DisasterPreventionRoute {
 	// 创建避灾路线跑动路线
 	initRoute(pointObj: DisPreRoute) {
 		if (!this.runObject) return
-		let { curve } = useEditModel().createMotionTrack(pointObj.points)
+		const { curve } = useEditModel().createMotionTrack(pointObj.points)
 
-		let moveModel = this.runObject.scene
+		const moveModel = this.runObject.scene
 		this.extraObject.remove(moveModel)
 		this.moveModelList.push(moveModel)
 		this.extraObject.add(moveModel)
-		let mixer1 = new AnimationMixer(moveModel)
+		const mixer1 = new AnimationMixer(moveModel)
 		mixer1.clipAction(this.runObject.animations[0]).play()
 		this.createdFlowLine(pointObj.points, pointObj.lineRadius ?? 4)
 
-		let moveTexture: IMoveTexture = {
+		const moveTexture: IMoveTexture = {
 			obj: moveModel,
 			curve: curve,
 			counter: 0,
@@ -256,7 +262,7 @@ export class DisasterPreventionRoute {
 	}
 	// 创建避灾路线流动线
 	createdFlowLine(points: ICoordinates[], radius: number) {
-		let texture = this.lineTexture.clone()
+		const texture = this.lineTexture.clone()
 
 		let len = 0
 		for (let i = 0; i < points.length - 1; i++) {
@@ -267,7 +273,7 @@ export class DisasterPreventionRoute {
 		// 设置y方向的重复数(环绕管道方向)
 		texture.repeat.y = 2
 
-		let { mesh } = createdLine(points, radius, texture)
+		const { mesh } = createdLine(points, radius, texture)
 		this.animateList.push(() => {
 			texture.offset.x -= 0.1
 		})
@@ -301,7 +307,7 @@ export class DisasterPreventionRoute {
 	}
 	// 清除灾害蔓延
 	cleanDisasterSpread() {
-		let removeObj = this.disasterObjList.map((i) => {
+		const removeObj = this.disasterObjList.map((i) => {
 			return i.obj
 		})
 		this.extraObject.remove(...removeObj)
@@ -320,17 +326,17 @@ export class DisasterPreventionRoute {
 
 //创建避灾路线流动线
 function createdLine(points: ICoordinates[], radius: number, texture: Texture) {
-	let material = new MeshBasicMaterial({
+	const material = new MeshBasicMaterial({
 		map: texture,
 		// side: DoubleSide,
 		transparent: false,
 	})
 
 	// 创建一条平滑的三维样条曲线
-	let { curve } = useEditModel().createMotionTrack(points)
+	const { curve } = useEditModel().createMotionTrack(points)
 	// 创建管道
-	let tubeGeometry = new TubeGeometry(curve, 400, radius)
-	let mesh = new Mesh(tubeGeometry, material)
+	const tubeGeometry = new TubeGeometry(curve, 400, radius)
+	const mesh = new Mesh(tubeGeometry, material)
 	mesh.name = 'line-' + mesh.uuid
 	return {
 		texture,
@@ -340,7 +346,7 @@ function createdLine(points: ICoordinates[], radius: number, texture: Texture) {
 
 function loadLineTexture(img: string) {
 	// 	创建纹理和材质
-	let texture = new TextureLoader().load(img)
+	const texture = new TextureLoader().load(img)
 	texture.colorSpace = SRGBColorSpace
 	texture.wrapS = texture.wrapT = RepeatWrapping //每个都重复
 	texture.repeat.set(1, 1)
@@ -350,7 +356,7 @@ function loadLineTexture(img: string) {
 }
 //克隆对象
 function depthCloneMesh(mesh: Mesh<PlaneGeometry, MeshBasicMaterial>) {
-	let cloneMesh = mesh.clone()
+	const cloneMesh = mesh.clone()
 	cloneMesh.material = mesh.material.clone()
 	cloneMesh.geometry = mesh.geometry.clone()
 

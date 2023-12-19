@@ -6,11 +6,15 @@
 	const props = defineProps({
 		labelList: {
 			type: Array,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 		routeList: {
 			type: Array,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 	})
 
@@ -168,9 +172,9 @@
 			:controlsOptions="controlsOptions"
 			:choose-group="true"
 			@load="onLoad"
-			@onModel="onModel"
-			@onClick="onClick"
-			@onDblclick="dblclick"
+			@on-model="onModel"
+			@on-click="onClick"
+			@on-dblclick="dblclick"
 			@ready-camera="readyCamera"
 		>
 			<template #label v-if="isReady">

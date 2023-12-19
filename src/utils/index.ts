@@ -90,7 +90,7 @@ export function byteLength(str: string) {
  * @returns {Array}
  */
 export function cleanArray(actual: string | any[]) {
-	let newArray: any[] = []
+	const newArray: any[] = []
 	for (let i = 0; i < actual.length; i++) {
 		if (actual[i]) {
 			newArray.push(actual[i])
@@ -210,7 +210,7 @@ export const deepClone = (source: any): object => {
 	if (!source && typeof source !== 'object') {
 		throw new Error('error arguments')
 	}
-	let targetObj: any = source.constructor === Array ? [] : {}
+	const targetObj: any = source.constructor === Array ? [] : {}
 	Object.keys(source).forEach((keys) => {
 		if (source[keys] && typeof source[keys] === 'object') {
 			targetObj[keys] = deepClone(source[keys])

@@ -17,7 +17,9 @@
 		},
 		btn: {
 			type: Array,
-			default: ['提交', '取消'],
+			default() {
+				return ['提交', '取消']
+			},
 		},
 		ok: {
 			type: Function,
@@ -125,8 +127,7 @@
 									type="text"
 									placeholder="授权人账号"
 									autocomplete="off"
-								>
-								</el-input>
+								/>
 							</el-form-item>
 							<el-form-item prop="password" label="授权人密码">
 								<el-input
@@ -134,12 +135,10 @@
 									type="password"
 									placeholder="授权人密码"
 									autocomplete="new-password"
-								>
-								</el-input>
+								/>
 							</el-form-item>
 							<el-form-item prop="code" label="验证码" class="per_form_input">
-								<el-input v-model="dataForm.code" auto-complete="off" placeholder="验证码">
-								</el-input>
+								<el-input v-model="dataForm.code" auto-complete="off" placeholder="验证码" />
 								<img :src="codeUrl" @click="getCode" class="per-code-img" alt="" />
 							</el-form-item>
 						</el-form>

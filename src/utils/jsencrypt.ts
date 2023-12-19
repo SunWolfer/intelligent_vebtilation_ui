@@ -1,4 +1,4 @@
-import {JSEncrypt} from 'JSEncrypt'
+import { JSEncrypt } from 'JSEncrypt'
 
 // 密钥对生成 http://web.chacuo.net/netrsakeypair
 
@@ -17,14 +17,14 @@ const privateKey =
 	'UP8iWi1Qw0Y='
 
 // 加密
-export function encrypt(txt:string):string {
+export function encrypt(txt: string): string {
 	const encrypts = new JSEncrypt()
 	encrypts.setPublicKey(publicKey) // 设置公钥
 	return encrypts.encrypt(txt) + '' // 对数据进行加密
 }
 
 // 解密
-export function decrypt(txt:string):string {
+export function decrypt(txt: string): string {
 	const encrypts = new JSEncrypt()
 	encrypts.setPrivateKey(privateKey) // 设置私钥
 	return encrypts.decrypt(txt) + '' // 对数据进行解密

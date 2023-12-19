@@ -10,7 +10,9 @@
 		},
 		chooseRow: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 	})
 	const emits = defineEmits(['update:modelValue', 'changeVersion'])
@@ -35,7 +37,7 @@
 <template>
 	<dia-log title="版本列表" v-model="showDiaLog" v-if="showDiaLog">
 		<el-table :data="dataList" height="100%">
-			<el-table-column label="版本号" align="center" prop="version"></el-table-column>
+			<el-table-column label="版本号" align="center" prop="version" />
 			<el-table-column label="设定版本" align="center">
 				<template #default="scope">
 					<el-button type="primary" link @click="handleUpdate(scope.row)">设定</el-button>

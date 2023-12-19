@@ -51,7 +51,7 @@ const useEquipmentData = () => {
 	const allTypeList = computed(() => {
 		let childes: LabelAttribute[] = []
 		for (let i = 0; i < equipmentList.value.length; i++) {
-			let child = equipmentList.value[i]
+			const child = equipmentList.value[i]
 			childes = childes.concat(child.children)
 		}
 		return childes
@@ -60,7 +60,7 @@ const useEquipmentData = () => {
 	const optionalDataList = computed(() => {
 		let childes = []
 		for (let i = 0; i < equipmentList.value.length; i++) {
-			let child = equipmentList.value[i]
+			const child = equipmentList.value[i]
 			if (equipTypeList.value.indexOf(child.type) !== -1) {
 				childes = childes.concat(child.children)
 			}
@@ -80,7 +80,7 @@ const useEquipmentData = () => {
 	// 全部列表数据
 	const allDataList = computed(() => {
 		const dataList: LabelAttribute[] = equipmentData.data
-		let children: LabelAttribute[] = []
+		const children: LabelAttribute[] = []
 		for (let i = 0; i < dataList.length; i++) {
 			if (dataList[i].children) children.push(...dataList[i].children)
 		}

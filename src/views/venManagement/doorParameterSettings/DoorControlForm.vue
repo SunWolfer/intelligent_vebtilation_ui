@@ -4,7 +4,9 @@
 	const props = defineProps({
 		dataFrom: {
 			type: Object,
-			default: {},
+			default: () => {
+				return {}
+			},
 		},
 	})
 	const emit = defineEmits(['update:dataFrom', 'setParam'])
@@ -182,13 +184,13 @@
 		label-width="auto"
 	>
 		<el-form-item label="心跳周期：" prop="heatBeatPeriod">
-			<el-input v-model="controlForm.heatBeatPeriod"></el-input>
+			<el-input v-model="controlForm.heatBeatPeriod" />
 			<el-button class="add-btn" icon="Setting" @click="setParams('heatBeatPeriod')"
 				>设置</el-button
 			>
 		</el-form-item>
 		<el-form-item label="上报周期(s)：" prop="reportPeriod">
-			<el-input v-model="controlForm.reportPeriod"></el-input>
+			<el-input v-model="controlForm.reportPeriod" />
 			<el-button class="add-btn" icon="Setting" @click="setParams('reportPeriod')">设置</el-button>
 		</el-form-item>
 		<el-form-item label="油泵延时关闭时间(s)：" prop="oilDelayCloseTime">

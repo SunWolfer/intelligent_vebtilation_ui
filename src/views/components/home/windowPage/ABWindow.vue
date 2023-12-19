@@ -151,20 +151,20 @@
 			:form="formA"
 			:data-list="dataList"
 			@change-window="changeWindow"
-			@hisRecordHandle="hisRecordHandle"
+			@his-record-handle="hisRecordHandle"
 		/>
 		<ABWindowFormB
 			:key="'formB'"
 			:form="formB"
 			:data-list="dataList"
 			@change-window="changeWindow"
-			@hisRecordHandle="hisRecordHandle"
+			@his-record-handle="hisRecordHandle"
 		/>
 		<!--    监测状态-->
 		<div class="a_b_window_c2">
 			<!--      标题-->
 			<div class="fullDom a_b_window_c2_l1">
-				<border-box name="border2" title="监测状态" :hidden-glimmer="true"></border-box>
+				<border-box name="border2" title="监测状态" :hidden-glimmer="true" />
 				<!--        更多-->
 				<div class="window_more_btn" @click="moreVisibleHandle">更多</div>
 			</div>

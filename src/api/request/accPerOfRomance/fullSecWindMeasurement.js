@@ -270,7 +270,7 @@ export const fullSecWindMeasurement = () => {
 							name: fullSecWindList.value[choose.value].name,
 						},
 						dateRange.value,
-				  )
+					)
 
 		const res = await windFullLines(query)
 		if (res && res.data) {

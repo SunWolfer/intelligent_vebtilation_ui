@@ -59,7 +59,9 @@
 		},
 		aneTableData: {
 			type: Array,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 	})
 	const hasReadyCamera = ref(false)
@@ -127,9 +129,9 @@
 			:backgroundAlpha="0"
 			:controls-options="controlsOptions"
 			@load="onLoad"
-			@onClick="onClick"
-			@onModel="onModel"
-			@readyCamera="readyCamera"
+			@on-click="onClick"
+			@on-model="onModel"
+			@ready-camera="readyCamera"
 		>
 			<template #label v-if="isReady">
 				<div class="full_body_model_full_bg" v-show="choose !== -1" :id="domId">
@@ -137,7 +139,7 @@
 						<span>自动测风站记录</span>
 						<span>{{ dateTime }}</span>
 						<div class="full_body_l2_item_text_table">
-							<template v-for="item in aneTableData">
+							<template v-for="item in aneTableData" :key="item.label">
 								<div class="full_body_l2_item_text_table_item">
 									<span>{{ item.label + '  ' + item.value }}</span>
 									<span>{{ item.unit }}</span>

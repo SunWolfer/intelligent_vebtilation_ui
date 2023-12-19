@@ -9,6 +9,8 @@
 	</section>
 </template>
 
+<script setup lang="ts"></script>
+
 <style lang="scss" scoped>
 	.app-main {
 		/* 50= navbar  50  */
@@ -33,7 +35,6 @@
 		}
 	}
 </style>
-
 <style lang="scss">
 	// fix css style bug in open el-dialog
 	.el-popup-parent--hidden {
@@ -42,4 +43,3 @@
 		}
 	}
 </style>
-<script setup lang="ts"></script>

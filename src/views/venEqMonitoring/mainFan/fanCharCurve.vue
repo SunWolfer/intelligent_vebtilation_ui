@@ -74,12 +74,17 @@
 			<el-form :model="queryParams" inline>
 				<el-form-item label="转速(r/min)">
 					<el-select v-model="queryParams.rotationalSpeed" @change="changeAngle" clearable>
-						<el-option v-for="i in dataList" :label="i.zhuansu" :value="i.zhuansu"></el-option>
+						<el-option
+							v-for="i in dataList"
+							:key="i.zhuansu"
+							:label="i.zhuansu"
+							:value="i.zhuansu"
+						/>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="叶片角度">
 					<el-select v-model="queryParams.angle" clearable>
-						<el-option v-for="i in angleList" :label="i" :value="i"></el-option>
+						<el-option v-for="i in angleList" :key="i" :label="i" :value="i" />
 					</el-select>
 				</el-form-item>
 				<el-form-item>

@@ -9,8 +9,7 @@
 				link
 				autocomplete="off"
 				placeholder="账号"
-			>
-			</el-input>
+			/>
 			<el-input
 				prefix-icon="Lock"
 				v-model="loginForm.password"

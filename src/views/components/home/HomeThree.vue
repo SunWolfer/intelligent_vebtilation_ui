@@ -205,9 +205,9 @@
 			:controlsOptions="controlsOptions"
 			:choose-group="true"
 			@load="onLoad"
-			@onModel="onModel"
-			@onClick="onClick"
-			@onDblclick="dblclick"
+			@on-model="onModel"
+			@on-click="onClick"
+			@on-dblclick="dblclick"
 		>
 			<template #label v-if="isReady">
 				<!--        设备巡检-->
@@ -262,11 +262,13 @@
 		left: vh(77);
 		top: vh(-50);
 	}
+
 	.label_bg_roam {
 		position: absolute;
 		top: vh(-180);
 		left: vw(228);
 	}
+
 	.disaster_start {
 		position: absolute;
 		width: vh(43);
@@ -275,6 +277,7 @@
 		background-image: url('@/assets/images/home/home_dis_pre_route/start_mark.png');
 		background-size: 100% 100%;
 	}
+
 	.disaster_warn {
 		position: absolute;
 		width: vh(40);
@@ -282,6 +285,7 @@
 		top: vh(-20);
 		left: 0;
 	}
+
 	.disaster_warn_body {
 		position: relative;
 		width: 100%;
@@ -289,6 +293,7 @@
 		background-image: url('@/assets/images/home/home_dis_pre_route/fire.gif');
 		background-size: 100% 100%;
 	}
+
 	.disaster_warn_gas {
 		position: relative;
 		width: 100%;
@@ -296,6 +301,7 @@
 		background-image: url('@/assets/images/home/home_dis_pre_route/gas.png');
 		background-size: 100% 100%;
 	}
+
 	.disaster_warn_dust {
 		position: relative;
 		width: 100%;

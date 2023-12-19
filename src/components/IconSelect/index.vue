@@ -8,15 +8,11 @@
 			@clear="filterIcons"
 			@input="filterIcons"
 		>
-			<template #suffix><i class="el-icon-search el-input__icon" /></template>
+			<template #suffix><i class="el-icon-search el-input__icon"></i></template>
 		</el-input>
 		<div class="icon-list">
-			<div
-				v-for="(item, index) in iconList"
-				:key="index"
-				@click="selectedIcon(item)"
-			>
-				<svg-icon :icon-class="item" style="height: 30px; width: 16px" />
+			<div v-for="(item, index) in iconList" :key="index" @click="selectedIcon(item)">
+				<svg-icon :icon-class="item" style="width: 16px; height: 30px" />
 				<span>{{ item }}</span>
 			</div>
 		</div>
@@ -33,9 +29,7 @@
 	function filterIcons() {
 		iconList.value = icons
 		if (iconName.value) {
-			iconList.value = icons.filter(
-				(item) => item.indexOf(iconName.value) !== -1,
-			)
+			iconList.value = icons.filter((item) => item.indexOf(iconName.value) !== -1)
 		}
 	}
 

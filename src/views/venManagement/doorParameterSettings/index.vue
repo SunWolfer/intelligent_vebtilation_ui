@@ -158,19 +158,19 @@
 						class="setting_net_form_item"
 					>
 						<el-form-item label="上位机IP：" prop="serverIp">
-							<el-input v-model="networkForm.serverIp"></el-input>
+							<el-input v-model="networkForm.serverIp" />
 						</el-form-item>
 						<el-form-item label="控制器IP：" prop="controllerIp">
-							<el-input v-model="networkForm.controllerIp"></el-input>
+							<el-input v-model="networkForm.controllerIp" />
 						</el-form-item>
 						<el-form-item label="网关IP：" prop="controllerGatewayIp">
-							<el-input v-model="networkForm.controllerGatewayIp"></el-input>
+							<el-input v-model="networkForm.controllerGatewayIp" />
 						</el-form-item>
 						<el-form-item label="上位机端口：" prop="serverPort">
-							<el-input v-model="networkForm.serverPort"></el-input>
+							<el-input v-model="networkForm.serverPort" />
 						</el-form-item>
 						<el-form-item label="子网掩码：" prop="controllerSubnetMask">
-							<el-input v-model="networkForm.controllerSubnetMask"></el-input>
+							<el-input v-model="networkForm.controllerSubnetMask" />
 						</el-form-item>
 						<el-form-item label=" ">
 							<el-button class="add-btn" icon="Setting" @click="netWorkSetParams">设置</el-button>
@@ -183,10 +183,10 @@
 				<DoorControlForm :data-from="networkForm" @set-param="controlSetParams" />
 				<div class="padding-left-12">
 					<!--				多窗口-->
-					<window-tabs @change-tab="changeTab"></window-tabs>
+					<window-tabs @change-tab="changeTab" />
 				</div>
 				<div class="padding-left-12 fullDom">
-					<component :is="tabDom" :data-from="networkForm" @setParam="controlSetParams" />
+					<component :is="tabDom" :data-from="networkForm" @set-param="controlSetParams" />
 				</div>
 				<div class="padding-left-12 setting_sys_btn fullDom">
 					<gradual-title title="系统设置" />

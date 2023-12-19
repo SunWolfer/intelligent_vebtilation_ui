@@ -21,7 +21,7 @@ export interface heatmapPointRule {
 
 export const useHeatmapJs = () => {
 	const createdHeatmapDom = (width: number, height: number) => {
-		let element = document.createElement('div')
+		const element = document.createElement('div')
 		element.style.width = width + 'px'
 		element.style.height = height + 'px'
 		element.style.display = 'none'
@@ -29,16 +29,16 @@ export const useHeatmapJs = () => {
 		return element
 	}
 
-	let heatPoints = ref<DataCircle[]>([])
+	const heatPoints = ref<DataCircle[]>([])
 
 	const createHeatmapPointData = (pointRule: heatmapPointRule) => {
 		heatPoints.value = []
-		let { x: startX, y: startY, value: startValue, radius } = pointRule.center
+		const { x: startX, y: startY, value: startValue, radius } = pointRule.center
 
 		const distanceX = pointRule.width / pointRule.len
 
 		for (let i = 0; i < pointRule.len; i++) {
-			let value = startValue - pointRule.decLen * i
+			const value = startValue - pointRule.decLen * i
 			heatPoints.value.push({
 				x: startX + distanceX * i,
 				y: startY,
@@ -53,7 +53,7 @@ export const useHeatmapJs = () => {
 			container: createdHeatmapDom(pointRule.width, pointRule.height),
 		})
 		createHeatmapPointData(pointRule)
-		let sData = {
+		const sData = {
 			data: heatPoints.value,
 			min: pointRule.min,
 			max: pointRule.max,

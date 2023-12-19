@@ -11,7 +11,9 @@
 		},
 		dataList: {
 			type: Array,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 	})
 	const emits = defineEmits(['update:modelValue'])
@@ -81,14 +83,14 @@
 <template>
 	<dia-log v-model="diaVisible" :width="1500" :height="800" title="一键测风">
 		<div class="mea_wind">
-			<div class="mea_wind_item_bg" v-for="i in windList">
+			<div class="mea_wind_item_bg" v-for="i in windList" :key="i.id">
 				<span>实时测风数据</span>
 				<span>{{ i.name }}</span>
 				<div class="full_body_l2_item_text_body">
 					<vue3-seamless-scroll :list="i.realWindDataList" :step="0.5" :count="1">
-						<div v-for="i in i.realWindDataList">
-							<div>风速：{{ i.value }} m/s</div>
-							<div>时间：{{ i.time }}</div>
+						<div v-for="item in i.realWindDataList" :key="item.time">
+							<div>风速：{{ item.value }} m/s</div>
+							<div>时间：{{ item.time }}</div>
 						</div>
 					</vue3-seamless-scroll>
 				</div>

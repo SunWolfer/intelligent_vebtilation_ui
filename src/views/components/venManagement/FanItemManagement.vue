@@ -92,10 +92,10 @@
 	<div class="table_page_default">
 		<el-form :model="queryParams" inline>
 			<el-form-item label="标签名称">
-				<el-input v-model="queryParams.propertyName"></el-input>
+				<el-input v-model="queryParams.propertyName" />
 			</el-form-item>
 			<el-form-item label="标签编码">
-				<el-input v-model="queryParams.propertyCode"></el-input>
+				<el-input v-model="queryParams.propertyCode" />
 			</el-form-item>
 			<el-form-item>
 				<div class="normal_btn" @click="handleQuery">查询</div>
@@ -105,7 +105,7 @@
 			<div class="normal_btn" @click="handleAdd">新增</div>
 			<div class="normal_3_btn" @click="handleDelete">删除</div>
 		</div>
-		<el-table :data="dataList" border @selectionChange="handleSelectionChange">
+		<el-table :data="dataList" border @selection-change="handleSelectionChange">
 			<el-table-column type="selection" align="center" width="50" />
 			<el-table-column
 				prop="devAs"
@@ -189,16 +189,17 @@
 			>
 				<el-form-item label="风机" prop="devAs">
 					<el-select v-model="form.devAs">
-						<el-option v-for="i in dev_as_type" :label="i.label" :value="i.value"></el-option>
+						<el-option v-for="i in dev_as_type" :key="i.value" :label="i.label" :value="i.value" />
 					</el-select>
 				</el-form-item>
 				<el-form-item label="电机" prop="electricMachine">
 					<el-select v-model="form.electricMachine" :disabled="disableElect">
 						<el-option
 							v-for="i in electric_machine_type"
+							:key="i.value"
 							:label="i.label"
 							:value="i.value"
-						></el-option>
+						/>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="标签名称" prop="propertyName">
@@ -209,7 +210,12 @@
 				</el-form-item>
 				<el-form-item label="属性类型" prop="propertyType">
 					<el-select v-model="form.propertyType">
-						<el-option v-for="i in fan_property_type" :label="i.label" :value="i.value" />
+						<el-option
+							v-for="i in fan_property_type"
+							:key="i.value"
+							:label="i.label"
+							:value="i.value"
+						/>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="属性单位" prop="propertyUnit">

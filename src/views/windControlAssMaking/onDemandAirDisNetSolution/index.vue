@@ -48,7 +48,7 @@
 				<div class="normal_2_btn" @click="showImitateVisible">解算模拟</div>
 			</div>
 			<div class="on_dem_left_bottom">
-				<template v-for="(item, index) in tunnelList">
+				<template v-for="(item, index) in tunnelList" :key="'tunnel' + index">
 					<border-box name="border3">
 						<div class="on_dem_item">
 							<div class="on_dem_item_top">
@@ -85,9 +85,10 @@
 										<el-select v-model="item.ventShape" placeholder="_ _ _ _" clearable>
 											<el-option
 												v-for="i in vent_shape"
+												:key="i.value"
 												:label="i.label"
 												:value="i.value"
-											></el-option>
+											/>
 										</el-select>
 									</div>
 									<div class="on_dem_item_left_item">
@@ -95,9 +96,10 @@
 										<el-select v-model="item.shoreType" placeholder="_ _ _ _" clearable>
 											<el-option
 												v-for="i in shore_type"
+												:key="i.value"
 												:label="i.label"
 												:value="i.value"
-											></el-option>
+											/>
 										</el-select>
 									</div>
 								</div>
@@ -130,7 +132,7 @@
 			calculating-type="2"
 			@show-cal-visible="showAfterCalVisible"
 			@cancel-cal-visible="cancelAirDisNetwork"
-			@getSelectionRows="getSelectionRows"
+			@get-selection-rows="getSelectionRows"
 			:select-code="selectCode"
 		/>
 	</div>

@@ -14,7 +14,9 @@
 		//   自定义数据
 		customizeData: {
 			type: Array,
-			default: [],
+			default: () => {
+				return []
+			},
 		},
 		//   自定义数据最大值
 		customizeMaxNodeNum: {
@@ -146,12 +148,12 @@
 			:edit-type="editType"
 			plane-visible
 			@load="onLoad"
-			@onModel="onModel"
-			@onClick="onClick"
-			@onDblclick="dblclick"
+			@on-model="onModel"
+			@on-click="onClick"
+			@on-dblclick="dblclick"
 			@ready-camera="readyCamera"
-			@planeHeight="changePlaneHeight"
-			@addPosition="changeAddPosition"
+			@plane-height="changePlaneHeight"
+			@add-position="changeAddPosition"
 		>
 			<!--			显示全部设备图标-->
 			<template #label v-if="isReady">

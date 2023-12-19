@@ -23,10 +23,10 @@
 			:formA="dataForm"
 			:formB="dataFormB"
 			:dataList="dataList"
-			@moreVisibleHandle="moreVisibleHandle"
-			@changeWindow="changeWindow"
-			@hisRecordHandle="hisRecordHandle"
-		></component>
+			@more-visible-handle="moreVisibleHandle"
+			@change-window="changeWindow"
+			@his-record-handle="hisRecordHandle"
+		/>
 		<!--    操作记录-->
 		<WindowHisRecord v-if="hisRecordVisible" v-model="hisRecordVisible" :data-form="dataForm" />
 		<!--    更多弹窗-->

@@ -82,7 +82,7 @@ export const ventResistanceMonitoring = () => {
 							name: inShowList.value[choose.value].name,
 						},
 						dateRange.value,
-				  )
+					)
 		const res = await multiParameterLines({
 			id: inShowList.value[choose],
 			...query,

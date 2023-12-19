@@ -4,7 +4,7 @@
 	import mixin from './model-mixin.vue'
 
 	export default defineComponent({
-		name: 'model-three',
+		name: 'ModelThree',
 		mixins: [mixin],
 		data(this: any) {
 			const loader = new ObjectLoader()

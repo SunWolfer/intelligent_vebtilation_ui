@@ -55,25 +55,20 @@
 				:show-overflow-tooltip="true"
 				:min-width="160"
 				align="left"
-			></el-table-column>
+			/>
 			<el-table-column prop="icon" label="图标" align="center" width="100">
 				<template #default="scope">
 					<svg-icon :icon-class="scope.row.icon" />
 				</template>
 			</el-table-column>
-			<el-table-column prop="orderNum" label="排序" align="center" width="60"></el-table-column>
-			<el-table-column
-				prop="perms"
-				label="权限标识"
-				align="center"
-				:show-overflow-tooltip="true"
-			></el-table-column>
+			<el-table-column prop="orderNum" label="排序" align="center" width="60" />
+			<el-table-column prop="perms" label="权限标识" align="center" :show-overflow-tooltip="true" />
 			<el-table-column
 				prop="component"
 				label="组件路径"
 				align="center"
 				:show-overflow-tooltip="true"
-			></el-table-column>
+			/>
 			<el-table-column prop="status" label="状态" align="center" width="80">
 				<template #default="scope">
 					<dict-tag :options="sys_normal_disable" :value="scope.row.status" />
@@ -117,8 +112,8 @@
 			v-model="open"
 			:choose-row="chooseRow"
 			:is-add="isAdd"
-			@refreshList="getList"
-		></add-or-update>
+			@refresh-list="getList"
+		/>
 	</div>
 </template>
 
@@ -189,8 +184,8 @@
 	async function handleUpdate(row) {
 		chooseRow.value = row
 		isAdd.value = false
-		open.value = true
 		title.value = '修改菜单'
+		open.value = true
 	}
 
 	/** 删除按钮操作 */

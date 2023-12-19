@@ -272,7 +272,7 @@
 						<el-icon><CaretBottom /></el-icon>
 						<template #dropdown>
 							<el-dropdown-menu>
-								<el-dropdown-item v-for="item in dataList" :command="item.id">{{
+								<el-dropdown-item v-for="item in dataList" :key="item.id" :command="item.id">{{
 									item.name
 								}}</el-dropdown-item>
 							</el-dropdown-menu>

@@ -219,19 +219,19 @@
 						class="setting_net_form_item"
 					>
 						<el-form-item label="上位机IP：" prop="serverIp">
-							<el-input v-model="networkForm.serverIp"></el-input>
+							<el-input v-model="networkForm.serverIp" />
 						</el-form-item>
 						<el-form-item label="控制器IP：" prop="controllerIp">
-							<el-input v-model="networkForm.controllerIp"></el-input>
+							<el-input v-model="networkForm.controllerIp" />
 						</el-form-item>
 						<el-form-item label="网关IP：" prop="controllerGatewayIp">
-							<el-input v-model="networkForm.controllerGatewayIp"></el-input>
+							<el-input v-model="networkForm.controllerGatewayIp" />
 						</el-form-item>
 						<el-form-item label="上位机端口：" prop="serverPort">
-							<el-input v-model="networkForm.serverPort"></el-input>
+							<el-input v-model="networkForm.serverPort" />
 						</el-form-item>
 						<el-form-item label="子网掩码：" prop="controllerSubnetMask">
-							<el-input v-model="networkForm.controllerSubnetMask"></el-input>
+							<el-input v-model="networkForm.controllerSubnetMask" />
 						</el-form-item>
 						<el-form-item label=" ">
 							<el-button class="add-btn" icon="Setting" @click="netWorkSetParams">设置</el-button>
@@ -241,13 +241,13 @@
 				<div class="padding-left-12">
 					<gradual-title title="调控设置" />
 				</div>
-				<window-control-form :data-from="networkForm" @setParam="controlSetParams" />
+				<window-control-form :data-from="networkForm" @set-param="controlSetParams" />
 				<div class="padding-left-12">
 					<!--				多窗口-->
-					<window-tabs @change-tab="changeTab"></window-tabs>
+					<window-tabs @change-tab="changeTab" />
 				</div>
 				<div class="padding-left-12 fullDom">
-					<component :is="tabDom" :data-from="networkForm" @setParam="controlSetParams" />
+					<component :is="tabDom" :data-from="networkForm" @set-param="controlSetParams" />
 				</div>
 				<div class="padding-left-12 setting_sys_btn fullDom">
 					<gradual-title title="系统设置" />
@@ -295,7 +295,7 @@
 		>
 			<el-form ref="alarmTestRef" :model="alarmTestForm" :rules="alarmTestRules">
 				<el-form-item label="报警时长：" prop="warnTime">
-					<el-input v-model="alarmTestForm.warnTime"></el-input>
+					<el-input v-model="alarmTestForm.warnTime" />
 				</el-form-item>
 			</el-form>
 		</dia-log>
@@ -312,7 +312,7 @@
 			<el-form ref="calibrateFormRef" :model="calibrateForm" :rules="calibrateRules">
 				<el-form-item label="A/B风窗：" prop="abTag">
 					<el-select v-model="calibrateForm.abTag" filterable :teleported="false">
-						<el-option v-for="i in calibrateSelect" :label="i" :value="i"></el-option>
+						<el-option v-for="i in calibrateSelect" :key="i" :label="i" :value="i" />
 					</el-select>
 				</el-form-item>
 			</el-form>
@@ -322,7 +322,7 @@
 			v-model="examine"
 			:request-ip="chooseLi"
 			:choose-row="networkForm"
-		></condition-dia-log>
+		/>
 	</div>
 </template>
 

@@ -96,7 +96,7 @@
 </script>
 
 <template>
-	<div ref="chartRef" class="fullDom" />
+	<div ref="chartRef" class="fullDom"></div>
 </template>
 
 <style scoped lang="scss"></style>

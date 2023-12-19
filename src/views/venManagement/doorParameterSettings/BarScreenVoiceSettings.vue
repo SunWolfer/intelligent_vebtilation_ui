@@ -122,14 +122,14 @@
 				</el-button>
 			</div>
 			<div class="dia_voice_body">
-				<template v-for="item in screenMsgList">
+				<template v-for="item in screenMsgList" :key="item.index">
 					<div class="dia_voice_body_item">
 						<div class="dia_voice_body_item_line">
 							<span>{{ item.index }}</span>
 							<el-checkbox v-model="item.hasSelect" label="下发" />
 						</div>
 						<div class="fullDom">
-							<el-input v-model="item.msg" type="textarea"></el-input>
+							<el-input v-model="item.msg" type="textarea" />
 						</div>
 					</div>
 				</template>

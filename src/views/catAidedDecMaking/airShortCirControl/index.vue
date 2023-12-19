@@ -68,10 +68,10 @@
 			</border-box>
 		</div>
 		<div class="air_short_body_l1_c3">
-			<border-box name="border1"></border-box>
+			<border-box name="border1" />
 		</div>
 		<div class="air_short_body_l2_c3">
-			<border-box name="border1"></border-box>
+			<border-box name="border1" />
 		</div>
 		<!--    参数设定-->
 		<div class="air_short_body_l3_c1">
@@ -124,9 +124,8 @@
 							<div class="item_text_dec">
 								<decorator2
 									title="manual手动"
-									:color="[dataForm.doorMode === '1' ? '#010000' : '#81bde3']"
-									color="['#81bde3]"
-								></decorator2>
+									:color="['#81bde3', dataForm.doorMode === '1' ? '#010000' : '#81bde3']"
+								/>
 							</div>
 						</div>
 						<!-- 远程 -->
@@ -134,9 +133,8 @@
 							<div class="item_text_dec">
 								<decorator2
 									title="remote远程"
-									:color="[dataForm.doorMode === '3' ? '#010000' : '#81bde3']"
-									color="['#81bde3]"
-								></decorator2>
+									:color="['#81bde3', dataForm.doorMode === '3' ? '#010000' : '#81bde3']"
+								/>
 							</div>
 						</div>
 						<!-- 自动 -->
@@ -144,9 +142,8 @@
 							<div class="item_text_dec">
 								<decorator2
 									title="auto自动"
-									:color="[dataForm.doorMode === '2' ? '#010000' : '#81bde3']"
-									color="['#81bde3]"
-								></decorator2>
+									:color="['#81bde3', dataForm.doorMode === '2' ? '#010000' : '#81bde3']"
+								/>
 							</div>
 						</div>
 						<div class="item_bottom_line"></div>

@@ -197,9 +197,9 @@
 			</div>
 		</div>
 		<div class="draw_manage_c1_l2">
-			<border-box name="border2" title="图纸管理"></border-box>
+			<border-box name="border2" title="图纸管理" />
 			<div class="draw_manage_c1_l2_body fullDom">
-				<template v-for="(item, index) in dataList">
+				<template v-for="(item, index) in dataList" :key="index">
 					<div class="draw_manage_c1_l2_item fullDom">
 						<div class="draw_manage_c1_l2_item_icon">
 							<div
@@ -229,7 +229,7 @@
 				</template>
 			</div>
 		</div>
-		<div class="fullDom" style="background-color: #111115; overflow-y: hidden">
+		<div class="fullDom" style="overflow-y: hidden; background-color: #111115">
 			<template v-if="readyMap">
 				<div v-if="chooseData?.pubFlag === '1'" class="fullDom">
 					<LoadDrawingPlaneMap :group-name="chooseData?.pubGroup" :extent="mapExtent" />
@@ -268,7 +268,7 @@
 			v-if="imgVisible"
 			:url-list="[chooseData?.centerChangePng]"
 			@close="imgVisible = false"
-		></el-image-viewer>
+		/>
 	</div>
 </template>
 
