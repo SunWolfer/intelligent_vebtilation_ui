@@ -1,4 +1,4 @@
-@import "@/assets/styles/defaultMinix";
+@import '@/assets/styles/defaultMinix';
 .wind_res_ana {
 	position: relative;
 	width: 100%;
@@ -73,7 +73,7 @@
 	grid-area: t2;
 }
 .wind_res_ana_t {
-	@include defaultMinix1(255,56);
+	@include defaultMinix1(255, 56);
 }
 
 .wind_res_ana_l1 {

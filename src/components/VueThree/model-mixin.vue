@@ -177,6 +177,7 @@
 				camera: new PerspectiveCamera(60, 1, this.cameraSize, 1000000),
 				scene: new Scene(),
 				wrapper: new Object3D(),
+				pickWrapper: new Object3D(), // 鼠标可选择模型组
 				renderer: null as null | WebGLRenderer,
 				controls: null as null | OrbitControls,
 				allLights: [] as Light[],
@@ -365,6 +366,8 @@
 
 			this.controls = new OrbitControls(this.camera, this.$refs.canvas as HTMLDivElement)
 
+			this.wrapper.add(this.pickWrapper)
+
 			this.scene.add(this.wrapper)
 
 			this.windMixer = new AnimationMixer(this.wrapper)
@@ -467,7 +470,7 @@
 
 				this.rayCaster.setFromCamera(this.mouse, this.camera)
 
-				const intersects: Intersection[] = this.rayCaster.intersectObject(this.wrapper, true)
+				const intersects: Intersection[] = this.rayCaster.intersectObject(this.pickWrapper, true)
 				let rData: Intersection | null =
 					(intersects && intersects.length) > 0 ? intersects[0] : null
 				let rDataObject = rData
@@ -681,7 +684,7 @@
 				if (!this.src) return
 
 				if (this.object) {
-					this.wrapper.remove(this.object)
+					this.pickWrapper.remove(this.object)
 				}
 
 				this.loader.setRequestHeader(this.requestHeader)
@@ -719,13 +722,14 @@
 			},
 			addObject(object: Object3D) {
 				this.object = object
-				this.wrapper.add(this.object)
+				this.pickWrapper.add(this.object)
 				// this.object = this.wrapper
 				this.updateCamera()
 				this.updateModel()
 				this.operateModel = new OperateModel(
 					this.object,
 					this.wrapper,
+					this.pickWrapper,
 					this.camera,
 					this.controls as OrbitControls,
 					this.renderer as WebGLRenderer,
@@ -795,7 +799,7 @@
 						loader.setCrossOrigin(this.crossOrigin)
 						loader.setRequestHeader(this.requestHeader)
 						loader.load(mod.src, (data) => {
-							self.wrapper.remove(data.scene)
+							self.pickWrapper.remove(data.scene)
 							data.scene.traverse(function (object: any) {
 								if (object.isMesh) {
 									object.castShadow = true //阴影
@@ -805,15 +809,15 @@
 									}
 								}
 							})
-							self.wrapper.add(data.scene)
+							self.pickWrapper.add(data.scene)
 							this.loadOtherLen++
 						})
 					} else if (mod.type === 'FBX') {
 						let loader = new FBXLoader()
 						loader.load(mod.src, (...args) => {
 							const object = self.getObject(...args)
-							self.wrapper.remove(object)
-							self.wrapper.add(object)
+							self.pickWrapper.remove(object)
+							self.pickWrapper.add(object)
 							this.loadOtherLen++
 						})
 					}

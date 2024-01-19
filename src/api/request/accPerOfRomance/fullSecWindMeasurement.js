@@ -209,7 +209,7 @@ export const fullSecWindMeasurement = () => {
 		() => videoPath.value,
 		() => {
 			videoVisible.value = false
-			nextTick(() => {
+			nextTick().then(() => {
 				videoVisible.value = true
 			})
 		},

@@ -15,7 +15,7 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 		personPosition,
 	} = useEquipmentData()
 	// 生成避灾路线点位
-	const createdMoveModelPoints = (points, radius = 4) => {
+	const createdMoveModelPoints = (points, radius = 1) => {
 		// 	点击位置起止点
 		let positions = [points]
 		for (let i = 0; i < disasterPreventionRoute.value.length; i++) {
@@ -46,14 +46,12 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 	const isShowDisaster = ref(false)
 
 	// 刷新灾变层
-	const refreshDisaster = (nextFun) => {
+	const refreshDisaster = async (nextFun) => {
 		isShowDisaster.value = false
-		nextTick(() => {
-			isShowDisaster.value = true
-			nextTick(() => {
-				nextFun?.()
-			})
-		})
+		await nextTick()
+		isShowDisaster.value = true
+		await nextTick()
+		nextFun?.()
 	}
 
 	// 灾变层灾变地点
@@ -61,14 +59,12 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 	// 显示灾变人员
 	const isShowDisasterPeople = ref(false)
 
-	const refreshDisasterPeople = (nextFun) => {
+	const refreshDisasterPeople = async (nextFun) => {
 		isShowDisasterPeople.value = false
-		nextTick(() => {
-			isShowDisasterPeople.value = true
-			nextTick(() => {
-				nextFun?.()
-			})
-		})
+		await nextTick()
+		isShowDisasterPeople.value = true
+		await nextTick()
+		nextFun?.()
 	}
 	// 灾变层人员显示列表
 	const disasterPeopleList = ref([])
@@ -151,7 +147,7 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 		avoidDisaster.value = true
 		clickType.value = ClickEventTypes.NORMAL
 		operateModel.value.myDisPreRoute.cleanMoveModel(-1)
-		createdMoveModelPoints?.(disasterPeople.position, 6)
+		createdMoveModelPoints?.(disasterPeople.position, modelData.multiple)
 	}
 	// 清除避灾路线相关
 	const cleanDisasterRoute = () => {
@@ -196,7 +192,7 @@ export const threeDisasterRoute = (operateModel, intersectedPosition, intersecte
 					y: endPoint.y + 3,
 				},
 			],
-			80,
+			modelData.multiple,
 			disasterType.value,
 		)
 

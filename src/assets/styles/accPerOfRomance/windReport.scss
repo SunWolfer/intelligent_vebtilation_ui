@@ -1,4 +1,4 @@
-@import "@/assets/styles/defaultMinix";
+@import '@/assets/styles/defaultMinix';
 .wind_report_body {
 	position: relative;
 	width: 100%;
@@ -20,7 +20,7 @@
 	grid-row-gap: vh(10);
 }
 .wind_report_body_item_label {
-	@include defaultMinix1(239,43);
+	@include defaultMinix1(239, 43);
 }
 .wind_report_body_item_table {
 	width: 100%;

@@ -1,33 +1,33 @@
 .fan_curve_body {
-  display: grid;
-  grid-template-rows: vh(37) vh(33) 1fr;
-  align-content: space-between;
+	display: grid;
+	grid-template-rows: vh(37) vh(33) 1fr;
+	align-content: space-between;
 }
 .fan_curve_input {
-  width: vw(143);
+	width: vw(143);
 }
 .fan_curve_body_l2 {
-  display: flex;
-  justify-content: end;
-  align-items: center;
+	display: flex;
+	justify-content: end;
+	align-items: center;
 }
 @mixin iconSty {
-  width: vw(33);
-  height: vh(33);
-  background-size: 100% 100%;
-  cursor: pointer;
+	width: vw(33);
+	height: vh(33);
+	background-size: 100% 100%;
+	cursor: pointer;
 }
 .icon_add {
-  @include iconSty;
-  background-image: url('@/assets/images/venManagement/patrol_add.png');
+	@include iconSty;
+	background-image: url('@/assets/images/venManagement/patrol_add.png');
 }
 .icon_minus {
-  @include iconSty;
-  background-image: url('@/assets/images/venManagement/patrol_minus.png');
+	@include iconSty;
+	background-image: url('@/assets/images/venManagement/patrol_minus.png');
 }
 :deep(.el-table) {
-  .el-input {
-    margin: 5px 10px;
-    width: calc(100% - 20px);
-  }
+	.el-input {
+		margin: 5px 10px;
+		width: calc(100% - 20px);
+	}
 }

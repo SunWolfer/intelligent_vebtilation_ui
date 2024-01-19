@@ -125,80 +125,80 @@
 		<div class="bas_report_body_c2_l2">
 			<div class="bas_table_half_top">
 				<div class="bas_table_half_top_dom1">
-					<tabel-item :data-form="dataForm" :data-list="halfTopDom1" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfTopDom1" />
 				</div>
 				<div class="bas_table_half_top_dom2">
 					<div class="bas_table_half_top_dom2_left">
-						<tabel-item :data-form="dataForm" :data-list="halfTopDom2Left" />
+						<tabel-item v-model:data-form="dataForm" :data-list="halfTopDom2Left" />
 					</div>
 					<div class="bas_table_half_top_dom2_right">
-						<tabel-item :data-form="dataForm" :data-list="halfTopDom2Right" />
+						<tabel-item v-model:data-form="dataForm" :data-list="halfTopDom2Right" />
 					</div>
 				</div>
 				<div class="bas_table_half_top_dom3">
-					<tabel-item :data-form="dataForm" :data-list="halfTopDom3" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfTopDom3" />
 				</div>
 				<div class="bas_table_half_top_dom4">
-					<tabel-item :data-form="dataForm" :data-list="halfTopDom4" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfTopDom4" />
 				</div>
 				<div class="bas_table_half_top_dom5">
-					<tabel-item :data-form="dataForm" :data-list="halfTopDom5" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfTopDom5" />
 				</div>
 				<div class="bas_table_half_top_dom6">
-					<tabel-item :data-form="dataForm" :data-list="halfTopDom6" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfTopDom6" />
 				</div>
 				<div class="bas_table_half_top_dom7">
-					<tabel-item :data-form="dataForm" :data-list="halfTopDom7" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfTopDom7" />
 				</div>
 				<div class="bas_table_half_top_dom8">
-					<tabel-item :data-form="dataForm" :data-list="halfTopDom8" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfTopDom8" />
 				</div>
 			</div>
 			<div class="bas_table_half_bottom">
 				<div class="bas_table_half_bottom_dom1">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom1" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom1" />
 				</div>
 				<div class="bas_table_half_bottom_dom2">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom2" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom2" />
 				</div>
 				<div class="bas_table_half_bottom_dom3">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom3" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom3" />
 				</div>
 				<div class="bas_table_half_bottom_dom4">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom4" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom4" />
 				</div>
 				<div class="bas_table_half_bottom_dom5">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom5" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom5" />
 				</div>
 				<div class="bas_table_half_bottom_dom6">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom6" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom6" />
 				</div>
 				<div class="bas_table_half_bottom_dom7">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom7" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom7" />
 				</div>
 				<div class="bas_table_half_bottom_dom8">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom8" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom8" />
 				</div>
 				<div class="bas_table_half_bottom_dom9">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom9" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom9" />
 				</div>
 				<div class="bas_table_half_bottom_dom10">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom10" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom10" />
 				</div>
 				<div class="bas_table_half_bottom_dom11">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom11" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom11" />
 				</div>
 				<div class="bas_table_half_bottom_dom12">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom12" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom12" />
 				</div>
 				<div class="bas_table_half_bottom_dom13">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom13" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom13" />
 				</div>
 				<div class="bas_table_half_bottom_dom14">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom14" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom14" />
 				</div>
 				<div class="bas_table_half_bottom_dom15">
-					<tabel-item :data-form="dataForm" :data-list="halfBottomDom15" />
+					<tabel-item v-model:data-form="dataForm" :data-list="halfBottomDom15" />
 				</div>
 			</div>
 		</div>

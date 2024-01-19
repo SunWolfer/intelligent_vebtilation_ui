@@ -1,6 +1,6 @@
 <script setup>
 	import { paramsAISetting } from '@/api/request/doorParameterSettings/paramsAISetting'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 
 	const props = defineProps({
 		dataFrom: {

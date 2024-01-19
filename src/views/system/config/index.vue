@@ -184,7 +184,7 @@
 		listConfig,
 		updateConfig,
 	} from '@/api/system/config'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import useList from '@/hooks/useList'
 	import { useForm } from '@/hooks/useForm'
 

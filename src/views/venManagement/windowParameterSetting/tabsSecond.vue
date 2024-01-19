@@ -1,6 +1,6 @@
 <!--开关量输入(DI)配置-->
 <script setup>
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { isNull } from '@/utils/ruoyi'
 
 	const { proxy } = getCurrentInstance()

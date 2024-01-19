@@ -1,6 +1,6 @@
 <!--开关量输出(DO)配置-->
 <script setup>
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { isNull } from '@/utils/ruoyi'
 	const { do_type, do_control } = useDict('do_type', 'do_control')
 	const props = defineProps({

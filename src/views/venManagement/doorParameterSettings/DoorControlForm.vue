@@ -183,7 +183,7 @@
 		:rules="rules"
 		label-width="auto"
 	>
-		<el-form-item label="心跳周期：" prop="heatBeatPeriod">
+		<el-form-item label="心跳周期(s)：" prop="heatBeatPeriod">
 			<el-input v-model="controlForm.heatBeatPeriod" />
 			<el-button class="add-btn" icon="Setting" @click="setParams('heatBeatPeriod')"
 				>设置</el-button

@@ -142,7 +142,7 @@ export function mulAdd(nums: number[]) {
  * @param series
  * @returns {*[]}
  */
-export function mergeSameStackData(item: { stack: any; data: any }, series: any[]) {
+export function mergeSameStackData(item: { stack: any; data: any }, series: any[]): any[] {
 	const stack = item.stack
 
 	if (!stack) return [...item.data]
@@ -162,7 +162,6 @@ export function mergeSameStackData(item: { stack: any; data: any }, series: any[
  * 获取两个点的距离
  * @param pointOne
  * @param pointTwo
- * @returns {number}
  */
 export function getTwoPointDistance(pointOne: number[], pointTwo: number[]) {
 	const minusX = Math.abs(pointOne[0] - pointTwo[0])
@@ -198,7 +197,6 @@ export function getLinearGradientColor(ctx: any, begin: any, end: any, color: st
 /**
  * 获取折现长度
  * @param points
- * @returns {*}
  */
 export function getPolylineLength(points: string | any[]) {
 	const lineSegments: any[] = new Array(points.length - 1)
@@ -216,7 +214,7 @@ export function getPolylineLength(points: string | any[]) {
  * @param linePointTwo
  * @returns {number}
  */
-export function getPointToLineDistance(point: any, linePointOne: any, linePointTwo: any) {
+export function getPointToLineDistance(point: any, linePointOne: any, linePointTwo: any): number {
 	const a = getTwoPointDistance(point, linePointOne)
 	const b = getTwoPointDistance(point, linePointTwo)
 	const c = getTwoPointDistance(linePointOne, linePointTwo)
@@ -231,7 +229,7 @@ export function getPointToLineDistance(point: any, linePointOne: any, linePointT
  * @param type
  * @returns {*}
  */
-export function initNeedSeries(series: any[], config: any, type: any) {
+export function initNeedSeries(series: any[], config: any, type: any): any[] {
 	series = series.filter(({ type: st }) => st === type)
 
 	series = series.map((item: any) => deepMerge(deepCopy(config), item))
@@ -244,7 +242,7 @@ export function initNeedSeries(series: any[], config: any, type: any) {
  * @param radian
  * @returns {number}
  */
-export function radianToAngle(radian: number) {
+export function radianToAngle(radian: number): number {
 	return (radian / Math.PI) * 180
 }
 
@@ -254,7 +252,7 @@ export function radianToAngle(radian: number) {
  * @param maxNum
  * @returns {number}
  */
-export function randomExtend(minNum: number, maxNum: number) {
+export function randomExtend(minNum: number, maxNum: number): number {
 	if (arguments.length === 1) {
 		return parseInt(Math.random() * minNum + 1 + '', 10)
 	} else {
@@ -263,14 +261,19 @@ export function randomExtend(minNum: number, maxNum: number) {
 }
 
 /**
- * @description Get the coordinates of the specified radian on the circle
+ * @description 获取圆上指定弧度的坐标
  * @param {Number} x      Circle x coordinate
  * @param {Number} y      Circle y coordinate
  * @param {Number} radius Circle radius
  * @param {Number} radian Specfied radian
  * @return {Array} Postion of point
  */
-export function getCircleRadianPoint(x: number, y: number, radius: number, radian: number) {
+export function getCircleRadianPoint(
+	x: number,
+	y: number,
+	radius: number,
+	radian: number,
+): number[] {
 	return [x + Math.cos(radian) * radius, y + Math.sin(radian) * radius]
 }
 

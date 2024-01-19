@@ -194,7 +194,7 @@
 		listData,
 		updateData,
 	} from '@/api/system/dict/data'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import useList from '@/hooks/useList'
 	import { useForm } from '@/hooks/useForm'
 

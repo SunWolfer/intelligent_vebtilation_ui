@@ -105,7 +105,7 @@
 				form.value = response.user
 				roles.value = response.roles
 				total.value = roles.value.length
-				nextTick(() => {
+				nextTick().then(() => {
 					roles.value.forEach((row) => {
 						if (row.flag) {
 							proxy.$refs['roleRef'].toggleRowSelection(row)

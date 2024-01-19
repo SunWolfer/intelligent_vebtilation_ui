@@ -1,7 +1,7 @@
 <script setup>
 	import useCurrentInstance from '@/hooks/useCurrentInstance'
 	import { addDoorTags, listTags } from '@/api/api/throttleManagement'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { selectDictLabel } from '@/utils/ruoyi'
 	import { useCommitForm } from '@/hooks/useForm'
 	import { windowTagSet } from '@/api/api/windWindowManagement'

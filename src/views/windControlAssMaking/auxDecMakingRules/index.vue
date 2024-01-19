@@ -1,10 +1,9 @@
 <script setup>
 	import AddOrUpdateAuxDecMakingRule from './AddOrUpdateAuxDecMakingRule.vue'
 	import { auxDecMakingRules } from '@/api/request/windControlAssMaking/auxDecMakingRules'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { selectDictLabel } from '@/utils/ruoyi'
 	import { useDictionary } from '@/api/request/windControlAssMaking/auxDecMakingRules/useDictionary'
-	import { deviceTypes } from '@/types/menuType'
 
 	const {
 		queryParams,
@@ -18,6 +17,7 @@
 		addOrUpdateVisible,
 		handleAdd,
 		handleUpdate,
+		handleRemove,
 		ruleList,
 		previewForm,
 		refreshList,
@@ -73,6 +73,7 @@
 				<template #default="scope">
 					<el-button type="primary" link @click="previewForm(scope.row)">查看</el-button>
 					<el-button type="primary" link @click="handleUpdate(scope.row)">修改</el-button>
+					<el-button type="primary" link @click="handleRemove(scope.row)">删除</el-button>
 				</template>
 			</el-table-column>
 		</el-table>

@@ -1,6 +1,6 @@
 <!--模拟量输入(AI)配置-->
 <script setup>
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { paramsAISetting } from '@/api/request/doorParameterSettings/paramsAISetting'
 
 	const { ai_type, ai_sensor_type, ai_sensor_factory, ai_sensor_model } = useDict(

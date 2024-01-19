@@ -2,7 +2,7 @@
 	import { homeAirDoor } from '@/api/request/home/homeAirDoor'
 	import { dynamicHeight, selectDictLabel } from '@/utils/ruoyi'
 	import HomeAirDoorMore from '@/views/components/home/HomeAirDoorMore.vue'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { ControlKey, DoorStatus, WorkStatus } from '@/api/request/home/doorParams'
 	import DoorHisRecord from '@/views/venEqMonitoring/throttleMonitoring/doorHisRecord.vue'
 	import NormalDoor from '@/views/components/home/doorPage/NormalDoor.vue'
@@ -203,12 +203,12 @@
 				<div class="home_air_door_body_c2_item6_l5">
 					<div
 						class="home_air_door_body_c2_item6_l5_bg"
-						:class="dataForm.lockStatus === '1' ? 'open_lock_bg' : 'deadlock_bg'"
+						:class="dataForm.lockStatus === '1' ? 'deadlock_bg' : 'open_lock_bg'"
 						@click="
 							controlDoorHandle(dataForm.lockStatus === '1' ? ControlKey.SEVEN : ControlKey.EIGHT)
 						"
 					>
-						<span>{{ dataForm.lockStatus === '1' ? '' : '关闭中' }}</span>
+						<span>{{ dataForm.lockStatus === '1' ? '关闭中' : '' }}</span>
 					</div>
 					<div class="home_air_door_body_c2_item6_l5_title">闭锁</div>
 				</div>

@@ -63,10 +63,10 @@
 		],
 		sex: [{ required: true, message: '用户昵称不能为空', trigger: 'blur' }],
 	})
-
+	const userRef = ref(null)
 	/** 提交按钮 */
 	function submit() {
-		proxy.$refs.userRef.validate((valid) => {
+		userRef.value?.validate((valid) => {
 			if (valid) {
 				updateUserProfile(uUser.value).then((response) => {
 					proxy.$modal.msgSuccess('修改成功')

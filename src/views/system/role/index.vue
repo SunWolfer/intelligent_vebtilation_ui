@@ -293,7 +293,7 @@
 		updateRole,
 	} from '@/api/system/role'
 	import { roleMenuTreeselect, treeselect as menuTreeselect } from '@/api/system/menu'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import useList from '@/hooks/useList'
 
 	const { proxy } = getCurrentInstance()
@@ -430,11 +430,11 @@
 			form.value = response.data
 			form.value.roleSort = Number(form.value.roleSort)
 			open.value = true
-			nextTick(() => {
+			nextTick().then(() => {
 				roleMenu.then((res) => {
 					let checkedKeys = res.checkedKeys
 					checkedKeys.forEach((v) => {
-						nextTick(() => {
+						nextTick().then(() => {
 							menuRef.value.setChecked(v, true, false)
 						})
 					})
@@ -528,9 +528,9 @@
 		getRole(row.roleId).then((response) => {
 			form.value = response.data
 			openDataScope.value = true
-			nextTick(() => {
+			nextTick().then(() => {
 				deptTreeSelect.then((res) => {
-					nextTick(() => {
+					nextTick().then(() => {
 						if (deptRef.value) {
 							deptRef.value.setCheckedKeys(res.checkedKeys)
 						}

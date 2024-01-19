@@ -1,5 +1,5 @@
 <script setup>
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { isNull } from '@/utils/ruoyi'
 
 	const props = defineProps({

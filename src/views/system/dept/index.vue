@@ -170,7 +170,7 @@
 
 <script setup>
 	import { addDept, delDept, getDept, listDept, updateDept } from '@/api/system/dept'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 
 	const { proxy } = getCurrentInstance()
 	const { sys_normal_disable } = useDict('sys_normal_disable')
@@ -266,7 +266,7 @@
 	function toggleExpandAll() {
 		refreshTable.value = false
 		isExpandAll.value = !isExpandAll.value
-		nextTick(() => {
+		nextTick().then(() => {
 			refreshTable.value = true
 		})
 	}

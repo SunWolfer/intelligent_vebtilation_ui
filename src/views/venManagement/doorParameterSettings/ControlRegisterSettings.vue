@@ -4,7 +4,7 @@
 		readControlRegisterOrder,
 		setControlRegisterOrder,
 	} from '@/api/api/doorParameterSettings'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { isNull } from '@/utils/ruoyi'
 
 	const props = defineProps({
@@ -195,20 +195,20 @@
 			rules: [{ validator: validator1, message: '上电自动恢复模式不能为空' }],
 		},
 		{
-			label: '13',
+			label: 'A门传感器故障',
 			hasSelect: false,
 			key: 'register13',
-			type: 'input',
+			type: 'select',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: 'A门传感器故障只能输入正整数' }],
 		},
 		{
-			label: '14',
+			label: 'B门传感器故障',
 			hasSelect: false,
 			key: 'register14',
-			type: 'input',
+			type: 'select',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: 'B门传感器故障只能输入正整数' }],
 		},
 		{
 			label: '15',
@@ -216,7 +216,7 @@
 			key: 'register15',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '15只能输入正整数' }],
 		},
 		{
 			label: '16',
@@ -224,7 +224,7 @@
 			key: 'register16',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '16只能输入正整数' }],
 		},
 		{
 			label: '17',
@@ -232,7 +232,7 @@
 			key: 'register17',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '17只能输入正整数' }],
 		},
 		{
 			label: '18',
@@ -240,7 +240,7 @@
 			key: 'register18',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '18只能输入正整数' }],
 		},
 		{
 			label: '19',
@@ -248,7 +248,7 @@
 			key: 'register19',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '19只能输入正整数' }],
 		},
 		{
 			label: '20',
@@ -256,7 +256,7 @@
 			key: 'register20',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '20只能输入正整数' }],
 		},
 		{
 			label: '21',
@@ -264,7 +264,7 @@
 			key: 'register21',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '21只能输入正整数' }],
 		},
 		{
 			label: '22',
@@ -272,7 +272,7 @@
 			key: 'register22',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '22只能输入正整数' }],
 		},
 		{
 			label: '23',
@@ -280,7 +280,7 @@
 			key: 'register23',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '23只能输入正整数' }],
 		},
 		{
 			label: '24',
@@ -288,7 +288,7 @@
 			key: 'register24',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '24只能输入正整数' }],
 		},
 		{
 			label: '25',
@@ -296,7 +296,7 @@
 			key: 'register25',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '25只能输入正整数' }],
 		},
 		{
 			label: '26',
@@ -304,7 +304,7 @@
 			key: 'register26',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '26只能输入正整数' }],
 		},
 		{
 			label: '27',
@@ -312,7 +312,7 @@
 			key: 'register27',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '27只能输入正整数' }],
 		},
 		{
 			label: '28',
@@ -320,7 +320,7 @@
 			key: 'register28',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '28只能输入正整数' }],
 		},
 		{
 			label: '29',
@@ -328,7 +328,7 @@
 			key: 'register29',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '29只能输入正整数' }],
 		},
 		{
 			label: '30',
@@ -336,7 +336,7 @@
 			key: 'register30',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '30只能输入正整数' }],
 		},
 		{
 			label: '31',
@@ -344,7 +344,7 @@
 			key: 'register31',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '31只能输入正整数' }],
 		},
 		{
 			label: '32',
@@ -352,7 +352,7 @@
 			key: 'register32',
 			type: 'input',
 			options: [],
-			rules: [{ validator: validator2, message: '13只能输入正整数' }],
+			rules: [{ validator: validator2, message: '32只能输入正整数' }],
 		},
 	])
 	// 验证寄存器表单
@@ -402,6 +402,8 @@
 		setControlListValue('closeTimeOutA', have_status.value)
 		setControlListValue('openTimeOutB', have_status.value)
 		setControlListValue('closeTimeOutB', have_status.value)
+		setControlListValue('register13', have_status.value)
+		setControlListValue('register14', have_status.value)
 	})
 	// 工作模式
 	watchEffect(() => {
@@ -515,6 +517,22 @@
 
 <style scoped lang="scss">
 	@import '@/assets/styles/door/diaSetting';
+	.dia_voice_body {
+		height: 100%;
+		overflow-y: auto;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, vw(260));
+		justify-content: space-between;
+		grid-template-rows: repeat(auto-fill, vh(90));
+		grid-auto-rows: vh(90);
+		grid-row-gap: vh(10);
+	}
+	.dia_voice_body_item {
+		.fullDom {
+			display: flex;
+			align-items: center;
+		}
+	}
 	.dia_voice_body_item_line {
 		span {
 			font-size: vw(14);

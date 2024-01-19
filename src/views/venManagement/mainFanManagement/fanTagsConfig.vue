@@ -2,7 +2,7 @@
 	import useCurrentInstance from '@/hooks/useCurrentInstance'
 	import { paramAll, setParam } from '@/api/api/mainFanManagement'
 	import { useCommitForm } from '@/hooks/useForm'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 
 	const { proxy } = useCurrentInstance()
 	const props = defineProps({

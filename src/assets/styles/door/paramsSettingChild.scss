@@ -1,23 +1,25 @@
 @mixin tabsBorder {
-  background: rgba(11, 41, 91, 0.8);
-  border: 2px dotted #1379c8;
-  border-radius: 12px;
-  span {
-    font-size: vw(14);
-    font-family: PingFang SC, serif;
-    font-weight: 400;
-    color: #FFFFFF;
-  }
+	background: rgba(11, 41, 91, 0.8);
+	border: 2px dotted #1379c8;
+	border-radius: 12px;
+	span {
+		font-size: vw(14);
+		font-family:
+			PingFang SC,
+			serif;
+		font-weight: 400;
+		color: #ffffff;
+	}
 }
 
 .form-setting-img {
-  width: vw(60);
-  height: vw(60);
-  background-image: url('@/assets/images/windowParameterSetting/button-setup-m.png');
-  background-size: 100% 100%;
-  cursor: pointer;
+	width: vw(60);
+	height: vw(60);
+	background-image: url('@/assets/images/windowParameterSetting/button-setup-m.png');
+	background-size: 100% 100%;
+	cursor: pointer;
 
-  &:hover {
-    background-image: url('@/assets/images/windowParameterSetting/button-setup-x.png');
-  }
+	&:hover {
+		background-image: url('@/assets/images/windowParameterSetting/button-setup-x.png');
+	}
 }

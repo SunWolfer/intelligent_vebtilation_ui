@@ -8,7 +8,7 @@
 		listFanItem,
 		updateFanItem,
 	} from '@/api/api/mainFanItemManagement'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { useForm } from '@/hooks/useForm'
 	import { selectDictLabel } from '@/utils/ruoyi'
 

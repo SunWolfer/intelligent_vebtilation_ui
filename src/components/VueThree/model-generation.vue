@@ -42,7 +42,7 @@
 			},
 			addObject() {
 				if (!this.object) return
-				this.wrapper.add(this.object)
+				this.pickWrapper.add(this.object)
 				this.windObject = new Object3D()
 				this.wrapper.add(this.windObject)
 				// this.wrapper.position.copy(neCenter)
@@ -51,6 +51,7 @@
 				this.operateModel = new OperateModel(
 					this.object,
 					this.wrapper,
+					this.pickWrapper,
 					this.camera,
 					this.controls as OrbitControls,
 					this.renderer as WebGLRenderer,

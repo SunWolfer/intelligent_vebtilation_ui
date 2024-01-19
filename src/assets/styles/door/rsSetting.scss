@@ -1,23 +1,23 @@
-@use "paramsSettingChild" as *;
-.rs_setting{
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  grid-template-rows: repeat(2,vh(151));
-  grid-column-gap: vw(13);
-  grid-row-gap: vh(15);
-  padding: vh(16) 0;
+@use 'paramsSettingChild' as *;
+.rs_setting {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, vh(151));
+	grid-column-gap: vw(13);
+	grid-row-gap: vh(15);
+	padding: vh(16) 0;
 }
 .rs_setting_item {
-  @include tabsBorder;
-  height: 100%;
-  display: grid;
-  align-items: center;
-  padding: 0 vw(45);
+	@include tabsBorder;
+	height: 100%;
+	display: grid;
+	align-items: center;
+	padding: 0 vw(45);
 }
-.rs_setting_item_form{
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  grid-column-gap: vw(45);
-  grid-template-rows: repeat(2,1fr);
-  grid-row-gap: vh(10);
+.rs_setting_item_form {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-column-gap: vw(45);
+	grid-template-rows: repeat(2, 1fr);
+	grid-row-gap: vh(10);
 }

@@ -8,8 +8,9 @@
 	import TheSpectrum from '@/views/venEqMonitoring/mainFan/theSpectrum.vue'
 	import WarnTableRecord from '@/views/components/warnTableRecord/index.vue'
 	import FanCharCurve from '@/views/venEqMonitoring/mainFan/fanCharCurve.vue'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { usePermission } from '@/hooks/usePermission'
+	import { useVideo } from '@/hooks/useVideo'
 
 	const {
 		inShowList,
@@ -61,6 +62,9 @@
 	const { fan_work_status } = useDict('fan_work_status')
 
 	const { validateFun } = usePermission()
+
+	const { videoUrlList, videoListLength, resetUrl } = useVideo()
+	resetUrl?.(dataForm)
 </script>
 
 <template>
@@ -350,8 +354,23 @@
 		</div>
 
 		<!--    视频监控-->
-		<dia-log v-model="videoVisible" title="视频监控" :width="1280" :height="720">
-			<m-video type="js" :video-path="dataForm.videoUrl" />
+		<dia-log
+			v-if="videoVisible"
+			v-model="videoVisible"
+			title="视频监控"
+			:width="1280"
+			:height="720"
+		>
+			<div class="line_video_full_width">
+				<template v-if="videoListLength > 0">
+					<template v-for="i in videoUrlList" :key="i">
+						<m-video type="js" :video-path="i" />
+					</template>
+				</template>
+				<template v-else>
+					<m-video type="js" video-path="" />
+				</template>
+			</div>
 		</dia-log>
 		<customized-dia-log
 			v-if="customizedVisible"

@@ -1,92 +1,98 @@
-@import "@/assets/styles/defaultMinix";
-.child_body{
-  position: relative;
-  width: 100%;
-  height: vh(895.5);
+@import '@/assets/styles/defaultMinix';
+.child_body {
+	position: relative;
+	width: 100%;
+	height: vh(895.5);
 }
-.yellow_text{
-  color: rgba(255, 255, 0, 1);
+.yellow_text {
+	color: rgba(255, 255, 0, 1);
 }
-.details_btn{
-  place-self: center;
-  width: vw(140);
-  height: vw(40);
-  text-align: center;
-  font-size: vw(20);
-  font-family: Adobe Heiti Std, serif;
-  font-weight: normal;
-  color: #FFFFFF;
-  line-height: vw(40);
-  background-image: url("@/assets/images/windControlAssMaking/ass_icon_1.png");
-  background-size: 100% 100%;
-  cursor: pointer;
+.details_btn {
+	place-self: center;
+	width: vw(140);
+	height: vw(40);
+	text-align: center;
+	font-size: vw(20);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	line-height: vw(40);
+	background-image: url('@/assets/images/windControlAssMaking/ass_icon_1.png');
+	background-size: 100% 100%;
+	cursor: pointer;
 }
 
 //详情菜单布局
-.details_form{
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, vh(40) vh(85)) 1fr vh(40);
-  align-items: center;
-  font-size: vw(16);
-  font-family: Adobe Heiti Std, serif;
-  font-weight: normal;
-  color: #FFFFFF;
-  line-height: vh(30);
+.details_form {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(3, vh(40) vh(85)) 1fr vh(40);
+	align-items: center;
+	font-size: vw(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
+	line-height: vh(30);
 }
-.details_form_title{
-  @include defaultMinix1(216,35);
+.details_form_title {
+	@include defaultMinix1(216, 35);
 }
-.details_form_count{
-  display: grid;
-  grid-template-columns: max-content vw(70);
-  grid-column-gap: vw(10);
-  align-items: center;
+.details_form_count {
+	display: grid;
+	grid-template-columns: max-content vw(70);
+	grid-column-gap: vw(10);
+	align-items: center;
 }
-.details_form_child_list{
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: vw(15);
-  row-gap: vh(15);
-  overflow-y: auto;
+.details_form_child_list {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: vw(15);
+	row-gap: vh(15);
+	overflow-y: auto;
 }
 .details_form_child {
-  width: vw(465);
-  height: vh(200);
+	width: vw(465);
+	height: vh(200);
 }
-.details_form_child_body{
-  padding: vh(34) vw(30);
-  display: grid;
-  grid-template-columns: vw(150) 1fr;
-  grid-template-rows: repeat(3,1fr);
-  align-content: space-between;
-  grid-column-gap: vw(40);
-  font-size: vw(16);
-  font-family: Adobe Heiti Std, serif;
-  font-weight: normal;
-  color: #FFFFFF;
+.details_form_child_body {
+	padding: vh(34) vw(30);
+	display: grid;
+	grid-template-columns: vw(150) 1fr;
+	grid-template-rows: repeat(3, 1fr);
+	align-content: space-between;
+	grid-column-gap: vw(40);
+	font-size: vw(16);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
 }
-.details_form_child_body_line{
-  width: 100%;
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  grid-column-gap: vw(5);
-  align-items: center;
-  word-wrap: break-word;
-  .el-input{
-    width: vw(114);
-  }
+.details_form_child_body_line {
+	width: 100%;
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	grid-column-gap: vw(5);
+	align-items: center;
+	word-wrap: break-word;
+	.el-input {
+		width: vw(114);
+	}
 }
-.details_form_btn{
-  display: flex;
-  gap: vw(50);
-  justify-content: center;
-  align-items: center;
+.details_form_btn {
+	display: flex;
+	gap: vw(50);
+	justify-content: center;
+	align-items: center;
 }
-.text_yellow{
-  color: #ffff00;
+.text_yellow {
+	color: #ffff00;
 }
-.details_decision_line{
-  display: flex;
-  gap: vw(32);
+.details_decision_line {
+	display: flex;
+	gap: vw(32);
 }

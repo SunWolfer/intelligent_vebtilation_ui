@@ -1,6 +1,6 @@
 <!--安监统计报表-->
 <script setup>
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import useList from '@/hooks/useList'
 	import { listSafeSupStaReport, safeTypeDict } from '@/api/api/safeSupStaReport'
 

@@ -2,6 +2,7 @@
 <script setup>
 	import useSocket from '@/hooks/useSocket'
 	import { readScreenMsgOrder, setScreenMsgOrder } from '@/api/api/doorParameterSettings'
+	import BarSettingForm from './BarSettingForm.vue'
 
 	const props = defineProps({
 		ip: {
@@ -27,11 +28,13 @@
 	// 条屏语音信息列表
 	const screenMsgList = ref([])
 	const initScreenMsgList = () => {
-		for (let i = 0; i < 32; i++) {
+		for (let i = 0; i < 30; i++) {
 			screenMsgList.value.push({
 				index: i + 1,
 				hasSelect: false,
 				msg: '',
+				color: '',
+				voice: '',
 			})
 		}
 	}
@@ -105,7 +108,7 @@
 </script>
 
 <template>
-	<dia-log title="条屏语音信息设置" v-model="showDiaLog" :width="1150" :height="490">
+	<dia-log title="条屏语音信息设置" v-model="showDiaLog" :width="1300" :height="560">
 		<div class="dia_voice">
 			<div class="dia_voice_title">
 				<el-button class="light-blue-btn" @click="readMsg">
@@ -123,15 +126,7 @@
 			</div>
 			<div class="dia_voice_body">
 				<template v-for="item in screenMsgList" :key="item.index">
-					<div class="dia_voice_body_item">
-						<div class="dia_voice_body_item_line">
-							<span>{{ item.index }}</span>
-							<el-checkbox v-model="item.hasSelect" label="下发" />
-						</div>
-						<div class="fullDom">
-							<el-input v-model="item.msg" type="textarea" />
-						</div>
-					</div>
+					<BarSettingForm :data="item" />
 				</template>
 			</div>
 		</div>

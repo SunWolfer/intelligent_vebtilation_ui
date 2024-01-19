@@ -18,7 +18,8 @@
 	import { useTunnelData } from '@/hooks/useTunnelData'
 	import { useGainList } from '@/hooks/useGainList'
 	import { listRegion } from '@/api/api/roadwayManagement'
-	import useDict from '@/hooks/useDict'
+	import { calculateRealTime } from '@/api/api/venSystemManagement'
+	import { useDict } from '@/hooks/useDict'
 
 	const {
 		modelRef,
@@ -139,6 +140,11 @@
 		})
 	}
 
+	// 解算模拟
+	const calculateHand = async () => {
+		await calculateRealTime()
+	}
+
 	//   获取模型信息
 	onMounted(async () => {
 		await getSysVersion?.()
@@ -185,6 +191,9 @@
 			<div class="p-center">
 				<el-color-picker v-model="tunnelColor" />
 			</div>
+			<div class="normal_btn" @click="calculateHand" v-hasPermi="['manage:roadway:calculate']"
+				>解算模拟</div
+			>
 		</div>
 		<!--    设备-->
 		<div class="ven_sys_sensor" v-if="bindSensorVisible">
@@ -401,6 +410,9 @@
 							</el-form-item>
 							<el-form-item label="人工测定风阻时间">
 								<el-input v-model="tunnelForm.ventPersonTime" />
+							</el-form-item>
+							<el-form-item label="解算风量(m³/min)">
+								<span class="sys_form_span">{{ tunnelForm.airVolume }}</span>
 							</el-form-item>
 						</el-form>
 					</div>

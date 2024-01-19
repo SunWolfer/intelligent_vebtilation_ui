@@ -1,6 +1,6 @@
 <script setup name="Logininfor">
 	import { cleanLogininfor, delLogininfor, list, unlockLogininfor } from '@/api/monitor/logininfor'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 
 	const { proxy } = getCurrentInstance()
 	const { sys_common_status } = useDict('sys_common_status')

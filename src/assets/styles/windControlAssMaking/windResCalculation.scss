@@ -1,4 +1,4 @@
-@import "@/assets/styles/defaultMinix";
+@import '@/assets/styles/defaultMinix';
 .wind_res_body {
 	position: relative;
 	width: 100%;
@@ -41,5 +41,5 @@
 }
 
 .wind_res_icon {
-	@include defaultMinix1(255,56);
+	@include defaultMinix1(255, 56);
 }

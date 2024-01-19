@@ -21,6 +21,15 @@ export const useThreeModelData = () => {
 			IThreeModel.updateMaxNode(val)
 		},
 	})
+	// 添加额外模型基准大小
+	const multiple = computed({
+		get() {
+			return Number(IThreeModel.multiple)
+		},
+		set(val) {
+			IThreeModel.updateMultiple(val)
+		},
+	})
 	// 是否显示巷道
 	const readyData = computed(() => {
 		return threeModelData.value.length > 0
@@ -69,20 +78,16 @@ export const useThreeModelData = () => {
 		if (data === modelType.value) return
 		modelType.value = data
 	}
-	// 模型大小
-	const modelSize = computed(() => {
-		return IThreeModel.modelSize
-	})
 
 	return {
 		readyData,
 		threeModelData,
 		maxNodeNum,
+		multiple,
 		roadAllList,
 		refreshModel,
 		modelType,
 		changeType,
-		modelSize,
 		refreshModelFun,
 	}
 }

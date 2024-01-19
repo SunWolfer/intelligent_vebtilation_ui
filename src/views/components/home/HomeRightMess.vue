@@ -2,7 +2,7 @@
 	import { homeRightMess } from '@/api/request/home/homeRightMess'
 	import useEquipmentData from '@/hooks/useEquipmentData'
 	import useHomeMenu from '@/hooks/useHomeMenu'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { dynamicHeight, selectDictLabel } from '@/utils/ruoyi'
 
 	const emits = defineEmits(['moveCamera'])

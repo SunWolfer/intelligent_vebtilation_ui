@@ -5,7 +5,7 @@
 	import { useCommitForm } from '@/hooks/useForm'
 	import { controlWindow } from '@/api/api/airWindow'
 	import { getChart1, getChart2 } from '@/api/request/home/remoterControlCharts'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { useCheckWindowForm } from '@/hooks/useCheckWindowForm'
 
 	const { window_work_model, window_type } = useDict('window_work_model', 'window_type')

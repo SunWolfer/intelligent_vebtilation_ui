@@ -11,7 +11,7 @@
 		updateWindow,
 	} from '@/api/api/windWindowManagement'
 	import DoorTags from '@/views/venEqMonitoring/throttleMonitoring/doorTags.vue'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 
 	const {
 		queryParams,

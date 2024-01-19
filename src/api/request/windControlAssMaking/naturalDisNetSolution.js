@@ -44,7 +44,7 @@ export const naturalDisNetSolution = () => {
 	const confirmWindow = ref(true)
 	const windowCancel = () => {
 		confirmWindow.value = false
-		nextTick(() => {
+		nextTick().then(() => {
 			confirmWindow.value = true
 		})
 	}
@@ -74,7 +74,7 @@ export const naturalDisNetSolution = () => {
 	// 取消连接巷道
 	const tunnelCancel = () => {
 		confirmTunnel.value = false
-		nextTick(() => {
+		nextTick().then(() => {
 			confirmTunnel.value = true
 		})
 	}

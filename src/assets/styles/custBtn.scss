@@ -26,7 +26,7 @@
 		background-image: url('@/assets/images/accPerOfRomance/btn_active.png');
 	}
 }
-.normal_btn_active{
+.normal_btn_active {
 	@include IBtn;
 	background-image: url('@/assets/images/accPerOfRomance/btn_active.png');
 }
@@ -39,7 +39,7 @@
 		background-image: url('@/assets/images/accPerOfRomance/btn_2_active.png');
 	}
 }
-.normal_2_btn_active{
+.normal_2_btn_active {
 	@include IBtn;
 	background-image: url('@/assets/images/accPerOfRomance/btn_2_active.png');
 }
@@ -48,16 +48,16 @@
 	background-image: url('@/assets/images/btns/btn_3.png');
 	&:hover,
 	&:active {
-		background-image:url('@/assets/images/btns/btn_3_active.png');
+		background-image: url('@/assets/images/btns/btn_3_active.png');
 	}
 }
 
-.normal_3_btn_active{
+.normal_3_btn_active {
 	@include IBtn;
 	background-image: url('@/assets/images/btns/btn_3_active.png');
 }
 
-.normal_4_btn{
+.normal_4_btn {
 	@include IBtn;
 	background-image: url('@/assets/images/btns/g_button_m.png');
 	&:hover,
@@ -65,12 +65,10 @@
 		background-image: url('@/assets/images/btns/g_button_x.png');
 	}
 }
-.normal_4_btn_active{
+.normal_4_btn_active {
 	@include IBtn;
 	background-image: url('@/assets/images/btns/g_button_x.png');
 }
-
-
 
 @mixin btnText {
 	position: relative;
@@ -98,7 +96,7 @@
 .real_btn_1 {
 	background-image: url('@/assets/images/windControlAssMaking/btn_1.png');
 	@include btnText;
-	&:hover{
+	&:hover {
 		background-image: url('@/assets/images/windControlAssMaking/btn_1_active.png');
 	}
 }

@@ -86,7 +86,7 @@
 	width: 100%;
 	height: vh(228);
 	padding: vh(20) 0 vh(23) vw(30);
-	.fullDom{
+	.fullDom {
 		display: grid;
 		grid-template-columns: vw(365);
 		grid-template-rows: repeat(auto-fill, vh(30));
@@ -442,27 +442,31 @@
 	}
 }
 //预警等级
-.warn_level_1{
-color: #ff0000;
+.warn_level_1 {
+	color: #ff0000;
 }
-.warn_level_2{
+.warn_level_2 {
 	color: #ff9b00;
 }
-.warn_level_3{
+.warn_level_3 {
 	color: #ffff00;
 }
-.warn_level_4{
+.warn_level_4 {
 	color: #00ffff;
 }
-.warn_level_bg_1,.warn_level_bg_before_1:before {
+.warn_level_bg_1,
+.warn_level_bg_before_1:before {
 	background-color: #ff0000;
 }
-.warn_level_bg_2,.warn_level_bg_before_2:before{
+.warn_level_bg_2,
+.warn_level_bg_before_2:before {
 	background-color: #ff9b00;
 }
-.warn_level_bg_3,.warn_level_bg_before_3:before{
+.warn_level_bg_3,
+.warn_level_bg_before_3:before {
 	background-color: #ffff00;
 }
-.warn_level_bg_4,.warn_level_bg_before_4:before{
+.warn_level_bg_4,
+.warn_level_bg_before_4:before {
 	background-color: #00ffff;
 }

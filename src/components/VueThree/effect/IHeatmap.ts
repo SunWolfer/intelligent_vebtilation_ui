@@ -1,7 +1,6 @@
 import useEditModel from '@/components/VueThree/hooks/useEditModel'
-import { Object3D, Vector3 } from 'three'
-import { Group } from 'three/src/Three'
-import { DataCircle, Heatmap, HeatmapConfiguration, HeatmapData } from 'types/heatmap'
+import { Object3D, Vector3, Group } from 'three'
+import type { DataCircle, Heatmap, HeatmapConfiguration, HeatmapData } from 'types/heatmap'
 
 export interface pointConfig {
 	// 初始化热力图对象配置
@@ -21,7 +20,7 @@ export interface pointConfig {
 	// 巷道宽度
 	tunnelHeight: number
 }
-const { createdImg } = useEditModel()
+const { createdImg, getCenterPoint } = useEditModel()
 export class IHeatmap {
 	// 热力图模型所在父类Object3D
 	wrapper: Object3D
@@ -38,7 +37,6 @@ export class IHeatmap {
 		this.imgGroup = new Group()
 		this.heatmapInstances = []
 		if (!pointDataList) return
-		const { getCenterPoint } = useEditModel()
 
 		for (let i = 0; i < pointDataList.length; i++) {
 			const pointData = pointDataList[i]

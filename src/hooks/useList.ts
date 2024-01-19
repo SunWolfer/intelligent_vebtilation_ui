@@ -126,13 +126,15 @@ const useList = <TData = any, Params = any>({
 				if (typeof afterReadyListFun === 'function') afterReadyListFun(res)
 			}
 		} catch (error) {
+			console.log('🚀 ~ file: useList.ts:129 ~ getList ~ error:', error)
+		} finally {
 			loading.value = false
 		}
 	}
 
-	onMounted(async () => {
+	onMounted(() => {
 		if (automatic) {
-			await handleQuery()
+			handleQuery()
 		}
 	})
 

@@ -1,6 +1,6 @@
 // 巷道参数
 import { getRoadInfo } from '@/api/api/naturalDisNetSolution'
-import useDict from '@/hooks/useDict'
+import { useDict } from '@/hooks/useDict'
 import { useLoading } from '@/hooks/useLoading'
 
 export const useTunnelData = () => {

@@ -1,6 +1,6 @@
 import useList from '@/hooks/useList'
 import { addTags, delTags, getTags, listTags, updateTags } from '@/api/api/doorItemManagement'
-import useDict from '@/hooks/useDict'
+import { useDict } from '@/hooks/useDict'
 import { useForm } from '@/hooks/useForm'
 import { isNull } from '@/utils/ruoyi'
 

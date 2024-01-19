@@ -37,21 +37,18 @@
 	)
 	// 重加载巷道信息
 	const isTunnelReady = ref(false)
-	function reloadTunnel() {
+	async function reloadTunnel() {
 		isTunnelReady.value = false
-		nextTick(() => {
-			isTunnelReady.value = true
-			nextTick(() => {
-				props.operateModel?.addOtherLabelList([showTunnelData.value])
-			})
-		})
+		await nextTick()
+		isTunnelReady.value = true
+		await nextTick()
+		props.operateModel?.addOtherLabelList([showTunnelData.value])
 	}
 	//   清除巷道信息
-	function cleanLabelList() {
+	async function cleanLabelList() {
 		isTunnelReady.value = false
-		nextTick(() => {
-			props.operateModel?.addOtherLabelList([])
-		})
+		await nextTick()
+		props.operateModel?.addOtherLabelList([])
 	}
 
 	onBeforeUnmount(() => {

@@ -10,7 +10,7 @@
 		listThrottle,
 		updateThrottle,
 	} from '@/api/api/throttleManagement'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import DoorTags from '@/views/venEqMonitoring/throttleMonitoring/doorTags.vue'
 	import { DoorTypes, DoorVersion } from '@/types/menuType'
 

@@ -138,7 +138,7 @@ export class DisasterPreventionRoute {
 		]
 	}
 	// 创建灾害蔓延
-	createdDisasterSpread(positions: Vector3[], _size = 20, type: DisasterTypes) {
+	createdDisasterSpread(positions: Vector3[], size = 1, type: DisasterTypes) {
 		// 查找Texture
 		const iTexture = this.disasterTextureImg.find((i) => {
 			return i.type === type
@@ -156,31 +156,35 @@ export class DisasterPreventionRoute {
 
 		// 火焰蔓延
 		if (DisasterTypes.ONE === type) {
-			this.createdFireSpread(material, curve, iTexture)
+			this.createdFireSpread(material, curve, iTexture, size)
 		}
 		// 瓦斯
 		if (DisasterTypes.TWO === type) {
-			this.createdFireSpread(material, curve, iTexture)
+			this.createdFireSpread(material, curve, iTexture, size)
 		}
 		// 粉尘
 		if (DisasterTypes.THREE === type) {
-			this.createdFireSpread(material, curve, iTexture)
+			this.createdFireSpread(material, curve, iTexture, size)
 		}
 
 		// 	水灾蔓延
-		if (DisasterTypes.FOUR === type) this.createdWaterSpread(material, curve, iTexture)
+		if (DisasterTypes.FOUR === type) this.createdWaterSpread(material, curve, iTexture, size)
 	}
 	// 创建火焰蔓延
 	createdFireSpread(
 		material: MeshBasicMaterial,
 		curve: CatmullRomCurve3,
 		iTexture: disasterTexture,
+		size: number,
 	) {
 		// 	创建平面
 		const geometry = new PlaneGeometry(7, 8)
 		const mesh = new Mesh(geometry, material)
 		const cloneMesh = depthCloneMesh(mesh)
 		cloneMesh.geometry.rotateY(Math.PI / (Math.random() * 10))
+		cloneMesh.scale.x = cloneMesh.scale.x * size
+		cloneMesh.scale.y = cloneMesh.scale.y * size
+		cloneMesh.scale.z = cloneMesh.scale.z * size
 
 		this.disasterObjList.push({
 			obj: cloneMesh,
@@ -216,6 +220,7 @@ export class DisasterPreventionRoute {
 		_material: MeshBasicMaterial,
 		_curve: CatmullRomCurve3,
 		_iTexture: disasterTexture,
+		_size: number,
 	) {}
 	// 创建起点标识
 	createdMark(labelList: LabelAttribute[]) {
@@ -241,12 +246,15 @@ export class DisasterPreventionRoute {
 		const { curve } = useEditModel().createMotionTrack(pointObj.points)
 
 		const moveModel = this.runObject.scene
+		moveModel.scale.x = moveModel.scale.x * (pointObj.lineRadius ?? 1)
+		moveModel.scale.y = moveModel.scale.y * (pointObj.lineRadius ?? 1)
+		moveModel.scale.z = moveModel.scale.z * (pointObj.lineRadius ?? 1)
 		this.extraObject.remove(moveModel)
 		this.moveModelList.push(moveModel)
 		this.extraObject.add(moveModel)
 		const mixer1 = new AnimationMixer(moveModel)
 		mixer1.clipAction(this.runObject.animations[0]).play()
-		this.createdFlowLine(pointObj.points, pointObj.lineRadius ?? 4)
+		this.createdFlowLine(pointObj.points, (pointObj.lineRadius ?? 1) * 6)
 
 		const moveTexture: IMoveTexture = {
 			obj: moveModel,

@@ -1,4 +1,4 @@
-@import "@/assets/styles/defaultMinix";
+@import '@/assets/styles/defaultMinix';
 .cal_air_body {
 	position: relative;
 	width: 100%;
@@ -101,7 +101,7 @@
 }
 .cal_air_body_center {
 	margin: vh(10) 0;
-	@include defaultMinix1(239,43);
+	@include defaultMinix1(239, 43);
 }
 .cal_air_body_end {
 	width: 100%;
@@ -296,7 +296,7 @@
 		color: #ffffff;
 	}
 	:deep(.el-input) {
-		--el-disabled-text-color:#ffffff;
+		--el-disabled-text-color: #ffffff;
 		width: 100%;
 		height: vh(38);
 	}

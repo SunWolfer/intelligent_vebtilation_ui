@@ -107,3 +107,13 @@ export function updateModelColor(data) {
 		data: data,
 	})
 }
+/**
+ * 解算模拟
+ * @returns {Promise<unknown>}
+ */
+export function calculateRealTime() {
+	return request({
+		url: '/api/calculate/ventilationroadway/calculateRealTime',
+		method: 'get',
+	})
+}

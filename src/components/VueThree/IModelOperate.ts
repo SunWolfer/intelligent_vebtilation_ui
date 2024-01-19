@@ -19,6 +19,8 @@ export class OperateModel {
 	object: Object3D
 	// 总模型
 	wrapper: Object3D
+	// 鼠标可交互模型
+	pickWrapper: Object3D
 	// 	相机
 	camera: PerspectiveCamera
 	// 	轨道控制器
@@ -42,6 +44,7 @@ export class OperateModel {
 	constructor(
 		object: Object3D,
 		wrapper: Object3D,
+		pickWrapper: Object3D,
 		camera: PerspectiveCamera,
 		controls: OrbitControls,
 		renderer: WebGLRenderer,
@@ -50,6 +53,7 @@ export class OperateModel {
 	) {
 		this.object = object
 		this.wrapper = wrapper
+		this.pickWrapper = pickWrapper
 		this.camera = camera
 		this.controls = controls
 		this.renderer = renderer
@@ -142,7 +146,7 @@ export class OperateModel {
 		exportGLTF([this.object])
 	}
 	// 相机轨迹移动
-	traMovement(position: ICoordinates, lookAt: ICoordinates, time = 1, nextTick = () => {}) {
+	traMovement(position: ICoordinates, lookAt: ICoordinates, time = 1, nextFun = () => {}) {
 		gsap.to(this.camera.position, {
 			x: position.x,
 			y: position.y,
@@ -151,7 +155,7 @@ export class OperateModel {
 			ease: 'circ.out',
 			//相机运动完成的回调
 			onComplete: function () {
-				nextTick()
+				nextFun()
 			},
 		})
 		gsap.to(this.controls.target, {

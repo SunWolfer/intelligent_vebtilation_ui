@@ -1,5 +1,5 @@
 <script setup>
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { isNull } from '@/utils/ruoyi'
 
 	const props = defineProps({
@@ -287,6 +287,7 @@
 					<el-input
 						v-model="controlForm[obj.value4]"
 						:disabled="disabledValue4(controlForm[obj.value1])"
+						placeholder="0.1s"
 					/>
 				</div>
 				<div class="c-center di_dom_item_full_row">

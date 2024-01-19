@@ -172,7 +172,7 @@
 		listType,
 		updateType,
 	} from '@/api/system/dict/type'
-	import useDict from '@/hooks/useDict'
+	import { loadAllDict, useDict } from '@/hooks/useDict'
 	import useList from '@/hooks/useList'
 	import { useForm } from '@/hooks/useForm'
 
@@ -227,7 +227,13 @@
 			initApi: getType,
 			updateApi: updateType,
 			addApi: addType,
-			afterAddFun: handleQuery,
-			afterUpdateFun: handleQuery,
+			afterAddFun: () => {
+				handleQuery?.()
+				loadAllDict?.()
+			},
+			afterUpdateFun: () => {
+				handleQuery?.()
+				loadAllDict?.()
+			},
 		})
 </script>

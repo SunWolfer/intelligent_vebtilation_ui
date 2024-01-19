@@ -440,7 +440,7 @@
 		resetUserPwd,
 		updateUser,
 	} from '@/api/system/user'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import useList from '@/hooks/useList'
 
 	const { proxy } = getCurrentInstance()

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 	import { layout } from '@/api/request/layout'
+	import useInterceptList from '@/hooks/useInterceptList'
 	import SecondaryMenu from '@/layout/components/Sidebar/secondaryMenu.vue'
 	import AppLink from './Link.vue'
 	//标题
@@ -18,6 +19,14 @@
 		chooseBasePath,
 		clickPosition,
 	} = layout()
+
+	const {
+		inShowList: rightRoutersList,
+		toLast,
+		showLast,
+		toNext,
+		showNext,
+	} = useInterceptList(rightSidebarRouters, 4)
 </script>
 <template>
 	<div>
@@ -49,7 +58,7 @@
 				<span>{{ sysTitle }}</span>
 			</div>
 			<div class="sys_top_right_navigate">
-				<template v-for="item in rightSidebarRouters" :key="item.name">
+				<template v-for="item in rightRoutersList" :key="item.name">
 					<div
 						:class="getMenuChoose(item) ? 'navigate_left_bg_active' : 'navigate_left_bg'"
 						@click="clickTheFirstLevelMenu(item, $event)"
@@ -57,6 +66,10 @@
 						{{ item.meta?.title }}
 					</div>
 				</template>
+				<div class="sys_top_right_navigate_icon">
+					<div v-show="showLast" class="sys_top_right_navigate_icon_left" @click="toLast"></div>
+					<div v-show="showNext" class="sys_top_right_navigate_icon_right" @click="toNext"></div>
+				</div>
 			</div>
 		</div>
 		<secondary-menu

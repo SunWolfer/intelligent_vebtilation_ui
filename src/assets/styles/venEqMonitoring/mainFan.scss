@@ -312,19 +312,19 @@
 	}
 }
 .btn_text_1 {
-	background: #00FF00;
+	background: #00ff00;
 }
 .btn_text_2 {
-	background: #FF5C86;
+	background: #ff5c86;
 }
 .btn_text_3 {
-	background: #00FFFF;
+	background: #00ffff;
 }
 .btn_text_4 {
-	background: #FCB300
+	background: #fcb300;
 }
 .btn_text_5 {
-	background: #FFFF00;
+	background: #ffff00;
 }
 
 .main_fan_body_l3 {
@@ -358,7 +358,7 @@
 			background-image: url('@/assets/images/equipment/main_fan_close.png');
 			background-size: 100% 100%;
 		}
-		.main_fan_body_l5_body_l2_open{
+		.main_fan_body_l5_body_l2_open {
 			width: vh(117);
 			height: vh(117);
 			background-image: url('@/assets/images/equipment/main_fan_opening.gif');
@@ -416,7 +416,7 @@
 		cursor: pointer;
 	}
 }
-.set_btn_cus_icon{
+.set_btn_cus_icon {
 	span {
 		&:before {
 			position: absolute;
@@ -473,7 +473,7 @@
 	overflow-y: auto;
 	display: grid;
 	grid-template-columns: repeat(2, 50%);
-	grid-template-rows: repeat(auto-fill,vh(32));
+	grid-template-rows: repeat(auto-fill, vh(32));
 	grid-auto-rows: vh(32);
 	.customized_item {
 		display: grid;

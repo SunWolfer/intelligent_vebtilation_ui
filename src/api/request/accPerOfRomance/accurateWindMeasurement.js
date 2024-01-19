@@ -7,11 +7,11 @@ import useSocket from '@/hooks/useSocket'
 
 export const accurateWindMeasurement = () => {
 	//   精准测风列表
-	const { dataList: windList } = useGainList({
+	const { dataList } = useGainList({
 		apiFun: listView,
 	})
 
-	const { inShowList, toLast, showLast, toNext, showNext } = useInterceptList(windList, 6)
+	const { inShowList, toLast, showLast, toNext, showNext } = useInterceptList(dataList, 6)
 
 	// 选中菜单
 	const choose = ref(-1)
@@ -105,18 +105,12 @@ export const accurateWindMeasurement = () => {
 
 	// 连接socket
 	const { clientSocket, socketData, info } = useSocket('info')
-	watch(info, (value) => {
-		getSocketMsg(value)
+	watch(info, async (value) => {
+		let tIndex = dataList.value.findIndex((i) => i.id === value?.id)
+		tIndex !== -1 && (dataList.value[tIndex] = value)
+
+		await initChart()
 	})
-	function getSocketMsg(data) {
-		const tIndex = ref(-1)
-		windList.value.forEach((i, index) => {
-			if (i.id === data.id) {
-				tIndex.value = index
-			}
-		})
-		tIndex.value !== -1 && (windList.value[tIndex] = data)
-	}
 
 	onMounted(async () => {
 		clientSocket?.(`|windsensor|adjustAll`)

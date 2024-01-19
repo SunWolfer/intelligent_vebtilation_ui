@@ -120,7 +120,7 @@
 <script setup>
 	import { delMenu, listMenu } from '@/api/system/menu'
 	import AddOrUpdate from './addOrUpdate'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import useCurrentInstance from '@/hooks/useCurrentInstance'
 	import { parseTime } from '@/utils/ruoyi'
 
@@ -176,7 +176,7 @@
 	function toggleExpandAll() {
 		refreshTable.value = false
 		isExpandAll.value = !isExpandAll.value
-		nextTick(() => {
+		nextTick().then(() => {
 			refreshTable.value = true
 		})
 	}

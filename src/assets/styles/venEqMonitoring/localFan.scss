@@ -118,7 +118,7 @@
 		}
 	}
 }
-.local_fan_body_l1_item_active{
+.local_fan_body_l1_item_active {
 	box-shadow: 0 0 15px 5px rgb(200 151 0) inset;
 }
 .local_fan_body_l2 {
@@ -237,13 +237,13 @@
 		grid-template-columns: 1fr;
 		grid-template-rows: vh(68) 1fr;
 	}
-	.local_fan_body_l3_l6_top{
+	.local_fan_body_l3_l6_top {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		justify-content: center;
 		place-items: center;
 	}
-	.local_fan_body_l3_l6_bottom{
+	.local_fan_body_l3_l6_bottom {
 		background-image: url('@/assets/images/venEqMonitoring/fans/border_1.svg');
 		background-size: 100% 100%;
 		padding-top: vh(20);
@@ -329,9 +329,9 @@
 			background-image: url('@/assets/images/venEqMonitoring/fans/btn2.png');
 		}
 	}
-	.local_fan_body_l3_l6_btn_4{
+	.local_fan_body_l3_l6_btn_4 {
 		span {
-			background: linear-gradient(180deg, #feecea 29.6875%, #00FF00 100%);
+			background: linear-gradient(180deg, #feecea 29.6875%, #00ff00 100%);
 		}
 		@include l6Btn;
 		&:before {

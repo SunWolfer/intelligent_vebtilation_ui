@@ -10,7 +10,7 @@ import {
 	getWindSpeedByCode,
 } from '@/api/api/calOfAirDemand'
 import { useGainList } from '@/hooks/useGainList'
-import useDict from '@/hooks/useDict'
+import { useDict } from '@/hooks/useDict'
 import { useGushingAmount } from '@/api/request/windControlAssMaking/calOfAirDemand/useGushingAmount'
 
 export const calOfAirDemand = (needCalType) => {

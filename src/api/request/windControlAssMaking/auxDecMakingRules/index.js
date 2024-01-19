@@ -1,5 +1,12 @@
 import { useGainList } from '@/hooks/useGainList'
-import { decListInfo, getDetailType, getTriggerType } from '@/api/api/auxDecMakingRules'
+import {
+	decListInfo,
+	getDetailType,
+	getTriggerType,
+	removeConfigDecision,
+} from '@/api/api/auxDecMakingRules'
+import { useCommitForm } from '@/hooks/useForm'
+import useCurrentInstance from '@/hooks/useCurrentInstance'
 
 export const auxDecMakingRules = () => {
 	const { queryParams, dataList, queryDataList } = useGainList({
@@ -45,6 +52,28 @@ export const auxDecMakingRules = () => {
 		chooseRow.value = row
 		addOrUpdateVisible.value = true
 	}
+
+	const { proxy } = useCurrentInstance()
+
+	// 决策规划删除
+	const handleRemove = (row) => {
+		proxy.$modal
+			.prompt({
+				message: `是否确认删除`,
+			})
+			.then(async () => {
+				await useCommitForm(removeConfigDecision, {
+					queryParams: row,
+					afterReadyDataFun: () => {
+						queryTriggerTypeList?.()
+						queryDetailTypeList?.()
+						queryDataList?.()
+					},
+				})
+			})
+			.catch(() => {})
+	}
+
 	const ruleList = ref([])
 	const previewForm = (row) => {
 		chooseRow.value = row
@@ -73,6 +102,7 @@ export const auxDecMakingRules = () => {
 		addOrUpdateVisible,
 		handleAdd,
 		handleUpdate,
+		handleRemove,
 		ruleList,
 		previewForm,
 		refreshList,

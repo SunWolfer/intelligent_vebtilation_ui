@@ -1,95 +1,99 @@
-.safe_data_body{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: vh(5) vw(70) 0 vw(65);
-  display: grid;
-  grid-template-rows: vh(86) 1fr vh(86);
+.safe_data_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: vh(5) vw(70) 0 vw(65);
+	display: grid;
+	grid-template-rows: vh(86) 1fr vh(86);
 }
-.safe_data_body_top{
-  padding-left: vw(67);
+.safe_data_body_top {
+	padding-left: vw(67);
 }
-.safe_data_body_center{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  display: grid;
-  grid-template-columns: repeat(5, vw(464));
-  grid-template-rows: repeat(auto-fill,vh(182));
-  grid-row-gap: vh(10);
-  justify-content: space-between;
+.safe_data_body_center {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	display: grid;
+	grid-template-columns: repeat(5, vw(464));
+	grid-template-rows: repeat(auto-fill, vh(182));
+	grid-row-gap: vh(10);
+	justify-content: space-between;
 }
 
 .safe_data_table_item {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: vh(25) vw(25);
-  display: grid;
-  grid-template-columns: vw(134) 1fr;
-  grid-template-rows: vh(38) vh(26) vh(14);
-  place-content: space-between;
-  align-items: center;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: vh(25) vw(25);
+	display: grid;
+	grid-template-columns: vw(134) 1fr;
+	grid-template-rows: vh(38) vh(26) vh(14);
+	place-content: space-between;
+	align-items: center;
 }
-.safe_data_table_item_icon{
-  grid-area: 1/1/4/2;
+.safe_data_table_item_icon {
+	grid-area: 1/1/4/2;
 }
-.safe_data_table_item_top{
-  height: vh(38);
+.safe_data_table_item_top {
+	height: vh(38);
 }
-.safe_item_title{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: vw(18);
-  font-family: Adobe Heiti Std, serif;
-  font-weight: normal;
-  color: rgba(255, 255, 255, 0.78);
+.safe_item_title {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: vw(18);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: rgba(255, 255, 255, 0.78);
 
-  background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+	background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
-.safe_data_table_item_center{
-  .safe_item_value{
-    font-size: vw(26);
-    font-family: YouSheBiaoTiHei, serif;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.78);
-    background: linear-gradient(180deg, #FFFFFF 0%, #FFFF00 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .safe_item_unit{
-    font-size: vw(26);
-    font-family: YouSheBiaoTiHei, serif;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.78);
-    background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin: 0 vw(10);
-  }
+.safe_data_table_item_center {
+	.safe_item_value {
+		font-size: vw(26);
+		font-family: YouSheBiaoTiHei, serif;
+		font-weight: 400;
+		color: rgba(255, 255, 255, 0.78);
+		background: linear-gradient(180deg, #ffffff 0%, #ffff00 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	.safe_item_unit {
+		font-size: vw(26);
+		font-family: YouSheBiaoTiHei, serif;
+		font-weight: 400;
+		color: rgba(255, 255, 255, 0.78);
+		background: linear-gradient(180deg, #b8d6ff 30%, #2bc9ea 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		margin: 0 vw(10);
+	}
 }
-.safe_data_table_item_end{
-  font-size: vw(14);
-  font-family: Adobe Heiti Std, serif;
-  font-weight: normal;
-  color: #FFFFFF;
+.safe_data_table_item_end {
+	font-size: vw(14);
+	font-family:
+		Adobe Heiti Std,
+		serif;
+	font-weight: normal;
+	color: #ffffff;
 }
 
-@mixin SafeIcon{
-  width: vw(127);
-  height: vw(100);
-  background-size: 100% 100%;
+@mixin SafeIcon {
+	width: vw(127);
+	height: vw(100);
+	background-size: 100% 100%;
 }
 @for $i from 1 through 8 {
-  .safe_icon_#{$i} {
-    @include SafeIcon;
-    background-image: url('@/assets/images/sysFusionPerception/safeSupeData/icon#{$i}.gif');
-  }
+	.safe_icon_#{$i} {
+		@include SafeIcon;
+		background-image: url('@/assets/images/sysFusionPerception/safeSupeData/icon#{$i}.gif');
+	}
 }

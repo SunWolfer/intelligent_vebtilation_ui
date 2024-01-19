@@ -9,7 +9,7 @@
 		listVentWay,
 		updateVentWay,
 	} from '@/api/api/roadwayManagement'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { selectDictLabel } from '@/utils/ruoyi'
 	import RoadFireUpload from '@/views/venManagement/roadwayManagement/roadFireUpload.vue'
 	import { useGainList } from '@/hooks/useGainList'

@@ -1,5 +1,5 @@
 import { calOfAirDemand } from '@/api/request/windControlAssMaking/calOfAirDemand/calOfAirDemand'
-import useDict from '@/hooks/useDict'
+import { useDict } from '@/hooks/useDict'
 
 export const calHeadingFaceData = () => {
 	const {

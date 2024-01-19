@@ -1,235 +1,249 @@
-@import "@/assets/styles/defaultMinix";
-.air_short_body{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: 0 vw(56) vh(35) vw(47);
-  display: grid;
-  grid-template-columns: vw(531) vw(531) vw(475) vw(264) vw(570);
-  grid-template-rows: vh(315) vh(315) vh(284);
-  place-content: space-between;
+@import '@/assets/styles/defaultMinix';
+.air_short_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 0 vw(56) vh(35) vw(47);
+	display: grid;
+	grid-template-columns: vw(531) vw(531) vw(475) vw(264) vw(570);
+	grid-template-rows: vh(315) vh(315) vh(284);
+	place-content: space-between;
 }
-.air_short_body_l1_c1{
-  grid-column: 1/4;
-  grid-row: 1/3;
+.air_short_body_l1_c1 {
+	grid-column: 1/4;
+	grid-row: 1/3;
 }
-.air_short_body_l1_c2{
-  grid-row: 1/3;
+.air_short_body_l1_c2 {
+	grid-row: 1/3;
 }
-.air_short_body_l1_c2_body{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: vh(28) vw(35);
-  display: grid;
-  grid-template-rows: vh(16) vh(200) 8px vh(114) 8px vh(200);
-  .air_l1_c2_title{
-    height: vh(16);
-    font-size: vw(16);
-    font-family: Adobe Heiti Std, serif;
-    font-weight: normal;
-    color: rgba(255, 255, 255, 0.8);
-  }
-  .air_l1_c2_form_1{
-    width: 100%;
-    height: 100%;
-    display: grid;
-    align-content: center;
-    grid-row-gap: vh(11);
-  }
-  .air_l1_c2_form_line{
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    justify-content: center;
-    place-items: center;
+.air_short_body_l1_c2_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: vh(28) vw(35);
+	display: grid;
+	grid-template-rows: vh(16) vh(200) 8px vh(114) 8px vh(200);
+	.air_l1_c2_title {
+		height: vh(16);
+		font-size: vw(16);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: rgba(255, 255, 255, 0.8);
+	}
+	.air_l1_c2_form_1 {
+		width: 100%;
+		height: 100%;
+		display: grid;
+		align-content: center;
+		grid-row-gap: vh(11);
+	}
+	.air_l1_c2_form_line {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		justify-content: center;
+		place-items: center;
 
-    font-size: vw(14);
-    font-family: Adobe Heiti Std, serif;
-    font-weight: normal;
-    color: rgba(255, 255, 255, 0.8);
-  }
-  .air_l1_c2_line{
-    position: relative;
-    justify-self: center;
-    &:before{
-      position: absolute;
-      content: '';
-      @include dashLine;
-      height: vw(190);
-      transform: rotate(90deg);
-      left: 0;
-      top: vw(-95);
-    }
-  }
-}
-
-.air_short_body_l1_c3{}
-.air_short_body_l2_c3{}
-
-.border1_body{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: vh(16) vw(16);
-  display: grid;
-  grid-template-rows: vh(59) 1fr;
-  grid-row-gap: vh(10);
-}
-.border1_body_title{
-  justify-self: center;
-  align-self: center;
-  width: vw(194);
-  height: vh(37);
+		font-size: vw(14);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: rgba(255, 255, 255, 0.8);
+	}
+	.air_l1_c2_line {
+		position: relative;
+		justify-self: center;
+		&:before {
+			position: absolute;
+			content: '';
+			@include dashLine;
+			height: vw(190);
+			transform: rotate(90deg);
+			left: 0;
+			top: vw(-95);
+		}
+	}
 }
 
-.air_short_body_l3_c1{
-  .fullDom{
-    display: grid;
-    grid-template-rows: repeat(4,vh(32));
-    grid-row-gap: vh(11);
-    justify-content: center;
-  }
-  .air_l3_c1_line{
-    display: flex;
-    font-size: vw(14);
-    font-family: Adobe Heiti Std, serif;
-    font-weight: normal;
-    color: #FFFFFF;
-    :deep(.el-input){
-      width: vw(154);
-      margin: 0 vw(8);
-    }
-  }
+.air_short_body_l1_c3 {
 }
-.air_short_body_l3_c2{
-  .fullDom{
-    @include ModelSwitch(0.8)
-  }
+.air_short_body_l2_c3 {
 }
-.air_short_body_l3_c3{
-  grid-column: 3/5;
-  .air_l3_c3_body{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-content: center;
-    align-items: center;
 
-    grid-template-columns: repeat(2,vw(164)) 8px vw(144);
-    grid-template-rows: repeat(2,vh(63));
-    grid-column-gap: vw(50);
-    grid-row-gap: vh(12);
-
-    .air_l3_c3_btn_1{
-      @include openDoorBtn(164,63);
-    }
-    .air_l3_c3_btn_2{
-      @include closeDoorBtn(164,63);
-    }
-    .air_l3_c3_line{
-      grid-column: 3/4;
-      grid-row: 1/3;
-      @include dashLine;
-    }
-    .air_l3_c3_btn_3{
-      grid-column: 4/5;
-      grid-row: 1/3;
-      position: relative;
-      width: vw(144);
-      height: vw(144);
-      background-image: url('@/assets/images/equipment/deadlock.png');
-      background-size: 100% 100%;
-      display: flex;
-      justify-content: center;
-      padding-top: vw(86);
-      span {
-        font-size: vw(14);
-        font-family:
-          Adobe Heiti Std,
-          serif;
-        font-weight: normal;
-        color: #ffffff;
-        background: linear-gradient(0deg, #c4ddff 55.2734375%, #01e5ff 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    // 一键开启按钮
-    }
-    .air_l3_c3_btn_4{
-      position: absolute;
-      bottom: vh(-29);
-      font-size: vw(16);
-      font-family: Adobe Heiti Std, serif;
-      font-weight: normal;
-      color: #FFFFFF;
-      cursor: pointer;
-    }
-  }
+.border1_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: vh(16) vw(16);
+	display: grid;
+	grid-template-rows: vh(59) 1fr;
+	grid-row-gap: vh(10);
 }
-.air_short_body_l3_c4{}
-.air_l3_c4_body{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: vh(16) vw(16) vh(16) vw(51);
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  grid-template-rows: repeat(2, vh(50) vh(64));
-  place-content: center;
-  grid-auto-flow: column;
+.border1_body_title {
+	justify-self: center;
+	align-self: center;
+	width: vw(194);
+	height: vh(37);
+}
 
+.air_short_body_l3_c1 {
+	.fullDom {
+		display: grid;
+		grid-template-rows: repeat(4, vh(32));
+		grid-row-gap: vh(11);
+		justify-content: center;
+	}
+	.air_l3_c1_line {
+		display: flex;
+		font-size: vw(14);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+		font-weight: normal;
+		color: #ffffff;
+		:deep(.el-input) {
+			width: vw(154);
+			margin: 0 vw(8);
+		}
+	}
+}
+.air_short_body_l3_c2 {
+	.fullDom {
+		@include ModelSwitch(0.8);
+	}
+}
+.air_short_body_l3_c3 {
+	grid-column: 3/5;
+	.air_l3_c3_body {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: grid;
+		place-content: center;
+		align-items: center;
 
-  .air_l3_c4_label{
-    align-self: end;
-    font-size: vw(14);
-    font-family: Adobe Heiti Std, serif;
+		grid-template-columns: repeat(2, vw(164)) 8px vw(144);
+		grid-template-rows: repeat(2, vh(63));
+		grid-column-gap: vw(50);
+		grid-row-gap: vh(12);
 
-    font-weight: normal;
-    color: #FFFFFF;
-  }
-  .air_l3_c4_clock{
-    position: relative;
-    width: vw(210);
-    height: vw(64);
-    background-image: url("@/assets/images/catAidedDecMaking/clock.png");
-    background-size: 100% 100%;
-    padding-left: vw(13);
-    font-size: vw(47);
-    line-height: vw(80);
-    letter-spacing: vw(6);
+		.air_l3_c3_btn_1 {
+			@include openDoorBtn(164, 63);
+		}
+		.air_l3_c3_btn_2 {
+			@include closeDoorBtn(164, 63);
+		}
+		.air_l3_c3_line {
+			grid-column: 3/4;
+			grid-row: 1/3;
+			@include dashLine;
+		}
+		.air_l3_c3_btn_3 {
+			grid-column: 4/5;
+			grid-row: 1/3;
+			position: relative;
+			width: vw(144);
+			height: vw(144);
+			background-image: url('@/assets/images/equipment/deadlock.png');
+			background-size: 100% 100%;
+			display: flex;
+			justify-content: center;
+			padding-top: vw(86);
+			span {
+				font-size: vw(14);
+				font-family:
+					Adobe Heiti Std,
+					serif;
+				font-weight: normal;
+				color: #ffffff;
+				background: linear-gradient(0deg, #c4ddff 55.2734375%, #01e5ff 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+			// 一键开启按钮
+		}
+		.air_l3_c3_btn_4 {
+			position: absolute;
+			bottom: vh(-29);
+			font-size: vw(16);
+			font-family:
+				Adobe Heiti Std,
+				serif;
+			font-weight: normal;
+			color: #ffffff;
+			cursor: pointer;
+		}
+	}
+}
+.air_short_body_l3_c4 {
+}
+.air_l3_c4_body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: vh(16) vw(16) vh(16) vw(51);
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, vh(50) vh(64));
+	place-content: center;
+	grid-auto-flow: column;
 
-    display: flex;
-    align-items: center;
-    vertical-align: text-bottom;
-    font-family: Microsoft YaHei, serif;
-    font-weight: bold;
-    color: #bceaff;
-    span{
-      align-self: start;
-      font-size: vw(18);
-    }
-  }
+	.air_l3_c4_label {
+		align-self: end;
+		font-size: vw(14);
+		font-family:
+			Adobe Heiti Std,
+			serif;
+
+		font-weight: normal;
+		color: #ffffff;
+	}
+	.air_l3_c4_clock {
+		position: relative;
+		width: vw(210);
+		height: vw(64);
+		background-image: url('@/assets/images/catAidedDecMaking/clock.png');
+		background-size: 100% 100%;
+		padding-left: vw(13);
+		font-size: vw(47);
+		line-height: vw(80);
+		letter-spacing: vw(6);
+
+		display: flex;
+		align-items: center;
+		vertical-align: text-bottom;
+		font-family:
+			Microsoft YaHei,
+			serif;
+		font-weight: bold;
+		color: #bceaff;
+		span {
+			align-self: start;
+			font-size: vw(18);
+		}
+	}
 }
 
 @mixin airLight {
-  width: vw(26);
-  height: vw(26);
-  background-size: 100% 100%;
+	width: vw(26);
+	height: vw(26);
+	background-size: 100% 100%;
 }
-.light_1{
-  @include airLight;
-  background-image: url('@/assets/images/equipment/small_light_1.png');
+.light_1 {
+	@include airLight;
+	background-image: url('@/assets/images/equipment/small_light_1.png');
 }
-.light_2{
-  @include airLight;
-  background-image: url('@/assets/images/equipment/small_light_2.png');
+.light_2 {
+	@include airLight;
+	background-image: url('@/assets/images/equipment/small_light_2.png');
 }
-.light_3{
-  @include airLight;
-  background-image: url('@/assets/images/equipment/large_light_2.png');
+.light_3 {
+	@include airLight;
+	background-image: url('@/assets/images/equipment/large_light_2.png');
 }
-.light_4{
-  @include airLight;
-  background-image: url("@/assets/images/equipment/small_light_3.png");
+.light_4 {
+	@include airLight;
+	background-image: url('@/assets/images/equipment/small_light_3.png');
 }

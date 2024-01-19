@@ -1,6 +1,8 @@
 <script setup>
 	import { useAuxAddOrUpdate } from '@/api/request/windControlAssMaking/auxDecMakingRules/useAuxAddOrUpdate'
 	import { deviceTypes } from '@/types/menuType'
+	import { useCommitForm } from '@/hooks/useForm'
+	import { autoLearnDecision } from '@/api/api/auxDecMakingRules'
 
 	const props = defineProps({
 		chooseRow: {
@@ -50,8 +52,25 @@
 		upRow,
 		changeDevType,
 		initData,
-		submitForm,
+		formatterDataList,
 	} = useAuxAddOrUpdate(props, emits)
+
+	const submitForm = async () => {
+		dataForm.value.detailList = formatterDataList?.()
+		if (dataForm.value.detailList.length === 0) return
+
+		formRef.value?.validate(async (valid) => {
+			if (valid) {
+				await useCommitForm(autoLearnDecision, {
+					queryParams: dataForm.value,
+					afterReadyDataFun: () => {
+						emits('refresh')
+						showDiaLog.value = false
+					},
+				})
+			}
+		})
+	}
 
 	initData?.()
 </script>
@@ -82,12 +101,17 @@
 			<div class="aux_add_update_label">触发点配置</div>
 			<div class="aux_add_update_line">
 				<el-form-item label="触发点类型" prop="triggerType">
-					<el-select v-model="dataForm.triggerType" clearable @change="changeQueryTriggerType">
+					<el-select
+						v-model="dataForm.triggerType"
+						clearable
+						@change="changeQueryTriggerType"
+						disabled
+					>
 						<el-option v-for="i in triggerTypeList" :key="i.code" :label="i.name" :value="i.code" />
 					</el-select>
 				</el-form-item>
 				<el-form-item label="触发点位" prop="triggerPointCode">
-					<el-select v-model="dataForm.triggerPointCode" clearable @change="changeParam">
+					<el-select v-model="dataForm.triggerPointCode" clearable @change="changeParam" disabled>
 						<el-option v-for="i in queryParamList" :key="i.code" :label="i.name" :value="i.code" />
 					</el-select>
 				</el-form-item>

@@ -2,8 +2,9 @@
 	import WarnTableRecord from '@/views/components/warnTableRecord'
 	import { windWindowMonitoring } from '@/api/request/venEqMonitoring/windWindowMonitoring'
 	import { monitoring } from '@/api/request/venEqMonitoring/monitoring'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { selectDictLabel } from '@/utils/ruoyi'
+	import { useVideo } from '@/hooks/useVideo'
 
 	const { defaultStatusList, queryParams, dataList, total, getList, toControlPage } =
 		windWindowMonitoring()
@@ -21,6 +22,10 @@
 		'window_work_model',
 		'window_warn_status',
 	)
+
+	const { videoUrlList, videoListLength, resetUrl } = useVideo()
+
+	resetUrl(chooseRow)
 </script>
 
 <template>
@@ -81,13 +86,17 @@
 		</div>
 		<!--    监控-->
 		<dia-log
-			v-if="videoVisible"
+			v-if="videoVisible && videoListLength"
 			v-model="videoVisible"
-			:width="910"
+			:width="910 * videoListLength"
 			:height="663"
 			:title="chooseRow?.name"
 		>
-			<m-video type="fc" :video-path="chooseRow.videoUrl" />
+			<div class="line_video">
+				<template v-for="i in videoUrlList" :key="i">
+					<m-video type="fc" :video-path="i" />
+				</template>
+			</div>
 		</dia-log>
 		<!--    预警详情-->
 		<WarnTableRecord

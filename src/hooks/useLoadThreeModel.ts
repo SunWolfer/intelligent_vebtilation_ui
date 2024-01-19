@@ -3,7 +3,7 @@ import { useLoading } from '@/hooks/useLoading'
 import { useThreeModelData } from '@/hooks/useThreeModelData'
 
 export const useLoadThreeModel = () => {
-	const { modelType, threeModelData, maxNodeNum } = useThreeModelData()
+	const { modelType, threeModelData, maxNodeNum, multiple } = useThreeModelData()
 
 	// 获取模型信息
 	const setThreeData = async () => {
@@ -14,6 +14,7 @@ export const useLoadThreeModel = () => {
 			.then((res) => {
 				threeModelData.value = res.data.model
 				maxNodeNum.value = parseInt(res.data.maxCode)
+				multiple.value = parseInt(res.data.multiple)
 				loading.close()
 			})
 			.catch(() => {

@@ -1,6 +1,6 @@
 import { infoPathForm } from '@/api/api/home'
 import useEquipmentData from '@/hooks/useEquipmentData'
-import useDict from '@/hooks/useDict'
+import { useDict } from '@/hooks/useDict'
 
 export const homeMsg = (data, index) => {
 	const { tEquipmentIndex } = useEquipmentData()

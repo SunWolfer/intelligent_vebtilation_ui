@@ -15,6 +15,7 @@
 </template>
 
 <script setup lang="ts">
+	import { loadAllDict } from '@/hooks/useDict'
 	import useHomeMenu from '@/hooks/useHomeMenu'
 	import { useLoadThreeModel } from '@/hooks/useLoadThreeModel'
 	import useEquipment from '@/store/modules/equipmentData'
@@ -41,10 +42,11 @@
 	// 加载模型信息
 	const { setThreeData } = useLoadThreeModel()
 	const equipmentData = useEquipment()
-	// 加载模型&&设备信息
+	// 加载模型&&设备信息&&字典表数据
 	const loadPubData = () => {
 		equipmentData.updateData()
 		setThreeData?.()
+		loadAllDict()
 	}
 	loadPubData()
 </script>

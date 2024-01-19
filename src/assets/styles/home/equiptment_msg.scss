@@ -178,14 +178,14 @@
 	background-image: url('@/assets/images/home/home_equipment/state_orange02.png');
 }
 //蓝
-.lamp_blue{
+.lamp_blue {
 	@include Lamp;
-	background-image: url("@/assets/images/home/home_equipment/state_bule.png");
+	background-image: url('@/assets/images/home/home_equipment/state_bule.png');
 }
 //深蓝
-.lamp_dark_blue{
+.lamp_dark_blue {
 	@include Lamp;
-	background-image: url("@/assets/images/home/home_equipment/state_dark_blue.png");
+	background-image: url('@/assets/images/home/home_equipment/state_dark_blue.png');
 }
 .equipment_text {
 	width: 100%;

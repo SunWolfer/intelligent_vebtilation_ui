@@ -9,7 +9,7 @@
 		listMainFan,
 		updateMainFan,
 	} from '@/api/api/mainFanManagement'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { selectDictLabel } from '@/utils/ruoyi'
 	import FanTagsConfig from '@/views/venManagement/mainFanManagement/fanTagsConfig.vue'
 

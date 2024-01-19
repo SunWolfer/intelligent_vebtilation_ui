@@ -76,5 +76,25 @@ export default defineConfig(({ mode, command }) => {
 				},
 			},
 		},
+		// 预加载
+		optimizeDeps: {
+			include: [
+				'@element-plus/icons-vue',
+				'@vueuse/core',
+				'axios',
+				'echarts',
+				'element-plus',
+				'element-plus/es/locale/lang/zh-cn',
+				'gsap',
+				'js-base64',
+				'js-cookie',
+				'nprogress',
+				'pinia',
+				'pinia-plugin-persist',
+				'three',
+				'vue',
+				'vue-router'
+			]
+		}
 	}
 })

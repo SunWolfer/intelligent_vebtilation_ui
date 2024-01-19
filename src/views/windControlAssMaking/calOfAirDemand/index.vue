@@ -5,7 +5,7 @@
 	import CalOther from '@/views/windControlAssMaking/calOfAirDemand/CalOther.vue'
 	import { getNeedRoads, removeNeedRoad } from '@/api/api/calOfAirDemand'
 	import CalChamber from '@/views/windControlAssMaking/calOfAirDemand/CalChamber.vue'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { selectDictLabel } from '@/utils/ruoyi'
 	import { useCommitForm } from '@/hooks/useForm'
 	// 加载组件

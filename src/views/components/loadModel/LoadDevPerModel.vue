@@ -116,15 +116,13 @@
 		nextFun(props.labelList)
 	}
 
-	const nextFun = (list: LabelAttribute[]) => {
+	const nextFun = async (list: LabelAttribute[]) => {
 		if (!list?.length) return
 		isReady.value = false
-		nextTick().then(() => {
-			isReady.value = true
-			nextTick(() => {
-				createdLabelList?.(list, 'id')
-			})
-		})
+		await nextTick()
+		isReady.value = true
+		await nextTick()
+		createdLabelList?.(list, 'id')
 	}
 	/**
 	 * 相机移动

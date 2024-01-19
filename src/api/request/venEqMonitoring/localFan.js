@@ -16,20 +16,22 @@ import {
 import { useGainList } from '@/hooks/useGainList'
 import { useCommitForm } from '@/hooks/useForm'
 import useEquipmentParams from '@/hooks/useEquipmentParams'
+import { useIntervalFn } from '@vueuse/core'
 
 export const localFan = () => {
 	// 页面传参查询
 	const equipmentParams = useEquipmentParams()
 	// 选中局扇id
 	const mainFanId = ref('')
-	const { dataList: localFan } = useGainList({
+	const { dataList: localFan, queryDataList } = useGainList({
 		apiFun: localFanList,
 		afterReadyDataFun: (data) => {
 			const params = equipmentParams?.dataParams
-			mainFanId.value = params?.id ? params?.id : data[0].id
+			mainFanId.value = mainFanId.value ? mainFanId.value : params?.id ? params?.id : data[0].id
 			getMainFanInfo?.(mainFanId.value)
 		},
 	})
+	useIntervalFn(queryDataList, 60000)
 
 	const { inShowList, toLast, showLast, toNext, showNext } = useInterceptList(localFan, 8)
 
@@ -117,6 +119,7 @@ export const localFan = () => {
 		if (freReControlForm.value.frequency1) {
 			await useCommitForm(windControlLocal, {
 				queryParams: {
+					devId: dataForm.value.id,
 					controlType: '1',
 					controlValue: freReControlForm.value.frequency1,
 				},
@@ -127,6 +130,7 @@ export const localFan = () => {
 		if (freReControlForm.value.frequency2) {
 			await useCommitForm(windControlLocal, {
 				queryParams: {
+					devId: dataForm.value.id,
 					controlType: '2',
 					controlValue: freReControlForm.value.frequency2,
 				},

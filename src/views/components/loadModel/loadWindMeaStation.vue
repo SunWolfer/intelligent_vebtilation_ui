@@ -91,22 +91,20 @@
 		},
 	)
 	const domId = ref('cfz' + Math.random())
-	const nextFun = () => {
+	const nextFun = async () => {
 		isReady.value = false
-		nextTick().then(() => {
-			isReady.value = true
-			nextTick().then(() => {
-				const obj = {
-					id: domId.value,
-					point: {
-						x: -0.3914063290604412,
-						y: 3.859988922707604,
-						z: -1.4659491660095814,
-					},
-				}
-				createdLabelList?.(props.choose === -1 ? [] : [obj])
-			})
-		})
+		await nextTick()
+		isReady.value = true
+		await nextTick()
+		const obj = {
+			id: domId.value,
+			point: {
+				x: -0.3914063290604412,
+				y: 3.859988922707604,
+				z: -1.4659491660095814,
+			},
+		}
+		createdLabelList?.(props.choose === -1 ? [] : [obj])
 	}
 	const dateTime = ref('')
 	const timeInterval = ref(-1)

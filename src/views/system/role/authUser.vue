@@ -97,7 +97,7 @@
 <script setup name="AuthUser">
 	import SelectUser from './selectUser'
 	import { allocatedUserList, authUserCancel, authUserCancelAll } from '@/api/system/role'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 
 	const route = useRoute()
 	const { proxy } = getCurrentInstance()

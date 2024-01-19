@@ -56,6 +56,7 @@
 			domName: markRaw(LocalFanMsg),
 		},
 	])
+
 	const { roam } = useHomeMenu()
 
 	const chooseTab = (type) => {
@@ -103,15 +104,13 @@
 		},
 	)
 
-	const nextFun = (list) => {
+	const nextFun = async (list) => {
 		if (!loading.value) return
 		isReady.value = false
-		nextTick().then(() => {
-			isReady.value = true
-			nextTick(() => {
-				createdLabelList?.(list, 'uniqueCode')
-			})
-		})
+		await nextTick()
+		isReady.value = true
+		await nextTick()
+		createdLabelList?.(list, 'uniqueCode')
 	}
 
 	const {

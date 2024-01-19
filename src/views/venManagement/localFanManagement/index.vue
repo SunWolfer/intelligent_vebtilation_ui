@@ -3,7 +3,7 @@
 	import useList from '@/hooks/useList'
 	import { useForm } from '@/hooks/useForm'
 	import { selectDictLabel } from '@/utils/ruoyi'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import {
 		addMainFan,
 		delMainFan,

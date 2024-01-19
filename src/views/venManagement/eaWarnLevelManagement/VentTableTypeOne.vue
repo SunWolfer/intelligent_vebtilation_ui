@@ -4,7 +4,7 @@
 	import { findDevTypeDict, listWarnLevel, updateWarnLevel } from '@/api/api/eaWarnLevelManagement'
 	import { useGainList } from '@/hooks/useGainList'
 	import { useCommitForm } from '@/hooks/useForm'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { selectDictLabel } from '@/utils/ruoyi'
 
 	const props = defineProps({

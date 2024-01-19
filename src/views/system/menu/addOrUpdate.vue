@@ -1,6 +1,6 @@
 <script setup>
 	import { addMenu, getMenu, listMenu, updateMenu } from '@/api/system/menu'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import useCurrentInstance from '@/hooks/useCurrentInstance'
 
 	const { proxy } = useCurrentInstance()

@@ -1,4 +1,4 @@
-import useDict from '@/hooks/useDict'
+import { useDict } from '@/hooks/useDict'
 import { useDictionary } from '@/api/request/windControlAssMaking/auxDecMakingRules/useDictionary'
 import { useCustomList } from '@/hooks/useCustomList'
 import { deepCopy } from '@/utils/border-box/util'
@@ -199,5 +199,6 @@ export const useAuxAddOrUpdate = (props, emits) => {
 		changeDevType,
 		initData,
 		submitForm,
+		formatterDataList,
 	}
 }

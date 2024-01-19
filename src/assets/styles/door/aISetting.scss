@@ -1,24 +1,24 @@
-@use "paramsSettingChild" as *;
+@use 'paramsSettingChild' as *;
 
-.ai_setting{
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  grid-column-gap: vw(15);
-  align-items: center;
-  padding: vh(20) 0;
+.ai_setting {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-column-gap: vw(15);
+	align-items: center;
+	padding: vh(20) 0;
 }
-.ai_setting_item{
-  @include tabsBorder;
-  height: 100%;
-  padding: vh(24) vw(50);
+.ai_setting_item {
+	@include tabsBorder;
+	height: 100%;
+	padding: vh(24) vw(50);
 }
-.ai_setting_item_form{
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  grid-template-rows: repeat(auto-fill,vh(40));
-  grid-row-gap: vh(10);
-  grid-column-gap: vw(40);
-  :deep(.el-select){
-    width: 100%;
-  }
+.ai_setting_item_form {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(auto-fill, vh(40));
+	grid-row-gap: vh(10);
+	grid-column-gap: vw(40);
+	:deep(.el-select) {
+		width: 100%;
+	}
 }

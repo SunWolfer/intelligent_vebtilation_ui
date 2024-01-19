@@ -61,7 +61,7 @@
 				if (!this.src) return
 
 				if (this.object) {
-					this.wrapper.remove(this.object)
+					this.pickWrapper.remove(this.object)
 				}
 
 				this.reportProgress('start')

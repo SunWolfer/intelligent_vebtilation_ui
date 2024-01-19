@@ -7,7 +7,7 @@
 	grid-template-rows: vh(33) 1fr;
 	grid-row-gap: vh(10);
 }
-.home_title_roam_body{
+.home_title_roam_body {
 	overflow-y: auto;
 	display: grid;
 	grid-template-rows: repeat(auto-fill, vh(26));
@@ -87,11 +87,11 @@
 	background-size: 100% 100%;
 	display: grid;
 	justify-content: center;
-	.drive_title{
+	.drive_title {
 		width: vh(145);
 		height: vh(55);
 		background-size: 100% 100%;
-		background-image: url("@/assets/images/home/home_roam/drive_title.png");
+		background-image: url('@/assets/images/home/home_roam/drive_title.png');
 		position: absolute;
 		left: vw(1200);
 		top: vh(810);

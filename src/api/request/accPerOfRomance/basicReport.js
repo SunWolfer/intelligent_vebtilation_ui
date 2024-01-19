@@ -24,10 +24,10 @@ export const basicReport = () => {
 	}
 
 	// 选择版本
-	const setVersion = (index) => {
+	const setVersion = async (index) => {
 		chooseVersion.value = index
 		addStatus.value = false
-		getFormInfo()
+		await getFormInfo()
 	}
 
 	// 表单

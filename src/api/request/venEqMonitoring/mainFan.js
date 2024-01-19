@@ -15,6 +15,7 @@ import { useGainList } from '@/hooks/useGainList'
 import { useCommitForm } from '@/hooks/useForm'
 import { fanMsgInfo } from '@/api/request/venEqMonitoring/fanMsgInfo'
 import useEquipmentParams from '@/hooks/useEquipmentParams'
+import { useIntervalFn } from '@vueuse/core'
 
 export const mainFan = () => {
 	// 页面传参查询
@@ -26,10 +27,11 @@ export const mainFan = () => {
 		apiFun: manFanList,
 		afterReadyDataFun: (data) => {
 			const params = equipmentParams?.dataParams
-			mainFanId.value = params?.id ? params?.id : data[0].id
+			mainFanId.value = mainFanId.value ? mainFanId.value : params?.id ? params?.id : data[0].id
 			getMainFanInfo?.(mainFanId.value)
 		},
 	})
+	useIntervalFn(queryDataList, 60000)
 
 	const changeItem = (data) => {
 		mainFanId.value = data
@@ -223,6 +225,7 @@ export const mainFan = () => {
 		if (quControlAirVolumeForm.value.movingBladeAngle1) {
 			await useCommitForm(windControlMain, {
 				queryParams: {
+					devId: dataForm.value.id,
 					controlType: '1',
 					controlValue: quControlAirVolumeForm.value.movingBladeAngle1,
 				},
@@ -231,6 +234,7 @@ export const mainFan = () => {
 		if (quControlAirVolumeForm.value.frequency1) {
 			await useCommitForm(windControlMain, {
 				queryParams: {
+					devId: dataForm.value.id,
 					controlType: '2',
 					controlValue: quControlAirVolumeForm.value.frequency1,
 				},
@@ -241,6 +245,7 @@ export const mainFan = () => {
 		if (quControlAirVolumeForm.value.movingBladeAngle2) {
 			await useCommitForm(windControlMain, {
 				queryParams: {
+					devId: dataForm.value.id,
 					controlType: '3',
 					controlValue: quControlAirVolumeForm.value.movingBladeAngle2,
 				},
@@ -249,6 +254,7 @@ export const mainFan = () => {
 		if (quControlAirVolumeForm.value.frequency2) {
 			await useCommitForm(windControlMain, {
 				queryParams: {
+					devId: dataForm.value.id,
 					controlType: '4',
 					controlValue: quControlAirVolumeForm.value.frequency2,
 				},
@@ -259,6 +265,7 @@ export const mainFan = () => {
 	const intelligentWindControlMainHandle = async (data) => {
 		await useCommitForm(intelligentWindControlMain, {
 			queryParams: {
+				devId: dataForm.value.id,
 				controlType: '5',
 				controlValue: data,
 			},

@@ -88,7 +88,7 @@
 			},
 			addObject() {
 				if (!this.object) return
-				this.wrapper.add(this.object)
+				this.pickWrapper.add(this.object)
 				this.windObject = new Object3D()
 				this.wrapper.add(this.windObject)
 				this.updateCamera()
@@ -96,6 +96,7 @@
 				this.operateModel = new OperateModel(
 					this.object,
 					this.wrapper,
+					this.pickWrapper,
 					this.camera,
 					this.controls as OrbitControls,
 					this.renderer as WebGLRenderer,
@@ -136,7 +137,7 @@
 				this.planeModel.position.set(0, box.min.y, 0)
 				this.planeModel.name = 'planeModel'
 				this.planeModel.receiveShadow = true
-				this.wrapper.add(this.planeModel)
+				this.pickWrapper.add(this.planeModel)
 			},
 			//   添加风流
 			addWind(direction = false) {

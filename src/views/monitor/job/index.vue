@@ -9,7 +9,7 @@
 		runJob,
 		updateJob,
 	} from '@/api/monitor/job'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import useList from '@/hooks/useList'
 	import { parseTime } from '@/utils/ruoyi'
 	import { useForm } from '@/hooks/useForm'

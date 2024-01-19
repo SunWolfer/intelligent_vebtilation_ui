@@ -12,18 +12,18 @@
 }
 @font-face {
 	font-family: 'Source Han Sans CN';
-	src: url("@/assets/fonts/bb4171.ttf");
+	src: url('@/assets/fonts/bb4171.ttf');
 }
 @import 'transition';
 @import 'sidebar';
 @import 'btn';
-@import "defaultMinix";
+@import 'defaultMinix';
 @import 'ruoyi';
 @import 'scrollStyle';
 @import 'custBtn';
-@import "default_table";
-@import "default_video";
-@import "element-ui.scss";
+@import 'default_table';
+@import 'default_video';
+@import 'element-ui.scss';
 
 body {
 	height: 100%;
@@ -315,20 +315,20 @@ aside {
 }
 
 //节点标签
-.node_label_bg{
+.node_label_bg {
 	position: absolute;
 	top: vh(-50);
 }
-.node_three_label{
+.node_three_label {
 	display: grid;
 	grid-template-columns: vh(50);
 	grid-template-rows: vh(50) vh(45);
 	grid-template-areas:
-			'header'
-			'footer';
+		'header'
+		'footer';
 	justify-items: center;
 }
-.node_label_header{
+.node_label_header {
 	grid-area: header;
 	width: 100%;
 	height: 100%;
@@ -364,7 +364,7 @@ aside {
 		animation: wave 4s infinite 0.5s;
 	}
 }
-.node_label_footer{
+.node_label_footer {
 	@include threeLabelFooter;
 	background: #00ffff;
 	&:after {
@@ -401,3 +401,20 @@ aside {
 	}
 }
 
+.line_video {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	gap: vw(10);
+	align-items: center;
+	overflow-y: auto;
+}
+.line_video_full_width {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	gap: vw(10);
+	align-items: center;
+	overflow-y: auto;
+	flex-wrap: wrap;
+}

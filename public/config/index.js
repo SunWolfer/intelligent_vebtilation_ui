@@ -13,7 +13,7 @@
 	// webRTC地址
 	window.SITE_CONFIG['webrtcServer'] = 'http://192.168.124.24:8005'
 	// 免验证登录用户名
-	window.SITE_CONFIG['noValidUser'] = 'admin'
+	window.SITE_CONFIG['noValidUser'] = 'tffz'
 	// 免验证登录密码
 	window.SITE_CONFIG['noValidPass'] = '123456'
 	// 标题

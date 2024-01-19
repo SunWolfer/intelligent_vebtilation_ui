@@ -8,6 +8,14 @@ export function listData(query) {
 		params: query,
 	})
 }
+// 查询字典全部数据
+export function listAllData(query) {
+	return request({
+		url: '/system/dict/data/listAllGroup',
+		method: 'get',
+		params: query,
+	})
+}
 
 // 查询字典数据详细
 export function getData(dictCode) {

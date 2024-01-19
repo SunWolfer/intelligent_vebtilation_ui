@@ -56,7 +56,7 @@
 
 	function play() {
 		showVideoDialog.value = true
-		nextTick(() => {
+		nextTick().then(() => {
 			videourl.value =
 				videoall +
 				'?url=' +

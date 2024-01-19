@@ -114,6 +114,25 @@ export const envPerception = () => {
 		const { data } = await listEnvPerceptionCloud()
 		cloudList.value = data ?? []
 	}
+	// 云图颜色渐变
+	const colorGradient = computed(() => {
+		const cloudData = cloudList.value?.[0] ?? {}
+		const colors = cloudData.instanceConfig.gradient ?? {}
+		let colorString = ''
+		Object.keys(colors).forEach((key, index) => {
+			colorString += `, ${colors[key]} ${key * 100 + '%'}`
+		})
+		const style = {
+			background: `linear-gradient(to bottom${colorString})`,
+		}
+		const step = (cloudData?.pointData.max - cloudData?.pointData.min) / 10
+		return {
+			min: cloudData?.pointData.min,
+			max: cloudData?.pointData.max,
+			step: step,
+			style: style,
+		}
+	})
 
 	// 分布云图显示
 	const cloudVisible = ref(false)
@@ -170,5 +189,6 @@ export const envPerception = () => {
 		hideCloud,
 		labelList,
 		queryWarnList,
+		colorGradient,
 	}
 }

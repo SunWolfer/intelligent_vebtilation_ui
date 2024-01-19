@@ -24,7 +24,7 @@ declare interface IAnimateData {
 // 避灾路线入参
 declare interface DisPreRoute {
 	points: ICoordinates[] //路线生成点位
-	lineRadius?: number //路线粗细
+	lineRadius?: number //路线粗细基准
 }
 // 自定义球体入参
 declare interface IBall {

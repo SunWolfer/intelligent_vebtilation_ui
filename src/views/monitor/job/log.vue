@@ -1,7 +1,7 @@
 <script setup name="JobLog">
 	import { getJob } from '@/api/monitor/job'
 	import { cleanJobLog, delJobLog, exportJobLog, listJobLog } from '@/api/monitor/jobLog'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import useList from '@/hooks/useList'
 
 	const { proxy } = getCurrentInstance()

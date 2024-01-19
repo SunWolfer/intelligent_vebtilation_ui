@@ -1,6 +1,6 @@
 <!--串口(RS485)配置-->
 <script setup>
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { paramsRSSetting } from '@/api/request/doorParameterSettings/paramsRSSetting'
 
 	const { rs_type, rs_baud, rs_check, rs_sensor_type } = useDict(

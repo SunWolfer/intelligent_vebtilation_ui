@@ -1,6 +1,6 @@
 <script setup name="Sensorlog">
 	import { listLog } from '@/api/monitor/sensorlog'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { parseTime } from '@/utils/ruoyi'
 	import useList from '@/hooks/useList'
 

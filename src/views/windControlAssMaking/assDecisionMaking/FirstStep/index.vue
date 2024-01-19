@@ -2,7 +2,7 @@
 	import { usePermission } from '@/hooks/usePermission'
 	import CancelControl from './CencelControl.vue'
 	import SelfLearning from './SelfLearning.vue'
-	import { parseTime, selectDictLabel, isNull } from '@/utils/ruoyi'
+	import { parseTime, isNull } from '@/utils/ruoyi'
 	import { useAssMakingChild } from '@/api/request/windControlAssMaking/assDecisionMaking/useAssMakingChild'
 	import { useDictionary } from '@/api/request/windControlAssMaking/auxDecMakingRules/useDictionary'
 	import { deviceTypes } from '@/types/menuType'

@@ -1,5 +1,5 @@
 <script setup>
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { paramsRSSetting } from '@/api/request/doorParameterSettings/paramsRSSetting'
 
 	const { rs_type_door, rs_baud, rs_check } = useDict('rs_type_door', 'rs_baud', 'rs_check')

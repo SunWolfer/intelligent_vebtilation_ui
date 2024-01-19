@@ -5,7 +5,7 @@ export interface ModelState {
 	maxNode: number
 	roadAllList: any[]
 	modelType: string
-	modelSize: number
+	multiple: number
 }
 
 export const threeModel = defineStore('three-model', {
@@ -18,8 +18,8 @@ export const threeModel = defineStore('three-model', {
 		roadAllList: [],
 		// 	模型样式 '1'科技模式 ‘2‘经典模型
 		modelType: '2',
-		// 	模型大小
-		modelSize: 2,
+		// 添加额外模型基准大小
+		multiple: 1,
 	}),
 	actions: {
 		updateModel(data) {
@@ -28,14 +28,14 @@ export const threeModel = defineStore('three-model', {
 		updateMaxNode(data) {
 			this.maxNode = data
 		},
+		updateMultiple(data) {
+			this.multiple = data
+		},
 		updateRoadAllList(data) {
 			this.roadAllList = data
 		},
 		updateModelType(data) {
 			this.modelType = data
-		},
-		updateModelSize(data) {
-			this.modelSize = data
 		},
 	},
 })

@@ -139,7 +139,7 @@
 	//   加载标签
 	function loadLabel() {
 		isReady.value = true
-		nextTick(() => {
+		nextTick().then(() => {
 			createdLabelList?.(labelList.value)
 		})
 	}
@@ -169,7 +169,7 @@
 	const windAnimationList = ref([])
 	function loadWind() {
 		isWindReady.value = true
-		nextTick(() => {
+		nextTick().then(() => {
 			operateModel.value.addOtherLabelList(windAnimationList.value)
 		})
 	}
@@ -194,7 +194,7 @@
 				]
 			: []
 		isReady.value = false
-		nextTick(() => {
+		nextTick().then(() => {
 			loadLabel()
 		})
 		//   加载风流动画
@@ -209,7 +209,7 @@
 				]
 			: []
 		isWindReady.value = false
-		nextTick(() => {
+		nextTick().then(() => {
 			loadWind()
 		})
 	}

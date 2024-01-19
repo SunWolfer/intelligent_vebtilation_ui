@@ -1,9 +1,10 @@
 <script setup>
 	import { throttleMonitoring } from '@/api/request/venEqMonitoring/throttleMonitoring'
 	import WarnTableRecord from '@/views/components/warnTableRecord'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { selectDictLabel } from '@/utils/ruoyi'
 	import { monitoring } from '@/api/request/venEqMonitoring/monitoring'
+	import { useVideo } from '@/hooks/useVideo'
 
 	const { defaultStatusList, queryParams, dataList, total, getList, toControlPage } =
 		throttleMonitoring()
@@ -22,6 +23,10 @@
 		'door_type',
 		'window_warn_status',
 	)
+
+	const { videoUrlList, videoListLength, resetUrl } = useVideo()
+
+	resetUrl(chooseRow)
 </script>
 
 <template>
@@ -79,13 +84,17 @@
 		</div>
 		<!--    监控-->
 		<dia-log
-			v-if="videoVisible"
+			v-if="videoVisible && videoListLength"
 			v-model="videoVisible"
-			:width="910"
-			:height="663"
+			:width="910 * videoListLength"
+			:height="600"
 			:title="chooseRow?.name"
 		>
-			<m-video type="fm" :video-path="chooseRow.videoUrl" />
+			<div class="line_video">
+				<template v-for="i in videoUrlList" :key="i">
+					<m-video type="fm" :video-path="i" />
+				</template>
+			</div>
 		</dia-log>
 		<!--    预警详情-->
 		<WarnTableRecord

@@ -65,7 +65,7 @@
 		if (parseInt(form.value[key]) >= 0 && parseInt(form.value[key]) <= 100) {
 			await useCommitForm(controlDoor, {
 				queryParams: {
-					devId: props.dataForm.value.id,
+					devId: props.dataForm.id,
 					controlType: type,
 					controlValue: form.value[key],
 				},

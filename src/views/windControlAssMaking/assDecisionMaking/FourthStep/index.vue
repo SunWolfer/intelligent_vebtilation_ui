@@ -13,6 +13,7 @@
 		detailsChildDataList,
 		handleDetails,
 		cancelDetails,
+		handleRemove,
 	} = useAssMakingChild()
 	const { formatterDevType, formatterActionType, formatterActionDirection, formatterDoorType } =
 		useDictionary()
@@ -93,7 +94,10 @@
 							<span>{{ parseTime(data.recommendTime) }}</span>
 							<span>取消时间：</span>
 							<span>{{ parseTime(data.cancelTime) }}</span>
-							<div class="details_btn" @click="handleDetails(data)">调控详情</div>
+							<div class="half_full_line">
+								<div class="details_btn" @click="handleDetails(data)">调控详情</div>
+								<div class="details_btn" @click="handleRemove(data)">删除</div>
+							</div>
 						</div>
 					</border-box>
 				</template>
@@ -114,6 +118,13 @@
 	.second_step_item {
 		width: vw(485);
 		height: vh(290);
+	}
+	.half_full_line {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		justify-content: center;
+		align-items: center;
 	}
 	.second_step_item_body {
 		padding: vh(34) vw(40);

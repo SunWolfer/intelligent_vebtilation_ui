@@ -11,7 +11,7 @@
 		getChart5,
 		getLineChartOption,
 	} from '@/api/request/home/remoterControlCharts'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import { WindowParamType, WindowStatus } from '@/api/request/home/doorParams'
 	import { controlWindow, curveList, getVentrLine } from '@/api/api/airWindow'
 	import { useCommitForm } from '@/hooks/useForm'

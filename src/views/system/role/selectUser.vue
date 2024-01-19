@@ -66,7 +66,7 @@
 
 <script setup name="SelectUser">
 	import { authUserSelectAll, unallocatedUserList } from '@/api/system/role'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 
 	const props = defineProps({
 		roleId: {

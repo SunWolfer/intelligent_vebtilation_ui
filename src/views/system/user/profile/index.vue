@@ -46,7 +46,7 @@
 			<div class="profile-right-form">
 				<border-box name="border7" :color="['#00FFFF', 'rgba(0,0,0,0)']">
 					<div class="fullDom">
-						<user-info v-if="chooseTabs === 'First'" :user="state.user" />
+						<user-info v-if="chooseTabs === 'First'" v-model:user="state.user" />
 						<reset-pwd v-if="chooseTabs === 'Second'" />
 					</div>
 				</border-box>

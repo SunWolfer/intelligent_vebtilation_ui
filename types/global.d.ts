@@ -13,6 +13,9 @@ declare type ComponentRef<T> = InstanceType<T>
 
 declare type OptionValueType = string | number
 
+declare type TimeoutHandle = ReturnType<typeof setTimeout>
+declare type IntervalHandle = ReturnType<typeof setInterval>
+
 /** Select 需要的数据格式 */
 declare interface ISelectOption {
 	label: string

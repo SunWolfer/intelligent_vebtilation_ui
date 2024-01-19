@@ -30,8 +30,8 @@ export class IWindText {
 		objectCSS.quaternion.copy(fontData.quaternion)
 
 		objectCSS.rotateY(Math.PI / 2)
-		objectCSS.scale.x = 0.3
-		objectCSS.scale.y = 0.3
+		objectCSS.scale.x = 0.5
+		objectCSS.scale.y = 0.5
 
 		this.extraTextObject.add(objectCSS)
 		this.meshList.push(objectCSS)

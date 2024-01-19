@@ -27,6 +27,7 @@
 		hideCloud,
 		labelList,
 		queryWarnList,
+		colorGradient,
 	} = envPerception()
 
 	const { toPosition } = useEquipmentData()
@@ -146,6 +147,14 @@
 					<div class="normal_btn" @click="hideCloud">关闭</div>
 				</div>
 			</border-box>
+		</div>
+		<div class="dis_npt_picture" v-if="cloudVisible">
+			<div :style="colorGradient.style"></div>
+			<div class="dis_npt_picture_span">
+				<span v-for="item in 11" :key="item">
+					{{ colorGradient.min + (item - 1) * colorGradient.step }}
+				</span>
+			</div>
 		</div>
 	</div>
 </template>

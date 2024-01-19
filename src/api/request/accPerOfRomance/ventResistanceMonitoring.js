@@ -4,6 +4,7 @@ import useList from '@/hooks/useList'
 import { listDuoshen } from '@/api/api/mulParSenManagement'
 import { multiParameterLines } from '@/api/api/ventResistanceMonitoring'
 import { defaultLineChart } from '@/utils/echarts/defaultLineCharts'
+import useSocket from '@/hooks/useSocket'
 
 export const ventResistanceMonitoring = () => {
 	const { dataList } = useList({
@@ -17,7 +18,7 @@ export const ventResistanceMonitoring = () => {
 		},
 	})
 
-	const { inShowList, toLast, showLast, toNext, showNext } = useInterceptList(dataList, 6)
+	const { inShowList, toLast, showLast, toNext, showNext } = useInterceptList(dataList, 5)
 
 	// 获取左侧图标样式
 	const getStyle = (type) => {
@@ -108,6 +109,22 @@ export const ventResistanceMonitoring = () => {
 			isArea: false,
 		})
 	}
+
+	// 连接socket
+	const { clientSocket, socketData, info } = useSocket('info')
+	watch(info, async (value) => {
+		let tIndex = dataList.value.findIndex((i) => i.id === value?.id)
+		tIndex !== -1 && (dataList.value[tIndex] = value)
+
+		await initChart()
+	})
+
+	onMounted(() => {
+		clientSocket?.(`|multiParameter|adjustAll`)
+	})
+	onBeforeUnmount(() => {
+		socketData.value?.close()
+	})
 
 	return {
 		inShowList,

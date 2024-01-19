@@ -146,7 +146,7 @@
 
 <script setup>
 	import { addPost, delPost, exportPost, getPost, listPost, updatePost } from '@/api/system/post'
-	import useDict from '@/hooks/useDict'
+	import { useDict } from '@/hooks/useDict'
 	import useList from '@/hooks/useList'
 	import { useForm } from '@/hooks/useForm'
 

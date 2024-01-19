@@ -1,11 +1,11 @@
 @mixin homeMap {
-  width: vh(50);
-  height: vh(50);
-  background-size: 100% 100%;
+	width: vh(50);
+	height: vh(50);
+	background-size: 100% 100%;
 }
 @for $i from 1 through 7 {
-  .home_map_#{$i} {
-    @include homeMap;
-    background-image: url('@/assets/images/home/home_map/type#{$i}.png');
-  }
+	.home_map_#{$i} {
+		@include homeMap;
+		background-image: url('@/assets/images/home/home_map/type#{$i}.png');
+	}
 }
